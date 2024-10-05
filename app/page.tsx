@@ -85,7 +85,7 @@ export default function Home() {
                             (
                               (article as DatabaseObjectResponse)
                                 .properties as unknown as NotionArticlePageProperties
-                            ).Title.title
+                            ).title.title
                           }
                         </NotionRichTextItems>
                       </H2>
@@ -93,14 +93,14 @@ export default function Home() {
                       {(
                         (article as DatabaseObjectResponse)
                           .properties as unknown as NotionArticlePageProperties
-                      ).Description.rich_text.length > 0 && (
+                      ).description.rich_text.length > 0 && (
                         <P className="mt-4">
                           <NotionRichTextItems blockId={article.id}>
                             {
                               (
                                 (article as DatabaseObjectResponse)
                                   .properties as unknown as NotionArticlePageProperties
-                              ).Description.rich_text
+                              ).description.rich_text
                             }
                           </NotionRichTextItems>
                         </P>

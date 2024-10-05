@@ -25,9 +25,9 @@ export const siteConfig: SiteConfig = {
       },
     ],
     [
-      '/connections',
+      '/contact',
       {
-        navTitle: 'Connections',
+        navTitle: 'Contact',
         description: 'Connect with @powersagitar on various platforms.',
         notionPageId: '1165f284f8a4802bb3e6fb94e2bc6959',
       },
