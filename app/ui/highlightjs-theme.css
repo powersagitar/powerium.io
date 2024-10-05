@@ -1,0 +1,19 @@
+/* https://github.com/highlightjs/highlight.js/issues/3652#issuecomment-2073487108 */
+
+@import url('highlight.js/styles/github-dark.css') screen and
+  (prefers-color-scheme: dark);
+
+@import url('highlight.js/styles/github.css') screen and
+  (prefers-color-scheme: light);
+
+@media (prefers-color-scheme: light) {
+  .hljs {
+    background-color: #f8f8f8;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .hljs {
+    background-color: #1e1e1e;
+  }
+}
