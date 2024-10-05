@@ -45,12 +45,6 @@ export async function generateMetadata({
     )) as PageObjectResponse
   ).properties as unknown as NotionCommonPageProperties;
 
-  console.log(
-    await retrieveNotionPage(
-      siteConfig.customPages!.get(pathname)!.notionPageId,
-    ),
-  );
-
   return {
     title: notionPageProperties.title.title
       .map((richText) => richText.plain_text)
