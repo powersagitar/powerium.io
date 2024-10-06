@@ -2,6 +2,8 @@ import 'server-only';
 
 import { Metadata } from 'next';
 
+import { Analytics } from '@vercel/analytics/react';
+
 import { siteConfig } from '@/site.config';
 
 import '@/app/ui/global.css';
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: Readonly<React.ReactNode>;
 }) {
   return (
     <html lang="en" className="scroll-smooth">
@@ -33,6 +35,7 @@ export default function RootLayout({
 
         <main className="my-20 flex lg:w-2/3 grow flex-col items-center justify-center">
           {children}
+          <Analytics />
         </main>
 
         <footer className="flex flex-col items-center py-2 text-center text-sm text-neutral-500 dark:text-neutral-400">
