@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publishedArticles =
     (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];
 
-  const authority = `${siteConfig.url.protocol}://${siteConfig.url.domain}`;
+  const authority = `${siteConfig.url.protocol}://${siteConfig.url.hostname}`;
 
   const auxiliaryPages: MetadataRoute.Sitemap = [
     {

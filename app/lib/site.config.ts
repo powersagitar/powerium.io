@@ -8,7 +8,7 @@ export type SiteConfig = {
 
   url: {
     protocol: 'http' | 'https';
-    domain: string;
+    hostname: string;
   };
 
   metadata: {
@@ -19,9 +19,9 @@ export type SiteConfig = {
   };
 
   customPages?: Map<
-    UrlPath,
+    Pathname,
     { navTitle: string; description: string; notionPageId: string }
   >;
 };
 
-export type UrlPath = `/${string}`;
+export type Pathname = `/${string}`;

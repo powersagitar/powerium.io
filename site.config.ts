@@ -10,7 +10,7 @@ export const siteConfig: SiteConfig = {
 
   url: {
     protocol: 'https',
-    domain: 'www.powerium.io',
+    hostname: 'www.powerium.io',
   },
 
   metadata: {

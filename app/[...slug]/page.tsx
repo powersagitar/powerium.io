@@ -9,15 +9,15 @@ import { siteConfig } from '@/site.config';
 
 import { retrieveNotionPage } from '../lib/notion/server';
 import { NotionCommonPageProperties } from '../lib/notion/types';
-import { UrlPath } from '../lib/site.config';
+import { Pathname } from '../lib/site.config';
 import { H1, Hr, Link, P } from '../ui/components/CommonElements';
 import NotionPage from '../ui/components/NotionPage';
 import { NotionRichTextItems } from '../ui/components/notion-engine/NotionRichText';
 
 function validateSlug(
   slug: string[],
-): { isValid: false } | { isValid: true; pathname: UrlPath } {
-  const pathname: UrlPath = `/${slug.join('/')}`;
+): { isValid: false } | { isValid: true; pathname: Pathname } {
+  const pathname: Pathname = `/${slug.join('/')}`;
 
   if (!siteConfig.customPages?.has(pathname)) {
     return { isValid: false };
