@@ -8,6 +8,11 @@ export const siteConfig: SiteConfig = {
 
   cacheTtl: 14400,
 
+  url: {
+    protocol: 'https',
+    domain: 'www.powerium.io',
+  },
+
   metadata: {
     author: { name: 'powersagitar', url: '/about' },
     title: 'powerium.io',

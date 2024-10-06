@@ -6,6 +6,11 @@ export type SiteConfig = {
 
   cacheTtl: number;
 
+  url: {
+    protocol: 'http' | 'https';
+    domain: string;
+  };
+
   metadata: {
     author: { name: string; url?: string };
     title: string;
@@ -14,9 +19,9 @@ export type SiteConfig = {
   };
 
   customPages?: Map<
-    Pathname,
+    UrlPath,
     { navTitle: string; description: string; notionPageId: string }
   >;
 };
 
-export type Pathname = `/${string}`;
+export type UrlPath = `/${string}`;

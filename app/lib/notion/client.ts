@@ -27,7 +27,7 @@ export function generateNotionPageHref(
   return `/blog/${dateSegment}/${titleSegment}`;
 }
 
-export function retrieveNotionBlockChildren(
+export async function retrieveNotionBlockChildren(
   blockId: string,
   startCursor?: string | null,
 ): Promise<ListBlockChildrenResponse> {
@@ -44,7 +44,7 @@ export function retrieveNotionBlockChildren(
   );
 }
 
-export function retrievePublishedArticles(
+export async function retrievePublishedArticles(
   startCursor?: string | null,
 ): Promise<QueryDatabaseResponse> {
   const searchParams = new URLSearchParams();

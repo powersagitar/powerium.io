@@ -19,10 +19,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publishedArticles =
     (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];
 
+  const authority = `${siteConfig.url.protocol}://${siteConfig.url.domain}`;
+
   const auxiliaryPages: MetadataRoute.Sitemap = [
     {
-      url: '/',
-      // publishedArticles is sorted descendingly by last_edited_time, so the first article is the most recent
+      url: authority + '/',
+      // publishedArticles is sorted descendingly by last_edited_time, so the first article is most recent
       lastModified: publishedArticles[0].last_edited_time,
       changeFrequency: 'monthly',
       priority: 0.5,
@@ -32,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articlePages: MetadataRoute.Sitemap = publishedArticles.map(
     (article) => {
       return {
-        url: generateNotionPageHref(article),
+        url: authority + generateNotionPageHref(article),
         lastModified: article.last_edited_time,
         changeFrequency: 'monthly',
         priority: 0.5,
@@ -48,13 +50,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return Promise.all(
       Array.from(siteConfig.customPages).map(
-        async ([href, { notionPageId }]) => {
+        async ([path, { notionPageId }]) => {
           const notionPage = (await retrieveNotionPage(
             notionPageId,
           )) as PageObjectResponse;
 
           return {
-            url: href,
+            url: authority + path,
             lastModified: notionPage.last_edited_time,
             changeFrequency: 'monthly',
             priority: 0.5,
