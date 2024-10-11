@@ -26,7 +26,7 @@ export const siteConfig: SiteConfig = {
       {
         navTitle: 'About',
         description: 'Learn more about @powersagitar.',
-        notionPageId: '1165f284f8a48038b2d0f9fb602cd7b1',
+        notionPageId: process.env.NOTION_PAGE_ID_ABOUT!,
       },
     ],
     [
@@ -34,7 +34,7 @@ export const siteConfig: SiteConfig = {
       {
         navTitle: 'Contact',
         description: 'Connect with @powersagitar on various platforms.',
-        notionPageId: '1165f284f8a4802bb3e6fb94e2bc6959',
+        notionPageId: process.env.NOTION_PAGE_ID_CONTACT!,
       },
     ],
   ]),
