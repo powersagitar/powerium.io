@@ -7,23 +7,28 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { siteConfig } from '@/site.config';
 
-import { retrieveNotionPage } from '../lib/notion/server';
+import { retrieveNotionPage as _retrieveNotionPage } from '../lib/notion/server';
 import { NotionCommonPageProperties } from '../lib/notion/types';
 import { Pathname } from '../lib/site.config';
 import { H1, Hr, Link, P } from '../ui/components/CommonElements';
 import NotionPage from '../ui/components/NotionPage';
 import { NotionRichTextItems } from '../ui/components/notion-engine/NotionRichText';
 
-function validateSlug(
+async function retrieveNotionPage(
   slug: string[],
-): { isValid: false } | { isValid: true; pathname: Pathname } {
+): Promise<{ notionPage: PageObjectResponse; pathname: Pathname }> {
   const pathname: Pathname = `/${slug.join('/')}`;
 
   if (!siteConfig.customPages?.has(pathname)) {
-    return { isValid: false };
+    return notFound();
   }
 
-  return { isValid: true, pathname };
+  return {
+    notionPage: (await _retrieveNotionPage(
+      siteConfig.customPages!.get(pathname)!.notionPageId,
+    )) as PageObjectResponse,
+    pathname,
+  };
 }
 
 export async function generateMetadata({
@@ -31,19 +36,10 @@ export async function generateMetadata({
 }: {
   params: { slug: string[] };
 }): Promise<Metadata> {
-  const slugValidation = validateSlug(params.slug);
+  const { notionPage, pathname } = await retrieveNotionPage(params.slug);
 
-  if (!slugValidation.isValid) {
-    return notFound();
-  }
-
-  const { pathname } = slugValidation;
-
-  const notionPageProperties = (
-    (await retrieveNotionPage(
-      siteConfig.customPages!.get(pathname)!.notionPageId,
-    )) as PageObjectResponse
-  ).properties as unknown as NotionCommonPageProperties;
+  const notionPageProperties =
+    notionPage.properties as unknown as NotionCommonPageProperties;
 
   return {
     title: notionPageProperties.title.title
@@ -59,17 +55,7 @@ export default async function Article({
 }: {
   params: { slug: string[] };
 }) {
-  const slugValidation = validateSlug(params.slug);
-
-  if (!slugValidation.isValid) {
-    return notFound();
-  }
-
-  const { pathname } = slugValidation;
-
-  const notionPage = (await retrieveNotionPage(
-    siteConfig.customPages!.get(pathname)!.notionPageId,
-  )) as PageObjectResponse;
+  const { notionPage } = await retrieveNotionPage(params.slug);
 
   return (
     <NotionPage>
