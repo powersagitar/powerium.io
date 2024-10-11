@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { Fragment, useState } from 'react';
 
 import {
@@ -166,6 +167,9 @@ export default function NotionBlockChildren({
         );
         break;
 
+      case 'synced_block':
+        break;
+
       default:
         console.log(`Unimplemented block type: ${childBlock.type}`);
         break;
@@ -175,7 +179,11 @@ export default function NotionBlockChildren({
       <Fragment key={childBlock.id}>
         {element}
         {childBlock.has_children && (
-          <div className="ml-[1rem]">
+          <div
+            className={clsx({
+              'ml-[1rem]': childBlock.type !== 'synced_block',
+            })}
+          >
             <NotionBlockChildren>
               {{
                 fetching: 'automatic',
