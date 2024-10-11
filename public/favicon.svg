@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1024" height="1024"><svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1024" height="1024" fill="#F5F5F5"></rect>
+<g clip-path="url(#clip0_0_1)">
+<mask id="SvgjsMask1041" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024">
+<path d="M1024 0H0V1024H1024V0Z" fill="white"></path>
+</mask>
+<g mask="url(#mask0_0_1)">
+<path d="M0 125C0 55.9644 55.9644 0 125 0H899C968.036 0 1024 55.9644 1024 125V899C1024 968.036 968.036 1024 899 1024H125C55.9644 1024 0 968.036 0 899V125Z" fill="black"></path>
+</g>
+<mask id="SvgjsMask1040" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024">
+<path d="M1024 0H0V1024H1024V0Z" fill="white"></path>
+</mask>
+<g mask="url(#mask1_0_1)">
+<g filter="url(#filter0_f_0_1)">
+<path d="M132.022 512C132.022 302.144 302.144 132.022 512 132.022C721.856 132.022 891.978 302.144 891.978 512C891.978 721.856 721.856 891.978 512 891.978C302.144 891.978 132.022 721.856 132.022 512Z" fill="black" fill-opacity="0.25"></path>
+</g>
+<g filter="url(#filter1_f_0_1)">
+<path d="M288.391 735.609L432.942 512L288.391 288.391L512 432.942L735.609 288.391L591.058 512L735.609 735.609L512 591.058L288.391 735.609Z" fill="white"></path>
+</g>
+<path d="M339.404 684.596L450.978 512L339.404 339.404L512 450.978L684.596 339.404L573.022 512L684.596 684.596L512 573.022L339.404 684.596Z" fill="white"></path>
+<g filter="url(#filter2_f_0_1)">
+<path d="M512 1024L456.864 567.136L0 512L456.864 456.864L512 0L567.136 456.864L1024 512L567.136 567.136L512 1024Z" fill="white"></path>
+</g>
+<path d="M512 891.978L471.081 552.919L132.022 512L471.081 471.081L512 132.022L552.919 471.081L891.978 512L552.919 552.919L512 891.978Z" fill="white"></path>
+</g>
+</g>
+<defs>
+<filter id="SvgjsFilter1039" x="32.022" y="32.022" width="959.956" height="959.956" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+<feGaussianBlur stdDeviation="50" result="effect1_foregroundBlur_0_1"></feGaussianBlur>
+</filter>
+<filter id="SvgjsFilter1038" x="188.391" y="188.391" width="647.218" height="647.218" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+<feGaussianBlur stdDeviation="50" result="effect1_foregroundBlur_0_1"></feGaussianBlur>
+</filter>
+<filter id="SvgjsFilter1037" x="-100" y="-100" width="1224" height="1224" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+<feGaussianBlur stdDeviation="50" result="effect1_foregroundBlur_0_1"></feGaussianBlur>
+</filter>
+<clipPath id="SvgjsClipPath1036">
+<rect width="1024" height="1024" fill="white"></rect>
+</clipPath>
+</defs>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>
