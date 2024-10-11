@@ -14,21 +14,29 @@ import { H1, Hr, Link, P } from '../ui/components/CommonElements';
 import NotionPage from '../ui/components/NotionPage';
 import { NotionRichTextItems } from '../ui/components/notion-engine/NotionRichText';
 
+const pageIdToCanonical = new Map<string, Pathname>(
+  Array.from(siteConfig.customPages!).map(([pathname, { notionPageId }]) => [
+    notionPageId,
+    pathname,
+  ]),
+);
+
 async function retrieveNotionPage(
   slug: string[],
-): Promise<{ notionPage: PageObjectResponse; pathname: Pathname }> {
+): Promise<{ notionPage: PageObjectResponse; pathname?: Pathname }> {
   const pathname: Pathname = `/${slug.join('/')}`;
 
-  if (!siteConfig.customPages?.has(pathname)) {
+  const pageId =
+    siteConfig.customPages!.get(pathname)?.notionPageId ?? slug.join('');
+
+  try {
+    return {
+      notionPage: (await _retrieveNotionPage(pageId)) as PageObjectResponse,
+      pathname: pageIdToCanonical.get(pageId),
+    };
+  } catch (_) {
     return notFound();
   }
-
-  return {
-    notionPage: (await _retrieveNotionPage(
-      siteConfig.customPages!.get(pathname)!.notionPageId,
-    )) as PageObjectResponse,
-    pathname,
-  };
 }
 
 export async function generateMetadata({
@@ -46,7 +54,13 @@ export async function generateMetadata({
       .map((richText) => richText.plain_text)
       .join(''),
 
-    description: siteConfig.customPages!.get(pathname)!.description,
+    description: siteConfig.customPages?.get(pathname!)?.description,
+    metadataBase: new URL(
+      `${siteConfig.url.protocol}://${siteConfig.url.hostname}`,
+    ),
+    alternates: {
+      canonical: pathname,
+    },
   };
 }
 
