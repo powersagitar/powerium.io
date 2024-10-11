@@ -23,7 +23,7 @@ const pageIdToCanonical = new Map<string, Pathname>(
 
 async function retrieveNotionPage(
   slug: string[],
-): Promise<{ notionPage: PageObjectResponse; pathname?: Pathname }> {
+): Promise<{ notionPage: PageObjectResponse; canonical?: Pathname }> {
   const pathname: Pathname = `/${slug.join('/')}`;
 
   const pageId =
@@ -32,7 +32,7 @@ async function retrieveNotionPage(
   try {
     return {
       notionPage: (await _retrieveNotionPage(pageId)) as PageObjectResponse,
-      pathname: pageIdToCanonical.get(pageId),
+      canonical: pageIdToCanonical.get(pageId),
     };
   } catch (_) {
     return notFound();
@@ -44,7 +44,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string[] };
 }): Promise<Metadata> {
-  const { notionPage, pathname } = await retrieveNotionPage(params.slug);
+  const { notionPage, canonical } = await retrieveNotionPage(params.slug);
 
   const notionPageProperties =
     notionPage.properties as unknown as NotionCommonPageProperties;
@@ -54,12 +54,12 @@ export async function generateMetadata({
       .map((richText) => richText.plain_text)
       .join(''),
 
-    description: siteConfig.customPages?.get(pathname!)?.description,
+    description: siteConfig.customPages?.get(canonical!)?.description,
     metadataBase: new URL(
       `${siteConfig.url.protocol}://${siteConfig.url.hostname}`,
     ),
     alternates: {
-      canonical: pathname,
+      canonical,
     },
   };
 }
