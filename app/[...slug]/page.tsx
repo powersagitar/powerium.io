@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { Metadata } from 'next';
+import { unstable_cache as cache } from 'next/cache';
 import { notFound } from 'next/navigation';
 
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
@@ -21,23 +22,29 @@ const pageIdToCanonical = new Map<string, Pathname>(
   ]),
 );
 
-async function retrieveNotionPage(
-  slug: string[],
-): Promise<{ notionPage: PageObjectResponse; canonical?: Pathname }> {
-  const pathname: Pathname = `/${slug.join('/')}`;
+const retrieveNotionPage = cache(
+  async (
+    slug: string[],
+  ): Promise<{ notionPage: PageObjectResponse; canonical?: Pathname }> => {
+    const pathname: Pathname = `/${slug.join('/')}`;
 
-  const pageId =
-    siteConfig.customPages!.get(pathname)?.notionPageId ?? slug.join('');
+    const pageId =
+      siteConfig.customPages!.get(pathname)?.notionPageId ?? slug.join('');
 
-  try {
-    return {
-      notionPage: (await _retrieveNotionPage(pageId)) as PageObjectResponse,
-      canonical: pageIdToCanonical.get(pageId),
-    };
-  } catch (_) {
-    return notFound();
-  }
-}
+    try {
+      return {
+        notionPage: (await _retrieveNotionPage(pageId)) as PageObjectResponse,
+        canonical: pageIdToCanonical.get(pageId),
+      };
+    } catch (_) {
+      return notFound();
+    }
+  },
+  ['app-slug-page-retrieveNotionPage'],
+  // revalidation not required since value is hard coded in site.config.ts
+  // and will not change during runtime
+  { revalidate: false },
+);
 
 export async function generateMetadata({
   params,
