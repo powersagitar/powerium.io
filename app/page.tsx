@@ -71,13 +71,10 @@ export default function Home() {
                       href={generateNotionPageHref(
                         article as DatabaseObjectResponse,
                       )}
-                      className={clsx(
-                        'block flex-auto text-center p-8 rounded-2xl',
-                        {
-                          'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all':
-                            isBrowser,
-                        },
-                      )}
+                      className={clsx('block flex-auto p-8 rounded-2xl', {
+                        'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all':
+                          isBrowser,
+                      })}
                     >
                       <H2 className="text-3xl">
                         <NotionRichTextItems blockId={article.id}>
@@ -106,10 +103,8 @@ export default function Home() {
                         </P>
                       )}
 
-                      {/* TODO: to be styled */}
-                      {/* if md align to the right */}
                       {isMobile && (
-                        <button className="mt-8 px-4 py-0.5 rounded-full text-white bg-black dark:text-black dark:bg-white">
+                        <button className="mt-8 px-4 py-0.5 rounded-lg w-full text-white bg-black dark:text-black dark:bg-white">
                           Continue reading...
                         </button>
                       )}
