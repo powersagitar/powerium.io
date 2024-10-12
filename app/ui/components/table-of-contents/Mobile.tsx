@@ -18,11 +18,17 @@ export default function Mobile({
 }) {
   return (
     <>
-      <H2>Table of Contents</H2>
+      <details>
+        <summary>
+          <span className="inline-block">
+            <H2>Table of Contents</H2>
+          </span>
+        </summary>
 
-      <ul className="list-disc list-inside mt-4">
-        <NotionPageHeadingLi>{notionPageHeadings}</NotionPageHeadingLi>
-      </ul>
+        <ul className="list-disc list-inside mb-5">
+          <NotionPageHeadingLi>{notionPageHeadings}</NotionPageHeadingLi>
+        </ul>
+      </details>
 
       <Hr />
     </>
