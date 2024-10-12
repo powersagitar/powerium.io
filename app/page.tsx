@@ -111,7 +111,7 @@ export default function Home() {
                     </Link>
                   </motion.li>
 
-                  {!isBrowser && idx !== arr.length - 1 && <Hr />}
+                  {isMobile && idx !== arr.length - 1 && <Hr />}
                 </>
               ))}
             </ul>
