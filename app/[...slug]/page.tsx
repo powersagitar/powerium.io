@@ -15,13 +15,6 @@ import { H1, Hr, Link, P } from '../ui/components/CommonElements';
 import NotionPage from '../ui/components/NotionPage';
 import { NotionRichTextItems } from '../ui/components/notion-engine/NotionRichText';
 
-const pageIdToCanonical = new Map<string, Pathname>(
-  Array.from(siteConfig.customPages!).map(([pathname, { notionPageId }]) => [
-    notionPageId,
-    pathname,
-  ]),
-);
-
 const retrieveNotionPage = cache(
   async (
     slug: string[],
@@ -30,6 +23,12 @@ const retrieveNotionPage = cache(
 
     const pageId =
       siteConfig.customPages!.get(pathname)?.notionPageId ?? slug.join('');
+
+    const pageIdToCanonical = new Map<string, Pathname>(
+      Array.from(siteConfig.customPages!).map(
+        ([pathname, { notionPageId }]) => [notionPageId, pathname],
+      ),
+    );
 
     try {
       return {
