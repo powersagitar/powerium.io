@@ -14,13 +14,11 @@ export function NotionRichTextItems({
 }) {
   return (
     <>
-      {notionRichText.map((richTextItem) => {
+      {notionRichText.map((richTextItem, idx) => {
         switch (richTextItem.type) {
           case 'text':
             return (
-              <NotionTextRichTextItem
-                key={`rich-text-${blockId}-${richTextItem.plain_text}`}
-              >
+              <NotionTextRichTextItem key={`rich-text-${blockId}-${idx}`}>
                 {richTextItem}
               </NotionTextRichTextItem>
             );
