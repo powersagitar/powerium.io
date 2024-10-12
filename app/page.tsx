@@ -47,15 +47,25 @@ export default function Home() {
       }}
       id={lazyLoaderId}
     >
-      <InfiniteScroll
-        dataLength={publishedArticles.length}
-        next={() => {
-          setLazyLoaderId((id) => id + 1);
-        }}
-        hasMore={startCursor !== null}
-        loader={<P>Loading...</P>}
-      >
-        {publishedArticles.length > 0 && (
+      <div className="w-full">
+        <InfiniteScroll
+          dataLength={publishedArticles.length}
+          next={() => {
+            setLazyLoaderId((id) => id + 1);
+          }}
+          hasMore={startCursor !== null}
+          loader={
+            <ul>
+              {Array.from({ length: 10 }).map((_, idx) => (
+                <li key={idx} className="rounded-2xl p-8 animate-pulse w-full">
+                  <div className="rounded-full w-1/2 h-8 bg-neutral-400 dark:bg-neutral-600" />
+                  <div className="rounded-full mt-4 w-full h-4 bg-neutral-400 dark:bg-neutral-600" />
+                  <div className="rounded-full mt-4 w-3/4 h-4 bg-neutral-400 dark:bg-neutral-600" />
+                </li>
+              ))}
+            </ul>
+          }
+        >
           <article>
             <H1 className="mb-12 md:mb-20 w-full text-center text-4xl">Blog</H1>
 
@@ -115,8 +125,8 @@ export default function Home() {
               ))}
             </ul>
           </article>
-        )}
-      </InfiniteScroll>
+        </InfiniteScroll>
+      </div>
     </LazyLoader>
   );
 }
