@@ -38,7 +38,7 @@ export default function RootLayout({
           <Nav />
         </header>
 
-        <main className="my-20 flex lg:w-2/3 grow flex-col items-center justify-center">
+        <main className="my-20 flex w-full lg:w-2/3 grow flex-col items-center justify-center">
           {children}
           <Analytics />
         </main>
