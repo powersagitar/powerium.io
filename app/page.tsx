@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { isBrowser, isMobile } from 'react-device-detect';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -61,10 +61,9 @@ export default function Home() {
 
             <ul className="flex flex-wrap justify-between">
               {publishedArticles.map((article, idx, arr) => (
-                <>
+                <Fragment key={article.id}>
                   <motion.li
                     whileTap={{ opacity: 0 }}
-                    key={article.id}
                     className="min-w-full md:min-w-[50%] flex-auto"
                   >
                     <Link
@@ -112,7 +111,7 @@ export default function Home() {
                   </motion.li>
 
                   {isMobile && idx !== arr.length - 1 && <Hr />}
-                </>
+                </Fragment>
               ))}
             </ul>
           </article>
