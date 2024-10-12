@@ -1,5 +1,3 @@
-'use client';
-
 import { ReactNode, useEffect } from 'react';
 
 export default function LazyLoader({
@@ -11,9 +9,7 @@ export default function LazyLoader({
   load: () => void;
   id: number;
 }) {
-  useEffect(() => {
-    next();
-  }, [id]);
+  useEffect(() => next(), [id]);
 
   return children;
 }
