@@ -70,58 +70,55 @@ export default function Home() {
             <H1 className="mb-12 md:mb-20 w-full text-center text-4xl">Blog</H1>
 
             <ul className="flex flex-wrap justify-between">
-              {publishedArticles.map((article, idx, arr) => (
-                <Fragment key={article.id}>
-                  <motion.li
-                    whileTap={{ opacity: 0 }}
-                    className="min-w-full md:min-w-[50%] flex-auto"
+              {publishedArticles.map((article) => (
+                <motion.li
+                  whileTap={{ opacity: 0 }}
+                  className="min-w-full md:min-w-[50%] flex-auto"
+                  key={article.id}
+                >
+                  <Link
+                    href={generateNotionPageHref(
+                      article as DatabaseObjectResponse,
+                    )}
+                    className={clsx('block flex-auto p-8 rounded-2xl', {
+                      'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all':
+                        isBrowser,
+                    })}
                   >
-                    <Link
-                      href={generateNotionPageHref(
-                        article as DatabaseObjectResponse,
-                      )}
-                      className={clsx('block flex-auto p-8 rounded-2xl', {
-                        'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all':
-                          isBrowser,
-                      })}
-                    >
-                      <H2 className="text-3xl">
+                    <H2 className="text-3xl">
+                      <NotionRichTextItems blockId={article.id}>
+                        {
+                          (
+                            (article as DatabaseObjectResponse)
+                              .properties as unknown as NotionArticlePageProperties
+                          ).title.title
+                        }
+                      </NotionRichTextItems>
+                    </H2>
+
+                    {(
+                      (article as DatabaseObjectResponse)
+                        .properties as unknown as NotionArticlePageProperties
+                    ).description.rich_text.length > 0 && (
+                      <P className="mt-4">
                         <NotionRichTextItems blockId={article.id}>
                           {
                             (
                               (article as DatabaseObjectResponse)
                                 .properties as unknown as NotionArticlePageProperties
-                            ).title.title
+                            ).description.rich_text
                           }
                         </NotionRichTextItems>
-                      </H2>
+                      </P>
+                    )}
 
-                      {(
-                        (article as DatabaseObjectResponse)
-                          .properties as unknown as NotionArticlePageProperties
-                      ).description.rich_text.length > 0 && (
-                        <P className="mt-4">
-                          <NotionRichTextItems blockId={article.id}>
-                            {
-                              (
-                                (article as DatabaseObjectResponse)
-                                  .properties as unknown as NotionArticlePageProperties
-                              ).description.rich_text
-                            }
-                          </NotionRichTextItems>
-                        </P>
-                      )}
-
-                      {isMobile && (
-                        <button className="mt-8 px-4 py-0.5 rounded-lg w-full text-white bg-black dark:text-black dark:bg-white">
-                          Continue reading...
-                        </button>
-                      )}
-                    </Link>
-                  </motion.li>
-
-                  {isMobile && idx !== arr.length - 1 && <Hr />}
-                </Fragment>
+                    {isMobile && (
+                      <button className="mt-8 px-4 py-0.5 rounded-lg w-full text-white bg-black dark:text-black dark:bg-white">
+                        Continue reading...
+                      </button>
+                    )}
+                  </Link>
+                </motion.li>
               ))}
             </ul>
           </article>
