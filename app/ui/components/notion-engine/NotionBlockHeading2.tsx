@@ -3,7 +3,7 @@ import { Heading2BlockObjectResponse } from '@notionhq/client/build/src/api-endp
 import { H3 } from '../CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
-export function NotionBlockHeading2({
+export default function NotionBlockHeading2({
   children,
 }: {
   children: Heading2BlockObjectResponse;

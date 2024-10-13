@@ -12,7 +12,7 @@ import { CalloutBlockObjectResponse } from '@notionhq/client/build/src/api-endpo
 import { P, Vr } from '../CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
-export function NotionBlockCallout({
+export default function NotionBlockCallout({
   children,
 }: {
   children: CalloutBlockObjectResponse;

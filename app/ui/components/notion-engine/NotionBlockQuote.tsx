@@ -3,7 +3,7 @@ import { QuoteBlockObjectResponse } from '@notionhq/client/build/src/api-endpoin
 import { Blockquote, P } from '../CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
-export function NotionBlockQuote({
+export default function NotionBlockQuote({
   children,
 }: {
   children: QuoteBlockObjectResponse;

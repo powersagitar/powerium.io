@@ -3,7 +3,7 @@ import { EmbedBlockObjectResponse } from '@notionhq/client/build/src/api-endpoin
 import { Figcaption, Iframe } from '../CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
-export function NotionBlockEmbed({
+export default function NotionBlockEmbed({
   children,
 }: {
   children: EmbedBlockObjectResponse;

@@ -1,5 +1,5 @@
 import { Hr } from '../CommonElements';
 
-export function NotionBlockDivider() {
+export default function NotionBlockDivider() {
   return <Hr />;
 }

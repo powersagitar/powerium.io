@@ -10,7 +10,7 @@ import '@/app/ui/highlightjs-theme.css';
 import { Figcaption, P, Pre } from '../CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
-export function NotionBlockCode({
+export default function NotionBlockCode({
   children,
 }: {
   children: CodeBlockObjectResponse;

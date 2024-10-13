@@ -19,16 +19,103 @@ import {
 import { retrieveNotionBlockChildren } from '@/app/lib/notion/client';
 
 import LazyLoader from '../LazyLoader';
-import { NotionBlockBulletedListItem } from './NotionBlockBulletedListItem';
-import { NotionBlockCallout } from './NotionBlockCallout';
-import { NotionBlockCode } from './NotionBlockCode';
-import { NotionBlockDivider } from './NotionBlockDivider';
-import { NotionBlockEmbed } from './NotionBlockEmbed';
-import { NotionBlockHeading1 } from './NotionBlockHeading1';
-import { NotionBlockHeading2 } from './NotionBlockHeading2';
-import { NotionBlockHeading3 } from './NotionBlockHeading3';
-import { NotionBlockParagraph } from './NotionBlockParagraph';
-import { NotionBlockQuote } from './NotionBlockQuote';
+import NotionBlockBulletedListItem from './NotionBlockBulletedListItem';
+import NotionBlockCallout from './NotionBlockCallout';
+import NotionBlockCode from './NotionBlockCode';
+import NotionBlockDivider from './NotionBlockDivider';
+import NotionBlockEmbed from './NotionBlockEmbed';
+import NotionBlockHeading1 from './NotionBlockHeading1';
+import NotionBlockHeading2 from './NotionBlockHeading2';
+import NotionBlockHeading3 from './NotionBlockHeading3';
+import NotionBlockParagraph from './NotionBlockParagraph';
+import NotionBlockQuote from './NotionBlockQuote';
+
+const defaultBlockRenderer = (type: BlockObjectResponse['type']) => {
+  console.log(`${type} is not yet implemented.`);
+  return null;
+};
+
+const blockRenderers: {
+  [key in BlockObjectResponse['type']]: (
+    block: BlockObjectResponse,
+  ) => JSX.Element | null;
+} = {
+  heading_1: (block) => (
+    <NotionBlockHeading1>
+      {block as Heading1BlockObjectResponse}
+    </NotionBlockHeading1>
+  ),
+
+  heading_2: (block) => (
+    <NotionBlockHeading2>
+      {block as Heading2BlockObjectResponse}
+    </NotionBlockHeading2>
+  ),
+
+  heading_3: (block) => (
+    <NotionBlockHeading3>
+      {block as Heading3BlockObjectResponse}
+    </NotionBlockHeading3>
+  ),
+
+  paragraph: (block) => (
+    <NotionBlockParagraph>
+      {block as ParagraphBlockObjectResponse}
+    </NotionBlockParagraph>
+  ),
+
+  bulleted_list_item: (block) => (
+    <NotionBlockBulletedListItem>
+      {block as BulletedListItemBlockObjectResponse}
+    </NotionBlockBulletedListItem>
+  ),
+
+  embed: (block) => (
+    <NotionBlockEmbed>{block as EmbedBlockObjectResponse}</NotionBlockEmbed>
+  ),
+
+  quote: (block) => (
+    <NotionBlockQuote>{block as QuoteBlockObjectResponse}</NotionBlockQuote>
+  ),
+
+  code: (block) => (
+    <NotionBlockCode>{block as CodeBlockObjectResponse}</NotionBlockCode>
+  ),
+
+  divider: () => <NotionBlockDivider />,
+
+  callout: (block) => (
+    <NotionBlockCallout>
+      {block as CalloutBlockObjectResponse}
+    </NotionBlockCallout>
+  ),
+
+  synced_block: () => null,
+
+  // unimplemented
+  audio: (block) => defaultBlockRenderer(block.type),
+  bookmark: (block) => defaultBlockRenderer(block.type),
+  file: (block) => defaultBlockRenderer(block.type),
+  image: (block) => defaultBlockRenderer(block.type),
+  pdf: (block) => defaultBlockRenderer(block.type),
+  video: (block) => defaultBlockRenderer(block.type),
+  table_of_contents: (block) => defaultBlockRenderer(block.type),
+  toggle: (block) => defaultBlockRenderer(block.type),
+  to_do: (block) => defaultBlockRenderer(block.type),
+  unsupported: (block) => defaultBlockRenderer(block.type),
+  equation: (block) => defaultBlockRenderer(block.type),
+  numbered_list_item: (block) => defaultBlockRenderer(block.type),
+  breadcrumb: (block) => defaultBlockRenderer(block.type),
+  child_database: (block) => defaultBlockRenderer(block.type),
+  child_page: (block) => defaultBlockRenderer(block.type),
+  column: (block) => defaultBlockRenderer(block.type),
+  column_list: (block) => defaultBlockRenderer(block.type),
+  link_preview: (block) => defaultBlockRenderer(block.type),
+  link_to_page: (block) => defaultBlockRenderer(block.type),
+  table: (block) => defaultBlockRenderer(block.type),
+  table_row: (block) => defaultBlockRenderer(block.type),
+  template: (block) => defaultBlockRenderer(block.type),
+};
 
 export default function NotionBlockChildren({
   children,
@@ -51,143 +138,25 @@ export default function NotionBlockChildren({
     string | null | undefined
   >(undefined);
 
-  const blockChildrenJsx = (
+  const renderedBlockChildren = (
     children.fetching === 'automatic'
       ? automaticBlockChildren
       : children.blockChildren
-  ).map((childBlock) => {
-    let element = <></>;
-
-    switch (childBlock.type) {
-      case 'heading_1':
-        element = (
-          <>
-            {element}
-            <NotionBlockHeading1>
-              {childBlock as Heading1BlockObjectResponse}
-            </NotionBlockHeading1>
-          </>
-        );
-        break;
-
-      case 'heading_2':
-        element = (
-          <>
-            {element}
-            <NotionBlockHeading2>
-              {childBlock as Heading2BlockObjectResponse}
-            </NotionBlockHeading2>
-          </>
-        );
-        break;
-
-      case 'heading_3':
-        element = (
-          <>
-            {element}
-            <NotionBlockHeading3>
-              {childBlock as Heading3BlockObjectResponse}
-            </NotionBlockHeading3>
-          </>
-        );
-        break;
-
-      case 'paragraph':
-        element = (
-          <>
-            {element}
-            <NotionBlockParagraph>
-              {childBlock as ParagraphBlockObjectResponse}
-            </NotionBlockParagraph>
-          </>
-        );
-        break;
-
-      case 'bulleted_list_item':
-        element = (
-          <>
-            {element}
-            <NotionBlockBulletedListItem>
-              {childBlock as BulletedListItemBlockObjectResponse}
-            </NotionBlockBulletedListItem>
-          </>
-        );
-        break;
-
-      case 'embed':
-        element = (
-          <>
-            {element}
-            <NotionBlockEmbed>
-              {childBlock as EmbedBlockObjectResponse}
-            </NotionBlockEmbed>
-          </>
-        );
-        break;
-
-      case 'quote':
-        element = (
-          <>
-            {element}
-            <NotionBlockQuote>
-              {childBlock as QuoteBlockObjectResponse}
-            </NotionBlockQuote>
-          </>
-        );
-        break;
-
-      case 'code':
-        element = (
-          <>
-            {element}
-            <NotionBlockCode>
-              {childBlock as CodeBlockObjectResponse}
-            </NotionBlockCode>
-          </>
-        );
-        break;
-
-      case 'divider':
-        element = (
-          <>
-            {element}
-            <NotionBlockDivider />
-          </>
-        );
-        break;
-
-      case 'callout':
-        element = (
-          <>
-            {element}
-            <NotionBlockCallout>
-              {childBlock as CalloutBlockObjectResponse}
-            </NotionBlockCallout>
-          </>
-        );
-        break;
-
-      case 'synced_block':
-        break;
-
-      default:
-        console.log(`Unimplemented block type: ${childBlock.type}`);
-        break;
-    }
-
+  ).map((block) => {
     return (
-      <Fragment key={childBlock.id}>
-        {element}
-        {childBlock.has_children && (
+      <Fragment key={block.id}>
+        {blockRenderers[block.type](block)}
+
+        {block.has_children && (
           <div
             className={clsx({
-              'ml-[1rem]': childBlock.type !== 'synced_block',
+              'ml-[1rem]': block.type !== 'synced_block',
             })}
           >
             <NotionBlockChildren>
               {{
                 fetching: 'automatic',
-                blockId: childBlock.id,
+                blockId: block.id,
               }}
             </NotionBlockChildren>
           </div>
@@ -218,9 +187,9 @@ export default function NotionBlockChildren({
       }}
       id={lazyLoaderId}
     >
-      {blockChildrenJsx}
+      {renderedBlockChildren}
     </LazyLoader>
   ) : (
-    blockChildrenJsx
+    renderedBlockChildren
   );
 }

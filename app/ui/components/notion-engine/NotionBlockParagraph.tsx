@@ -3,7 +3,7 @@ import { ParagraphBlockObjectResponse } from '@notionhq/client/build/src/api-end
 import { P } from '../CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
-export function NotionBlockParagraph({
+export default function NotionBlockParagraph({
   children,
 }: {
   children: ParagraphBlockObjectResponse;
