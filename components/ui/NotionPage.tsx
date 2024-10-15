@@ -4,10 +4,10 @@ import { ReactNode, useState } from 'react';
 
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { retrieveNotionBlockChildren } from '@/app/lib/notion/client';
-import NotionBlockChildren from '@/app/ui/components/notion-engine/NotionBlockChildren';
+import LazyLoader from '@/components/LazyLoader';
+import NotionBlockChildren from '@/components/ui/notion-engine/NotionBlockChildren';
+import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
-import LazyLoader from './LazyLoader';
 import TableOfContents from './table-of-contents/TableOfContents';
 
 export default function NotionPage({

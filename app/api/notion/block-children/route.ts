@@ -7,7 +7,7 @@ import {
   UserObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { retrieveNotionBlockChildren } from '@/app/lib/notion/server';
+import { retrieveNotionBlockChildren } from '@/lib/notion/server';
 
 export async function GET(request: NextRequest) {
   if (!request.nextUrl.searchParams.has('block-id')) {

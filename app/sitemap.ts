@@ -7,13 +7,12 @@ import {
   PageObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { siteConfig } from '@/site.config';
-
-import { generateNotionPageHref } from './lib/notion/client';
+import { generateNotionPageHref } from '@/lib/notion/client';
 import {
   retrieveAllPublishedArticles,
   retrieveNotionPage,
-} from './lib/notion/server';
+} from '@/lib/notion/server';
+import { siteConfig } from '@/site.config';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publishedArticles =

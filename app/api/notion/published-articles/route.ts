@@ -5,7 +5,7 @@ import {
   UserObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { retrievePublishedArticles } from '@/app/lib/notion/server';
+import { retrievePublishedArticles } from '@/lib/notion/server';
 
 export async function GET(request: NextRequest) {
   let publishedArticles = await retrievePublishedArticles(

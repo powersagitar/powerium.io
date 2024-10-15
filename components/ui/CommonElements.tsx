@@ -9,7 +9,7 @@ import {
   ChevronUpIcon,
 } from '@heroicons/react/24/outline';
 
-import * as motion from '@/app/lib/framer-motion';
+import * as motion from '@/lib/framer-motion';
 
 export function Link({
   children,

@@ -16,9 +16,9 @@ import {
   QuoteBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { retrieveNotionBlockChildren } from '@/app/lib/notion/client';
+import LazyLoader from '@/components/LazyLoader';
+import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
-import LazyLoader from '../LazyLoader';
 import NotionBlockBulletedListItem from './NotionBlockBulletedListItem';
 import NotionBlockCallout from './NotionBlockCallout';
 import NotionBlockCode from './NotionBlockCode';

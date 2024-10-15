@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { SiteConfig } from '@/app/lib/site.config';
+import { SiteConfig } from '@/lib/site.config';
 
 export const siteConfig: SiteConfig = {
   notionApiKey: process.env.NOTION_API_KEY!,

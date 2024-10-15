@@ -5,14 +5,12 @@ import { notFound } from 'next/navigation';
 
 import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
+import { H1, Hr, Link, P } from '@/components/ui/CommonElements';
+import NotionPage from '@/components/ui/NotionPage';
+import { NotionRichTextItems } from '@/components/ui/notion-engine/NotionRichText';
+import { queryNotionDatabase } from '@/lib/notion/server';
+import { NotionArticlePageProperties } from '@/lib/notion/types';
 import { siteConfig } from '@/site.config';
-
-import { queryNotionDatabase } from '@/app/lib/notion/server';
-import { NotionArticlePageProperties } from '@/app/lib/notion/types';
-import { H1, Hr, Link, P } from '@/app/ui/components/CommonElements';
-import { NotionRichTextItems } from '@/app/ui/components/notion-engine/NotionRichText';
-
-import NotionPage from '../../ui/components/NotionPage';
 
 function validateSlug(slug: string[]):
   | { isValid: false }

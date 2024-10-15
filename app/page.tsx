@@ -10,15 +10,15 @@ import {
   QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import * as motion from './lib/framer-motion';
+import LazyLoader from '@/components/LazyLoader';
+import { H1, H2, Hr, Link, P } from '@/components/ui/CommonElements';
+import { NotionRichTextItems } from '@/components/ui/notion-engine/NotionRichText';
+import * as motion from '@/lib/framer-motion';
 import {
   generateNotionPageHref,
   retrievePublishedArticles,
-} from './lib/notion/client';
-import { NotionArticlePageProperties } from './lib/notion/types';
-import { H1, H2, Hr, Link, P } from './ui/components/CommonElements';
-import LazyLoader from './ui/components/LazyLoader';
-import { NotionRichTextItems } from './ui/components/notion-engine/NotionRichText';
+} from '@/lib/notion/client';
+import { NotionArticlePageProperties } from '@/lib/notion/types';
 
 export default function Home() {
   const [publishedArticles, setPublishedArticles] = useState<

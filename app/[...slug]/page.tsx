@@ -6,14 +6,13 @@ import { notFound } from 'next/navigation';
 
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
+import { H1, Hr, Link, P } from '@/components/ui/CommonElements';
+import NotionPage from '@/components/ui/NotionPage';
+import { NotionRichTextItems } from '@/components/ui/notion-engine/NotionRichText';
+import { retrieveNotionPage as _retrieveNotionPage } from '@/lib/notion/server';
+import { NotionCommonPageProperties } from '@/lib/notion/types';
+import { Pathname } from '@/lib/site.config';
 import { siteConfig } from '@/site.config';
-
-import { retrieveNotionPage as _retrieveNotionPage } from '../lib/notion/server';
-import { NotionCommonPageProperties } from '../lib/notion/types';
-import { Pathname } from '../lib/site.config';
-import { H1, Hr, Link, P } from '../ui/components/CommonElements';
-import NotionPage from '../ui/components/NotionPage';
-import { NotionRichTextItems } from '../ui/components/notion-engine/NotionRichText';
 
 const retrieveNotionPage = cache(
   async (

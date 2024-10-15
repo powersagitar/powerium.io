@@ -1,9 +1,8 @@
 import { Metadata } from 'next';
 import { revalidatePath } from 'next/cache';
 
+import { H1, Link, P } from '@/components/ui/CommonElements';
 import { siteConfig } from '@/site.config';
-
-import { H1, Link, P } from './ui/components/CommonElements';
 
 export const metadata: Metadata = {
   title: '404 - Page Not Found',
