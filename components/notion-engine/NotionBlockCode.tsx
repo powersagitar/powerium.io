@@ -7,7 +7,7 @@ import { CodeBlockObjectResponse } from '@notionhq/client/build/src/api-endpoint
 
 import '@/styles/highlightjs-theme.css';
 
-import { Figcaption, P, Pre } from '../ui/CommonElements';
+import { Figcaption, Pre } from '../ui/CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockCode({
@@ -31,9 +31,9 @@ export default function NotionBlockCode({
   return (
     <>
       <div className="relative">
-        <P className="absolute top-[0.5em] right-[1em] font-light text-xs">
+        <span className="absolute top-[0.5em] right-[1em] font-light text-xs">
           {children.code.language}
-        </P>
+        </span>
 
         <Pre>
           <code

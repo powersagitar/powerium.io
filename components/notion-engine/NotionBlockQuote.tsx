@@ -10,7 +10,7 @@ export default function NotionBlockQuote({
 }) {
   return (
     <Blockquote>
-      <P className="">
+      <P>
         <NotionRichTextItems blockId={children.id}>
           {children.quote.rich_text}
         </NotionRichTextItems>

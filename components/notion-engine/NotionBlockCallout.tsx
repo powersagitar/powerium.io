@@ -9,7 +9,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { CalloutBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { P, Vr } from '../ui/CommonElements';
+import { P } from '../ui/CommonElements';
+import { Callout, CalloutBadge } from '../ui/callout';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockCallout({
@@ -17,97 +18,81 @@ export default function NotionBlockCallout({
 }: {
   children: CalloutBlockObjectResponse;
 }) {
-  const { verticalRule, badge } = ((): {
-    verticalRule: JSX.Element;
+  const { badge, color } = ((): {
     badge: JSX.Element;
+    color: 'blue' | 'green' | 'violet' | 'yellow' | 'red' | 'inherit';
   } => {
     if (children.callout.icon?.type === 'external') {
       const iconUrl = children.callout.icon.external.url;
 
-      const iconBaseStyles = 'mr-1 h-[1.25em] w-[1.25em]';
-      const paragraphBaseStyles = 'flex font-medium items-center';
-
       if (iconUrl.includes('info-alternate')) {
         return {
-          verticalRule: <Vr bgcolor="bg-blue-600 dark:bg-blue-500" />,
           badge: (
-            <P
-              className={`${paragraphBaseStyles} text-blue-600 dark:text-blue-500`}
-            >
-              <InformationCircleIcon className={iconBaseStyles} />
+            <>
+              <InformationCircleIcon className="h-[1.25em] w-[1.25em] mr-1" />
               Note
-            </P>
+            </>
           ),
+          color: 'blue',
         };
       } else if (iconUrl.includes('light-bulb')) {
         return {
-          verticalRule: <Vr bgcolor="bg-green-600 dark:bg-green-500" />,
           badge: (
-            <P
-              className={`${paragraphBaseStyles} text-green-600 dark:text-green-500`}
-            >
-              <LightBulbIcon className={iconBaseStyles} />
+            <>
+              <LightBulbIcon className="h-[1.25em] w-[1.25em] mr-1" />
               Tip
-            </P>
+            </>
           ),
+          color: 'green',
         };
       } else if (iconUrl.includes('megaphone')) {
         return {
-          verticalRule: <Vr bgcolor="bg-violet-600 dark:bg-violet-500" />,
           badge: (
-            <P
-              className={`${paragraphBaseStyles} text-violet-600 dark:text-violet-500`}
-            >
-              <MegaphoneIcon className={iconBaseStyles} />
+            <>
+              <MegaphoneIcon className="h-[1.25em] w-[1.25em] mr-1" />
               Important
-            </P>
+            </>
           ),
+          color: 'violet',
         };
       } else if (iconUrl.includes('warning')) {
         return {
-          verticalRule: <Vr bgcolor="bg-yellow-600 dark:bg-yellow-500" />,
           badge: (
-            <P
-              className={`${paragraphBaseStyles} text-yellow-600 dark:text-yellow-500`}
-            >
-              <ExclamationTriangleIcon className={iconBaseStyles} />
+            <>
+              <ExclamationTriangleIcon className="h-[1.25em] w-[1.25em] mr-1" />
               Warning
-            </P>
+            </>
           ),
+          color: 'yellow',
         };
       } else if (iconUrl.includes('hand')) {
         return {
-          verticalRule: <Vr bgcolor="bg-red-600 dark:bg-red-500" />,
           badge: (
-            <P
-              className={`${paragraphBaseStyles} text-red-600 dark:text-red-500`}
-            >
-              <HandRaisedIcon className={iconBaseStyles} />
+            <>
+              <HandRaisedIcon className="h-[1.25em] w-[1.25em] mr-1" />
               Caution
-            </P>
+            </>
           ),
+          color: 'red',
         };
       }
     }
 
     return {
-      verticalRule: <></>,
       badge: <></>,
+      color: 'inherit',
     };
   })();
 
   return (
-    <div className="flex mt-4">
-      {verticalRule}
+    <Callout borderColor={color}>
+      <CalloutBadge color={color}>{badge}</CalloutBadge>
 
-      <div className="mx-6">
-        {badge}
-        <P className="mt-2">
-          <NotionRichTextItems blockId={children.id}>
-            {children.callout.rich_text}
-          </NotionRichTextItems>
-        </P>
-      </div>
-    </div>
+      <P styles={{ mt: 'mt-1' }}>
+        <NotionRichTextItems blockId={children.id}>
+          {children.callout.rich_text}
+        </NotionRichTextItems>
+      </P>
+    </Callout>
   );
 }

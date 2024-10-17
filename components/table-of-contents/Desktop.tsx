@@ -7,7 +7,8 @@ import {
   Heading3BlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { Hr, Vr } from '../ui/CommonElements';
+import { Ul } from '../ui/CommonElements';
+import { Separator } from '../ui/separator';
 import { NotionPageHeadingLi } from './TableOfContents';
 
 export default function Desktop({
@@ -49,12 +50,11 @@ function Hint() {
         duration: 3,
         ease: 'easeInOut',
       }}
-      className="flex flex-row-reverse"
+      className="flex"
     >
-      <Vr />
-      <p className="[writing-mode:vertical-rl] py-3 rounded-l-lg backdrop-blur">
+      <span className="[writing-mode:vertical-rl] py-3 rounded-l-lg backdrop-blur">
         Table of Contents
-      </p>
+      </span>
     </motion.div>
   );
 }
@@ -77,11 +77,11 @@ function Sidebar({
     >
       <h1 className="self-center font-medium">Table of Contents</h1>
 
-      <Hr className="my-2 rounded-full" />
+      <Separator className="my-2" />
 
-      <ul className="overflow-y-scroll">
+      <Ul styles={{ my: 'my-0' }}>
         <NotionPageHeadingLi>{notionPageHeadings}</NotionPageHeadingLi>
-      </ul>
+      </Ul>
     </motion.nav>
   );
 }

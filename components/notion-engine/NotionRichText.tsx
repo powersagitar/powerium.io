@@ -3,7 +3,7 @@ import {
   TextRichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { Link } from '../ui/CommonElements';
+import { Code, Link } from '../ui/CommonElements';
 
 export function NotionRichTextItems({
   blockId,
@@ -43,7 +43,7 @@ function NotionTextRichTextItem({
   }
 
   if (textRichTextItem.annotations.code) {
-    element = <code>{element}</code>;
+    element = <Code>{element}</Code>;
   }
 
   if (textRichTextItem.annotations.color) {

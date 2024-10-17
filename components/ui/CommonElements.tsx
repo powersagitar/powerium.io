@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { Url } from 'next/dist/shared/lib/router/router';
 import NextLink from 'next/link';
 import { ReactNode, useEffect, useState } from 'react';
@@ -67,14 +68,26 @@ export function Link({
 
 export function H1({
   children,
-  className,
+  styles,
 }: {
   children: ReactNode;
-  className?: string;
+  styles?: {
+    'text-align'?: 'left' | 'center' | 'right' | 'justify' | 'start' | 'end';
+    mb?: 'mb-4';
+  };
 }) {
   return (
-    <h1 className={className ?? 'mb-4 w-full text-center text-4xl'}>
-      <strong>{children}</strong>
+    <h1
+      className={clsx(
+        'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl',
+        styles?.mb,
+        {
+          [`text-${styles?.['text-align']}`]:
+            styles?.['text-align'] !== undefined,
+        },
+      )}
+    >
+      {children}
     </h1>
   );
 }
@@ -89,40 +102,71 @@ export function H2({
   className?: string;
 }) {
   return (
-    <h2 className={className ?? 'mb-7 text-3xl'} id={id}>
-      <b>{children}</b>
+    <h2
+      className={
+        className ??
+        'mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0'
+      }
+      id={id}
+    >
+      {children}
     </h2>
   );
 }
 
 export function H3({ children, id }: { children: ReactNode; id?: string }) {
   return (
-    <h3 className="mb-6 text-2xl" id={id}>
-      <b>{children}</b>
+    <h3
+      className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight"
+      id={id}
+    >
+      {children}
     </h3>
   );
 }
 
 export function H4({ children, id }: { children: ReactNode; id?: string }) {
   return (
-    <h4 className="mb-5 text-xl" id={id}>
-      <b>{children}</b>
+    <h4
+      className="mt-6 scroll-m-20 text-xl font-semibold tracking-tight"
+      id={id}
+    >
+      {children}
     </h4>
   );
 }
 
 export function P({
   children,
-  className,
+  styles,
 }: {
   children: ReactNode;
-  className?: string;
+  styles?: { mt?: 'mt-1' | 'mt-2' };
 }) {
-  return <p className={className ?? 'mb-4 mt-2'}>{children}</p>;
+  return (
+    <p
+      className={clsx(
+        'leading-7',
+        `[&:not(:first-child)]:${styles?.mt ?? 'mt-6'}`,
+      )}
+    >
+      {children}
+    </p>
+  );
 }
 
-export function Li({ children }: { children: ReactNode }) {
-  return <li className="my-2 list-inside list-disc">{children}</li>;
+export function Li({
+  children,
+  styles,
+}: {
+  children: ReactNode;
+  styles?: { p?: 'p-8' };
+}) {
+  return (
+    <li className={clsx('leading-7 [&:not(:first-child)]:mt-6', styles?.p)}>
+      {children}
+    </li>
+  );
 }
 
 export function Iframe({
@@ -145,7 +189,7 @@ export function Iframe({
 }
 
 export function Pre({ children }: { children: ReactNode }) {
-  return <pre>{children}</pre>;
+  return <pre className="[&:not(:first-child)]:mt-6">{children}</pre>;
 }
 
 export function Figcaption({ children }: { children: ReactNode }) {
@@ -156,32 +200,41 @@ export function Figcaption({ children }: { children: ReactNode }) {
   );
 }
 
-export function Hr({ className }: { className?: string }) {
-  return <hr className={className ?? 'rounded-full mb-5 w-full'} />;
-}
-
-export function Vr({
-  className,
-  bgcolor,
-}: {
-  className?: string;
-  bgcolor?: string;
-}) {
+export function Blockquote({ children }: { children: ReactNode }) {
   return (
-    <Hr
-      className={
-        className ??
-        `w-1 rounded-full h-auto border-none ${bgcolor ?? 'bg-black dark:bg-white'}`
-      }
-    />
+    <blockquote className="mt-6 border-l-2 pl-6 italic">{children}</blockquote>
   );
 }
 
-export function Blockquote({ children }: { children: ReactNode }) {
+export function Code({ children }: { children: Readonly<ReactNode> }) {
   return (
-    <div className="flex mb-4">
-      <Vr />
-      <blockquote className="mx-6">{children}</blockquote>
-    </div>
+    <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold">
+      {children}
+    </code>
+  );
+}
+
+export function Ul({
+  children,
+  styles,
+}: {
+  children: Readonly<ReactNode>;
+  styles?: {
+    ml?: 'ml-0';
+    my?: 'my-0';
+    ['list-style-type']?: 'list-none' | 'list-disc' | 'list-decimal';
+  };
+}) {
+  return (
+    <ul
+      className={clsx(
+        '[&>li]:mt-2',
+        styles?.ml ?? 'ml-6',
+        styles?.my ?? 'my-6',
+        styles?.['list-style-type'] ?? 'list-disc',
+      )}
+    >
+      {children}
+    </ul>
   );
 }

@@ -1,5 +1,5 @@
-import { Hr } from '../ui/CommonElements';
+import { Separator } from '../ui/separator';
 
 export default function NotionBlockDivider() {
-  return <Hr />;
+  return <Separator className="my-6" />;
 }

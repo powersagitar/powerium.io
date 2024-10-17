@@ -1,15 +1,15 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { isBrowser } from 'react-device-detect';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { useToast } from '@/hooks/use-toast';
 
-export default function SearchBar() {
+import { Button } from '../ui/button';
+
+export default function CommandBar() {
   const [platform, setPlatform] = useState<
     'macos' | 'windows' | 'linux' | 'unix' | 'unknown'
-  >('unknown');
+  >('macos');
 
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
@@ -44,33 +44,24 @@ export default function SearchBar() {
     };
   }, [platform]);
 
+  const { toast } = useToast();
+
+  const search = () => {
+    toast({
+      description: 'Available soon!',
+    });
+  };
+
   return (
-    <motion.button
-      whileTap={{ opacity: 0 }}
-      className="hidden md:flex h-8 grow items-center rounded-full border border-neutral-500 text-neutral-500 dark:border-neutral-400 dark:text-neutral-400"
+    <Button
+      variant="ghost"
+      className="hidden md:flex relative h-8 w-full justify-start rounded-[0.5rem] text-sm font-normal shadow-none sm:pr-12 md:w-40 lg:w-64"
       onClick={() => search()}
     >
-      <div className="ml-7 mr-5 flex items-center">
-        <MagnifyingGlassIcon className="h-5 w-5" />
-        <p className="ml-3">Search</p>
-      </div>
-
-      {isBrowser && platform !== 'unknown' && (
-        <div className="ml-auto mr-7">
-          {platform === 'macos' ? (
-            <abbr title="Command" className="no-underline">
-              <kbd>&#8984;</kbd>
-            </abbr>
-          ) : (
-            <kbd>Ctrl</kbd>
-          )}
-          <kbd className="ml-1">K</kbd>
-        </div>
-      )}
-    </motion.button>
+      <span>Search...</span>
+      <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+        <span className="text-xs">{platform === 'macos' ? '⌘' : 'Ctrl'}</span>K
+      </kbd>
+    </Button>
   );
-}
-
-function search() {
-  alert('Available soon!');
 }

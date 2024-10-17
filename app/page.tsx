@@ -12,9 +12,10 @@ import {
 
 import LazyLoader from '@/components/LazyLoader';
 import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
-import { H1, H2, Link, P } from '@/components/ui/CommonElements';
+import { H1, H2, Li, Link, P, Ul } from '@/components/ui/CommonElements';
 import { Button } from '@/components/ui/button';
-import * as motion from '@/lib/framer-motion';
+import { Separator } from '@/components/ui/separator';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   generateNotionPageHref,
   retrievePublishedArticles,
@@ -58,25 +59,22 @@ export default function Home() {
           loader={
             <ul>
               {Array.from({ length: 10 }).map((_, idx) => (
-                <li key={idx} className="rounded-2xl p-8 animate-pulse w-full">
-                  <div className="rounded-full w-1/2 h-8 bg-neutral-400 dark:bg-neutral-600" />
-                  <div className="rounded-full mt-4 w-full h-4 bg-neutral-400 dark:bg-neutral-600" />
-                  <div className="rounded-full mt-4 w-3/4 h-4 bg-neutral-400 dark:bg-neutral-600" />
-                </li>
+                <Li styles={{ p: 'p-8' }} key={idx}>
+                  <Skeleton className="w-1/2 h-9" />
+                  <Separator className="mt-2" />
+                  <Skeleton className="mt-8 w-full h-7" />
+                  <Skeleton className="mt-4 w-3/4 h-7" />
+                </Li>
               ))}
             </ul>
           }
         >
           <article>
-            <H1 className="mb-12 md:mb-20 w-full text-center text-4xl">Blog</H1>
+            <H1 styles={{ 'text-align': 'center' }}>Blog</H1>
 
-            <ul className="flex flex-wrap justify-between">
+            <Ul styles={{ 'list-style-type': 'list-none', ml: 'ml-0' }}>
               {publishedArticles.map((article) => (
-                <motion.li
-                  whileTap={{ opacity: 0 }}
-                  className="min-w-full md:min-w-[50%] flex-auto"
-                  key={article.id}
-                >
+                <Li key={article.id}>
                   <Link
                     href={generateNotionPageHref(
                       article as DatabaseObjectResponse,
@@ -86,7 +84,7 @@ export default function Home() {
                         isBrowser,
                     })}
                   >
-                    <H2 className="text-3xl">
+                    <H2>
                       <NotionRichTextItems blockId={article.id}>
                         {
                           (
@@ -101,7 +99,7 @@ export default function Home() {
                       (article as DatabaseObjectResponse)
                         .properties as unknown as NotionArticlePageProperties
                     ).description.rich_text.length > 0 && (
-                      <P className="mt-4">
+                      <P>
                         <NotionRichTextItems blockId={article.id}>
                           {
                             (
@@ -119,9 +117,9 @@ export default function Home() {
                       </Button>
                     )}
                   </Link>
-                </motion.li>
+                </Li>
               ))}
-            </ul>
+            </Ul>
           </article>
         </InfiniteScroll>
       </div>

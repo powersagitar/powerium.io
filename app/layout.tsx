@@ -4,8 +4,9 @@ import { Metadata } from 'next';
 
 import { Analytics } from '@vercel/analytics/react';
 
-import { Nav } from '@/components/Nav';
+import Header from '@/components/header/header';
 import { Link } from '@/components/ui/CommonElements';
+import { Toaster } from '@/components/ui/toaster';
 import { siteConfig } from '@/site.config';
 import '@/styles/global.css';
 
@@ -30,16 +31,16 @@ export default function RootLayout({
   children: Readonly<React.ReactNode>;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="flex min-h-screen flex-col items-center mx-4 bg-white text-black dark:bg-black dark:text-white">
-        <header className="fixed left-0 right-0 top-0 flex-col items-center backdrop-blur-md z-50">
-          <Nav />
-        </header>
+    <html lang="en" className="flex flex-col items-center scroll-smooth">
+      <body className="min-h-screen flex flex-col px-4 lg:px-0 w-full lg:w-2/3 bg-white text-black dark:bg-black dark:text-white">
+        <Header />
 
-        <main className="my-20 flex w-full lg:w-2/3 grow flex-col items-center justify-center">
+        <main className="mt-32 mb-20 scroll-mt-32 flex grow flex-col items-center">
           {children}
           <Analytics />
         </main>
+
+        <Toaster />
 
         <footer className="flex flex-col items-center py-2 text-center text-sm text-neutral-500 dark:text-neutral-400">
           <p>

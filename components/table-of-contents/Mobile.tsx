@@ -5,7 +5,7 @@ import {
   Heading3BlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { H2, Hr } from '../ui/CommonElements';
+import { H2, Ul } from '../ui/CommonElements';
 import {
   Collapsible,
   CollapsibleContent,
@@ -23,24 +23,22 @@ export default function Mobile({
   )[];
 }) {
   return (
-    <>
-      <Collapsible>
-        <CollapsibleTrigger>
-          <H2>
+    <Collapsible>
+      <CollapsibleTrigger className="w-full">
+        <H2>
+          <span className="flex justify-between">
             Table of Contents&nbsp;
             <ChevronUpDownIcon className="h-[1em] w-[1em] inline" />
-          </H2>
-          <span className="sr-only">Toggle</span>
-        </CollapsibleTrigger>
+          </span>
+        </H2>
+        <span className="sr-only">Toggle</span>
+      </CollapsibleTrigger>
 
-        <CollapsibleContent>
-          <ul className="list-disc list-inside mb-5">
-            <NotionPageHeadingLi>{notionPageHeadings}</NotionPageHeadingLi>
-          </ul>
-        </CollapsibleContent>
-      </Collapsible>
-
-      <Hr />
-    </>
+      <CollapsibleContent>
+        <Ul>
+          <NotionPageHeadingLi>{notionPageHeadings}</NotionPageHeadingLi>
+        </Ul>
+      </CollapsibleContent>
+    </Collapsible>
   );
 }

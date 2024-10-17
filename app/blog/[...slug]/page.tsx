@@ -7,7 +7,8 @@ import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints
 
 import NotionPage from '@/components/NotionPage';
 import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
-import { H1, Hr, Link, P } from '@/components/ui/CommonElements';
+import { H1, Link, P } from '@/components/ui/CommonElements';
+import { Separator } from '@/components/ui/separator';
 import { queryNotionDatabase } from '@/lib/notion/server';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 import { siteConfig } from '@/site.config';
@@ -104,7 +105,7 @@ export default async function BlogArticle({
       {{
         pageHeader: (
           <div className="text-center">
-            <H1>
+            <H1 styles={{ mb: 'mb-4' }}>
               <NotionRichTextItems blockId={notionPage.id}>
                 {
                   (
@@ -122,13 +123,13 @@ export default async function BlogArticle({
                   <time dateTime={lastEditedTime.toISOString()}>
                     {articlePublishDate.toDateString() ===
                     lastEditedTime.toDateString() ? (
-                      <P className="mb-2">
+                      <P>
                         <strong className="whitespace-nowrap">
                           {articlePublishDate.toDateString()}
                         </strong>
                       </P>
                     ) : (
-                      <P className="mb-2">
+                      <P>
                         <span className="whitespace-nowrap">
                           Originally{' '}
                           <strong>{articlePublishDate.toDateString()}</strong>
@@ -144,7 +145,7 @@ export default async function BlogArticle({
                 );
               })()}
 
-              <P className="mb-4">
+              <P styles={{ mt: 'mt-2' }}>
                 {(() => {
                   const authors = (
                     notionPage.properties as unknown as NotionArticlePageProperties
@@ -167,7 +168,7 @@ export default async function BlogArticle({
               </P>
             </address>
 
-            <Hr />
+            <Separator className="my-6" />
           </div>
         ),
         pageId: notionPage.id,
