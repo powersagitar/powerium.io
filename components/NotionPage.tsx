@@ -5,7 +5,7 @@ import { ReactNode, useState } from 'react';
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import LazyLoader from '@/components/LazyLoader';
-import NotionBlockChildren from '@/components/ui/notion-engine/NotionBlockChildren';
+import NotionBlockChildren from '@/components/notion-engine/NotionBlockChildren';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
 import TableOfContents from './table-of-contents/TableOfContents';

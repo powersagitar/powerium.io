@@ -1,6 +1,6 @@
 import { ParagraphBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { P } from '../CommonElements';
+import { P } from '../ui/CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockParagraph({

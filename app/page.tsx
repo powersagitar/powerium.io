@@ -11,8 +11,8 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import LazyLoader from '@/components/LazyLoader';
+import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
 import { H1, H2, Hr, Link, P } from '@/components/ui/CommonElements';
-import { NotionRichTextItems } from '@/components/ui/notion-engine/NotionRichText';
 import * as motion from '@/lib/framer-motion';
 import {
   generateNotionPageHref,

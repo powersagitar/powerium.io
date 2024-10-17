@@ -1,6 +1,6 @@
 import { QuoteBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { Blockquote, P } from '../CommonElements';
+import { Blockquote, P } from '../ui/CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockQuote({

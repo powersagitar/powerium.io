@@ -7,7 +7,7 @@ import {
   Heading3BlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { Hr, Vr } from '../CommonElements';
+import { Hr, Vr } from '../ui/CommonElements';
 import { NotionPageHeadingLi } from './TableOfContents';
 
 export default function Desktop({

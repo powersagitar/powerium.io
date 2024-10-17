@@ -7,7 +7,7 @@ import { CodeBlockObjectResponse } from '@notionhq/client/build/src/api-endpoint
 
 import '@/stylesheets/highlightjs-theme.css';
 
-import { Figcaption, P, Pre } from '../CommonElements';
+import { Figcaption, P, Pre } from '../ui/CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockCode({

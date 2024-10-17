@@ -1,6 +1,6 @@
 import { EmbedBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { Figcaption, Iframe } from '../CommonElements';
+import { Figcaption, Iframe } from '../ui/CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockEmbed({

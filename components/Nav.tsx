@@ -2,8 +2,8 @@ import 'server-only';
 
 import { siteConfig } from '@/site.config';
 
-import { Link } from './CommonElements';
 import SearchBar from './SearchBar';
+import { Link } from './ui/CommonElements';
 
 export function Nav() {
   return (

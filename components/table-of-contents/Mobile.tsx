@@ -4,7 +4,7 @@ import {
   Heading3BlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { H2, Hr } from '../CommonElements';
+import { H2, Hr } from '../ui/CommonElements';
 import { NotionPageHeadingLi } from './TableOfContents';
 
 export default function Mobile({

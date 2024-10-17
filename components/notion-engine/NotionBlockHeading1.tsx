@@ -1,6 +1,6 @@
 import { Heading1BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { H2 } from '../CommonElements';
+import { H2 } from '../ui/CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockHeading1({

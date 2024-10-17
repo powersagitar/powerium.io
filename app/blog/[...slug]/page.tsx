@@ -5,9 +5,9 @@ import { notFound } from 'next/navigation';
 
 import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
+import NotionPage from '@/components/NotionPage';
+import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
 import { H1, Hr, Link, P } from '@/components/ui/CommonElements';
-import NotionPage from '@/components/ui/NotionPage';
-import { NotionRichTextItems } from '@/components/ui/notion-engine/NotionRichText';
 import { queryNotionDatabase } from '@/lib/notion/server';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 import { siteConfig } from '@/site.config';

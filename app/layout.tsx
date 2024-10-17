@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 
 import { Analytics } from '@vercel/analytics/react';
 
+import { Nav } from '@/components/Nav';
 import { Link } from '@/components/ui/CommonElements';
-import { Nav } from '@/components/ui/Nav';
 import { siteConfig } from '@/site.config';
 import '@/stylesheets/global.css';
 

@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { CalloutBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { P, Vr } from '../CommonElements';
+import { P, Vr } from '../ui/CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockCallout({

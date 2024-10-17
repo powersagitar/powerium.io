@@ -8,8 +8,8 @@ import {
   Heading3BlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { Link } from '../CommonElements';
 import { NotionRichTextItems } from '../notion-engine/NotionRichText';
+import { Link } from '../ui/CommonElements';
 import Desktop from './Desktop';
 import Mobile from './Mobile';
 
