@@ -1,3 +1,4 @@
+import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import {
   Heading1BlockObjectResponse,
   Heading2BlockObjectResponse,
@@ -5,6 +6,11 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import { H2, Hr } from '../ui/CommonElements';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '../ui/collapsible';
 import { NotionPageHeadingLi } from './TableOfContents';
 
 export default function Mobile({
@@ -18,17 +24,21 @@ export default function Mobile({
 }) {
   return (
     <>
-      <details>
-        <summary>
-          <span className="inline-block">
-            <H2>Table of Contents</H2>
-          </span>
-        </summary>
+      <Collapsible>
+        <CollapsibleTrigger>
+          <H2>
+            Table of Contents&nbsp;
+            <ChevronUpDownIcon className="h-[1em] w-[1em] inline" />
+          </H2>
+          <span className="sr-only">Toggle</span>
+        </CollapsibleTrigger>
 
-        <ul className="list-disc list-inside mb-5">
-          <NotionPageHeadingLi>{notionPageHeadings}</NotionPageHeadingLi>
-        </ul>
-      </details>
+        <CollapsibleContent>
+          <ul className="list-disc list-inside mb-5">
+            <NotionPageHeadingLi>{notionPageHeadings}</NotionPageHeadingLi>
+          </ul>
+        </CollapsibleContent>
+      </Collapsible>
 
       <Hr />
     </>

@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { isBrowser, isMobile } from 'react-device-detect';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -12,7 +12,8 @@ import {
 
 import LazyLoader from '@/components/LazyLoader';
 import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
-import { H1, H2, Hr, Link, P } from '@/components/ui/CommonElements';
+import { H1, H2, Link, P } from '@/components/ui/CommonElements';
+import { Button } from '@/components/ui/button';
 import * as motion from '@/lib/framer-motion';
 import {
   generateNotionPageHref,
@@ -113,9 +114,9 @@ export default function Home() {
                     )}
 
                     {isMobile && (
-                      <button className="mt-8 px-4 py-0.5 rounded-lg w-full text-white bg-black dark:text-black dark:bg-white">
+                      <Button className="mt-8 px-4 py-0.5 w-full">
                         Continue reading...
-                      </button>
+                      </Button>
                     )}
                   </Link>
                 </motion.li>
