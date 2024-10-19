@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { Nav } from '@/components/Nav';
 import { Link } from '@/components/ui/CommonElements';
 import { siteConfig } from '@/site.config';
-import '@/stylesheets/global.css';
+import '@/styles/global.css';
 
 export const metadata: Metadata = {
   title: siteConfig.metadata.title,

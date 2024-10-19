@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 
 import { CodeBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import '@/stylesheets/highlightjs-theme.css';
+import '@/styles/highlightjs-theme.css';
 
 import { Figcaption, P, Pre } from '../ui/CommonElements';
 import { NotionRichTextItems } from './NotionRichText';
