@@ -1,0 +1,8 @@
+[
+  {
+    "label": "Start dev server (bun)",
+    "command": "bun",
+    "args": ["--bun", "run", "dev"],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]
