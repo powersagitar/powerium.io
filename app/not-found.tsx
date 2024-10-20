@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import { revalidatePath } from 'next/cache';
 
-import { H1, Link, P } from '@/components/ui/CommonElements';
+import { Link } from '@/components/ui/link';
+import { H1, P } from '@/components/ui/typography';
 import { siteConfig } from '@/site.config';
 
 export const metadata: Metadata = {

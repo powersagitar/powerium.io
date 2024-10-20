@@ -8,8 +8,9 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import NotionPage from '@/components/NotionPage';
 import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
-import { H1, Link, P } from '@/components/ui/CommonElements';
+import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
+import { H1, P } from '@/components/ui/typography';
 import { retrieveNotionPage as _retrieveNotionPage } from '@/lib/notion/server';
 import { NotionCommonPageProperties } from '@/lib/notion/types';
 import { Pathname } from '@/lib/site.config';
@@ -82,7 +83,7 @@ export default async function Article({
       {{
         pageHeader: (
           <div className="text-center">
-            <H1 styles={{ mb: 'mb-4' }}>
+            <H1 className="mb-4">
               <NotionRichTextItems blockId={notionPage.id}>
                 {
                   (
@@ -107,7 +108,7 @@ export default async function Article({
                 );
               })()}
 
-              <P styles={{ mt: 'mt-2' }}>
+              <P className="[&:not(:first-child)]:mt-0">
                 <Link href={siteConfig.metadata.author.url ?? '/'}>
                   <strong>{siteConfig.metadata.author.name}</strong>
                 </Link>

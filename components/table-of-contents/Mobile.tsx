@@ -5,12 +5,13 @@ import {
   Heading3BlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { H2, Ul } from '../ui/CommonElements';
+import { Ul } from '../ui/CommonElements';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '../ui/collapsible';
+import { H2 } from '../ui/typography';
 import { NotionPageHeadingLi } from './TableOfContents';
 
 export default function Mobile({

@@ -9,8 +9,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { CalloutBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { P } from '../ui/CommonElements';
 import { Callout, CalloutBadge } from '../ui/callout';
+import { P } from '../ui/typography';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockCallout({
@@ -88,7 +88,7 @@ export default function NotionBlockCallout({
     <Callout borderColor={color}>
       <CalloutBadge color={color}>{badge}</CalloutBadge>
 
-      <P styles={{ mt: 'mt-1' }}>
+      <P className="mt-1">
         <NotionRichTextItems blockId={children.id}>
           {children.callout.rich_text}
         </NotionRichTextItems>

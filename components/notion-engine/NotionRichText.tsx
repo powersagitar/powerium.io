@@ -3,7 +3,8 @@ import {
   TextRichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { Code, Link } from '../ui/CommonElements';
+import { Code } from '../ui/CommonElements';
+import { Link } from '../ui/link';
 
 export function NotionRichTextItems({
   blockId,
@@ -63,15 +64,7 @@ function NotionTextRichTextItem({
   }
 
   if (textRichTextItem.text.link) {
-    element = (
-      <Link
-        href={textRichTextItem.text.link.url}
-        textDecoration="underline"
-        className="hover:text-blue-600 dark:hover:text-blue-500"
-      >
-        {element}
-      </Link>
-    );
+    element = <Link href={textRichTextItem.text.link.url}>{element}</Link>;
   }
 
   return element;

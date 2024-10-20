@@ -9,7 +9,7 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import { NotionRichTextItems } from '../notion-engine/NotionRichText';
-import { Link } from '../ui/CommonElements';
+import { Link } from '../ui/link';
 import Desktop from './Desktop';
 import Mobile from './Mobile';
 
@@ -47,7 +47,7 @@ export function NotionPageHeadingLi({
       case 'heading_1':
         return (
           <li className="mb-1.5" key={`toc-${heading.id}`}>
-            <Link href={`#${heading.id}`}>
+            <Link href={`#${heading.id}`} className="no-underline">
               <NotionRichTextItems blockId={heading.id}>
                 {(heading as Heading1BlockObjectResponse).heading_1.rich_text}
               </NotionRichTextItems>
@@ -58,7 +58,7 @@ export function NotionPageHeadingLi({
       case 'heading_2':
         return (
           <li className="mb-1.5 ml-4" key={`toc-${heading.id}`}>
-            <Link href={`#${heading.id}`}>
+            <Link href={`#${heading.id}`} className="no-underline">
               <NotionRichTextItems blockId={heading.id}>
                 {(heading as Heading2BlockObjectResponse).heading_2.rich_text}
               </NotionRichTextItems>
@@ -69,7 +69,7 @@ export function NotionPageHeadingLi({
       case 'heading_3':
         return (
           <li className="mb-1.5 ml-8" key={`toc-${heading.id}`}>
-            <Link href={`#${heading.id}`}>
+            <Link href={`#${heading.id}`} className="no-underline">
               <NotionRichTextItems blockId={heading.id}>
                 {(heading as Heading3BlockObjectResponse).heading_3.rich_text}
               </NotionRichTextItems>

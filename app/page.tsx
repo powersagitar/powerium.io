@@ -12,10 +12,12 @@ import {
 
 import LazyLoader from '@/components/LazyLoader';
 import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
-import { H1, H2, Li, Link, P, Ul } from '@/components/ui/CommonElements';
+import { Li, Ul } from '@/components/ui/CommonElements';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
+import { H1, H2, P } from '@/components/ui/typography';
 import {
   generateNotionPageHref,
   retrievePublishedArticles,
@@ -70,7 +72,7 @@ export default function Home() {
           }
         >
           <article>
-            <H1 styles={{ 'text-align': 'center' }}>Blog</H1>
+            <H1 className="text-center">Blog</H1>
 
             <Ul styles={{ 'list-style-type': 'list-none', ml: 'ml-0' }}>
               {publishedArticles.map((article) => (
@@ -79,10 +81,13 @@ export default function Home() {
                     href={generateNotionPageHref(
                       article as DatabaseObjectResponse,
                     )}
-                    className={clsx('block flex-auto p-8 rounded-2xl', {
-                      'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all':
-                        isBrowser,
-                    })}
+                    className={clsx(
+                      'block flex-auto p-8 rounded-2xl no-underline',
+                      {
+                        'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all':
+                          isBrowser,
+                      },
+                    )}
                   >
                     <H2>
                       <NotionRichTextItems blockId={article.id}>

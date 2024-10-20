@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 
 import Header from '@/components/header/header';
-import { Link } from '@/components/ui/CommonElements';
+import { Link } from '@/components/ui/link';
 import { Toaster } from '@/components/ui/toaster';
 import { siteConfig } from '@/site.config';
 import '@/styles/global.css';

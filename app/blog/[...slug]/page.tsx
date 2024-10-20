@@ -7,8 +7,9 @@ import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints
 
 import NotionPage from '@/components/NotionPage';
 import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
-import { H1, Link, P } from '@/components/ui/CommonElements';
+import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
+import { H1, P } from '@/components/ui/typography';
 import { queryNotionDatabase } from '@/lib/notion/server';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 import { siteConfig } from '@/site.config';
@@ -105,7 +106,7 @@ export default async function BlogArticle({
       {{
         pageHeader: (
           <div className="text-center">
-            <H1 styles={{ mb: 'mb-4' }}>
+            <H1 className="mb-4">
               <NotionRichTextItems blockId={notionPage.id}>
                 {
                   (
@@ -145,7 +146,7 @@ export default async function BlogArticle({
                 );
               })()}
 
-              <P styles={{ mt: 'mt-2' }}>
+              <P className="[&:not(:first-child)]:mt-0">
                 {(() => {
                   const authors = (
                     notionPage.properties as unknown as NotionArticlePageProperties
