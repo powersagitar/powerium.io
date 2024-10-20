@@ -5,10 +5,11 @@ import { siteConfig } from '@/site.config';
 import { Link } from '../ui/link';
 import CommandBar from './command-bar';
 import CustomLinkEntries from './custom-link-entries';
+import ThemeToggle from './theme-toggle';
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 px-10 lg:px-0 w-full backdrop-blur flex h-14 items-center justify-center md:justify-between">
+    <header className="sticky top-0 z-50 px-10 lg:px-0 w-full backdrop-blur flex h-14 items-center justify-between">
       <div className="lg:mr-4 flex">
         <Link
           href="/"
@@ -21,7 +22,10 @@ export default function Header() {
         <CustomLinkEntries />
       </div>
 
-      <CommandBar />
+      <div className="flex items-center">
+        <CommandBar />
+        <ThemeToggle />
+      </div>
     </header>
   );
 }
