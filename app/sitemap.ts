@@ -14,6 +14,8 @@ import {
 } from '@/lib/notion/server';
 import { siteConfig } from '@/site.config';
 
+export const dynamic = 'force-dynamic';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publishedArticles =
     (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];
