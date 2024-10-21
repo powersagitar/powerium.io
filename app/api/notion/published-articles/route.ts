@@ -8,7 +8,7 @@ import {
 import { retrievePublishedArticles } from '@/lib/notion/server';
 
 export async function GET(request: NextRequest) {
-  let publishedArticles = await retrievePublishedArticles(
+  const publishedArticles = await retrievePublishedArticles(
     request.nextUrl.searchParams.get('start-cursor') ?? undefined,
   );
 
@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
     (article.last_edited_by as UserObjectResponse).id = privateDataPlaceholder;
 
     if (article.parent.type !== 'workspace') {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       (article.parent as any)[article.parent.type] = privateDataPlaceholder;
     }
   }

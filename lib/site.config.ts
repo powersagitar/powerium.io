@@ -9,6 +9,7 @@ export type SiteConfig = {
   url: {
     protocol: 'http' | 'https';
     hostname: string;
+    origin: `${'http' | 'https'}://${string}`;
   };
 
   metadata: {

@@ -2,14 +2,15 @@ import { ReactNode, useEffect } from 'react';
 
 export default function LazyLoader({
   children,
-  load: next,
+  load,
   id,
 }: {
   children: ReactNode;
   load: () => void;
   id: number;
 }) {
-  useEffect(() => next(), [id]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => load(), [id]);
 
   return children;
 }

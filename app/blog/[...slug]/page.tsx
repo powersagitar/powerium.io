@@ -34,11 +34,12 @@ function validateSlug(slug: string[]):
   return { isValid: true, articlePublishDate, articleTitleSegments: slug[3] };
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string[] };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string[] }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const slugValidation = validateSlug(params.slug);
 
   if (!slugValidation.isValid) {
@@ -74,11 +75,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogArticle({
-  params,
-}: {
-  params: { slug: string[] };
-}) {
+export default async function BlogArticle(
+  props: {
+    params: Promise<{ slug: string[] }>;
+  }
+) {
+  const params = await props.params;
   const slugValidation = validateSlug(params.slug);
 
   if (!slugValidation.isValid) {

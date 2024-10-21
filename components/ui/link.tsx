@@ -1,10 +1,10 @@
 import NextLink from 'next/link';
-import { ComponentPropsWithRef, ElementRef, forwardRef } from 'react';
+import { ComponentPropsWithRef, ComponentRef, forwardRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 export const Link = forwardRef<
-  ElementRef<typeof NextLink>,
+  ComponentRef<typeof NextLink>,
   ComponentPropsWithRef<typeof NextLink>
 >((props, ref) => {
   const { children, className, ...otherProps } = props;
@@ -22,3 +22,5 @@ export const Link = forwardRef<
     </NextLink>
   );
 });
+
+Link.displayName = 'Link';

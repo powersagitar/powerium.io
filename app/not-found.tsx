@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { revalidatePath } from 'next/cache';
 
 import { Link } from '@/components/ui/link';
 import { H1, P } from '@/components/ui/typography';
@@ -10,8 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
-  revalidatePath('/', 'layout');
-
   return (
     <>
       <H1>Page Not Found</H1>

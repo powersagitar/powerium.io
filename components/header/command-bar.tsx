@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { isDesktop } from 'react-device-detect';
 
 import { useToast } from '@/hooks/use-toast';
@@ -28,6 +28,14 @@ export default function CommandBar() {
     }
   }, []);
 
+  const { toast } = useToast();
+
+  const search = useCallback(() => {
+    toast({
+      description: 'Available soon!',
+    });
+  }, [toast]);
+
   useEffect(() => {
     const keydownHandler = (e: KeyboardEvent) => {
       const modifierKeyDown = platform === 'macos' ? e.metaKey : e.ctrlKey;
@@ -43,15 +51,7 @@ export default function CommandBar() {
     return () => {
       document.removeEventListener('keydown', keydownHandler);
     };
-  }, [platform]);
-
-  const { toast } = useToast();
-
-  const search = () => {
-    toast({
-      description: 'Available soon!',
-    });
-  };
+  }, [platform, search]);
 
   return (
     <Button

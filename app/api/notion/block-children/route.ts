@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  let notionBlockChildren = await retrieveNotionBlockChildren(
+  const notionBlockChildren = await retrieveNotionBlockChildren(
     request.nextUrl.searchParams.get('block-id')!,
     request.nextUrl.searchParams.get('start-cursor') ?? undefined,
   );
@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
     const privateDataPlaceholder = 'REDACTED FOR PRIVACY';
 
     if (childBlock.parent.type !== 'workspace') {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       (childBlock.parent as any)[childBlock.parent.type] =
         privateDataPlaceholder;
     }
