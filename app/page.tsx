@@ -82,7 +82,7 @@ export default function Home() {
                       article as DatabaseObjectResponse,
                     )}
                     className={clsx(
-                      'block flex-auto p-8 rounded-2xl no-underline',
+                      'block flex-auto p-8 rounded-2xl no-underline hover:text-current dark:hover:text-current',
                       {
                         'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all':
                           isBrowser,
@@ -104,17 +104,17 @@ export default function Home() {
                       (article as DatabaseObjectResponse)
                         .properties as unknown as NotionArticlePageProperties
                     ).description.rich_text.length > 0 && (
-                      <P>
-                        <NotionRichTextItems blockId={article.id}>
-                          {
-                            (
-                              (article as DatabaseObjectResponse)
-                                .properties as unknown as NotionArticlePageProperties
-                            ).description.rich_text
-                          }
-                        </NotionRichTextItems>
-                      </P>
-                    )}
+                        <P>
+                          <NotionRichTextItems blockId={article.id}>
+                            {
+                              (
+                                (article as DatabaseObjectResponse)
+                                  .properties as unknown as NotionArticlePageProperties
+                              ).description.rich_text
+                            }
+                          </NotionRichTextItems>
+                        </P>
+                      )}
 
                     {isMobile && (
                       <Button className="mt-8 px-4 py-0.5 w-full">
