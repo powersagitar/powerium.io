@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { useState } from 'react';
-import { isBrowser, isMobile } from 'react-device-detect';
+import { isDesktop, isMobile } from 'react-device-detect';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import {
@@ -85,7 +85,7 @@ export default function Home() {
                       'block flex-auto p-8 rounded-2xl no-underline hover:text-current dark:hover:text-current',
                       {
                         'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all':
-                          isBrowser,
+                          isDesktop,
                       },
                     )}
                   >

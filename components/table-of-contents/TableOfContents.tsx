@@ -1,6 +1,6 @@
 'use client';
 
-import { isBrowser } from 'react-device-detect';
+import { isDesktop } from 'react-device-detect';
 
 import {
   Heading1BlockObjectResponse,
@@ -26,7 +26,7 @@ export default function TableOfContents({
     return null;
   }
 
-  if (isBrowser) {
+  if (isDesktop) {
     return <Desktop>{notionPageHeadings}</Desktop>;
   } else {
     return <Mobile>{notionPageHeadings}</Mobile>;
