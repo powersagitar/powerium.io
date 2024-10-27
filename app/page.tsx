@@ -84,8 +84,7 @@ export default function Home() {
                     className={clsx(
                       'block flex-auto p-8 rounded-2xl no-underline hover:text-current dark:hover:text-current',
                       {
-                        'hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all':
-                          isDesktop,
+                        'hover:bg-muted transition-all': isDesktop,
                       },
                     )}
                   >
