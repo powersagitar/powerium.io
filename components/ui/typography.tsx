@@ -126,3 +126,25 @@ export const Muted = forwardRef<
 });
 
 Muted.displayName = 'Muted';
+
+export const Code = forwardRef<
+  ComponentRef<'code'>,
+  ComponentPropsWithoutRef<'code'>
+>((props, ref) => {
+  const { children, className, ...otherProps } = props;
+
+  return (
+    <code
+      {...otherProps}
+      ref={ref}
+      className={cn(
+        'relative rounded bg-muted whitespace-nowrap px-[0.3rem] py-[0.2rem] font-mono font-semibold',
+        className,
+      )}
+    >
+      {children}
+    </code>
+  );
+});
+
+Code.displayName = 'Code';

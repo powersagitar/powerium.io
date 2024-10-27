@@ -3,8 +3,8 @@ import {
   TextRichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { Code } from '../ui/CommonElements';
 import { Link } from '../ui/link';
+import { Code } from '../ui/typography';
 
 export function NotionRichTextItems({
   blockId,
