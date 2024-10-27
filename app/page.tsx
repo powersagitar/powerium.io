@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { H1, H2, P } from '@/components/ui/typography';
+import { H1, H2, Muted, P } from '@/components/ui/typography';
 import {
   generateNotionPageHref,
   retrievePublishedArticles,
@@ -88,32 +88,60 @@ export default function Home() {
                       },
                     )}
                   >
-                    <H2>
-                      <NotionRichTextItems blockId={article.id}>
-                        {
-                          (
-                            (article as DatabaseObjectResponse)
-                              .properties as unknown as NotionArticlePageProperties
-                          ).title.title
-                        }
-                      </NotionRichTextItems>
-                    </H2>
+                    {(() => {
+                      const articleProperties =
+                        article.properties as unknown as NotionArticlePageProperties;
 
-                    {(
-                      (article as DatabaseObjectResponse)
-                        .properties as unknown as NotionArticlePageProperties
-                    ).description.rich_text.length > 0 && (
-                        <P>
-                          <NotionRichTextItems blockId={article.id}>
-                            {
-                              (
-                                (article as DatabaseObjectResponse)
-                                  .properties as unknown as NotionArticlePageProperties
-                              ).description.rich_text
-                            }
-                          </NotionRichTextItems>
-                        </P>
-                      )}
+                      const lastEditedDate = new Date(article.last_edited_time);
+
+                      const publishDate = new Date(
+                        articleProperties.published.date.start,
+                      );
+
+                      return (
+                        <>
+                          <H2>
+                            <NotionRichTextItems blockId={article.id}>
+                              {articleProperties.title.title}
+                            </NotionRichTextItems>
+                          </H2>
+
+                          <time dateTime={lastEditedDate.toISOString()}>
+                            {publishDate.toDateString() ===
+                            lastEditedDate.toDateString() ? (
+                              <Muted>
+                                <strong className="whitespace-nowrap">
+                                  {publishDate.toDateString()}
+                                </strong>
+                              </Muted>
+                            ) : (
+                              <Muted>
+                                <span className="whitespace-nowrap">
+                                  Published{' '}
+                                  <strong>{publishDate.toDateString()}</strong>
+                                </span>{' '}
+                                &bull;{' '}
+                                <span className="whitespace-nowrap">
+                                  Updated{' '}
+                                  <strong>
+                                    {lastEditedDate.toDateString()}
+                                  </strong>
+                                </span>
+                              </Muted>
+                            )}
+                          </time>
+
+                          {articleProperties.description.rich_text.length >
+                            0 && (
+                            <P>
+                              <NotionRichTextItems blockId={article.id}>
+                                {articleProperties.description.rich_text}
+                              </NotionRichTextItems>
+                            </P>
+                          )}
+                        </>
+                      );
+                    })()}
 
                     {isMobile && (
                       <Button className="mt-8 px-4 py-0.5 w-full">
