@@ -8,6 +8,7 @@ import Header from '@/components/header/header';
 import Providers from '@/components/providers';
 import { Link } from '@/components/ui/link';
 import { Toaster } from '@/components/ui/toaster';
+import { Muted } from '@/components/ui/typography';
 import { siteConfig } from '@/site.config';
 import '@/styles/global.css';
 
@@ -49,13 +50,13 @@ export default function RootLayout({
           <Toaster />
 
           <footer className="flex flex-col items-center py-2 text-center text-sm text-neutral-500 dark:text-neutral-400">
-            <p>
+            <Muted>
               Copyright &copy; {new Date().getUTCFullYear()}{' '}
               <Link href={siteConfig.metadata.author.url ?? '/'}>
                 <strong>{siteConfig.metadata.author.name}</strong>
               </Link>
-            </p>
-            <p>
+            </Muted>
+            <Muted>
               {/* spans for line breaking: https://stackoverflow.com/a/24357132/20143641 */}
               <span className="inline-block">Contents are licensed under</span>{' '}
               <span className="inline-block">
@@ -64,7 +65,7 @@ export default function RootLayout({
                 </Link>
               </span>{' '}
               <span className="inline-block">unless otherwise noted.</span>
-            </p>
+            </Muted>
           </footer>
         </Providers>
       </body>
