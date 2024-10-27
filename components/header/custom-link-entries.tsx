@@ -11,11 +11,11 @@ export default function CustomLinkEntries() {
   }
 
   return (
-    <nav className="hidden lg:flex items-center gap-2 text-sm lg:gap-4">
+    <nav className="hidden md:flex items-center text-sm">
       <ul>
         {Array.from(siteConfig.customPages).map(
           ([href, { navTitle: name }]) => (
-            <li className="ml-6 inline" key={href}>
+            <li className="ml-6 inline text-muted-foreground" key={href}>
               <Button variant="ghost" asChild>
                 <Link href={href} className="no-underline">
                   {name}
