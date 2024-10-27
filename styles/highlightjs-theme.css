@@ -6,14 +6,6 @@
 @import url('highlight.js/styles/github.css') screen and
   (prefers-color-scheme: light);
 
-@media (prefers-color-scheme: light) {
-  code.hljs {
-    background: #f8f8f8;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  code.hljs {
-    background: #1e1e1e;
-  }
+code.hljs {
+  background: hsl(var(--muted));
 }
