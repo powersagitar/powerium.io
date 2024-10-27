@@ -34,11 +34,9 @@ function validateSlug(slug: string[]):
   return { isValid: true, articlePublishDate, articleTitleSegments: slug[3] };
 }
 
-export async function generateMetadata(
-  props: {
-    params: Promise<{ slug: string[] }>;
-  }
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string[] }>;
+}): Promise<Metadata> {
   const params = await props.params;
   const slugValidation = validateSlug(params.slug);
 
@@ -75,11 +73,9 @@ export async function generateMetadata(
   };
 }
 
-export default async function BlogArticle(
-  props: {
-    params: Promise<{ slug: string[] }>;
-  }
-) {
+export default async function BlogArticle(props: {
+  params: Promise<{ slug: string[] }>;
+}) {
   const params = await props.params;
   const slugValidation = validateSlug(params.slug);
 
@@ -134,7 +130,7 @@ export default async function BlogArticle(
                     ) : (
                       <P>
                         <span className="whitespace-nowrap">
-                          Originally{' '}
+                          Published{' '}
                           <strong>{articlePublishDate.toDateString()}</strong>
                         </span>{' '}
                         &bull;{' '}
