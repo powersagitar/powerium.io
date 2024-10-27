@@ -107,3 +107,22 @@ export const P = forwardRef<ComponentRef<'p'>, ComponentPropsWithoutRef<'p'>>(
 );
 
 P.displayName = 'P';
+
+export const Muted = forwardRef<
+  ComponentRef<'p'>,
+  ComponentPropsWithoutRef<'p'>
+>((props, ref) => {
+  const { children, className, ...otherProps } = props;
+
+  return (
+    <p
+      {...otherProps}
+      ref={ref}
+      className={cn('text-sm text-muted-foreground', className)}
+    >
+      {children}
+    </p>
+  );
+});
+
+Muted.displayName = 'Muted';
