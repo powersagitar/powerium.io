@@ -38,7 +38,7 @@ export default function RootLayout({
       className="flex flex-col items-center scroll-smooth"
       suppressHydrationWarning
     >
-      <body className="min-h-screen flex flex-col px-4 lg:px-0 w-full lg:w-2/3 bg-white text-black dark:bg-black dark:text-white">
+      <body className="min-h-screen flex flex-col px-4 lg:px-0 w-full lg:w-2/3">
         <Providers>
           <Header />
 
