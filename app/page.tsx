@@ -75,82 +75,71 @@ export default function Home() {
             <H1 className="text-center">Blog</H1>
 
             <Ul styles={{ 'list-style-type': 'list-none', ml: 'ml-0' }}>
-              {publishedArticles.map((article) => (
-                <Li key={article.id}>
-                  <Link
-                    href={generateNotionPageHref(
-                      article as DatabaseObjectResponse,
-                    )}
-                    className={clsx(
-                      'block flex-auto p-8 rounded-2xl no-underline hover:text-current dark:hover:text-current',
-                      {
-                        'hover:bg-muted transition-all': isDesktop,
-                      },
-                    )}
-                  >
-                    {(() => {
-                      const articleProperties =
-                        article.properties as unknown as NotionArticlePageProperties;
+              {publishedArticles.map((article) => {
+                const properties =
+                  article.properties as unknown as NotionArticlePageProperties;
 
-                      const lastEditedDate = new Date(article.last_edited_time);
+                const lastEditedDate = new Date(article.last_edited_time);
 
-                      const publishDate = new Date(
-                        articleProperties.published.date.start,
-                      );
+                const publishDate = new Date(properties.published.date.start);
 
-                      return (
-                        <>
-                          <H2>
-                            <NotionRichTextItems blockId={article.id}>
-                              {articleProperties.title.title}
-                            </NotionRichTextItems>
-                          </H2>
+                return (
+                  <Li key={article.id}>
+                    <Link
+                      href={generateNotionPageHref(article)}
+                      className={clsx(
+                        'block flex-auto p-8 rounded-2xl no-underline hover:text-current dark:hover:text-current',
+                        {
+                          'hover:bg-muted transition-all': isDesktop,
+                        },
+                      )}
+                    >
+                      <H2>
+                        <NotionRichTextItems blockId={article.id}>
+                          {properties.title.title}
+                        </NotionRichTextItems>
+                      </H2>
 
-                          <time dateTime={lastEditedDate.toISOString()}>
-                            {publishDate.toDateString() ===
-                            lastEditedDate.toDateString() ? (
-                              <Muted>
-                                <strong className="whitespace-nowrap">
-                                  {publishDate.toDateString()}
-                                </strong>
-                              </Muted>
-                            ) : (
-                              <Muted>
-                                <span className="whitespace-nowrap">
-                                  Published{' '}
-                                  <strong>{publishDate.toDateString()}</strong>
-                                </span>{' '}
-                                &bull;{' '}
-                                <span className="whitespace-nowrap">
-                                  Updated{' '}
-                                  <strong>
-                                    {lastEditedDate.toDateString()}
-                                  </strong>
-                                </span>
-                              </Muted>
-                            )}
-                          </time>
+                      <time dateTime={lastEditedDate.toISOString()}>
+                        {publishDate.toDateString() ===
+                        lastEditedDate.toDateString() ? (
+                          <Muted>
+                            <strong className="whitespace-nowrap">
+                              {publishDate.toDateString()}
+                            </strong>
+                          </Muted>
+                        ) : (
+                          <Muted>
+                            <span className="whitespace-nowrap">
+                              Published{' '}
+                              <strong>{publishDate.toDateString()}</strong>
+                            </span>{' '}
+                            &bull;{' '}
+                            <span className="whitespace-nowrap">
+                              Updated{' '}
+                              <strong>{lastEditedDate.toDateString()}</strong>
+                            </span>
+                          </Muted>
+                        )}
+                      </time>
 
-                          {articleProperties.description.rich_text.length >
-                            0 && (
-                            <P>
-                              <NotionRichTextItems blockId={article.id}>
-                                {articleProperties.description.rich_text}
-                              </NotionRichTextItems>
-                            </P>
-                          )}
-                        </>
-                      );
-                    })()}
+                      {properties.description.rich_text.length > 0 && (
+                        <P>
+                          <NotionRichTextItems blockId={article.id}>
+                            {properties.description.rich_text}
+                          </NotionRichTextItems>
+                        </P>
+                      )}
 
-                    {isMobile && (
-                      <Button className="mt-8 px-4 py-0.5 w-full">
-                        Continue reading...
-                      </Button>
-                    )}
-                  </Link>
-                </Li>
-              ))}
+                      {isMobile && (
+                        <Button className="mt-8 px-4 py-0.5 w-full">
+                          Continue reading...
+                        </Button>
+                      )}
+                    </Link>
+                  </Li>
+                );
+              })}
             </Ul>
           </article>
         </InfiniteScroll>
