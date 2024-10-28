@@ -14,7 +14,7 @@ export const Link = forwardRef<
       {...otherProps}
       ref={ref}
       className={cn(
-        'underline hover:text-blue-600 dark:hover:text-blue-500',
+        'underline transition hover:text-blue-600 dark:hover:text-blue-500',
         className,
       )}
     >
