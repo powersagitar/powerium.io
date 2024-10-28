@@ -60,7 +60,7 @@ export default function RootLayout({
             </Muted>
             <Muted>
               {/* spans for line breaking: https://stackoverflow.com/a/24357132/20143641 */}
-              <span className="inline-block">Contents are licensed under</span>{' '}
+              <span className="inline-block">Articles are licensed under</span>{' '}
               <span className="inline-block">
                 <Link href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
                   <strong>CC BY-SA 4.0</strong>
