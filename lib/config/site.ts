@@ -1,11 +1,4 @@
-import 'server-only';
-
 export type SiteConfig = {
-  notionApiKey: string;
-  notionDatabaseId: string;
-
-  cacheTtl: number;
-
   url: {
     protocol: 'http' | 'https';
     hostname: string;
@@ -20,11 +13,4 @@ export type SiteConfig = {
   };
 
   githubRepository?: `${string}/${string}`;
-
-  customPages?: Map<
-    Pathname,
-    { navTitle: string; description: string; notionPageId: string }
-  >;
 };
-
-export type Pathname = `/${string}`;

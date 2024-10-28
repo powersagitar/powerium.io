@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { siteConfig } from '@/site.config';
+import { siteConfig } from '@/config/site';
 
 import CommandBar from './command-bar';
 import Desktop from './desktop';

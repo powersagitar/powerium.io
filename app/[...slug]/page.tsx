@@ -11,10 +11,11 @@ import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
 import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { H1, P } from '@/components/ui/typography';
+import { notionConfig } from '@/config/notion';
+import { siteConfig } from '@/config/site';
+import { Pathname } from '@/lib/config/notion';
 import { retrieveNotionPage as _retrieveNotionPage } from '@/lib/notion/server';
 import { NotionCommonPageProperties } from '@/lib/notion/types';
-import { Pathname } from '@/lib/site.config';
-import { siteConfig } from '@/site.config';
 
 const retrieveNotionPage = cache(
   async (
@@ -23,10 +24,10 @@ const retrieveNotionPage = cache(
     const pathname: Pathname = `/${slug.join('/')}`;
 
     const pageId =
-      siteConfig.customPages!.get(pathname)?.notionPageId ?? slug.join('');
+      notionConfig.customPages!.get(pathname)?.notionPageId ?? slug.join('');
 
     const pageIdToCanonical = new Map<string, Pathname>(
-      Array.from(siteConfig.customPages!).map(
+      Array.from(notionConfig.customPages!).map(
         ([pathname, { notionPageId }]) => [notionPageId, pathname],
       ),
     );
@@ -46,11 +47,9 @@ const retrieveNotionPage = cache(
   { revalidate: false },
 );
 
-export async function generateMetadata(
-  props: {
-    params: Promise<{ slug: string[] }>;
-  }
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string[] }>;
+}): Promise<Metadata> {
   const params = await props.params;
   const { notionPage, canonical } = await retrieveNotionPage(params.slug);
 
@@ -62,7 +61,7 @@ export async function generateMetadata(
       .map((richText) => richText.plain_text)
       .join(''),
 
-    description: siteConfig.customPages?.get(canonical!)?.description,
+    description: notionConfig.customPages?.get(canonical!)?.description,
     metadataBase: new URL(
       `${siteConfig.url.protocol}://${siteConfig.url.hostname}`,
     ),
@@ -72,11 +71,9 @@ export async function generateMetadata(
   };
 }
 
-export default async function Article(
-  props: {
-    params: Promise<{ slug: string[] }>;
-  }
-) {
+export default async function Article(props: {
+  params: Promise<{ slug: string[] }>;
+}) {
   const params = await props.params;
   const { notionPage } = await retrieveNotionPage(params.slug);
 

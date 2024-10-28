@@ -10,9 +10,9 @@ import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
 import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { H1, P } from '@/components/ui/typography';
+import { siteConfig } from '@/config/site';
 import { queryNotionDatabase } from '@/lib/notion/server';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
-import { siteConfig } from '@/site.config';
 
 function validateSlug(slug: string[]):
   | { isValid: false }

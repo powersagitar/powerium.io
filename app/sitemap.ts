@@ -7,12 +7,13 @@ import {
   PageObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
+import { notionConfig } from '@/config/notion';
+import { siteConfig } from '@/config/site';
 import { generateNotionPageHref } from '@/lib/notion/client';
 import {
   retrieveAllPublishedArticles,
   retrieveNotionPage,
 } from '@/lib/notion/server';
-import { siteConfig } from '@/site.config';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,11 +21,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publishedArticles =
     (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];
 
-  const authority = `${siteConfig.url.protocol}://${siteConfig.url.hostname}`;
-
   const auxiliaryPages: MetadataRoute.Sitemap = [
     {
-      url: authority + '/',
+      url: siteConfig.url.origin + '/',
       // publishedArticles is sorted descendingly by last_edited_time, so the first article is most recent
       lastModified: publishedArticles[0].last_edited_time,
       changeFrequency: 'monthly',
@@ -35,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articlePages: MetadataRoute.Sitemap = publishedArticles.map(
     (article) => {
       return {
-        url: authority + generateNotionPageHref(article),
+        url: siteConfig.url.origin + generateNotionPageHref(article),
         lastModified: article.last_edited_time,
         changeFrequency: 'monthly',
         priority: 0.5,
@@ -45,19 +44,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // pages specified in site.config.ts
   const customPages = (await (() => {
-    if (!siteConfig.customPages) {
+    if (!notionConfig.customPages) {
       return [];
     }
 
     return Promise.all(
-      Array.from(siteConfig.customPages).map(
+      Array.from(notionConfig.customPages).map(
         async ([path, { notionPageId }]) => {
           const notionPage = (await retrieveNotionPage(
             notionPageId,
           )) as PageObjectResponse;
 
           return {
-            url: authority + path,
+            url: siteConfig.url.origin + path,
             lastModified: notionPage.last_edited_time,
             changeFrequency: 'monthly',
             priority: 0.5,

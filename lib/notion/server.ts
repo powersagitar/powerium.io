@@ -4,14 +4,14 @@ import { unstable_cache as cache } from 'next/cache';
 
 import { Client } from '@notionhq/client';
 
-import { siteConfig } from '@/site.config';
+import { notionConfig } from '@/config/notion';
 
-const notion = new Client({ auth: siteConfig.notionApiKey });
+const notion = new Client({ auth: notionConfig.notionApiKey });
 
 export const retrievePublishedArticles = cache(
   async (startCursor?: string) => {
     return await notion.databases.query({
-      database_id: siteConfig.notionDatabaseId,
+      database_id: notionConfig.notionDatabaseId,
       start_cursor: startCursor,
       filter: {
         and: [
@@ -33,7 +33,7 @@ export const retrievePublishedArticles = cache(
     });
   },
   ['retrievePublishedArticles'],
-  { revalidate: siteConfig.cacheTtl },
+  { revalidate: notionConfig.cacheTtl },
 );
 
 export const retrieveAllPublishedArticles = cache(
@@ -56,13 +56,13 @@ export const retrieveAllPublishedArticles = cache(
       .flat();
   },
   ['retrieveAllPublishedArticles'],
-  { revalidate: siteConfig.cacheTtl },
+  { revalidate: notionConfig.cacheTtl },
 );
 
 export const queryNotionDatabase = cache(
   async (articlePublishDate: Date, articleTitleSegments: string[]) =>
     notion.databases.query({
-      database_id: siteConfig.notionDatabaseId,
+      database_id: notionConfig.notionDatabaseId,
       filter: {
         and: [
           {
@@ -85,13 +85,13 @@ export const queryNotionDatabase = cache(
       },
     }),
   ['queryNotionDatabase'],
-  { revalidate: siteConfig.cacheTtl },
+  { revalidate: notionConfig.cacheTtl },
 );
 
 export const retrieveNotionPage = cache(
   async (pageId: string) => notion.pages.retrieve({ page_id: pageId }),
   ['retrieveNotionPage'],
-  { revalidate: siteConfig.cacheTtl },
+  { revalidate: notionConfig.cacheTtl },
 );
 
 export const retrieveNotionBlockChildren = cache(
@@ -101,5 +101,5 @@ export const retrieveNotionBlockChildren = cache(
       start_cursor: startCursor,
     }),
   ['fetchNotionBlockChildren'],
-  { revalidate: siteConfig.cacheTtl },
+  { revalidate: notionConfig.cacheTtl },
 );

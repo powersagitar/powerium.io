@@ -1,27 +1,12 @@
 import 'server-only';
 
-import { SiteConfig } from '@/lib/site.config';
+import { NotionConfig } from '@/lib/config/notion';
 
-export const siteConfig: SiteConfig = {
+export const notionConfig: NotionConfig = {
   notionApiKey: process.env.NOTION_API_KEY!,
   notionDatabaseId: process.env.NOTION_DATABASE_ID!,
 
   cacheTtl: 14400,
-
-  url: {
-    protocol: 'https',
-    hostname: 'www.powerium.io',
-    origin: 'https://www.powerium.io',
-  },
-
-  metadata: {
-    author: { name: 'powersagitar', url: '/about' },
-    title: 'powerium.io',
-    description:
-      "@powersagitar's blog about software development, productivity, and many more.",
-  },
-
-  githubRepository: 'powersagitar/powerium.io',
 
   customPages: new Map([
     [

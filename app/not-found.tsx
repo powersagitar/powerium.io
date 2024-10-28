@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 import { Link } from '@/components/ui/link';
 import { H1, P } from '@/components/ui/typography';
-import { siteConfig } from '@/site.config';
+import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
   title: '404 - Page Not Found',

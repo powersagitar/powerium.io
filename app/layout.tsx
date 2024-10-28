@@ -10,7 +10,7 @@ import Providers from '@/components/providers';
 import { Link } from '@/components/ui/link';
 import { Toaster } from '@/components/ui/toaster';
 import { Muted } from '@/components/ui/typography';
-import { siteConfig } from '@/site.config';
+import { siteConfig } from '@/config/site';
 import '@/styles/global.css';
 
 export const metadata: Metadata = {

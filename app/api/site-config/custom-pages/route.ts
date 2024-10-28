@@ -1,13 +1,13 @@
 import 'server-only';
 
-import { siteConfig } from '@/site.config';
+import { notionConfig } from '@/config/notion';
 
 export function GET() {
-  if (!siteConfig.customPages) {
+  if (!notionConfig.customPages) {
     return Response.json({});
   }
 
-  const customPages = Array.from(siteConfig.customPages).map(
+  const customPages = Array.from(notionConfig.customPages).map(
     ([href, { navTitle }]) => {
       return { href: href, title: navTitle };
     },

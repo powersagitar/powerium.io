@@ -2,7 +2,7 @@ import 'server-only';
 
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
 
-import { siteConfig } from '@/site.config';
+import { siteConfig } from '@/config/site';
 
 import { Button } from '../ui/button';
 import { Link } from '../ui/link';

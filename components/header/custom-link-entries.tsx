@@ -1,19 +1,19 @@
 import 'server-only';
 
-import { siteConfig } from '@/site.config';
+import { notionConfig } from '@/config/notion';
 
 import { Button } from '../ui/button';
 import { Link } from '../ui/link';
 
 export default function CustomLinkEntries() {
-  if (!siteConfig.customPages) {
+  if (!notionConfig.customPages) {
     return null;
   }
 
   return (
     <nav className="hidden md:flex items-center text-sm">
       <ul>
-        {Array.from(siteConfig.customPages).map(
+        {Array.from(notionConfig.customPages).map(
           ([href, { navTitle: name }]) => (
             <li className="ml-6 inline text-muted-foreground" key={href}>
               <Button variant="ghost" asChild>
