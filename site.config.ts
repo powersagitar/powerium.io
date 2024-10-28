@@ -21,6 +21,8 @@ export const siteConfig: SiteConfig = {
       "@powersagitar's blog about software development, productivity, and many more.",
   },
 
+  githubRepository: 'powersagitar/powerium.io',
+
   customPages: new Map([
     [
       '/about',

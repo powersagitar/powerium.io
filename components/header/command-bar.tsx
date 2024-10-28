@@ -56,12 +56,12 @@ export default function CommandBar() {
   return (
     <Button
       variant="ghost"
-      className="hidden md:flex relative h-8 w-full justify-start rounded-[0.5rem] text-sm font-normal shadow-none sm:pr-12 md:w-40 lg:w-64"
+      className="flex relative h-8 w-full justify-start rounded-[0.5rem] text-sm font-normal shadow-none text-muted-foreground border border-muted sm:pr-12 md:w-40 lg:w-64"
       onClick={() => search()}
     >
       <span>Search...</span>
       {isDesktop && (
-        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] h-5 select-none items-center gap-1 rounded bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 hidden md:flex">
           <span className="text-xs">{platform === 'macos' ? '⌘' : 'Ctrl'}</span>
           K
         </kbd>

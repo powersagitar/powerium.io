@@ -148,3 +148,41 @@ export const Code = forwardRef<
 });
 
 Code.displayName = 'Code';
+
+export const Ul = forwardRef<
+  ComponentRef<'ul'>,
+  ComponentPropsWithoutRef<'ul'>
+>((props, ref) => {
+  const { children, className, ...otherProps } = props;
+
+  return (
+    <ul
+      {...otherProps}
+      ref={ref}
+      className={cn('my-6 ml-6 list-disc [&>li]:mt-2', className)}
+    >
+      {children}
+    </ul>
+  );
+});
+
+Ul.displayName = 'Ul';
+
+export const Large = forwardRef<
+  ComponentRef<'div'>,
+  ComponentPropsWithoutRef<'div'>
+>((props, ref) => {
+  const { children, className, ...otherProps } = props;
+
+  return (
+    <div
+      {...otherProps}
+      ref={ref}
+      className={cn('text-lg font-semibold', className)}
+    >
+      {children}
+    </div>
+  );
+});
+
+Large.displayName = 'Large';

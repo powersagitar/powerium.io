@@ -19,6 +19,8 @@ export type SiteConfig = {
     keywords?: string[];
   };
 
+  githubRepository?: `${string}/${string}`;
+
   customPages?: Map<
     Pathname,
     { navTitle: string; description: string; notionPageId: string }

@@ -12,12 +12,12 @@ import {
 
 import LazyLoader from '@/components/LazyLoader';
 import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
-import { Li, Ul } from '@/components/ui/CommonElements';
+import { Li } from '@/components/ui/CommonElements';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { H1, H2, Muted, P } from '@/components/ui/typography';
+import { H1, H2, Muted, P, Ul } from '@/components/ui/typography';
 import {
   generateNotionPageHref,
   retrievePublishedArticles,
@@ -74,7 +74,7 @@ export default function Home() {
           <article>
             <H1 className="text-center">Blog</H1>
 
-            <Ul styles={{ 'list-style-type': 'list-none', ml: 'ml-0' }}>
+            <Ul className="list-none ml-0">
               {publishedArticles.map((article) => {
                 const properties =
                   article.properties as unknown as NotionArticlePageProperties;

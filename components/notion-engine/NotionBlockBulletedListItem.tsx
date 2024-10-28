@@ -1,6 +1,7 @@
 import { BulletedListItemBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { Li, Ul } from '../ui/CommonElements';
+import { Li } from '../ui/CommonElements';
+import { Ul } from '../ui/typography';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockBulletedListItem({
@@ -9,7 +10,7 @@ export default function NotionBlockBulletedListItem({
   children: BulletedListItemBlockObjectResponse;
 }) {
   return (
-    <Ul styles={{ my: 'my-0' }}>
+    <Ul className="my-0">
       <Li>
         <NotionRichTextItems blockId={children.id}>
           {children.bulleted_list_item.rich_text}

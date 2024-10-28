@@ -53,28 +53,3 @@ export function Blockquote({ children }: { children: ReactNode }) {
     <blockquote className="mt-6 border-l-2 pl-6 italic">{children}</blockquote>
   );
 }
-
-export function Ul({
-  children,
-  styles,
-}: {
-  children: Readonly<ReactNode>;
-  styles?: {
-    ml?: 'ml-0';
-    my?: 'my-0';
-    ['list-style-type']?: 'list-none' | 'list-disc' | 'list-decimal';
-  };
-}) {
-  return (
-    <ul
-      className={clsx(
-        '[&>li]:mt-2',
-        styles?.ml ?? 'ml-6',
-        styles?.my ?? 'my-6',
-        styles?.['list-style-type'] ?? 'list-disc',
-      )}
-    >
-      {children}
-    </ul>
-  );
-}

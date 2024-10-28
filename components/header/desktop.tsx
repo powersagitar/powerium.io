@@ -4,9 +4,7 @@ import { siteConfig } from '@/site.config';
 
 import { Button } from '../ui/button';
 import { Link } from '../ui/link';
-import CommandBar from './command-bar';
 import CustomLinkEntries from './custom-link-entries';
-import ThemeToggle from './theme-toggle';
 
 export default function Desktop() {
   return (
@@ -23,11 +21,6 @@ export default function Desktop() {
           </Link>
         </Button>
         <CustomLinkEntries />
-      </div>
-
-      <div className="flex items-center">
-        <CommandBar />
-        <ThemeToggle />
       </div>
     </div>
   );

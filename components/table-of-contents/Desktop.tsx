@@ -6,8 +6,8 @@ import {
   Heading3BlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import { Ul } from '../ui/CommonElements';
 import { Separator } from '../ui/separator';
+import { Ul } from '../ui/typography';
 import { NotionPageHeadingLi } from './TableOfContents';
 
 export default function Desktop({
@@ -61,7 +61,7 @@ function Sidebar({
 
       <Separator className="my-2" />
 
-      <Ul styles={{ my: 'my-0' }}>
+      <Ul className="my-0">
         <NotionPageHeadingLi>{notionPageHeadings}</NotionPageHeadingLi>
       </Ul>
     </nav>
