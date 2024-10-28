@@ -3,6 +3,7 @@ import 'server-only';
 import { Metadata } from 'next';
 
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Header from '@/components/header/header';
 import Providers from '@/components/providers';
@@ -45,6 +46,7 @@ export default function RootLayout({
           <main className="mt-32 mb-20 scroll-mt-32 flex grow flex-col items-center">
             {children}
             <Analytics />
+            <SpeedInsights />
           </main>
 
           <Toaster />
