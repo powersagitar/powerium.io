@@ -33,6 +33,7 @@ export default function Mobile() {
               e.preventDefault();
               alert('Coming soon!');
             }}
+            aria-label="Open left sidebar (mobile only)"
           >
             <HamburgerMenuIcon />
           </Button>
