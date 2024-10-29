@@ -27,7 +27,7 @@ export default function NotionPage({
   const [lazyLoaderId, setLazyLoaderId] = useState(0);
 
   return (
-    <article className="whitespace-pre-wrap">
+    <article className="whitespace-pre-wrap px-3">
       {children.pageHeader}
 
       <LazyLoader
