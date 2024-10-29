@@ -27,7 +27,14 @@ import { NotionRichTextItems } from '../notion-engine/NotionRichText';
 import { Button } from '../ui/button';
 import { Link } from '../ui/link';
 import { ScrollArea } from '../ui/scroll-area';
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '../ui/sheet';
 import { Large, Ul } from '../ui/typography';
 
 export default function Mobile() {
@@ -51,25 +58,30 @@ export default function Mobile() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTitle>
-        <SheetTrigger asChild>
-          <Button
-            variant="ghost"
-            className="px-3 mx-1 flex md:hidden"
-            aria-label="Open left sidebar (mobile only)"
-          >
-            <HamburgerMenuIcon />
-          </Button>
-        </SheetTrigger>
-      </SheetTitle>
-      <SheetContent side="left" className="pr-0">
-        <MobileLink
-          href="/"
-          className="no-underline w-full"
-          onOpenChange={setOpen}
+      <SheetTrigger asChild>
+        <Button
+          variant="ghost"
+          className="px-3 mx-1 flex md:hidden"
+          aria-label="Open left sidebar (mobile only)"
         >
-          <Large>{siteConfig.name}</Large>
-        </MobileLink>
+          <HamburgerMenuIcon />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="pr-0">
+        <SheetHeader>
+          <SheetTitle>
+            <MobileLink
+              href="/"
+              className="no-underline w-full text-left"
+              onOpenChange={setOpen}
+            >
+              <Large>{siteConfig.name}</Large>
+            </MobileLink>
+          </SheetTitle>
+          <SheetDescription className="sr-only">
+            {siteConfig.metadata.description}
+          </SheetDescription>
+        </SheetHeader>
         <ScrollArea>
           <Ul className="list-none">
             {customPages.map(({ href, title }) => (
