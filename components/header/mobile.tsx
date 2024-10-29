@@ -1,6 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  SetStateAction,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react';
 
 import {
   DatabaseObjectResponse,
@@ -16,6 +23,7 @@ import {
 } from '@/lib/notion/client';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 
+import { NotionRichTextItems } from '../notion-engine/NotionRichText';
 import { Button } from '../ui/button';
 import { Link } from '../ui/link';
 import { ScrollArea } from '../ui/scroll-area';
@@ -54,17 +62,25 @@ export default function Mobile() {
           </Button>
         </SheetTrigger>
       </SheetTitle>
-      <SheetContent side="left" className="pr-0" onClick={() => setOpen(false)}>
-        <Link href="/" className="no-underline w-full">
+      <SheetContent side="left" className="pr-0">
+        <MobileLink
+          href="/"
+          className="no-underline w-full"
+          onOpenChange={setOpen}
+        >
           <Large>{siteConfig.name}</Large>
-        </Link>
+        </MobileLink>
         <ScrollArea>
           <Ul className="list-none">
             {customPages.map(({ href, title }) => (
               <li key={href}>
-                <Link href={href} className="no-underline">
+                <MobileLink
+                  href={href}
+                  className="no-underline"
+                  onOpenChange={setOpen}
+                >
                   {title}
-                </Link>
+                </MobileLink>
               </li>
             ))}
           </Ul>
@@ -79,14 +95,15 @@ export default function Mobile() {
 
                   return (
                     <li key={'sidebar-nav-' + article.id}>
-                      <Link
+                      <MobileLink
                         href={generateNotionPageHref(article)}
                         className="no-underline text-muted-foreground"
+                        onOpenChange={setOpen}
                       >
-                        {properties.title.title
-                          .map((richText) => richText.plain_text)
-                          .join('')}
-                      </Link>
+                        <NotionRichTextItems blockId={article.id}>
+                          {properties.title.title}
+                        </NotionRichTextItems>
+                      </MobileLink>
                     </li>
                   );
                 })}
@@ -98,3 +115,20 @@ export default function Mobile() {
     </Sheet>
   );
 }
+
+const MobileLink = forwardRef<
+  ComponentRef<typeof Link>,
+  ComponentPropsWithoutRef<typeof Link> & {
+    onOpenChange: (value: SetStateAction<boolean>) => void;
+  }
+>((props, ref) => {
+  const { children, onOpenChange, ...otherProps } = props;
+
+  return (
+    <Link {...otherProps} ref={ref} onClick={() => onOpenChange(false)}>
+      {children}
+    </Link>
+  );
+});
+
+MobileLink.displayName = 'MobileLink';
