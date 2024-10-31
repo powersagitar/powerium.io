@@ -75,7 +75,7 @@ export default function Mobile() {
               className="no-underline w-full text-left"
               onOpenChange={setOpen}
             >
-              <Large>{siteConfig.name}</Large>
+              <Large>{siteConfig.metadata.title}</Large>
             </MobileLink>
           </SheetTitle>
           <SheetDescription className="sr-only">

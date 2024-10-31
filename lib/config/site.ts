@@ -1,6 +1,4 @@
 export type SiteConfig = {
-  name: string;
-
   url: {
     protocol: 'http' | 'https';
     hostname: string;
