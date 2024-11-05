@@ -47,7 +47,7 @@ export default function RootLayout({
 
           <Toaster />
 
-          <footer className="flex flex-col items-center py-2 text-center text-sm text-neutral-500 dark:text-neutral-400">
+          <footer className="flex flex-col items-center py-2 text-center text-sm">
             <Muted>
               Copyright &copy; {new Date().getUTCFullYear()}{' '}
               <Link href={siteConfig.metadata.author.url ?? '/'}>
