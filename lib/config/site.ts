@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 export type SiteConfig = {
   url: {
     protocol: 'http' | 'https';
@@ -10,6 +12,7 @@ export type SiteConfig = {
     title: string;
     description: string;
     keywords?: string[];
+    icons?: Metadata['icons'];
   };
 
   githubRepository?: `${string}/${string}`;

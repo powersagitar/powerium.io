@@ -12,6 +12,11 @@ export const siteConfig: SiteConfig = {
     title: 'powerium.io',
     description:
       "@powersagitar's blog about software development, productivity, and many more.",
+    icons: {
+      icon: '/favicon.svg',
+      shortcut: '/favicon.svg',
+      apple: '/favicon.svg',
+    },
   },
 
   githubRepository: 'powersagitar/powerium.io',

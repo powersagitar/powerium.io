@@ -107,7 +107,7 @@ Install the integration you just created to the database.
 Please follow
 [_Add connections to pages_](https://www.notion.so/help/add-and-manage-connections-with-the-api#add-connections-to-pages).
 
-### Adjusting Site Configuration
+### Configuring the Site
 
 All configurations are in files under [`/config`](./config).
 
@@ -127,16 +127,22 @@ All configurations are in files under [`/config`](./config).
 
 #### `/config/site.ts`
 
-| Key                    | Description                                             |
-| :--------------------- | :------------------------------------------------------ |
-| `url.protocol`         | Protocol of the site.                                   |
-| `url.hostname`         | Hostname of the site.                                   |
-| `url.origin`           | Origin of the site.                                     |
-| `metadata.author`      | Default authorship information of site and posts.       |
-| `metadata.title`       | Title of the site.                                      |
-| `metadata.description` | Description of the site.                                |
-| `metadata.keywords?`   | Keywords of the site.                                   |
-| `githubRepository?`    | GitHub repository where the source of the site resides. |
+| Key                    | Description                                                                                                                                         |
+| :--------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url.protocol`         | Protocol of the site.                                                                                                                               |
+| `url.hostname`         | Hostname of the site.                                                                                                                               |
+| `url.origin`           | Origin of the site.                                                                                                                                 |
+| `metadata.author`      | Default authorship information of site and posts.                                                                                                   |
+| `metadata.title`       | Title of the site.                                                                                                                                  |
+| `metadata.description` | Description of the site.                                                                                                                            |
+| `metadata.keywords?`   | Keywords of the site.                                                                                                                               |
+| `metadata.icons?`      | Favicon of the site. Please check [Next.js Docs](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#icons) for more information. |
+| `githubRepository?`    | GitHub repository where the source of the site resides.                                                                                             |
+
+#### Favicon
+
+Please go to [this site](https://realfavicongenerator.net/favicon/nextjs) to
+generate the favicon for the site. Guide is also provided there.
 
 ## Running a Local Development Server
 

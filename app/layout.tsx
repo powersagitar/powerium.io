@@ -21,11 +21,7 @@ export const metadata: Metadata = {
   referrer: 'origin-when-cross-origin',
   keywords: siteConfig.metadata.keywords,
   authors: [siteConfig.metadata.author],
-  icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
-  },
+  icons: siteConfig.metadata.icons,
 };
 
 export default function RootLayout({
