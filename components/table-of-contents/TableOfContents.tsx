@@ -10,8 +10,8 @@ import {
 
 import { NotionRichTextItems } from '../notion-engine/NotionRichText';
 import { Link } from '../ui/link';
-import Desktop from './Desktop';
 import Mobile from './Mobile';
+import Desktop from './desktop';
 
 export default function TableOfContents({
   children: notionPageHeadings,
