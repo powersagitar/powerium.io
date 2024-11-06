@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { Fragment, useState, type JSX } from 'react';
+import { Fragment, type JSX, useState } from 'react';
 
 import {
   BlockObjectResponse,
@@ -12,6 +12,7 @@ import {
   Heading1BlockObjectResponse,
   Heading2BlockObjectResponse,
   Heading3BlockObjectResponse,
+  ImageBlockObjectResponse,
   ParagraphBlockObjectResponse,
   QuoteBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
@@ -27,6 +28,7 @@ import NotionBlockEmbed from './NotionBlockEmbed';
 import NotionBlockHeading1 from './NotionBlockHeading1';
 import NotionBlockHeading2 from './NotionBlockHeading2';
 import NotionBlockHeading3 from './NotionBlockHeading3';
+import NotionBlockImage from './NotionBlockImage';
 import NotionBlockParagraph from './NotionBlockParagraph';
 import NotionBlockQuote from './NotionBlockQuote';
 
@@ -90,13 +92,16 @@ const blockRenderers: {
     </NotionBlockCallout>
   ),
 
+  image: (block) => (
+    <NotionBlockImage image={block as ImageBlockObjectResponse} />
+  ),
+
   synced_block: () => null,
 
   // unimplemented
   audio: (block) => defaultBlockRenderer(block.type),
   bookmark: (block) => defaultBlockRenderer(block.type),
   file: (block) => defaultBlockRenderer(block.type),
-  image: (block) => defaultBlockRenderer(block.type),
   pdf: (block) => defaultBlockRenderer(block.type),
   video: (block) => defaultBlockRenderer(block.type),
   table_of_contents: (block) => defaultBlockRenderer(block.type),
