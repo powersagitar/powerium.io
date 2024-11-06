@@ -26,6 +26,15 @@ For an exhaustive list of all types of Notion blocks, please refer to their
 For the types of blocks that are supported, please check
 [`/components/notion-engine`](./components/notion-engine/).
 
+## Preview
+
+| Home                                                                                                       | Blog Post                                                                                                                                                                                                                                                                                                         |
+| :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![home page of powerium.io](https://image.thum.io/get/https://www.powerium.io/)](https://www.powerium.io) | [![a blog post on powerium.io](https://image.thum.io/get/https://www.powerium.io/blog/2024/02/01/decoding-conditionals-a-dive-into-if-else-switch-case-lookup-tables-and-interfaces)](https://www.powerium.io/blog/2024/02/01/decoding-conditionals-a-dive-into-if-else-switch-case-lookup-tables-and-interfaces) |
+
+Above are snapshots of [powerium.io](https://www.powerium.io) at this very
+moment. It's deployed straight from `main`, without any hidden magic.
+
 ## Getting Started
 
 ### Creating a Notion Integration
