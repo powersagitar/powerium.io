@@ -66,7 +66,7 @@ function Hint({
         {notionHeadings.map((heading) => (
           <div
             key={'toc-desktop-hint-' + heading.id}
-            className={cn('rounded-full h-1 bg-muted', {
+            className={cn('rounded-full h-1 bg-muted transition', {
               'bg-foreground': heading.id === activeHeading,
               'w-9': heading.type === 'heading_1',
               'w-6': heading.type === 'heading_2',
