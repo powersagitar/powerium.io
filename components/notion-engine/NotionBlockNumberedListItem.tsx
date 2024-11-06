@@ -1,0 +1,20 @@
+import { NumberedListItemBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+
+import { Ul } from '../ui/typography';
+import { NotionRichTextItems } from './NotionRichText';
+
+export default function NotionBlockNumberedListItem({
+  numberedListItem,
+}: {
+  numberedListItem: NumberedListItemBlockObjectResponse;
+}) {
+  return (
+    <Ul>
+      <li>
+        <NotionRichTextItems blockId={numberedListItem.id}>
+          {numberedListItem.numbered_list_item.rich_text}
+        </NotionRichTextItems>
+      </li>
+    </Ul>
+  );
+}

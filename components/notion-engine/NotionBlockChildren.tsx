@@ -13,6 +13,7 @@ import {
   Heading2BlockObjectResponse,
   Heading3BlockObjectResponse,
   ImageBlockObjectResponse,
+  NumberedListItemBlockObjectResponse,
   ParagraphBlockObjectResponse,
   QuoteBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
@@ -29,6 +30,7 @@ import NotionBlockHeading1 from './NotionBlockHeading1';
 import NotionBlockHeading2 from './NotionBlockHeading2';
 import NotionBlockHeading3 from './NotionBlockHeading3';
 import NotionBlockImage from './NotionBlockImage';
+import NotionBlockNumberedListItem from './NotionBlockNumberedListItem';
 import NotionBlockParagraph from './NotionBlockParagraph';
 import NotionBlockQuote from './NotionBlockQuote';
 
@@ -98,6 +100,12 @@ const blockRenderers: {
 
   synced_block: () => null,
 
+  numbered_list_item: (block) => (
+    <NotionBlockNumberedListItem
+      numberedListItem={block as NumberedListItemBlockObjectResponse}
+    />
+  ),
+
   // unimplemented
   audio: (block) => defaultBlockRenderer(block.type),
   bookmark: (block) => defaultBlockRenderer(block.type),
@@ -109,7 +117,6 @@ const blockRenderers: {
   to_do: (block) => defaultBlockRenderer(block.type),
   unsupported: (block) => defaultBlockRenderer(block.type),
   equation: (block) => defaultBlockRenderer(block.type),
-  numbered_list_item: (block) => defaultBlockRenderer(block.type),
   breadcrumb: (block) => defaultBlockRenderer(block.type),
   child_database: (block) => defaultBlockRenderer(block.type),
   child_page: (block) => defaultBlockRenderer(block.type),
