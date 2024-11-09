@@ -1,4 +1,4 @@
-import { type JSX, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   TableBlockObjectResponse,
@@ -8,7 +8,7 @@ import {
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
 import LazyLoader from '../LazyLoader';
-import { Table, Td, Th, Tr } from '../ui/typography';
+import { Table, Td, Tr } from '../ui/typography';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockTable({
