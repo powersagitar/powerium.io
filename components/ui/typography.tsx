@@ -186,3 +186,83 @@ export const Large = forwardRef<
 });
 
 Large.displayName = 'Large';
+
+export const Table = forwardRef<
+  ComponentRef<'table'>,
+  ComponentPropsWithoutRef<'table'>
+>((props, ref) => {
+  const { children, className, ...otherProps } = props;
+
+  return (
+    <div className={cn('my-6 w-full overflow-y-auto', className)}>
+      <table className="w-full" ref={ref} {...otherProps}>
+        {children}
+      </table>
+    </div>
+  );
+});
+
+Table.displayName = 'Table';
+
+export const Tr = forwardRef<
+  ComponentRef<'tr'>,
+  ComponentPropsWithoutRef<'tr'>
+>((props, ref) => {
+  const { children, className, ...otherProps } = props;
+
+  return (
+    <tr
+      className={cn('m-0 border-t p-0 even:bg-muted', className)}
+      ref={ref}
+      {...otherProps}
+    >
+      {children}
+    </tr>
+  );
+});
+
+Tr.displayName = 'Tr';
+
+export const Th = forwardRef<
+  ComponentRef<'th'>,
+  ComponentPropsWithoutRef<'th'>
+>((props, ref) => {
+  const { children, className, ...otherProps } = props;
+
+  return (
+    <th
+      className={cn(
+        'border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right',
+        className,
+      )}
+      ref={ref}
+      {...otherProps}
+    >
+      {children}
+    </th>
+  );
+});
+
+Th.displayName = 'Th';
+
+export const Td = forwardRef<
+  ComponentRef<'td'>,
+  ComponentPropsWithoutRef<'td'>
+>((props, ref) => {
+  const { children, className, ...otherProps } = props;
+
+  return (
+    <td
+      className={cn(
+        'border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right',
+        className,
+      )}
+      ref={ref}
+      {...otherProps}
+    >
+      {children}
+    </td>
+  );
+});
+
+Td.displayName = 'Td';

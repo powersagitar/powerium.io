@@ -16,6 +16,7 @@ import {
   NumberedListItemBlockObjectResponse,
   ParagraphBlockObjectResponse,
   QuoteBlockObjectResponse,
+  TableBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
 import LazyLoader from '@/components/LazyLoader';
@@ -33,6 +34,7 @@ import NotionBlockImage from './NotionBlockImage';
 import NotionBlockNumberedListItem from './NotionBlockNumberedListItem';
 import NotionBlockParagraph from './NotionBlockParagraph';
 import NotionBlockQuote from './NotionBlockQuote';
+import NotionBlockTable from './NotionBlockTable';
 
 const defaultBlockRenderer = (type: BlockObjectResponse['type']) => {
   console.log(`${type} is not yet implemented.`);
@@ -106,6 +108,12 @@ const blockRenderers: {
     />
   ),
 
+  table: (block) => (
+    <NotionBlockTable table={block as TableBlockObjectResponse} />
+  ),
+
+  table_row: () => null,
+
   // unimplemented
   audio: (block) => defaultBlockRenderer(block.type),
   bookmark: (block) => defaultBlockRenderer(block.type),
@@ -124,10 +132,10 @@ const blockRenderers: {
   column_list: (block) => defaultBlockRenderer(block.type),
   link_preview: (block) => defaultBlockRenderer(block.type),
   link_to_page: (block) => defaultBlockRenderer(block.type),
-  table: (block) => defaultBlockRenderer(block.type),
-  table_row: (block) => defaultBlockRenderer(block.type),
   template: (block) => defaultBlockRenderer(block.type),
 };
+
+const noFetchChildren = new Set<BlockObjectResponse['type']>(['table']);
 
 export default function NotionBlockChildren({
   children,
@@ -159,7 +167,7 @@ export default function NotionBlockChildren({
       <Fragment key={block.id}>
         {blockRenderers[block.type](block)}
 
-        {block.has_children && (
+        {block.has_children && !noFetchChildren.has(block.type) && (
           <div
             className={clsx({
               'ml-[1rem]': block.type !== 'synced_block',
