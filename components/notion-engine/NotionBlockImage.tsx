@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { ImageBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export default function NotionBlockImage({
@@ -11,7 +13,7 @@ export default function NotionBlockImage({
 
   if (image.image.type === 'external') {
     return (
-      <img
+      <Image
         src={image.image.external.url}
         width={1920}
         height={1080}
