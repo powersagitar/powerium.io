@@ -8,7 +8,7 @@ import {
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
 import LazyLoader from '../LazyLoader';
-import { Table, Td, Tr } from '../ui/typography';
+import { Table, Td, Th, Tr } from '../ui/typography';
 import { NotionRichTextItems } from './NotionRichText';
 
 export default function NotionBlockTable({
@@ -22,19 +22,6 @@ export default function NotionBlockTable({
   );
   const [lazyLoaderId, setLazyLoaderId] = useState(0);
 
-  const cells = rows.map((row) => (
-    <Tr key={row.id}>
-      {row.table_row.cells.map((cell, cellIdx) => (
-        <Td key={`${row.id}-${cellIdx}`}>
-          <NotionRichTextItems blockId={`${row.id}-${cellIdx}`}>
-            {cell}
-          </NotionRichTextItems>
-        </Td>
-      ))}
-    </Tr>
-  ));
-
-  // todo: MARK: Implement table with column and row headers
   return (
     <LazyLoader
       load={() => {
@@ -53,7 +40,32 @@ export default function NotionBlockTable({
       id={lazyLoaderId}
     >
       <Table>
-        <tbody>{...cells}</tbody>
+        <tbody>
+          {rows.map((row, rowIdx) => (
+            <Tr key={row.id}>
+              {row.table_row.cells.map((richTextCell, cellIdx) => {
+                const key = `${row.id}-${cellIdx}`;
+
+                const cell = (
+                  <NotionRichTextItems blockId={`${row.id}-${cellIdx}`}>
+                    {richTextCell}
+                  </NotionRichTextItems>
+                );
+
+                const isColHeader =
+                  table.table.has_column_header && rowIdx === 0;
+
+                const isRowHeader = table.table.has_row_header && cellIdx === 0;
+
+                if (isColHeader || isRowHeader) {
+                  return <Th key={key}>{cell}</Th>;
+                }
+
+                return <Td key={key}>{cell}</Td>;
+              })}
+            </Tr>
+          ))}
+        </tbody>
       </Table>
     </LazyLoader>
   );
