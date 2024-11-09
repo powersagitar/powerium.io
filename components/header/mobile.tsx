@@ -112,7 +112,7 @@ export default function Mobile() {
                         className="no-underline text-muted-foreground"
                         onOpenChange={setOpen}
                       >
-                        <NotionRichTextItems blockId={article.id}>
+                        <NotionRichTextItems baseKey={article.id}>
                           {properties.title.title}
                         </NotionRichTextItems>
                       </MobileLink>

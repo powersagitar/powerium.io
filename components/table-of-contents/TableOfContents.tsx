@@ -48,7 +48,7 @@ export function NotionPageHeadingLi({
         return (
           <li className="mb-1.5" key={`toc-${heading.id}`}>
             <Link href={`#${heading.id}`} className="no-underline">
-              <NotionRichTextItems blockId={heading.id}>
+              <NotionRichTextItems baseKey={heading.id}>
                 {(heading as Heading1BlockObjectResponse).heading_1.rich_text}
               </NotionRichTextItems>
             </Link>
@@ -59,7 +59,7 @@ export function NotionPageHeadingLi({
         return (
           <li className="mb-1.5 ml-4" key={`toc-${heading.id}`}>
             <Link href={`#${heading.id}`} className="no-underline">
-              <NotionRichTextItems blockId={heading.id}>
+              <NotionRichTextItems baseKey={heading.id}>
                 {(heading as Heading2BlockObjectResponse).heading_2.rich_text}
               </NotionRichTextItems>
             </Link>
@@ -70,7 +70,7 @@ export function NotionPageHeadingLi({
         return (
           <li className="mb-1.5 ml-8" key={`toc-${heading.id}`}>
             <Link href={`#${heading.id}`} className="no-underline">
-              <NotionRichTextItems blockId={heading.id}>
+              <NotionRichTextItems baseKey={heading.id}>
                 {(heading as Heading3BlockObjectResponse).heading_3.rich_text}
               </NotionRichTextItems>
             </Link>

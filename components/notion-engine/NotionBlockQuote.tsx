@@ -12,7 +12,7 @@ export default function NotionBlockQuote({
   return (
     <Blockquote>
       <P>
-        <NotionRichTextItems blockId={children.id}>
+        <NotionRichTextItems baseKey={children.id}>
           {children.quote.rich_text}
         </NotionRichTextItems>
       </P>

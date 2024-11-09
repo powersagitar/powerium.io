@@ -105,7 +105,7 @@ export default async function BlogArticle(props: {
         pageHeader: (
           <div className="text-center">
             <H1 className="mb-4">
-              <NotionRichTextItems blockId={notionPage.id}>
+              <NotionRichTextItems baseKey={notionPage.id}>
                 {
                   (
                     notionPage.properties as unknown as NotionArticlePageProperties
@@ -153,7 +153,7 @@ export default async function BlogArticle(props: {
                   return (
                     <>
                       {authors.length > 0 ? (
-                        <NotionRichTextItems blockId={notionPage.id}>
+                        <NotionRichTextItems baseKey={notionPage.id}>
                           {authors}
                         </NotionRichTextItems>
                       ) : (

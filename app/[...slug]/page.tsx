@@ -83,7 +83,7 @@ export default async function Article(props: {
         pageHeader: (
           <div className="text-center">
             <H1 className="mb-4">
-              <NotionRichTextItems blockId={notionPage.id}>
+              <NotionRichTextItems baseKey={notionPage.id}>
                 {
                   (
                     notionPage.properties as unknown as NotionCommonPageProperties

@@ -108,7 +108,7 @@ function TableOfContents({
             })}
           >
             <Link href={'#' + heading.id} className="no-underline">
-              <NotionRichTextItems blockId={heading.id}>
+              <NotionRichTextItems baseKey={heading.id}>
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {(heading as any)[heading.type].rich_text}
               </NotionRichTextItems>

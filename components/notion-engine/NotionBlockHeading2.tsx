@@ -10,7 +10,7 @@ export default function NotionBlockHeading2({
 }) {
   return (
     <H3 id={children.id}>
-      <NotionRichTextItems blockId={children.id}>
+      <NotionRichTextItems baseKey={children.id}>
         {children.heading_2.rich_text}
       </NotionRichTextItems>
     </H3>

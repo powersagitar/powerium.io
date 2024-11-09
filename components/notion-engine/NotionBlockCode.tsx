@@ -40,7 +40,7 @@ export default function NotionBlockCode({
             className={`language-${languageIdentifierMap.get(children.code.language.toLowerCase()) ?? children.code.language.toLowerCase()} rounded-2xl text-wrap [overflow-wrap:anywhere]`}
             ref={codeRef}
           >
-            <NotionRichTextItems blockId={children.id}>
+            <NotionRichTextItems baseKey={children.id}>
               {children.code.rich_text}
             </NotionRichTextItems>
           </code>
@@ -49,7 +49,7 @@ export default function NotionBlockCode({
 
       {children.code.caption.length > 0 && (
         <Figcaption>
-          <NotionRichTextItems blockId={children.id}>
+          <NotionRichTextItems baseKey={children.id}>
             {children.code.caption}
           </NotionRichTextItems>
         </Figcaption>

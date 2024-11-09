@@ -10,7 +10,7 @@ export default function NotionBlockParagraph({
 }) {
   return (
     <P>
-      <NotionRichTextItems blockId={children.id}>
+      <NotionRichTextItems baseKey={children.id}>
         {children.paragraph.rich_text}
       </NotionRichTextItems>
     </P>

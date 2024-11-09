@@ -95,7 +95,7 @@ export default function Home() {
                       )}
                     >
                       <H2>
-                        <NotionRichTextItems blockId={article.id}>
+                        <NotionRichTextItems baseKey={article.id}>
                           {properties.title.title}
                         </NotionRichTextItems>
                       </H2>
@@ -125,7 +125,7 @@ export default function Home() {
 
                       {properties.description.rich_text.length > 0 && (
                         <P>
-                          <NotionRichTextItems blockId={article.id}>
+                          <NotionRichTextItems baseKey={article.id}>
                             {properties.description.rich_text}
                           </NotionRichTextItems>
                         </P>

@@ -13,7 +13,7 @@ export default function NotionBlockEmbed({
       <Iframe src={children.embed.url} />
       {children.embed.caption.length > 0 && (
         <Figcaption>
-          <NotionRichTextItems blockId={children.id}>
+          <NotionRichTextItems baseKey={children.id}>
             {children.embed.caption}
           </NotionRichTextItems>
         </Figcaption>

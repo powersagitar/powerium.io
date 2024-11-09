@@ -47,7 +47,7 @@ export default function NotionBlockTable({
                 const key = `${row.id}-${cellIdx}`;
 
                 const cell = (
-                  <NotionRichTextItems blockId={`${row.id}-${cellIdx}`}>
+                  <NotionRichTextItems baseKey={`${row.id}-${cellIdx}`}>
                     {richTextCell}
                   </NotionRichTextItems>
                 );

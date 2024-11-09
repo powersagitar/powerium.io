@@ -7,10 +7,10 @@ import { Link } from '../ui/link';
 import { Code } from '../ui/typography';
 
 export function NotionRichTextItems({
-  blockId,
+  baseKey,
   children: notionRichText,
 }: {
-  blockId: string;
+  baseKey: string;
   children: RichTextItemResponse[];
 }) {
   return (
@@ -19,7 +19,7 @@ export function NotionRichTextItems({
         switch (richTextItem.type) {
           case 'text':
             return (
-              <NotionTextRichTextItem key={`rich-text-${blockId}-${idx}`}>
+              <NotionTextRichTextItem key={`rich-text-${baseKey}-${idx}`}>
                 {richTextItem}
               </NotionTextRichTextItem>
             );

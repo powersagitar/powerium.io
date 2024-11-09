@@ -12,7 +12,7 @@ export default function NotionBlockBulletedListItem({
   return (
     <Ul className="my-0">
       <Li>
-        <NotionRichTextItems blockId={children.id}>
+        <NotionRichTextItems baseKey={children.id}>
           {children.bulleted_list_item.rich_text}
         </NotionRichTextItems>
       </Li>
