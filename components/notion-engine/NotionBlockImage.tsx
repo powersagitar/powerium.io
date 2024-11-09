@@ -18,7 +18,7 @@ export default function NotionBlockImage({
         width={1920}
         height={1080}
         alt={caption.length > 0 ? caption : 'Image loaded from Notion'}
-        className="mt-6 rounded"
+        className="my-6 rounded"
       />
     );
   }
