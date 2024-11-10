@@ -14,6 +14,7 @@ import {
   QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
+import { TabsContent } from '@radix-ui/react-tabs';
 
 import { siteConfig } from '@/config/site';
 import fetchCustomPages from '@/lib/fetch-custom-pages';
@@ -25,16 +26,15 @@ import { NotionArticlePageProperties } from '@/lib/notion/types';
 
 import { NotionRichTextItems } from '../notion-engine/NotionRichText';
 import { Button } from '../ui/button';
-import { Link } from '../ui/link';
-import { ScrollArea } from '../ui/scroll-area';
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '../ui/sheet';
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '../ui/drawer';
+import { Link } from '../ui/link';
+import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { Large, Ul } from '../ui/typography';
 
 export default function Mobile() {
@@ -57,8 +57,8 @@ export default function Mobile() {
   }, []);
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>
         <Button
           variant="ghost"
           className="px-3 mx-1 flex md:hidden"
@@ -66,65 +66,68 @@ export default function Mobile() {
         >
           <HamburgerMenuIcon />
         </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="pr-0">
-        <SheetHeader>
-          <SheetTitle>
-            <MobileLink
-              href="/"
-              className="no-underline w-full text-left"
-              onOpenChange={setOpen}
-            >
-              <Large>{siteConfig.metadata.title}</Large>
-            </MobileLink>
-          </SheetTitle>
-          <SheetDescription className="sr-only">
-            {siteConfig.metadata.description}
-          </SheetDescription>
-        </SheetHeader>
-        <ScrollArea>
-          <Ul className="list-none">
-            {customPages.map(({ href, title }) => (
-              <li key={href}>
+      </DrawerTrigger>
+      <DrawerContent>
+        <Tabs defaultValue="nav" className="mt-2">
+          <TabsList className="w-full grid grid-cols-2">
+            <TabsTrigger value="toc">Table of Contents</TabsTrigger>
+            <TabsTrigger value="nav">Navigation</TabsTrigger>
+          </TabsList>
+          <TabsContent value="nav">
+            <DrawerHeader className="px-0 ml-6">
+              <DrawerTitle>
                 <MobileLink
-                  href={href}
-                  className="no-underline"
+                  href="/"
+                  className="no-underline text-left"
                   onOpenChange={setOpen}
                 >
-                  {title}
+                  <Large>{siteConfig.metadata.title}</Large>
                 </MobileLink>
-              </li>
-            ))}
-          </Ul>
+              </DrawerTitle>
+            </DrawerHeader>
+            <Ul className="list-none my-0 mb-6">
+              {customPages.map(({ href, title }) => (
+                <li key={href}>
+                  <MobileLink
+                    href={href}
+                    className="no-underline"
+                    onOpenChange={setOpen}
+                  >
+                    {title}
+                  </MobileLink>
+                </li>
+              ))}
+            </Ul>
 
-          {blogArticles.length > 0 && (
-            <>
-              <Large className="text-base">Recent Posts</Large>
-              <Ul className="list-none">
-                {blogArticles.map((article) => {
-                  const properties =
-                    article.properties as unknown as NotionArticlePageProperties;
+            {blogArticles.length > 0 && (
+              <>
+                <Large className="text-base ml-6">Recent Posts</Large>
+                <Ul className="list-none">
+                  {blogArticles.map((article) => {
+                    const properties =
+                      article.properties as unknown as NotionArticlePageProperties;
 
-                  return (
-                    <li key={'sidebar-nav-' + article.id}>
-                      <MobileLink
-                        href={generateNotionPageHref(article)}
-                        className="no-underline text-muted-foreground"
-                        onOpenChange={setOpen}
-                      >
-                        <NotionRichTextItems baseKey={article.id}>
-                          {properties.title.title}
-                        </NotionRichTextItems>
-                      </MobileLink>
-                    </li>
-                  );
-                })}
-              </Ul>
-            </>
-          )}
-        </ScrollArea>
-      </SheetContent>
-    </Sheet>
+                    return (
+                      <li key={'sidebar-nav-' + article.id}>
+                        <MobileLink
+                          href={generateNotionPageHref(article)}
+                          className="no-underline text-muted-foreground"
+                          onOpenChange={setOpen}
+                        >
+                          <NotionRichTextItems baseKey={article.id}>
+                            {properties.title.title}
+                          </NotionRichTextItems>
+                        </MobileLink>
+                      </li>
+                    );
+                  })}
+                </Ul>
+              </>
+            )}
+          </TabsContent>
+        </Tabs>
+      </DrawerContent>
+    </Drawer>
   );
 }
 
