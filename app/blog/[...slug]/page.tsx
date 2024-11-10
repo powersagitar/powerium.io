@@ -103,7 +103,7 @@ export default async function BlogArticle(props: {
     <NotionPage>
       {{
         pageHeader: (
-          <div className="text-center">
+          <div className="text-center [overflow-wrap:anywhere]">
             <H1 className="mb-4">
               <NotionRichTextItems baseKey={notionPage.id}>
                 {
