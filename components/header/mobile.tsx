@@ -5,6 +5,7 @@ import {
   ComponentRef,
   SetStateAction,
   forwardRef,
+  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -25,6 +26,8 @@ import {
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 
 import { NotionRichTextItems } from '../notion-engine/NotionRichText';
+import { NotionHeadingsContext } from '../notion-headings-context';
+import TOCEntries from '../table-of-contents/commons';
 import { Button } from '../ui/button';
 import {
   Drawer,
@@ -43,6 +46,7 @@ export default function Mobile() {
   const [blogArticles, setBlogArticles] = useState<DatabaseObjectResponse[]>(
     [],
   );
+  const { notionHeadings } = useContext(NotionHeadingsContext);
 
   useEffect(() => {
     fetchCustomPages().then((customPagesT) => {
@@ -68,10 +72,15 @@ export default function Mobile() {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <Tabs defaultValue="nav" className="mt-2 max-h-[75vh] overflow-y-auto">
+        <Tabs
+          defaultValue={notionHeadings.length < 1 ? 'nav' : 'toc'}
+          className="mt-2 max-h-[75vh] overflow-y-auto"
+        >
           <TabsList className="sticky top-0 w-full grid grid-cols-2 z-50">
-            <TabsTrigger value="toc">Table of Contents</TabsTrigger>
             <TabsTrigger value="nav">Navigation</TabsTrigger>
+            <TabsTrigger value="toc" disabled={notionHeadings.length < 1}>
+              Table of Contents
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="nav">
             <DrawerHeader className="px-0 ml-6">
@@ -124,6 +133,14 @@ export default function Mobile() {
                 </Ul>
               </>
             )}
+          </TabsContent>
+          <TabsContent value="toc">
+            <DrawerHeader className="px-0 ml-6">
+              <DrawerTitle className="text-left">Table of Contents</DrawerTitle>
+            </DrawerHeader>
+            <div onClick={() => setOpen(false)}>
+              <TOCEntries />
+            </div>
           </TabsContent>
         </Tabs>
       </DrawerContent>

@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { isDesktop, isMobile } from 'react-device-detect';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -12,6 +12,7 @@ import {
 
 import LazyLoader from '@/components/LazyLoader';
 import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
+import { NotionHeadingsContext } from '@/components/notion-headings-context';
 import { Li } from '@/components/ui/CommonElements';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
@@ -34,6 +35,10 @@ export default function Home() {
   );
 
   const [lazyLoaderId, setLazyLoaderId] = useState(0);
+
+  const { setNotionHeadings } = useContext(NotionHeadingsContext);
+
+  useEffect(() => setNotionHeadings([]), [setNotionHeadings]);
 
   return (
     <LazyLoader

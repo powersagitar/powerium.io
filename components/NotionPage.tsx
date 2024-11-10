@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
@@ -8,7 +8,8 @@ import LazyLoader from '@/components/LazyLoader';
 import NotionBlockChildren from '@/components/notion-engine/NotionBlockChildren';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
-import TableOfContents from './table-of-contents/TableOfContents';
+import { NotionHeadingsContext } from './notion-headings-context';
+import TOCDesktop from './table-of-contents/desktop';
 
 export default function NotionPage({
   children,
@@ -25,6 +26,21 @@ export default function NotionPage({
   );
 
   const [lazyLoaderId, setLazyLoaderId] = useState(0);
+
+  const { setNotionHeadings } = useContext(NotionHeadingsContext);
+
+  useEffect(
+    () =>
+      setNotionHeadings(
+        pageChildren.filter(
+          (childBlock) =>
+            childBlock.type === 'heading_1' ||
+            childBlock.type === 'heading_2' ||
+            childBlock.type === 'heading_3',
+        ),
+      ),
+    [pageChildren, setNotionHeadings],
+  );
 
   return (
     <article className="whitespace-pre-wrap px-3 w-full">
@@ -48,14 +64,7 @@ export default function NotionPage({
         }}
         id={lazyLoaderId}
       >
-        <TableOfContents>
-          {pageChildren.filter(
-            (childBlock) =>
-              childBlock.type === 'heading_1' ||
-              childBlock.type === 'heading_2' ||
-              childBlock.type === 'heading_3',
-          )}
-        </TableOfContents>
+        <TOCDesktop />
 
         <NotionBlockChildren>
           {{

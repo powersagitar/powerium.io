@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import {
   BlockObjectResponse,
@@ -9,33 +9,31 @@ import {
 
 import { cn } from '@/lib/utils';
 
-import { NotionRichTextItems } from '../notion-engine/NotionRichText';
-import { Link } from '../ui/link';
-import { Ul } from '../ui/typography';
+import { NotionHeadingsContext } from '../notion-headings-context';
+import TOCEntries from './commons';
 
-export default function Desktop({
-  children: notionPageHeadings,
-}: {
-  children: (
-    | Heading1BlockObjectResponse
-    | Heading2BlockObjectResponse
-    | Heading3BlockObjectResponse
-  )[];
-}) {
-  const activeHeading = useActiveHeading(notionPageHeadings);
+export default function TOCDesktop() {
+  const { notionHeadings } = useContext(NotionHeadingsContext);
+
+  const activeHeading = useActiveHeading();
   const [isTocOpen, setIsTocOpen] = useState(false);
 
+  if (notionHeadings.length < 1) {
+    return null;
+  }
+
   return (
-    <aside className="flex fixed right-0 top-0 bottom-0 items-center z-50">
+    <aside className="hidden md:flex fixed right-0 top-0 bottom-0 items-center z-50">
       {isTocOpen ? (
-        <TableOfContents
-          notionHeadings={notionPageHeadings}
-          activeHeading={activeHeading}
+        <nav
+          className="flex flex-col backdrop-blur pr-6 py-3 rounded max-w-prose max-h-[75vh] overflow-y-scroll"
           onMouseLeave={() => setIsTocOpen(false)}
-        />
+        >
+          <TOCEntries activeHeading={activeHeading} />
+        </nav>
       ) : (
         <Hint
-          notionHeadings={notionPageHeadings}
+          notionHeadings={notionHeadings}
           activeHeading={activeHeading}
           onMouseEnter={() => setIsTocOpen(true)}
         />
@@ -54,7 +52,7 @@ function Hint({
     | Heading2BlockObjectResponse
     | Heading3BlockObjectResponse
   )[];
-  activeHeading: BlockObjectResponse['id'];
+  activeHeading?: BlockObjectResponse['id'];
   onMouseEnter: () => void;
 }) {
   return (
@@ -67,7 +65,8 @@ function Hint({
           <div
             key={'toc-desktop-hint-' + heading.id}
             className={cn('rounded-full h-1 bg-muted transition', {
-              'bg-foreground': heading.id === activeHeading,
+              'bg-foreground':
+                activeHeading !== undefined && activeHeading === heading.id,
               'w-9': heading.type === 'heading_1',
               'w-6': heading.type === 'heading_2',
               'w-3': heading.type === 'heading_3',
@@ -79,59 +78,12 @@ function Hint({
   );
 }
 
-function TableOfContents({
-  notionHeadings,
-  activeHeading,
-  onMouseLeave,
-}: {
-  notionHeadings: (
-    | Heading1BlockObjectResponse
-    | Heading2BlockObjectResponse
-    | Heading3BlockObjectResponse
-  )[];
-  activeHeading: BlockObjectResponse['id'];
-  onMouseLeave: () => void;
-}) {
-  return (
-    <nav
-      className="flex flex-col backdrop-blur py-2 pl-2 pr-3 rounded max-w-prose max-h-[75vh] overflow-y-scroll"
-      onMouseLeave={onMouseLeave}
-    >
-      <Ul className="my-0">
-        {notionHeadings.map((heading) => (
-          <li
-            key={'toc-desktop-' + heading.id}
-            className={cn('mb-1.5 first:mt-0 last:mb-0', {
-              'text-muted-foreground': activeHeading !== heading.id,
-              'ml-3': heading.type === 'heading_2',
-              'ml-6': heading.type === 'heading_3',
-            })}
-          >
-            <Link href={'#' + heading.id} className="no-underline">
-              <NotionRichTextItems baseKey={heading.id}>
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {(heading as any)[heading.type].rich_text}
-              </NotionRichTextItems>
-            </Link>
-          </li>
-        ))}
-      </Ul>
-    </nav>
-  );
-}
+function useActiveHeading() {
+  const { notionHeadings } = useContext(NotionHeadingsContext);
 
-function useActiveHeading(
-  notionHeadings: (
-    | Heading1BlockObjectResponse
-    | Heading2BlockObjectResponse
-    | Heading3BlockObjectResponse
-  )[],
-) {
-  console.assert(notionHeadings.length > 0);
-
-  const [activeHeading, setActiveHeading] = useState<BlockObjectResponse['id']>(
-    notionHeadings[0].id,
-  );
+  const [activeHeading, setActiveHeading] = useState<
+    BlockObjectResponse['id'] | undefined
+  >(undefined);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
