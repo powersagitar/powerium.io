@@ -88,7 +88,7 @@ export default function Home() {
                     <Link
                       href={generateNotionPageHref(article)}
                       className={clsx(
-                        'block flex-auto p-8 rounded-2xl no-underline hover:text-current dark:hover:text-current',
+                        'block flex-auto p-8 rounded-2xl no-underline hover:text-current [overflow-wrap:anywhere]',
                         {
                           'hover:bg-muted transition-all': isDesktop,
                         },
