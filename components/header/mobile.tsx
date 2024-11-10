@@ -68,8 +68,8 @@ export default function Mobile() {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <Tabs defaultValue="nav" className="mt-2">
-          <TabsList className="w-full grid grid-cols-2">
+        <Tabs defaultValue="nav" className="mt-2 max-h-[75vh] overflow-y-auto">
+          <TabsList className="sticky top-0 w-full grid grid-cols-2 z-50">
             <TabsTrigger value="toc">Table of Contents</TabsTrigger>
             <TabsTrigger value="nav">Navigation</TabsTrigger>
           </TabsList>
