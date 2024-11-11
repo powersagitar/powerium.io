@@ -1,6 +1,6 @@
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 export function POST() {
-  revalidateTag('notion');
+  revalidatePath('/', 'layout');
   return new Response(undefined, { status: 200 });
 }

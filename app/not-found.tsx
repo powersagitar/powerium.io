@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
-  fetch(new URL('api/caching/revlidate-notion', siteConfig.url.origin), {
+  fetch(new URL('api/caching/revlidate-all', siteConfig.url.origin), {
     method: 'POST',
   });
 

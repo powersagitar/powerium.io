@@ -32,7 +32,7 @@ export const retrievePublishedArticles = cache(
       ],
     });
   },
-  ['retrievePublishedArticles', 'notion'],
+  ['retrievePublishedArticles'],
   { revalidate: notionConfig.cacheTtl },
 );
 
@@ -55,7 +55,7 @@ export const retrieveAllPublishedArticles = cache(
       .map((publishedArticles) => publishedArticles.results)
       .flat();
   },
-  ['retrieveAllPublishedArticles', 'notion'],
+  ['retrieveAllPublishedArticles'],
   { revalidate: notionConfig.cacheTtl },
 );
 
@@ -84,13 +84,13 @@ export const queryNotionDatabase = cache(
         ],
       },
     }),
-  ['queryNotionDatabase', 'notion'],
+  ['queryNotionDatabase'],
   { revalidate: notionConfig.cacheTtl },
 );
 
 export const retrieveNotionPage = cache(
   async (pageId: string) => notion.pages.retrieve({ page_id: pageId }),
-  ['retrieveNotionPage', 'notion'],
+  ['retrieveNotionPage'],
   { revalidate: notionConfig.cacheTtl },
 );
 
@@ -100,6 +100,6 @@ export const retrieveNotionBlockChildren = cache(
       block_id: blockId,
       start_cursor: startCursor,
     }),
-  ['fetchNotionBlockChildren', 'notion'],
+  ['fetchNotionBlockChildren'],
   { revalidate: notionConfig.cacheTtl },
 );
