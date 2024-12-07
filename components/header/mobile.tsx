@@ -76,7 +76,7 @@ export default function Mobile() {
           defaultValue={notionHeadings.length < 1 ? 'nav' : 'toc'}
           className="mt-2 max-h-[75vh] overflow-y-auto"
         >
-          <TabsList className="sticky top-0 w-full grid grid-cols-2 z-50">
+          <TabsList className="sticky top-0 w-11/12 mx-auto grid grid-cols-2 z-50">
             <TabsTrigger value="nav">Navigation</TabsTrigger>
             <TabsTrigger value="toc" disabled={notionHeadings.length < 1}>
               Table of Contents
