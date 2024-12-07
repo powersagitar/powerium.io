@@ -17,7 +17,7 @@ export default function Providers({
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <NotionHeadingsContext.Provider
+      <NotionHeadingsContext
         value={{
           notionHeadings,
           setNotionHeadings: (value: SetStateAction<NotionHeading[]>) =>
@@ -25,7 +25,7 @@ export default function Providers({
         }}
       >
         {children}
-      </NotionHeadingsContext.Provider>
+      </NotionHeadingsContext>
     </ThemeProvider>
   );
 }
