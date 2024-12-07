@@ -37,7 +37,7 @@ export default function NotionBlockCode({
 
         <Pre>
           <code
-            className={`language-${languageIdentifierMap.get(children.code.language.toLowerCase()) ?? children.code.language.toLowerCase()} rounded text-wrap [overflow-wrap:anywhere]`}
+            className={`language-${languageIdentifierMap.get(children.code.language.toLowerCase()) ?? children.code.language.toLowerCase()} rounded w-full overflow-x-scroll`}
             ref={codeRef}
           >
             <NotionRichTextItems baseKey={children.id}>
