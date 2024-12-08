@@ -1,4 +1,4 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["highlightjs", "notionhq"]
+  "cSpell.words": ["highlightjs", "notionhq", "turbopack"]
 }
