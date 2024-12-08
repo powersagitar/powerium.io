@@ -51,6 +51,7 @@ export default function NotionBlockCode({
         <span className="absolute top-[0.5em] right-[1em] font-light text-xs backdrop-blur">
           {copyIndicator === 'copy' ? (
             <CopyIcon
+              className="cursor-pointer"
               onClick={() => {
                 setCopyIndicator('copying');
                 navigator.clipboard
@@ -66,7 +67,7 @@ export default function NotionBlockCode({
               }}
             />
           ) : copyIndicator === 'copying' ? (
-            <UpdateIcon className="animate-spin" />
+            <UpdateIcon className="animate-spin cursor-wait" />
           ) : copyIndicator === 'copied' ? (
             <CheckIcon />
           ) : (
