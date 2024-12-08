@@ -1,4 +1,10 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["highlightjs", "notionhq", "turbopack"]
+  "cSpell.words": [
+    "highlightjs",
+    "notionhq",
+    "styleguide",
+    "trivago",
+    "turbopack"
+  ]
 }
