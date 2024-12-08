@@ -1,9 +1,10 @@
 'use client';
 
 import highlightjs from 'highlight.js';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { CodeBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { CheckIcon, CopyIcon, UpdateIcon } from '@radix-ui/react-icons';
 
 import '@/styles/highlightjs-theme.css';
 
@@ -28,11 +29,49 @@ export default function NotionBlockCode({
 
   const languageIdentifierMap = new Map([['plain text', 'plaintext']]);
 
+  const [copyIndicator, setCopyIndicator] = useState<
+    'language' | 'copy' | 'copying' | 'copied'
+  >('language');
+
   return (
     <>
-      <div className="relative">
-        <span className="absolute top-[0.5em] right-[1em] font-light text-xs">
-          {children.code.language}
+      <div
+        className="relative"
+        onMouseEnter={() => {
+          if (copyIndicator === 'language') {
+            setCopyIndicator('copy');
+          }
+        }}
+        onMouseLeave={() => {
+          if (copyIndicator === 'copy') {
+            setCopyIndicator('language');
+          }
+        }}
+      >
+        <span className="absolute top-[0.5em] right-[1em] font-light text-xs backdrop-blur">
+          {copyIndicator === 'copy' ? (
+            <CopyIcon
+              onClick={() => {
+                setCopyIndicator('copying');
+                navigator.clipboard
+                  .writeText(
+                    children.code.rich_text
+                      .map((richText) => richText.plain_text)
+                      .join(''),
+                  )
+                  .then(() => {
+                    setCopyIndicator('copied');
+                    setTimeout(() => setCopyIndicator('language'), 3000);
+                  });
+              }}
+            />
+          ) : copyIndicator === 'copying' ? (
+            <UpdateIcon className="animate-spin" />
+          ) : copyIndicator === 'copied' ? (
+            <CheckIcon />
+          ) : (
+            children.code.language
+          )}
         </span>
 
         <Pre>
