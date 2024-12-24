@@ -9,7 +9,7 @@ import {
 
 import { cn } from '@/lib/utils';
 
-import { NotionHeadingsContext } from '../notion-headings-context';
+import { NotionHeadingsContext } from '../contexts/notion-headings';
 import TOCEntries from './commons';
 
 export default function TOCDesktop() {
@@ -42,11 +42,7 @@ export default function TOCDesktop() {
   );
 }
 
-function Hint({
-  notionHeadings,
-  activeHeading,
-  onMouseEnter,
-}: {
+type HintProps = {
   notionHeadings: (
     | Heading1BlockObjectResponse
     | Heading2BlockObjectResponse
@@ -54,7 +50,9 @@ function Hint({
   )[];
   activeHeading?: BlockObjectResponse['id'];
   onMouseEnter: () => void;
-}) {
+};
+
+function Hint({ notionHeadings, activeHeading, onMouseEnter }: HintProps) {
   return (
     <div className="max-h-[75vh] overflow-y-hidden">
       <div

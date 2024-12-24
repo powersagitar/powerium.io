@@ -25,8 +25,8 @@ import {
 } from '@/lib/notion/client';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 
+import { NotionHeadingsContext } from '../contexts/notion-headings';
 import { NotionRichTextItems } from '../notion-engine/NotionRichText';
-import { NotionHeadingsContext } from '../notion-headings-context';
 import TOCEntries from '../table-of-contents/commons';
 import { Button } from '../ui/button';
 import {

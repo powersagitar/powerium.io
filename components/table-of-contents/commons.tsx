@@ -3,16 +3,16 @@ import { useContext } from 'react';
 
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
+import { NotionHeadingsContext } from '../contexts/notion-headings';
 import { NotionRichTextItems } from '../notion-engine/NotionRichText';
-import { NotionHeadingsContext } from '../notion-headings-context';
 import { Link } from '../ui/link';
 import { Ul } from '../ui/typography';
 
-export default function TOCEntries({
-  activeHeading,
-}: {
+type TOCEntriesProps = {
   activeHeading?: BlockObjectResponse['id'];
-}) {
+};
+
+export default function TOCEntries({ activeHeading }: TOCEntriesProps) {
   const { notionHeadings } = useContext(NotionHeadingsContext);
 
   return (

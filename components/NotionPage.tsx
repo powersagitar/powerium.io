@@ -8,17 +8,17 @@ import LazyLoader from '@/components/LazyLoader';
 import NotionBlockChildren from '@/components/notion-engine/NotionBlockChildren';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
-import { NotionHeadingsContext } from './notion-headings-context';
+import { NotionHeadingsContext } from './contexts/notion-headings';
 import TOCDesktop from './table-of-contents/desktop';
 
-export default function NotionPage({
-  children,
-}: {
+type NotionPageProps = {
   children: {
-    pageHeader: ReactNode;
+    pageHeader: Readonly<ReactNode>;
     pageId: string;
   };
-}) {
+};
+
+export default function NotionPage({ children }: NotionPageProps) {
   const [pageChildren, setPageChildren] = useState<BlockObjectResponse[]>([]);
 
   const [startCursor, setStartCursor] = useState<string | null | undefined>(

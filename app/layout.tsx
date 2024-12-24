@@ -1,12 +1,13 @@
 import 'server-only';
 
 import { Metadata } from 'next';
+import React from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+import Providers from '@/components/contexts/providers';
 import Header from '@/components/header/header';
-import Providers from '@/components/providers';
 import { Link } from '@/components/ui/link';
 import { Toaster } from '@/components/ui/toaster';
 import { Muted } from '@/components/ui/typography';
@@ -24,11 +25,9 @@ export const metadata: Metadata = {
   icons: siteConfig.metadata.icons,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: Readonly<React.ReactNode>;
-}) {
+type RootLayoutProps = { children: Readonly<React.ReactNode> };
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="en"

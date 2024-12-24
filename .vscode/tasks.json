@@ -1,31 +1,26 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Build prod artifacts",
-            "type": "shell",
-            "command": "bun",
-            "args": [
-                "run",
-                "build",
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "Start prod server",
-            "type": "shell",
-            "dependsOn": "Build prod artifacts",
-            "command": "bun",
-            "args": [
-                "start",
-            ],
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        }
-    ]
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build prod artifacts",
+      "type": "shell",
+      "command": "bun",
+      "args": ["run", "build"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Start prod server",
+      "type": "shell",
+      "dependsOn": "Build prod artifacts",
+      "command": "bun",
+      "args": ["start"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
 }

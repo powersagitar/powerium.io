@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "type": "command",
+      "name": "package: dev",
+      "program": "bun",
+      "args": ["--bun", "run", "dev"]
+    },
+    {
+      "type": "command",
+      "name": "package: prettier",
+      "program": "bun",
+      "args": ["run", "prettier"]
+    }
+  ]
+}

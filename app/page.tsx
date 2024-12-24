@@ -11,8 +11,8 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import LazyLoader from '@/components/LazyLoader';
+import { NotionHeadingsContext } from '@/components/contexts/notion-headings';
 import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
-import { NotionHeadingsContext } from '@/components/notion-headings-context';
 import { Li } from '@/components/ui/CommonElements';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
