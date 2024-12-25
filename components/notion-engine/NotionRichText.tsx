@@ -1,4 +1,10 @@
+'use client';
+
+import katex from 'katex';
+import { useEffect, useRef } from 'react';
+
 import {
+  EquationRichTextItemResponse,
   RichTextItemResponse,
   TextRichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints';
@@ -19,9 +25,18 @@ export function NotionRichTextItems({
         switch (richTextItem.type) {
           case 'text':
             return (
-              <NotionTextRichTextItem key={`rich-text-${baseKey}-${idx}`}>
-                {richTextItem}
-              </NotionTextRichTextItem>
+              <TextRenderer
+                key={`rich-text-${baseKey}-${idx}`}
+                text={richTextItem}
+              />
+            );
+
+          case 'equation':
+            return (
+              <EquationRenderer
+                key={`rich-text-${baseKey}-${idx}`}
+                equation={richTextItem}
+              />
             );
 
           default:
@@ -32,40 +47,61 @@ export function NotionRichTextItems({
   );
 }
 
-function NotionTextRichTextItem({
-  children: textRichTextItem,
-}: {
-  children: TextRichTextItemResponse;
-}) {
-  let element = <>{textRichTextItem.plain_text}</>;
+type TextRendererProps = {
+  text: TextRichTextItemResponse;
+};
 
-  if (textRichTextItem.annotations.bold) {
+function TextRenderer({ text }: TextRendererProps) {
+  let element = <>{text.plain_text}</>;
+
+  if (text.annotations.bold) {
     element = <strong>{element}</strong>;
   }
 
-  if (textRichTextItem.annotations.code) {
+  if (text.annotations.code) {
     element = <Code>{element}</Code>;
   }
 
-  if (textRichTextItem.annotations.color) {
+  if (text.annotations.color) {
     // TODO: not implemented
   }
 
-  if (textRichTextItem.annotations.italic) {
+  if (text.annotations.italic) {
     element = <em>{element}</em>;
   }
 
-  if (textRichTextItem.annotations.strikethrough) {
+  if (text.annotations.strikethrough) {
     element = <s>{element}</s>;
   }
 
-  if (textRichTextItem.annotations.underline) {
+  if (text.annotations.underline) {
     element = <u>{element}</u>;
   }
 
-  if (textRichTextItem.text.link) {
-    element = <Link href={textRichTextItem.text.link.url}>{element}</Link>;
+  if (text.text.link) {
+    element = <Link href={text.text.link.url}>{element}</Link>;
   }
 
   return element;
+}
+
+type EquationRendererProps = {
+  equation: EquationRichTextItemResponse;
+};
+
+function EquationRenderer({ equation }: EquationRendererProps) {
+  const expressionRef = useRef(null);
+
+  useEffect(() => {
+    const expression = expressionRef.current;
+
+    if (expression) {
+      katex.render(equation.equation.expression, expression, {
+        throwOnError: false,
+        output: 'mathml',
+      });
+    }
+  }, [equation, expressionRef]);
+
+  return <span ref={expressionRef} />;
 }
