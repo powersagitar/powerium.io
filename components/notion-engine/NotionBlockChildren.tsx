@@ -10,6 +10,7 @@ import {
   CalloutBlockObjectResponse,
   CodeBlockObjectResponse,
   EmbedBlockObjectResponse,
+  FileBlockObjectResponse,
   Heading1BlockObjectResponse,
   Heading2BlockObjectResponse,
   Heading3BlockObjectResponse,
@@ -28,6 +29,7 @@ import NotionBlockCallout from '@/components/notion-engine/NotionBlockCallout';
 import NotionBlockCode from '@/components/notion-engine/NotionBlockCode';
 import NotionBlockDivider from '@/components/notion-engine/NotionBlockDivider';
 import NotionBlockEmbed from '@/components/notion-engine/NotionBlockEmbed';
+import NotionBlockFile from '@/components/notion-engine/NotionBlockFile';
 import NotionBlockHeading1 from '@/components/notion-engine/NotionBlockHeading1';
 import NotionBlockHeading2 from '@/components/notion-engine/NotionBlockHeading2';
 import NotionBlockHeading3 from '@/components/notion-engine/NotionBlockHeading3';
@@ -123,13 +125,14 @@ const blockRenderers: {
     <NotionBlockVideo video={block as VideoBlockObjectResponse} />
   ),
 
+  file: (block) => <NotionBlockFile file={block as FileBlockObjectResponse} />,
+
   table_row: () => null,
 
   table_of_contents: () => null,
 
   // unimplemented
   bookmark: (block) => defaultBlockRenderer(block.type),
-  file: (block) => defaultBlockRenderer(block.type),
   pdf: (block) => defaultBlockRenderer(block.type),
   toggle: (block) => defaultBlockRenderer(block.type),
   to_do: (block) => defaultBlockRenderer(block.type),
