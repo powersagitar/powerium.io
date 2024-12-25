@@ -10,6 +10,7 @@ import {
   CalloutBlockObjectResponse,
   CodeBlockObjectResponse,
   EmbedBlockObjectResponse,
+  EquationBlockObjectResponse,
   FileBlockObjectResponse,
   Heading1BlockObjectResponse,
   Heading2BlockObjectResponse,
@@ -29,6 +30,7 @@ import NotionBlockCallout from '@/components/notion-engine/NotionBlockCallout';
 import NotionBlockCode from '@/components/notion-engine/NotionBlockCode';
 import NotionBlockDivider from '@/components/notion-engine/NotionBlockDivider';
 import NotionBlockEmbed from '@/components/notion-engine/NotionBlockEmbed';
+import NotionBlockEquation from '@/components/notion-engine/NotionBlockEquation';
 import NotionBlockFile from '@/components/notion-engine/NotionBlockFile';
 import NotionBlockHeading1 from '@/components/notion-engine/NotionBlockHeading1';
 import NotionBlockHeading2 from '@/components/notion-engine/NotionBlockHeading2';
@@ -127,6 +129,10 @@ const blockRenderers: {
 
   file: (block) => <NotionBlockFile file={block as FileBlockObjectResponse} />,
 
+  equation: (block) => (
+    <NotionBlockEquation equation={block as EquationBlockObjectResponse} />
+  ),
+
   table_row: () => null,
 
   table_of_contents: () => null,
@@ -137,7 +143,6 @@ const blockRenderers: {
   toggle: (block) => defaultBlockRenderer(block.type),
   to_do: (block) => defaultBlockRenderer(block.type),
   unsupported: (block) => defaultBlockRenderer(block.type),
-  equation: (block) => defaultBlockRenderer(block.type),
   breadcrumb: (block) => defaultBlockRenderer(block.type),
   child_database: (block) => defaultBlockRenderer(block.type),
   child_page: (block) => defaultBlockRenderer(block.type),
