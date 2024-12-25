@@ -18,6 +18,7 @@ import {
   ParagraphBlockObjectResponse,
   QuoteBlockObjectResponse,
   TableBlockObjectResponse,
+  VideoBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
 import LazyLoader from '@/components/LazyLoader';
@@ -35,6 +36,7 @@ import NotionBlockNumberedListItem from '@/components/notion-engine/NotionBlockN
 import NotionBlockParagraph from '@/components/notion-engine/NotionBlockParagraph';
 import NotionBlockQuote from '@/components/notion-engine/NotionBlockQuote';
 import NotionBlockTable from '@/components/notion-engine/NotionBlockTable';
+import NotionBlockVideo from '@/components/notion-engine/NotionBlockVideo';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
 const defaultBlockRenderer = (type: BlockObjectResponse['type']) => {
@@ -117,6 +119,10 @@ const blockRenderers: {
     <NotionBlockAudio audio={block as AudioBlockObjectResponse} />
   ),
 
+  video: (block) => (
+    <NotionBlockVideo video={block as VideoBlockObjectResponse} />
+  ),
+
   table_row: () => null,
 
   table_of_contents: () => null,
@@ -125,7 +131,6 @@ const blockRenderers: {
   bookmark: (block) => defaultBlockRenderer(block.type),
   file: (block) => defaultBlockRenderer(block.type),
   pdf: (block) => defaultBlockRenderer(block.type),
-  video: (block) => defaultBlockRenderer(block.type),
   toggle: (block) => defaultBlockRenderer(block.type),
   to_do: (block) => defaultBlockRenderer(block.type),
   unsupported: (block) => defaultBlockRenderer(block.type),
