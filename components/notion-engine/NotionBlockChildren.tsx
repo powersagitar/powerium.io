@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { Fragment, type JSX, useState } from 'react';
 
 import {
+  AudioBlockObjectResponse,
   BlockObjectResponse,
   BulletedListItemBlockObjectResponse,
   CalloutBlockObjectResponse,
@@ -20,21 +21,21 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import LazyLoader from '@/components/LazyLoader';
+import NotionBlockAudio from '@/components/notion-engine/NotionBlockAudio';
+import NotionBlockBulletedListItem from '@/components/notion-engine/NotionBlockBulletedListItem';
+import NotionBlockCallout from '@/components/notion-engine/NotionBlockCallout';
+import NotionBlockCode from '@/components/notion-engine/NotionBlockCode';
+import NotionBlockDivider from '@/components/notion-engine/NotionBlockDivider';
+import NotionBlockEmbed from '@/components/notion-engine/NotionBlockEmbed';
+import NotionBlockHeading1 from '@/components/notion-engine/NotionBlockHeading1';
+import NotionBlockHeading2 from '@/components/notion-engine/NotionBlockHeading2';
+import NotionBlockHeading3 from '@/components/notion-engine/NotionBlockHeading3';
+import NotionBlockImage from '@/components/notion-engine/NotionBlockImage';
+import NotionBlockNumberedListItem from '@/components/notion-engine/NotionBlockNumberedListItem';
+import NotionBlockParagraph from '@/components/notion-engine/NotionBlockParagraph';
+import NotionBlockQuote from '@/components/notion-engine/NotionBlockQuote';
+import NotionBlockTable from '@/components/notion-engine/NotionBlockTable';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
-
-import NotionBlockBulletedListItem from './NotionBlockBulletedListItem';
-import NotionBlockCallout from './NotionBlockCallout';
-import NotionBlockCode from './NotionBlockCode';
-import NotionBlockDivider from './NotionBlockDivider';
-import NotionBlockEmbed from './NotionBlockEmbed';
-import NotionBlockHeading1 from './NotionBlockHeading1';
-import NotionBlockHeading2 from './NotionBlockHeading2';
-import NotionBlockHeading3 from './NotionBlockHeading3';
-import NotionBlockImage from './NotionBlockImage';
-import NotionBlockNumberedListItem from './NotionBlockNumberedListItem';
-import NotionBlockParagraph from './NotionBlockParagraph';
-import NotionBlockQuote from './NotionBlockQuote';
-import NotionBlockTable from './NotionBlockTable';
 
 const defaultBlockRenderer = (type: BlockObjectResponse['type']) => {
   console.log(`${type} is not yet implemented.`);
@@ -112,12 +113,15 @@ const blockRenderers: {
     <NotionBlockTable table={block as TableBlockObjectResponse} />
   ),
 
+  audio: (block) => (
+    <NotionBlockAudio audio={block as AudioBlockObjectResponse} />
+  ),
+
   table_row: () => null,
 
   table_of_contents: () => null,
 
   // unimplemented
-  audio: (block) => defaultBlockRenderer(block.type),
   bookmark: (block) => defaultBlockRenderer(block.type),
   file: (block) => defaultBlockRenderer(block.type),
   pdf: (block) => defaultBlockRenderer(block.type),
@@ -135,7 +139,6 @@ const blockRenderers: {
   link_to_page: (block) => defaultBlockRenderer(block.type),
   template: (block) => defaultBlockRenderer(block.type),
 };
-
 const noFetchChildren = new Set<BlockObjectResponse['type']>(['table']);
 
 type NotionBlockChildrenProps = {
