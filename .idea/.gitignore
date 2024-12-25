@@ -6,3 +6,6 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# Custom ignored files
+/git_toolbox_prj.xml

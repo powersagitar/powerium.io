@@ -114,13 +114,14 @@ const blockRenderers: {
 
   table_row: () => null,
 
+  table_of_contents: () => null,
+
   // unimplemented
   audio: (block) => defaultBlockRenderer(block.type),
   bookmark: (block) => defaultBlockRenderer(block.type),
   file: (block) => defaultBlockRenderer(block.type),
   pdf: (block) => defaultBlockRenderer(block.type),
   video: (block) => defaultBlockRenderer(block.type),
-  table_of_contents: (block) => defaultBlockRenderer(block.type),
   toggle: (block) => defaultBlockRenderer(block.type),
   to_do: (block) => defaultBlockRenderer(block.type),
   unsupported: (block) => defaultBlockRenderer(block.type),
