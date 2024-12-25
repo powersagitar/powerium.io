@@ -137,9 +137,7 @@ const blockRenderers: {
 
 const noFetchChildren = new Set<BlockObjectResponse['type']>(['table']);
 
-export default function NotionBlockChildren({
-  children,
-}: {
+type NotionBlockChildrenProps = {
   children:
     | {
         fetching: 'automatic';
@@ -149,7 +147,11 @@ export default function NotionBlockChildren({
         fetching: 'manual';
         blockChildren: BlockObjectResponse[];
       };
-}) {
+};
+
+export default function NotionBlockChildren({
+  children,
+}: NotionBlockChildrenProps) {
   const [automaticBlockChildren, setAutomaticBlockChildren] = useState<
     BlockObjectResponse[]
   >([]);
