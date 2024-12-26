@@ -32,8 +32,8 @@ export function Iframe({
       title={'Generic HTML iframe tag'}
       width={width ?? '100%'}
       height={height ?? '500rem'}
-      loading='lazy'
-      className='rounded'
+      loading="lazy"
+      className="rounded"
     />
   );
 }
