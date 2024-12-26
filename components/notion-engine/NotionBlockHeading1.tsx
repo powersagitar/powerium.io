@@ -1,7 +1,7 @@
 import { Heading1BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { H2 } from '../ui/typography';
-import { NotionRichTextItems } from './NotionRichText';
+import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockHeading1({
   children,

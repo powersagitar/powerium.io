@@ -11,7 +11,7 @@ import { CalloutBlockObjectResponse } from '@notionhq/client/build/src/api-endpo
 
 import { Callout, CalloutBadge } from '../ui/callout';
 import { P } from '../ui/typography';
-import { NotionRichTextItems } from './NotionRichText';
+import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockCallout({
   children,

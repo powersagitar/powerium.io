@@ -9,7 +9,7 @@ import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
 import LazyLoader from '../LazyLoader';
 import { Table, Td, Th, Tr } from '../ui/typography';
-import { NotionRichTextItems } from './NotionRichText';
+import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockTable({
   table,

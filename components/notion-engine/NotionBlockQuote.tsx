@@ -2,7 +2,7 @@ import { QuoteBlockObjectResponse } from '@notionhq/client/build/src/api-endpoin
 
 import { Blockquote } from '../ui/CommonElements';
 import { P } from '../ui/typography';
-import { NotionRichTextItems } from './NotionRichText';
+import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockQuote({
   children,

@@ -2,7 +2,7 @@ import { BulletedListItemBlockObjectResponse } from '@notionhq/client/build/src/
 
 import { Li } from '../ui/CommonElements';
 import { Ul } from '../ui/typography';
-import { NotionRichTextItems } from './NotionRichText';
+import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockBulletedListItem({
   children,

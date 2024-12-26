@@ -1,7 +1,7 @@
 import { ParagraphBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { P } from '../ui/typography';
-import { NotionRichTextItems } from './NotionRichText';
+import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockParagraph({
   children,

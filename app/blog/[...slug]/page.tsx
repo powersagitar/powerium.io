@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import NotionPage from '@/components/NotionPage';
-import { NotionRichTextItems } from '@/components/notion-engine/NotionRichText';
+import NotionRichTextItems from '@/components/notion-engine/rich-text';
 import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { H1, P } from '@/components/ui/typography';
