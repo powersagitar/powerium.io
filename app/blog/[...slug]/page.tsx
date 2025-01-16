@@ -18,20 +18,27 @@ function validateSlug(slug: string[]):
   | { isValid: false }
   | {
       isValid: true;
-      articlePublishDate: Date;
+      articleUTCPublishDate: Date;
       articleTitleSegments: string;
     } {
   if (slug.length !== 4) {
     return { isValid: false };
   }
 
-  const articlePublishDate = new Date(`${slug[0]}-${slug[1]}-${slug[2]}`);
+  const articleUTCPublishDate = new Date(`${slug[0]}-${slug[1]}-${slug[2]}`);
 
-  if (isNaN(articlePublishDate.valueOf()) || articlePublishDate > new Date()) {
+  if (
+    isNaN(articleUTCPublishDate.valueOf()) ||
+    articleUTCPublishDate > new Date()
+  ) {
     return { isValid: false };
   }
 
-  return { isValid: true, articlePublishDate, articleTitleSegments: slug[3] };
+  return {
+    isValid: true,
+    articleUTCPublishDate,
+    articleTitleSegments: slug[3],
+  };
 }
 
 export async function generateMetadata(props: {
@@ -44,10 +51,10 @@ export async function generateMetadata(props: {
     return notFound();
   }
 
-  const { articlePublishDate, articleTitleSegments } = slugValidation;
+  const { articleUTCPublishDate, articleTitleSegments } = slugValidation;
 
   const notionDatabaseQuery = await queryNotionDatabase(
-    articlePublishDate,
+    articleUTCPublishDate,
     articleTitleSegments.split('-').filter((segment) => segment !== ''),
   );
 
@@ -83,10 +90,10 @@ export default async function BlogArticle(props: {
     return notFound();
   }
 
-  const { articlePublishDate, articleTitleSegments } = slugValidation;
+  const { articleUTCPublishDate, articleTitleSegments } = slugValidation;
 
   const notionDatabaseQuery = await queryNotionDatabase(
-    articlePublishDate,
+    articleUTCPublishDate,
     articleTitleSegments.split('-').filter((segment) => segment !== ''),
   );
 
@@ -98,6 +105,8 @@ export default async function BlogArticle(props: {
   // if there is, only the first one will be used
   // This behavior is intentional
   const notionPage = notionDatabaseQuery.results[0] as DatabaseObjectResponse;
+  const pageProperties =
+    notionPage.properties as unknown as NotionArticlePageProperties;
 
   return (
     <NotionPage>
@@ -106,16 +115,15 @@ export default async function BlogArticle(props: {
           <div className="text-center [overflow-wrap:anywhere]">
             <H1 className="mb-4">
               <NotionRichTextItems baseKey={notionPage.id}>
-                {
-                  (
-                    notionPage.properties as unknown as NotionArticlePageProperties
-                  ).title.title
-                }
+                {pageProperties.title.title}
               </NotionRichTextItems>
             </H1>
 
             <address className="not-italic">
               {(() => {
+                const articlePublishDate = new Date(
+                  pageProperties.published.date.start,
+                );
                 const lastEditedTime = new Date(notionPage.last_edited_time);
 
                 return (
