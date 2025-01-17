@@ -19,10 +19,7 @@ import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { H1, H2, Muted, P, Ul } from '@/components/ui/typography';
-import {
-  generateNotionPageHref,
-  retrievePublishedArticles,
-} from '@/lib/notion/client';
+import { getBlogHref, retrievePublishedArticles } from '@/lib/notion/client';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 
 export default function Home() {
@@ -91,7 +88,7 @@ export default function Home() {
                 return (
                   <Li key={article.id}>
                     <Link
-                      href={generateNotionPageHref(article)}
+                      href={getBlogHref(article.id)}
                       className={clsx(
                         'block flex-auto p-8 rounded-2xl no-underline font-normal hover:text-current [overflow-wrap:anywhere]',
                         {

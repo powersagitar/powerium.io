@@ -1,10 +1,15 @@
 import {
   DatabaseObjectResponse,
   ListBlockChildrenResponse,
+  PageObjectResponse,
   QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
 import { NotionArticlePageProperties } from './types';
+
+export function getBlogHref(pageId: PageObjectResponse['id']) {
+  return `/blog/${pageId}`;
+}
 
 export function generateNotionPageHref(
   notionPage: DatabaseObjectResponse,
