@@ -84,7 +84,7 @@ export default function Home() {
                 const properties =
                   article.properties as unknown as NotionArticlePageProperties;
 
-                const lastEditedDate = new Date(article.last_edited_time);
+                // const lastEditedDate = new Date(article.last_edited_time);
 
                 const publishDate = new Date(properties.published.date.start);
 
@@ -105,28 +105,36 @@ export default function Home() {
                         </NotionRichTextItems>
                       </H2>
 
-                      <time dateTime={lastEditedDate.toISOString()}>
-                        {publishDate.toDateString() ===
-                        lastEditedDate.toDateString() ? (
-                          <Muted>
-                            <strong className="whitespace-nowrap">
-                              {publishDate.toDateString()}
-                            </strong>
-                          </Muted>
-                        ) : (
-                          <Muted>
-                            <span className="whitespace-nowrap">
-                              Published{' '}
-                              <strong>{publishDate.toDateString()}</strong>
-                            </span>{' '}
-                            &bull;{' '}
-                            <span className="whitespace-nowrap">
-                              Updated{' '}
-                              <strong>{lastEditedDate.toDateString()}</strong>
-                            </span>
-                          </Muted>
-                        )}
+                      <time dateTime={publishDate.toISOString()}>
+                        <Muted>
+                          <strong className="whitespace-nowrap">
+                            {publishDate.toDateString()}
+                          </strong>
+                        </Muted>
                       </time>
+
+                      {/* <time dateTime={lastEditedDate.toISOString()}> */}
+                      {/*   {publishDate.toDateString() === */}
+                      {/*   lastEditedDate.toDateString() ? ( */}
+                      {/*     <Muted> */}
+                      {/*       <strong className="whitespace-nowrap"> */}
+                      {/*         {publishDate.toDateString()} */}
+                      {/*       </strong> */}
+                      {/*     </Muted> */}
+                      {/*   ) : ( */}
+                      {/*     <Muted> */}
+                      {/*       <span className="whitespace-nowrap"> */}
+                      {/*         Published{' '} */}
+                      {/*         <strong>{publishDate.toDateString()}</strong> */}
+                      {/*       </span>{' '} */}
+                      {/*       &bull;{' '} */}
+                      {/*       <span className="whitespace-nowrap"> */}
+                      {/*         Updated{' '} */}
+                      {/*         <strong>{lastEditedDate.toDateString()}</strong> */}
+                      {/*       </span> */}
+                      {/*     </Muted> */}
+                      {/*   )} */}
+                      {/* </time> */}
 
                       {properties.description.rich_text.length > 0 && (
                         <P>

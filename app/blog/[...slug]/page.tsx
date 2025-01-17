@@ -124,32 +124,43 @@ export default async function BlogArticle(props: {
                 const articlePublishDate = new Date(
                   pageProperties.published.date.start,
                 );
-                const lastEditedTime = new Date(notionPage.last_edited_time);
+
+                // const lastEditedTime = new Date(notionPage.last_edited_time);
 
                 return (
-                  <time dateTime={lastEditedTime.toISOString()}>
-                    {articlePublishDate.toDateString() ===
-                    lastEditedTime.toDateString() ? (
-                      <P>
-                        <strong className="whitespace-nowrap">
-                          {articlePublishDate.toDateString()}
-                        </strong>
-                      </P>
-                    ) : (
-                      <P>
-                        <span className="whitespace-nowrap">
-                          Published{' '}
-                          <strong>{articlePublishDate.toDateString()}</strong>
-                        </span>{' '}
-                        &bull;{' '}
-                        <span className="whitespace-nowrap">
-                          Updated{' '}
-                          <strong>{lastEditedTime.toDateString()}</strong>
-                        </span>
-                      </P>
-                    )}
+                  <time dateTime={articlePublishDate.toISOString()}>
+                    <P>
+                      <strong className="whitespace-nowrap">
+                        {articlePublishDate.toDateString()}
+                      </strong>
+                    </P>
                   </time>
                 );
+
+                // return (
+                //   <time dateTime={lastEditedTime.toISOString()}>
+                //     {articlePublishDate.toDateString() ===
+                //     lastEditedTime.toDateString() ? (
+                //       <P>
+                //         <strong className="whitespace-nowrap">
+                //           {articlePublishDate.toDateString()}
+                //         </strong>
+                //       </P>
+                //     ) : (
+                //       <P>
+                //         <span className="whitespace-nowrap">
+                //           Published{' '}
+                //           <strong>{articlePublishDate.toDateString()}</strong>
+                //         </span>{' '}
+                //         &bull;{' '}
+                //         <span className="whitespace-nowrap">
+                //           Updated{' '}
+                //           <strong>{lastEditedTime.toDateString()}</strong>
+                //         </span>
+                //       </P>
+                //     )}
+                //   </time>
+                // );
               })()}
 
               <P className="[&:not(:first-child)]:mt-0">
