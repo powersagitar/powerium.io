@@ -1,6 +1,5 @@
 import 'server-only';
 
-import dateformat from 'dateformat';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
