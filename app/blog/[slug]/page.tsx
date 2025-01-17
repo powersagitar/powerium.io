@@ -1,5 +1,6 @@
 import 'server-only';
 
+import dateformat from 'dateformat';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -7,6 +8,7 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import NotionPage from '@/components/NotionPage';
 import NotionRichTextItems from '@/components/notion-engine/rich-text';
+import BlogPublishLastEditDate from '@/components/notion-page/blog-publish-last-edit-date';
 import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { H1, P } from '@/components/ui/typography';
@@ -72,48 +74,9 @@ function renderPage(page: PageObjectResponse) {
             </H1>
 
             <address className="not-italic">
-              {(() => {
-                const articlePublishDate = new Date(
-                  properties.published.date.start,
-                );
-
-                // const lastEditedTime = new Date(page.last_edited_time);
-
-                return (
-                  <time dateTime={articlePublishDate.toISOString()}>
-                    <P>
-                      <strong className="whitespace-nowrap">
-                        {articlePublishDate.toDateString()}
-                      </strong>
-                    </P>
-                  </time>
-                );
-
-                // return (
-                //   <time dateTime={lastEditedTime.toISOString()}>
-                //     {articlePublishDate.toDateString() ===
-                //     lastEditedTime.toDateString() ? (
-                //       <P>
-                //         <strong className="whitespace-nowrap">
-                //           {articlePublishDate.toDateString()}
-                //         </strong>
-                //       </P>
-                //     ) : (
-                //       <P>
-                //         <span className="whitespace-nowrap">
-                //           Published{' '}
-                //           <strong>{articlePublishDate.toDateString()}</strong>
-                //         </span>{' '}
-                //         &bull;{' '}
-                //         <span className="whitespace-nowrap">
-                //           Updated{' '}
-                //           <strong>{lastEditedTime.toDateString()}</strong>
-                //         </span>
-                //       </P>
-                //     )}
-                //   </time>
-                // );
-              })()}
+              <P>
+                <BlogPublishLastEditDate page={page} />
+              </P>
 
               <P className="[&:not(:first-child)]:mt-0">
                 {(() => {

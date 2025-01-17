@@ -13,6 +13,7 @@ import {
 import LazyLoader from '@/components/LazyLoader';
 import { NotionHeadingsContext } from '@/components/contexts/notion-headings';
 import NotionRichTextItems from '@/components/notion-engine/rich-text';
+import BlogPublishLastEditDate from '@/components/notion-page/blog-publish-last-edit-date';
 import { Li } from '@/components/ui/CommonElements';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
@@ -81,10 +82,6 @@ export default function Home() {
                 const properties =
                   article.properties as unknown as NotionArticlePageProperties;
 
-                // const lastEditedDate = new Date(article.last_edited_time);
-
-                const publishDate = new Date(properties.published.date.start);
-
                 return (
                   <Li key={article.id}>
                     <Link
@@ -102,36 +99,9 @@ export default function Home() {
                         </NotionRichTextItems>
                       </H2>
 
-                      <time dateTime={publishDate.toISOString()}>
-                        <Muted>
-                          <strong className="whitespace-nowrap">
-                            {publishDate.toDateString()}
-                          </strong>
-                        </Muted>
-                      </time>
-
-                      {/* <time dateTime={lastEditedDate.toISOString()}> */}
-                      {/*   {publishDate.toDateString() === */}
-                      {/*   lastEditedDate.toDateString() ? ( */}
-                      {/*     <Muted> */}
-                      {/*       <strong className="whitespace-nowrap"> */}
-                      {/*         {publishDate.toDateString()} */}
-                      {/*       </strong> */}
-                      {/*     </Muted> */}
-                      {/*   ) : ( */}
-                      {/*     <Muted> */}
-                      {/*       <span className="whitespace-nowrap"> */}
-                      {/*         Published{' '} */}
-                      {/*         <strong>{publishDate.toDateString()}</strong> */}
-                      {/*       </span>{' '} */}
-                      {/*       &bull;{' '} */}
-                      {/*       <span className="whitespace-nowrap"> */}
-                      {/*         Updated{' '} */}
-                      {/*         <strong>{lastEditedDate.toDateString()}</strong> */}
-                      {/*       </span> */}
-                      {/*     </Muted> */}
-                      {/*   )} */}
-                      {/* </time> */}
+                      <Muted>
+                        <BlogPublishLastEditDate page={article} />
+                      </Muted>
 
                       {properties.description.rich_text.length > 0 && (
                         <P>
