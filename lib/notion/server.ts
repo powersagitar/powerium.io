@@ -59,35 +59,6 @@ export const retrieveAllPublishedArticles = cache(
   { revalidate: notionConfig.cacheTtl },
 );
 
-export const queryNotionDatabase = cache(
-  async (articlePublishDate: Date, articleTitleSegments: string[]) =>
-    notion.databases.query({
-      database_id: notionConfig.notionDatabaseId,
-      filter: {
-        and: [
-          {
-            property: 'published',
-            date: {
-              is_not_empty: true,
-              equals: articlePublishDate.toISOString(),
-            },
-          },
-          ...((): { property: 'title'; rich_text: { contains: string } }[] =>
-            articleTitleSegments.map((segment) => {
-              return {
-                property: 'title',
-                rich_text: {
-                  contains: segment,
-                },
-              };
-            }))(),
-        ],
-      },
-    }),
-  ['queryNotionDatabase'],
-  { revalidate: notionConfig.cacheTtl },
-);
-
 export const retrieveNotionPage = cache(
   async (pageId: string) => notion.pages.retrieve({ page_id: pageId }),
   ['retrieveNotionPage'],
