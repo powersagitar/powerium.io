@@ -3,7 +3,7 @@ import 'server-only';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import NotionPage from '@/components/NotionPage';
 import NotionRichTextItems from '@/components/notion-engine/rich-text';
@@ -11,102 +11,54 @@ import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { H1, P } from '@/components/ui/typography';
 import { siteConfig } from '@/config/site';
-import { queryNotionDatabase } from '@/lib/notion/server';
+import { retrieveNotionPage } from '@/lib/notion/server';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 
-function validateSlug(slug: string[]):
-  | { isValid: false }
-  | {
-      isValid: true;
-      articleUTCPublishDate: Date;
-      articleTitleSegments: string;
-    } {
-  if (slug.length !== 4) {
-    return { isValid: false };
+type GenerateMetadataProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({
+  params,
+}: GenerateMetadataProps): Promise<Metadata> {
+  try {
+    const pageId = (await params).slug;
+    const page = (await retrieveNotionPage(pageId)) as PageObjectResponse;
+    const properties =
+      page.properties as unknown as NotionArticlePageProperties;
+
+    return {
+      title: properties.title.title
+        .map((richtext) => richtext.plain_text)
+        .join(''),
+
+      description: properties.description.rich_text
+        .map((richtext) => richtext.plain_text)
+        .join(''),
+    };
+  } catch (e) {
+    console.warn(e);
+    return {};
   }
-
-  const articleUTCPublishDate = new Date(`${slug[0]}-${slug[1]}-${slug[2]}`);
-
-  if (
-    isNaN(articleUTCPublishDate.valueOf()) ||
-    articleUTCPublishDate > new Date()
-  ) {
-    return { isValid: false };
-  }
-
-  return {
-    isValid: true,
-    articleUTCPublishDate,
-    articleTitleSegments: slug[3],
-  };
 }
 
-export async function generateMetadata(props: {
-  params: Promise<{ slug: string[] }>;
-}): Promise<Metadata> {
-  const params = await props.params;
-  const slugValidation = validateSlug(params.slug);
+type BlogArticleProps = {
+  params: Promise<{ slug: string }>;
+};
 
-  if (!slugValidation.isValid) {
+export default async function BlogArticle({ params }: BlogArticleProps) {
+  try {
+    const pageId = (await params).slug;
+    const page = await retrieveNotionPage(pageId);
+    return renderPage(page as PageObjectResponse);
+  } catch (e) {
+    console.warn(e);
     return notFound();
   }
-
-  const { articleUTCPublishDate, articleTitleSegments } = slugValidation;
-
-  const notionDatabaseQuery = await queryNotionDatabase(
-    articleUTCPublishDate,
-    articleTitleSegments.split('-').filter((segment) => segment !== ''),
-  );
-
-  if (notionDatabaseQuery.results.length < 1) {
-    return notFound();
-  }
-
-  // Assuming no two pages have the same publication date and title,
-  // if there is, only the first one will be used
-  // This behavior is intentional
-  const notionPageProperties = (
-    notionDatabaseQuery.results[0] as DatabaseObjectResponse
-  ).properties as unknown as NotionArticlePageProperties;
-
-  return {
-    title: notionPageProperties.title.title
-      .map((segment) => segment.plain_text)
-      .join(''),
-
-    description: notionPageProperties.description.rich_text
-      .map((segment) => segment.plain_text)
-      .join(''),
-  };
 }
 
-export default async function BlogArticle(props: {
-  params: Promise<{ slug: string[] }>;
-}) {
-  const params = await props.params;
-  const slugValidation = validateSlug(params.slug);
-
-  if (!slugValidation.isValid) {
-    return notFound();
-  }
-
-  const { articleUTCPublishDate, articleTitleSegments } = slugValidation;
-
-  const notionDatabaseQuery = await queryNotionDatabase(
-    articleUTCPublishDate,
-    articleTitleSegments.split('-').filter((segment) => segment !== ''),
-  );
-
-  if (notionDatabaseQuery.results.length < 1) {
-    return notFound();
-  }
-
-  // Assuming no two pages have the same publication date and title,
-  // if there is, only the first one will be used
-  // This behavior is intentional
-  const notionPage = notionDatabaseQuery.results[0] as DatabaseObjectResponse;
-  const pageProperties =
-    notionPage.properties as unknown as NotionArticlePageProperties;
+function renderPage(page: PageObjectResponse) {
+  const properties = page.properties as unknown as NotionArticlePageProperties;
 
   return (
     <NotionPage>
@@ -114,18 +66,18 @@ export default async function BlogArticle(props: {
         pageHeader: (
           <div className="text-center [overflow-wrap:anywhere]">
             <H1 className="mb-4">
-              <NotionRichTextItems baseKey={notionPage.id}>
-                {pageProperties.title.title}
+              <NotionRichTextItems baseKey={page.id}>
+                {properties.title.title}
               </NotionRichTextItems>
             </H1>
 
             <address className="not-italic">
               {(() => {
                 const articlePublishDate = new Date(
-                  pageProperties.published.date.start,
+                  properties.published.date.start,
                 );
 
-                // const lastEditedTime = new Date(notionPage.last_edited_time);
+                // const lastEditedTime = new Date(page.last_edited_time);
 
                 return (
                   <time dateTime={articlePublishDate.toISOString()}>
@@ -166,13 +118,13 @@ export default async function BlogArticle(props: {
               <P className="[&:not(:first-child)]:mt-0">
                 {(() => {
                   const authors = (
-                    notionPage.properties as unknown as NotionArticlePageProperties
+                    page.properties as unknown as NotionArticlePageProperties
                   ).authors.rich_text;
 
                   return (
                     <>
                       {authors.length > 0 ? (
-                        <NotionRichTextItems baseKey={notionPage.id}>
+                        <NotionRichTextItems baseKey={page.id}>
                           {authors}
                         </NotionRichTextItems>
                       ) : (
@@ -189,7 +141,7 @@ export default async function BlogArticle(props: {
             <Separator className="my-6" />
           </div>
         ),
-        pageId: notionPage.id,
+        pageId: page.id,
       }}
     </NotionPage>
   );
