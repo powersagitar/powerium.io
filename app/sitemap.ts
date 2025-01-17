@@ -9,7 +9,7 @@ import {
 
 import { notionConfig } from '@/config/notion';
 import { siteConfig } from '@/config/site';
-import { generateNotionPageHref } from '@/lib/notion/client';
+import { getBlogHref } from '@/lib/notion/client';
 import {
   retrieveAllPublishedArticles,
   retrieveNotionPage,
@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articlePages: MetadataRoute.Sitemap = publishedArticles.map(
     (article) => {
       return {
-        url: siteConfig.url.origin + generateNotionPageHref(article),
+        url: siteConfig.url.origin + getBlogHref(article.id),
         lastModified: article.last_edited_time,
         changeFrequency: 'monthly',
         priority: 0.5,

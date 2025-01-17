@@ -19,10 +19,7 @@ import { TabsContent } from '@radix-ui/react-tabs';
 
 import { siteConfig } from '@/config/site';
 import fetchCustomPages from '@/lib/fetch-custom-pages';
-import {
-  generateNotionPageHref,
-  retrievePublishedArticles,
-} from '@/lib/notion/client';
+import { getBlogHref, retrievePublishedArticles } from '@/lib/notion/client';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 
 import { NotionHeadingsContext } from '../contexts/notion-headings';
@@ -119,7 +116,7 @@ export default function Mobile() {
                     return (
                       <li key={'sidebar-nav-' + article.id}>
                         <MobileLink
-                          href={generateNotionPageHref(article)}
+                          href={getBlogHref(article.id)}
                           className="no-underline text-muted-foreground"
                           onOpenChange={setOpen}
                         >
