@@ -17,19 +17,22 @@ export default function BlogPublishLastEditDate({
   page,
 }: BlogPublishLastEditDateProps) {
   const properties = page.properties as unknown as NotionArticlePageProperties;
-  const publishDate = new Date(properties.published.date.start);
+  const publishDateUTCString =
+    properties.published.date.start + 'T00:00:00.000Z';
+  const publishDateUTC = new Date(publishDateUTCString);
   const lastEditedDate = new Date(page.last_edited_time);
 
   return (
     <time dateTime={lastEditedDate.toISOString()}>
-      {publishDate.toDateString() === lastEditedDate.toDateString() ? (
+      {publishDateUTC.toDateString() === lastEditedDate.toDateString() ? (
         <strong className="whitespace-nowrap">
-          {dateformat(publishDate, 'mediumDate')}
+          {dateformat(publishDateUTC, 'mediumDate')}
         </strong>
       ) : (
         <>
           <span className="whitespace-nowrap">
-            Published <strong>{dateformat(publishDate, 'mediumDate')}</strong>
+            Published{' '}
+            <strong>{dateformat(publishDateUTC, 'mediumDate')}</strong>
           </span>{' '}
           &bull;{' '}
           <span className="whitespace-nowrap">
