@@ -6,6 +6,7 @@ import NotionDateMention from './NotionDateMention';
 import NotionLinkMention, {
   MentionLinkMentionResponse,
 } from './NotionLinkMention';
+import NotionLinkPreview from './NotionLinkPreview';
 import NotionPageMention from './NotionPageMention';
 import NotionUserMention from './NotionUserMention';
 
@@ -23,7 +24,9 @@ const renderers: Renderers = {
   user: (mention) => (
     <NotionUserMention mention={mention as SDKMentionRichTextItemResponse} />
   ),
-  link_preview: () => <>link_preview</>,
+  link_preview: (mention) => (
+    <NotionLinkPreview mention={mention as SDKMentionRichTextItemResponse} />
+  ),
   link_mention: (mention) => (
     <NotionLinkMention mention={mention as MentionLinkMentionResponse} />
   ),
