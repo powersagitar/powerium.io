@@ -35,7 +35,10 @@ export default function NotionLinkMention({ mention }: NotionLinkMentionProps) {
   const { title, href, icon_url, link_provider } = mention.mention.link_mention;
 
   return (
-    <Link href={href} className="flex items-center no-underline">
+    <Link
+      href={href}
+      className="inline-flex items-center align-middle no-underline"
+    >
       <Image
         src={icon_url}
         alt="Notion link preview icon"
