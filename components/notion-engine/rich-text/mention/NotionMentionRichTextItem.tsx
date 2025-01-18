@@ -1,6 +1,7 @@
 import { MentionRichTextItemResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import NotionDateMention from './NotionDateMention';
+import NotionPageMention from './NotionPageMention';
 
 type NotionMentionRichTextItemProps = {
   mention: MentionRichTextItemResponse;
@@ -9,8 +10,6 @@ type NotionMentionRichTextItemProps = {
 export default function NotionMentionRichTextItem({
   mention,
 }: NotionMentionRichTextItemProps) {
-  // console.log(mention);
-
   switch (mention.mention.type) {
     case 'user':
       return <>user</>;
@@ -22,7 +21,7 @@ export default function NotionMentionRichTextItem({
       return <NotionDateMention mention={mention} />;
 
     case 'page':
-      return <>page</>;
+      return <NotionPageMention mention={mention} />;
 
     case 'database':
       return <>database</>;
