@@ -8,8 +8,8 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import NotionEquationRichTextItem from '@/components/notion-engine/rich-text/NotionEquationRichTextItem';
-import NotionMentionRichTextItem from '@/components/notion-engine/rich-text/NotionMentionRichTextItem';
 import NotionTextRichTextItem from '@/components/notion-engine/rich-text/NotionTextRichTextItem';
+import NotionMentionRichTextItem from '@/components/notion-engine/rich-text/mention/NotionMentionRichTextItem';
 
 export default function NotionRichTextItems({
   baseKey,

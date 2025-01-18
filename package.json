@@ -47,6 +47,7 @@
     "date-fns": "^4.1.0",
     "dateformat": "^5.0.3",
     "embla-carousel-react": "^8.5.1",
+    "fromnow": "^3.0.1",
     "highlight.js": "^11.10.0",
     "input-otp": "^1.4.1",
     "katex": "^0.16.18",
@@ -70,6 +71,7 @@
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.0",
     "@types/dateformat": "^5.0.3",
+    "@types/fromnow": "^3.0.3",
     "@types/react": "19.0.6",
     "@types/react-dom": "19.0.3",
     "@vercel/style-guide": "^6.0.0",
