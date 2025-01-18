@@ -20,11 +20,7 @@ Feel free to open an issue or a PR if you would like.
 
 ## Supported Notion Blocks
 
-For an exhaustive list of all types of Notion blocks, please refer to their
-[documentation](https://developers.notion.com/reference/block).
-
-For the types of blocks that are supported, please check
-[`/components/notion-engine`](./components/notion-engine/).
+See [#45](https://github.com/powersagitar/powerium.io/issues/45).
 
 ## Preview
 
