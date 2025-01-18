@@ -9,7 +9,7 @@ import {
 
 import NotionEquationRichTextItem from '@/components/notion-engine/rich-text/NotionEquationRichTextItem';
 import NotionTextRichTextItem from '@/components/notion-engine/rich-text/NotionTextRichTextItem';
-import NotionMentionRichTextItem from '@/components/notion-engine/rich-text/mention/NotionMentionRichTextItem';
+import NotionMentionRichTextItem from '@/components/notion-engine/rich-text/mention';
 
 export default function NotionRichTextItems({
   baseKey,
