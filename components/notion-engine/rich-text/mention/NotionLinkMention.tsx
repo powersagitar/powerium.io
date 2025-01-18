@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { MentionRichTextItemResponse } from '@notionhq/client/build/src/api-endpoints';
+import { Link2Icon } from '@radix-ui/react-icons';
 
 import { Link } from '@/components/ui/link';
 
@@ -39,13 +40,18 @@ export default function NotionLinkMention({ mention }: NotionLinkMentionProps) {
       href={href}
       className="inline-flex items-center align-middle no-underline"
     >
-      <Image
-        src={icon_url}
-        alt="Notion link preview icon"
-        height={22}
-        width={22}
-        className="mr-1"
-      />
+      <span className="mr-1">
+        {icon_url ? (
+          <Image
+            src={icon_url}
+            alt="Notion link preview icon"
+            height={22}
+            width={22}
+          />
+        ) : (
+          <Link2Icon height={18} width={18} />
+        )}
+      </span>
       <span className="mr-1 text-muted-foreground">
         {link_provider ?? new URL(href).host}
       </span>
