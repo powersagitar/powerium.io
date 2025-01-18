@@ -43,7 +43,9 @@ export default function NotionLinkMention({ mention }: NotionLinkMentionProps) {
         width={22}
         className="mr-1"
       />
-      <span className="mr-1 text-muted-foreground">{link_provider}</span>
+      {link_provider && (
+        <span className="mr-1 text-muted-foreground">{link_provider}</span>
+      )}
       <span className="underline">{title}</span>
     </Link>
   );
