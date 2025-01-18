@@ -13,11 +13,11 @@ export type MentionLinkMentionResponse = {
   mention: {
     type: 'link_mention';
     link_mention: {
-      description: string;
+      description?: string;
       href: string;
-      icon_url: string;
-      link_provider: string;
-      thumbnail_url: string;
+      icon_url?: string;
+      link_provider?: string;
+      thumbnail_url?: string;
       title: string;
     };
   };
