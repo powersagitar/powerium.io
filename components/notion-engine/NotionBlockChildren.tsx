@@ -152,7 +152,10 @@ const blockRenderers: {
   link_to_page: (block) => defaultBlockRenderer(block.type),
   template: (block) => defaultBlockRenderer(block.type),
 };
-const noFetchChildren = new Set<BlockObjectResponse['type']>(['table']);
+const noFetchChildren = new Set<BlockObjectResponse['type']>([
+  'callout',
+  'table',
+]);
 
 type NotionBlockChildrenProps = {
   children:

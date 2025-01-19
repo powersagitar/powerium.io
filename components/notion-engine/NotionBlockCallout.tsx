@@ -11,6 +11,7 @@ import { CalloutBlockObjectResponse } from '@notionhq/client/build/src/api-endpo
 
 import { Callout, CalloutBadge } from '../ui/callout';
 import { P } from '../ui/typography';
+import NotionBlockChildren from './NotionBlockChildren';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockCallout({
@@ -93,6 +94,12 @@ export default function NotionBlockCallout({
           {children.callout.rich_text}
         </NotionRichTextItems>
       </P>
+
+      {children.has_children && (
+        <NotionBlockChildren>
+          {{ fetching: 'automatic', blockId: children.id }}
+        </NotionBlockChildren>
+      )}
     </Callout>
   );
 }
