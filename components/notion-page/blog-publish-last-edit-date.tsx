@@ -32,7 +32,11 @@ export default function BlogPublishLastEditDate({
   }, [publishDateISOString, page.last_edited_time]);
 
   if (!publishDate || !lastEditedDate) {
-    return null;
+    return (
+      <span className="animate-pulse">
+        {dateformat(new Date(0), 'mediumDate')}
+      </span>
+    );
   }
 
   if (publishDate >= lastEditedDate) {
