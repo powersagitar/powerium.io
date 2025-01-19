@@ -1,0 +1,42 @@
+name: Auto Version Bump
+
+on:
+  workflow_dispatch:
+  schedule:
+    # everyday at 4am
+    - cron: '0 4 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    name: Bump Patch Number
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Diff Between Previous Tag
+        run: '! git diff --quiet $(git describe --tags --abbrev=0)'
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Build projects
+        run: |
+          bun install --frozen-lockfile
+          bun run build
+
+      - name: Bump Patch Version
+        run: |
+          previous_tag=$(git describe --tags --abbrev=0)
+          IFS='.' read -r major minor patch <<< "${previous_tag#v}"
+          new_patch=$((patch + 1))
+          new_tag="v$major.$minor.$new_patch"
+          git tag "$new_tag"
+          git push origin tag "$new_tag"
