@@ -14,7 +14,7 @@ export const Link = forwardRef<
       {...otherProps}
       ref={ref}
       className={cn(
-        'font-medium underline underline-offset-4 transition hover:text-muted-foreground',
+        'font-medium underline underline-offset-4 transition hover:text-muted-foreground [overflow-wrap:anywhere]',
         className,
       )}
     >

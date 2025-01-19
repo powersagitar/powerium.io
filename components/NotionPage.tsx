@@ -43,7 +43,7 @@ export default function NotionPage({ children }: NotionPageProps) {
   );
 
   return (
-    <article className="whitespace-pre-wrap px-3 w-full [overflow-wrap:anywhere]">
+    <article className="whitespace-pre-wrap px-3 w-full">
       {children.pageHeader}
 
       <LazyLoader
