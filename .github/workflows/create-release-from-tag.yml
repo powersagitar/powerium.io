@@ -1,0 +1,55 @@
+name: Create Release From Tag
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v**'
+
+jobs:
+  create-release:
+    name: Create Release From Tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check is Release
+        id: check-release
+        run: |
+          tag=$(git describe --tags --exact-match)
+          if [[ "$tag" == *'/'* ]]; then
+            exit 1
+          fi
+
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        run: |
+          tag=${{ steps.check-release.outputs.tag }}
+          gh release create "$tag" --generate-notes
+
+  create-prerelease:
+    name: Create Prerelease From Tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check is Prerelease
+        id: check-prerelease
+        run: |
+          tag=$(git describe --tags --exact-match)
+          if [[ "$tag" != *'/'* ]]; then
+            exit 1
+          fi
+
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        run: |
+          tag=${{ steps.check-prerelease.outputs.tag }}
+          gh release create "$tag" --generate-notes --prerelease
