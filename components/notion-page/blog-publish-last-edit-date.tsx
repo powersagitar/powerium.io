@@ -1,6 +1,7 @@
 'use client';
 
 import dateformat from 'dateformat';
+import { useEffect, useState } from 'react';
 
 import {
   DatabaseObjectResponse,
@@ -19,8 +20,20 @@ export default function BlogPublishLastEditDate({
   const properties = page.properties as unknown as NotionArticlePageProperties;
   const publishDateISOString =
     properties.published.date.start + 'T00:00:00.000Z';
-  const publishDate = new Date(publishDateISOString);
-  const lastEditedDate = new Date(page.last_edited_time);
+
+  const [publishDate, setPublishDate] = useState<Date | undefined>(undefined);
+  const [lastEditedDate, setLastEditedDate] = useState<Date | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    setPublishDate(new Date(publishDateISOString));
+    setLastEditedDate(new Date(page.last_edited_time));
+  }, [publishDateISOString, page.last_edited_time]);
+
+  if (!publishDate || !lastEditedDate) {
+    return null;
+  }
 
   if (publishDate >= lastEditedDate) {
     return (
