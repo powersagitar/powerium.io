@@ -40,7 +40,7 @@ export default function BlogPublishLastEditDate({
           <strong>{dateformat(publishDate, 'mediumDate')}</strong>
         </time>
       </span>
-      {' &bull; '}
+      {' • '}
       <span className="whitespace-nowrap">
         Updated{' '}
         <time dateTime={lastEditedDate.toISOString()}>
