@@ -6,6 +6,7 @@ import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { retrieveNotionBlockChildren } from '@/lib/notion/server';
 
+import TOCDesktop from '../table-of-contents/desktop';
 import NotionPageLazy from './NotionPageLazy';
 
 type NotionPageProps = {
@@ -31,6 +32,8 @@ export default async function NotionPage({ children }: NotionPageProps) {
         pageId={children.pageId}
         initial={{ pageChildren, startCursor }}
       />
+
+      <TOCDesktop />
     </article>
   );
 }

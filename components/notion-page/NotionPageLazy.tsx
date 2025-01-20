@@ -7,7 +7,6 @@ import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import LazyLoader from '@/components/LazyLoader';
 import { NotionHeadingsContext } from '@/components/contexts/notion-headings';
 import NotionBlockChildren from '@/components/notion-engine/NotionBlockChildren';
-import TOCDesktop from '@/components/table-of-contents/desktop';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
 type NotionPageLazyProps = {
@@ -34,10 +33,10 @@ export default function NotionPageLazy({
     () =>
       setNotionHeadings(
         pageChildren.filter(
-          (childBlock) =>
-            childBlock.type === 'heading_1' ||
-            childBlock.type === 'heading_2' ||
-            childBlock.type === 'heading_3',
+          (block) =>
+            block.type === 'heading_1' ||
+            block.type === 'heading_2' ||
+            block.type === 'heading_3',
         ),
       ),
     [pageChildren, setNotionHeadings],
@@ -64,8 +63,6 @@ export default function NotionPageLazy({
       }}
       id={lazyLoaderId}
     >
-      <TOCDesktop />
-
       <NotionBlockChildren>
         {{
           fetching: 'manual',
