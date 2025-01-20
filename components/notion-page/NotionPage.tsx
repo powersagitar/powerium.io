@@ -5,11 +5,10 @@ import { ReactNode, useContext, useEffect, useState } from 'react';
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import LazyLoader from '@/components/LazyLoader';
+import { NotionHeadingsContext } from '@/components/contexts/notion-headings';
 import NotionBlockChildren from '@/components/notion-engine/NotionBlockChildren';
+import TOCDesktop from '@/components/table-of-contents/desktop';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
-
-import { NotionHeadingsContext } from './contexts/notion-headings';
-import TOCDesktop from './table-of-contents/desktop';
 
 type NotionPageProps = {
   children: {
