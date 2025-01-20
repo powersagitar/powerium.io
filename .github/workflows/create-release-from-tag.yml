@@ -3,6 +3,9 @@ name: Create Release From Tag
 permissions:
   contents: write
 
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 on:
   workflow_dispatch:
   push:
