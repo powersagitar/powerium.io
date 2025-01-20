@@ -1,14 +1,12 @@
-'use client';
+import 'server-only';
 
-import { ReactNode, useContext, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import LazyLoader from '@/components/LazyLoader';
-import { NotionHeadingsContext } from '@/components/contexts/notion-headings';
-import NotionBlockChildren from '@/components/notion-engine/NotionBlockChildren';
-import TOCDesktop from '@/components/table-of-contents/desktop';
-import { retrieveNotionBlockChildren } from '@/lib/notion/client';
+import { retrieveNotionBlockChildren } from '@/lib/notion/server';
+
+import NotionPageLazy from './NotionPageLazy';
 
 type NotionPageProps = {
   children: {
@@ -17,61 +15,22 @@ type NotionPageProps = {
   };
 };
 
-export default function NotionPage({ children }: NotionPageProps) {
-  const [pageChildren, setPageChildren] = useState<BlockObjectResponse[]>([]);
-
-  const [startCursor, setStartCursor] = useState<string | null | undefined>(
-    undefined,
+export default async function NotionPage({ children }: NotionPageProps) {
+  const pageChildrenResponse = await retrieveNotionBlockChildren(
+    children.pageId,
   );
 
-  const [lazyLoaderId, setLazyLoaderId] = useState(0);
-
-  const { setNotionHeadings } = useContext(NotionHeadingsContext);
-
-  useEffect(
-    () =>
-      setNotionHeadings(
-        pageChildren.filter(
-          (childBlock) =>
-            childBlock.type === 'heading_1' ||
-            childBlock.type === 'heading_2' ||
-            childBlock.type === 'heading_3',
-        ),
-      ),
-    [pageChildren, setNotionHeadings],
-  );
+  const pageChildren = pageChildrenResponse.results as BlockObjectResponse[];
+  const startCursor = pageChildrenResponse.next_cursor;
 
   return (
     <article className="whitespace-pre-wrap px-3 w-full">
       {children.pageHeader}
 
-      <LazyLoader
-        load={() => {
-          retrieveNotionBlockChildren(children.pageId, startCursor).then(
-            (listBlockChildrenResponse) => {
-              setStartCursor(listBlockChildrenResponse.next_cursor);
-              setPageChildren([
-                ...pageChildren,
-                ...(listBlockChildrenResponse.results as BlockObjectResponse[]),
-              ]);
-
-              if (listBlockChildrenResponse.next_cursor !== null) {
-                setLazyLoaderId(lazyLoaderId + 1);
-              }
-            },
-          );
-        }}
-        id={lazyLoaderId}
-      >
-        <TOCDesktop />
-
-        <NotionBlockChildren>
-          {{
-            fetching: 'manual',
-            blockChildren: pageChildren,
-          }}
-        </NotionBlockChildren>
-      </LazyLoader>
+      <NotionPageLazy
+        pageId={children.pageId}
+        initial={{ pageChildren, startCursor }}
+      />
     </article>
   );
 }
