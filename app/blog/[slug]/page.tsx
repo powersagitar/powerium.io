@@ -14,6 +14,9 @@ import { H1, P } from '@/components/ui/typography';
 import { siteConfig } from '@/config/site';
 import { retrieveNotionPage } from '@/lib/notion/server';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
+import { notionConfig } from '@/config/notion';
+
+export const revalidate = notionConfig.cacheTtl;
 
 type GenerateMetadataProps = {
   params: Promise<{ slug: string }>;
