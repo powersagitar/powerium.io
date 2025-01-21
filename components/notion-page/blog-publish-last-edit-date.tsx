@@ -1,7 +1,4 @@
-'use client';
-
 import dateformat from 'dateformat';
-import { useEffect, useState } from 'react';
 
 import {
   DatabaseObjectResponse,
@@ -21,49 +18,33 @@ export default function BlogPublishLastEditDate({
   const publishDateISOString =
     properties.published.date.start + 'T00:00:00.000Z';
 
-  const [publishDate, setPublishDate] = useState<Date | undefined>(undefined);
-  const [lastEditedDate, setLastEditedDate] = useState<Date | undefined>(
-    undefined,
-  );
+  const publishDate = new Date(publishDateISOString);
+  const lastEditedDate = new Date(page.last_edited_time);
 
-  useEffect(() => {
-    setPublishDate(new Date(publishDateISOString));
-    setLastEditedDate(new Date(page.last_edited_time));
-  }, [publishDateISOString, page.last_edited_time]);
-
-  if (!publishDate || !lastEditedDate) {
-    return (
-      <span className="animate-pulse">
-        {dateformat(new Date(0), 'mediumDate')}
-      </span>
-    );
-  }
-
-  if (publishDate >= lastEditedDate) {
-    return (
+  const time =
+    publishDate >= lastEditedDate ? (
       <time dateTime={publishDate.toISOString()}>
         <strong className="whitespace-nowrap">
           {dateformat(publishDate, 'mediumDate')}
         </strong>
       </time>
+    ) : (
+      <>
+        <span className="whitespace-nowrap">
+          Published{' '}
+          <time dateTime={publishDate.toISOString()}>
+            <strong>{dateformat(publishDate, 'mediumDate')}</strong>
+          </time>
+        </span>
+        {' • '}
+        <span className="whitespace-nowrap">
+          Updated{' '}
+          <time dateTime={lastEditedDate.toISOString()}>
+            <strong>{dateformat(lastEditedDate, 'mediumDate')}</strong>
+          </time>
+        </span>
+      </>
     );
-  }
 
-  return (
-    <>
-      <span className="whitespace-nowrap">
-        Published{' '}
-        <time dateTime={publishDate.toISOString()}>
-          <strong>{dateformat(publishDate, 'mediumDate')}</strong>
-        </time>
-      </span>
-      {' • '}
-      <span className="whitespace-nowrap">
-        Updated{' '}
-        <time dateTime={lastEditedDate.toISOString()}>
-          <strong>{dateformat(lastEditedDate, 'mediumDate')}</strong>
-        </time>
-      </span>
-    </>
-  );
+  return <span suppressHydrationWarning>{time}</span>;
 }
