@@ -97,7 +97,7 @@ export default async function Article(props: {
 
             <address className="not-italic">
               <P className="whitespace-nowrap">
-                <time>
+                <time dateTime={lastEdited.toISOString()}>
                   <strong>{dateFormat(lastEdited, 'mediumDate')}</strong>
                 </time>
               </P>
