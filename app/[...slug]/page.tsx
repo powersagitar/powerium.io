@@ -1,5 +1,6 @@
 import 'server-only';
 
+import dateFormat from 'dateformat';
 import { Metadata } from 'next';
 import { unstable_cache as cache } from 'next/cache';
 import { notFound } from 'next/navigation';
@@ -77,6 +78,8 @@ export default async function Article(props: {
   const params = await props.params;
   const { notionPage } = await retrieveNotionPage(params.slug);
 
+  const lastEdited = new Date(notionPage.last_edited_time);
+
   return (
     <NotionPage>
       {{
@@ -93,20 +96,11 @@ export default async function Article(props: {
             </H1>
 
             <address className="not-italic">
-              {(() => {
-                const lastEditedTime = new Date(notionPage.last_edited_time);
-
-                return (
-                  <time dateTime={lastEditedTime.toISOString()}>
-                    <P>
-                      <span className="whitespace-nowrap">
-                        Updated <strong>{lastEditedTime.toDateString()}</strong>
-                      </span>
-                    </P>
-                  </time>
-                );
-              })()}
-
+              <P className="whitespace-nowrap">
+                <time>
+                  <strong>{dateFormat(lastEdited, 'mediumDate')}</strong>
+                </time>
+              </P>
               <P className="[&:not(:first-child)]:mt-0">
                 <Link href={siteConfig.metadata.author.url ?? '/'}>
                   <strong>{siteConfig.metadata.author.name}</strong>
