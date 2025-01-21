@@ -13,4 +13,4 @@ services:
           action: sync
           target: /proj/src
     environment:
-      - BUILD_TYPE=$BUILD_TYPE
+      - BUILD_MODE=$BUILD_MODE

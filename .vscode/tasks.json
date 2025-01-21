@@ -10,7 +10,7 @@
       "args": ["compose", "up", "--build"],
       "options": {
         "env": {
-          "BUILD_TYPE": "development"
+          "BUILD_MODE": "development"
         }
       },
       "problemMatcher": []
@@ -22,7 +22,7 @@
       "args": ["compose", "up", "--build"],
       "options": {
         "env": {
-          "BUILD_TYPE": "production"
+          "BUILD_MODE": "production"
         }
       },
       "problemMatcher": []
