@@ -17,8 +17,6 @@ import { Pathname } from '@/lib/config/notion';
 import { retrieveNotionPage as _retrieveNotionPage } from '@/lib/notion/server';
 import { NotionCommonPageProperties } from '@/lib/notion/types';
 
-export const revalidate = notionConfig.cacheTtl;
-
 const retrieveNotionPage = cache(
   async (
     slug: string[],
