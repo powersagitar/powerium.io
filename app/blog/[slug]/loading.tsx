@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function BlogArticleLoading() {
+export default function BlogArticleSkeleton() {
   return (
     <>
       {/* page header */}
