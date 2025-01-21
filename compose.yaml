@@ -1,0 +1,16 @@
+services:
+  www:
+    build: .
+    volumes:
+      - type: bind
+        source: .
+        target: /proj/src
+    ports:
+      - '3000:3000'
+    develop:
+      watch:
+        - path: .
+          action: sync
+          target: /proj/src
+    environment:
+      - BUILD_TYPE=$BUILD_TYPE
