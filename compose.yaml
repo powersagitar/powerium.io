@@ -15,4 +15,4 @@ services:
           action: sync
           target: /proj/src
     environment:
-      - BUILD_MODE=$BUILD_MODE
+      - MODE=$MODE

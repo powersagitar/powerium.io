@@ -8,7 +8,7 @@
       "args": ["compose", "up", "--build"],
       "options": {
         "env": {
-          "BUILD_MODE": "development"
+          "MODE": "development"
         }
       },
       "problemMatcher": []
@@ -20,7 +20,19 @@
       "args": ["compose", "up", "--build"],
       "options": {
         "env": {
-          "BUILD_MODE": "production"
+          "MODE": "production"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "start container and halt",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "up", "--build"],
+      "options": {
+        "env": {
+          "MODE": "sleep"
         }
       },
       "problemMatcher": []
