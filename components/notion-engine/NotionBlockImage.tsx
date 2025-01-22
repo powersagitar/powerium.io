@@ -11,15 +11,22 @@ export default function NotionBlockImage({
     .map((richText) => richText.plain_text)
     .join('');
 
-  if (image.image.type === 'external') {
-    return (
-      <ImageWithFallback
-        src={image.image.external.url}
-        width={1920}
-        height={1080}
-        alt={caption.length > 0 ? caption : 'Image loaded from Notion'}
-        className="my-6 rounded"
-      />
-    );
-  }
+  const src =
+    image.image.type === 'external'
+      ? image.image.external.url
+      : image.image.file.url;
+
+  const alt = caption.length > 0 ? caption : 'Image from Notion';
+
+  // see below for how to make next/image same size as original
+  // https://stackoverflow.com/a/76008677/20143641
+  return (
+    <ImageWithFallback
+      src={src}
+      alt={alt}
+      width={1024}
+      height={1024}
+      className="w-auto h-auto rounded my-6"
+    />
+  );
 }
