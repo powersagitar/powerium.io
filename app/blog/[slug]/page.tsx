@@ -12,6 +12,7 @@ import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { H1, P } from '@/components/ui/typography';
 import { siteConfig } from '@/config/site';
+import { getBlogHref } from '@/lib/notion/client';
 import { retrieveNotionPage } from '@/lib/notion/server';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 
@@ -36,6 +37,10 @@ export async function generateMetadata({
       description: properties.description.rich_text
         .map((richtext) => richtext.plain_text)
         .join(''),
+
+      alternates: {
+        canonical: getBlogHref(pageId),
+      },
     };
   } catch (e) {
     console.warn(e);
