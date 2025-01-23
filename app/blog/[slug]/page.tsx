@@ -41,6 +41,22 @@ export async function generateMetadata({
       alternates: {
         canonical: getBlogHref(pageId),
       },
+
+      openGraph: {
+        title: siteConfig.metadata.title,
+        description: properties.description.rich_text
+          .map((richtext) => richtext.plain_text)
+          .join(''),
+        url: `${siteConfig.url.origin}/blog/${pageId}`,
+        siteName: siteConfig.metadata.title,
+        images: [
+          {
+            url: `${siteConfig.url.origin}/api/og/blog/${pageId}`,
+          },
+        ],
+        locale: 'en_US',
+        type: 'website',
+      },
     };
   } catch (e) {
     console.warn(e);
