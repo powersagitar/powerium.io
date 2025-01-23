@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   keywords: siteConfig.metadata.keywords,
   authors: [siteConfig.metadata.author],
   icons: siteConfig.metadata.icons,
+  metadataBase: new URL(siteConfig.url.origin),
 };
 
 type RootLayoutProps = { children: Readonly<React.ReactNode> };

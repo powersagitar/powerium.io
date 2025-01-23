@@ -63,9 +63,7 @@ export async function generateMetadata(props: {
       .join(''),
 
     description: notionConfig.customPages?.get(canonical!)?.description,
-    metadataBase: new URL(
-      `${siteConfig.url.protocol}://${siteConfig.url.hostname}`,
-    ),
+
     alternates: {
       canonical,
     },
