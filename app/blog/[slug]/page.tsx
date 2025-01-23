@@ -29,24 +29,24 @@ export async function generateMetadata({
     const properties =
       page.properties as unknown as NotionArticlePageProperties;
 
-    return {
-      title: properties.title.title
-        .map((richtext) => richtext.plain_text)
-        .join(''),
+    const title = properties.title.title
+      .map((richtext) => richtext.plain_text)
+      .join('');
+    const description = properties.description.rich_text
+      .map((richtext) => richtext.plain_text)
+      .join('');
 
-      description: properties.description.rich_text
-        .map((richtext) => richtext.plain_text)
-        .join(''),
+    return {
+      title,
+      description,
 
       alternates: {
         canonical: getBlogHref(pageId),
       },
 
       openGraph: {
-        title: siteConfig.metadata.title,
-        description: properties.description.rich_text
-          .map((richtext) => richtext.plain_text)
-          .join(''),
+        title,
+        description,
         url: `${siteConfig.url.origin}/blog/${pageId}`,
         siteName: siteConfig.metadata.title,
         images: [
