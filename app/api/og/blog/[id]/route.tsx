@@ -36,22 +36,23 @@ export async function GET(request: NextRequest) {
       <div
         style={{
           background: 'black',
+          borderRadius: '10px',
           color: 'white',
           display: 'flex',
-          padding: '20px',
-          borderRadius: '10px',
           flexDirection: 'column',
+          fontSize: '24',
+          padding: '40px',
+          width: '100%',
+          height: '100%',
         }}
       >
         <aside>
           <p style={{ marginRight: 'auto' }}>{siteConfig.metadata.title}</p>
-          <p style={{ marginLeft: 'auto' }}>
-            /blog/<span style={{ fontWeight: 'bold' }}>{id}</span>
-          </p>
+          <p style={{ marginLeft: 'auto' }}>/blog/{id}</p>
         </aside>
         <h1
           style={{
-            fontSize: '28',
+            fontSize: '48',
             borderBottom: 'solid',
             marginBottom: '0px',
           }}
@@ -69,7 +70,7 @@ export async function GET(request: NextRequest) {
             Updated {dateFormat(lastEditedDate, 'mediumDate', true)}
           </span>
         </p>
-        <p style={{ fontWeight: 'bold' }}>
+        <p style={{ fontSize: '32' }}>
           {description.map((richtext) => richtext.plain_text).join('')}
         </p>
       </div>
