@@ -52,6 +52,8 @@ export async function generateMetadata({
         images: [
           {
             url: `${siteConfig.url.origin}/api/og/blog/${pageId}`,
+            width: 1200,
+            height: 630,
           },
         ],
         locale: 'en_US',
