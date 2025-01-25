@@ -5,8 +5,6 @@ services:
       - type: bind
         source: .
         target: /proj/src
-      # do not mount .next
-      - /proj/src/.next
     ports:
       - '3000:3000'
     develop:

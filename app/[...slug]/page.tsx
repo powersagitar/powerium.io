@@ -21,7 +21,7 @@ import { NotionCommonPageProperties } from '@/lib/notion/types';
 const retrieveNotionPage = cache(
   async (
     slug: string[],
-  ): Promise<{ notionPage: PageObjectResponse; canonical?: Pathname }> => {
+  ): Promise<{ page: PageObjectResponse; canonical?: Pathname }> => {
     const pathname: Pathname = `/${slug.join('/')}`;
 
     const pageId =
@@ -35,7 +35,7 @@ const retrieveNotionPage = cache(
 
     try {
       return {
-        notionPage: (await _retrieveNotionPage(pageId)) as PageObjectResponse,
+        page: (await _retrieveNotionPage(pageId)) as PageObjectResponse,
         canonical: pageIdToCanonical.get(pageId),
       };
     } catch (_) {
@@ -52,20 +52,37 @@ export async function generateMetadata(props: {
   params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  const { notionPage, canonical } = await retrieveNotionPage(params.slug);
+  const { page, canonical } = await retrieveNotionPage(params.slug);
 
-  const notionPageProperties =
-    notionPage.properties as unknown as NotionCommonPageProperties;
+  const pageProperties =
+    page.properties as unknown as NotionCommonPageProperties;
+
+  const title = pageProperties.title.title
+    .map((richtext) => richtext.plain_text)
+    .join('');
+
+  const description = notionConfig.customPages?.get(canonical!)?.description;
 
   return {
-    title: notionPageProperties.title.title
-      .map((richText) => richText.plain_text)
-      .join(''),
-
-    description: notionConfig.customPages?.get(canonical!)?.description,
+    title,
+    description,
 
     alternates: {
       canonical,
+    },
+
+    openGraph: {
+      title,
+      description,
+      url: `${siteConfig.url.origin}/${page.id}`,
+      siteName: siteConfig.metadata.title,
+      images: [
+        {
+          url: `${siteConfig.url.origin}/api/og/${page.id}`,
+        },
+      ],
+      locale: 'en_US',
+      type: 'website',
     },
   };
 }
@@ -74,9 +91,9 @@ export default async function Article(props: {
   params: Promise<{ slug: string[] }>;
 }) {
   const params = await props.params;
-  const { notionPage } = await retrieveNotionPage(params.slug);
+  const { page } = await retrieveNotionPage(params.slug);
 
-  const lastEdited = new Date(notionPage.last_edited_time);
+  const lastEdited = new Date(page.last_edited_time);
 
   return (
     <NotionPage>
@@ -84,11 +101,10 @@ export default async function Article(props: {
         pageHeader: (
           <div className="text-center [overflow-wrap:anywhere]">
             <H1 className="mb-4">
-              <NotionRichTextItems baseKey={notionPage.id}>
+              <NotionRichTextItems baseKey={page.id}>
                 {
-                  (
-                    notionPage.properties as unknown as NotionCommonPageProperties
-                  ).title.title
+                  (page.properties as unknown as NotionCommonPageProperties)
+                    .title.title
                 }
               </NotionRichTextItems>
             </H1>
@@ -109,7 +125,7 @@ export default async function Article(props: {
             <Separator className="my-6" />
           </div>
         ),
-        pageId: notionPage.id,
+        pageId: page.id,
       }}
     </NotionPage>
   );
