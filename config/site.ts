@@ -17,6 +17,10 @@ export const siteConfig: SiteConfig = {
       shortcut: '/favicon.svg',
       apple: '/favicon.svg',
     },
+    openGraph: {
+      titleLength: 100,
+      descriptionLength: 500,
+    },
   },
 
   githubRepository: 'powersagitar/powerium.io',

@@ -13,6 +13,10 @@ export type SiteConfig = {
     description: string;
     keywords?: string[];
     icons?: Metadata['icons'];
+    openGraph: {
+      titleLength: number;
+      descriptionLength: number;
+    };
   };
 
   githubRepository?: `${string}/${string}`;

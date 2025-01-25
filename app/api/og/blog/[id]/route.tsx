@@ -1,6 +1,5 @@
 import 'server-only';
 
-import dateFormat from 'dateformat';
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
@@ -25,11 +24,12 @@ export async function GET(request: NextRequest) {
   }
 
   const properties = blog.properties as NotionArticlePageProperties;
-  const title = properties.title.title;
-  const authorsOverride = properties.authors.rich_text;
-  const description = properties.description.rich_text;
-  const publishDate = new Date(properties.published.date.start);
-  const lastEditedDate = new Date(blog.last_edited_time);
+  const title = properties.title.title
+    .map((richtext) => richtext.plain_text)
+    .join('');
+  const description = properties.description.rich_text
+    .map((richtext) => richtext.plain_text)
+    .join('');
 
   return new ImageResponse(
     (
@@ -40,38 +40,24 @@ export async function GET(request: NextRequest) {
           color: 'white',
           display: 'flex',
           flexDirection: 'column',
-          fontSize: '24',
           padding: '40px',
           width: '100%',
           height: '100%',
         }}
       >
-        <aside>
-          <p style={{ marginRight: 'auto' }}>{siteConfig.metadata.title}</p>
-          <p style={{ marginLeft: 'auto' }}>/blog/{id}</p>
-        </aside>
         <h1
           style={{
             fontSize: '48',
             borderBottom: 'solid',
-            marginBottom: '0px',
           }}
         >
-          {title.map((richtext) => richtext.plain_text).join('')}
+          {title.substring(0, siteConfig.metadata.openGraph.titleLength)}
         </h1>
-        <p>
-          <span style={{ marginRight: 'auto' }}>
-            {authorsOverride.length > 0
-              ? authorsOverride.map((richtext) => richtext.plain_text).join('')
-              : siteConfig.metadata.author.name}
-          </span>
-          <span style={{ marginLeft: 'auto' }}>
-            Published {dateFormat(publishDate, 'mediumDate', true)} &bull;
-            Updated {dateFormat(lastEditedDate, 'mediumDate', true)}
-          </span>
-        </p>
         <p style={{ fontSize: '32' }}>
-          {description.map((richtext) => richtext.plain_text).join('')}
+          {description.substring(
+            0,
+            siteConfig.metadata.openGraph.descriptionLength,
+          )}
         </p>
       </div>
     ),
