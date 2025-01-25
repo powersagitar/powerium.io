@@ -11,9 +11,7 @@ export function Li({
   styles?: { p?: 'p-8' };
 }) {
   return (
-    <li className={clsx('leading-7 not-first:mt-6', styles?.p)}>
-      {children}
-    </li>
+    <li className={clsx('leading-7 not-first:mt-6', styles?.p)}>{children}</li>
   );
 }
 
