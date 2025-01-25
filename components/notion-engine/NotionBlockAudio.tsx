@@ -7,7 +7,7 @@ type NotionBlockAudioProps = {
 export default function NotionBlockAudio({ audio }: NotionBlockAudioProps) {
   if (audio.audio.type === 'file') {
     const url = audio.audio.file.url;
-    return <audio controls src={url} className="[&:not(:first-child)]:mt-6" />;
+    return <audio controls src={url} className="not-first:mt-6" />;
   } else {
     return null;
   }

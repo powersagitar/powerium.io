@@ -28,7 +28,7 @@ export default function TOCDesktop() {
     <aside className="hidden md:flex fixed right-0 top-0 bottom-0 items-center z-50">
       {isTocOpen ? (
         <nav
-          className="flex flex-col backdrop-blur pr-6 py-3 rounded max-w-prose max-h-[75vh] overflow-y-scroll"
+          className="flex flex-col backdrop-blur-sm pr-6 py-3 rounded max-w-prose max-h-[75vh] overflow-y-scroll"
           onMouseLeave={() => setIsTocOpen(false)}
         >
           <TOCEntries activeHeading={activeHeading} />
@@ -58,7 +58,7 @@ function Hint({ notionHeadings, activeHeading, onMouseEnter }: HintProps) {
   return (
     <div className="max-h-[75vh] overflow-y-hidden">
       <div
-        className="flex flex-col items-end gap-3 py-2 pl-2 pr-3 rounded backdrop-blur"
+        className="flex flex-col items-end gap-3 py-2 pl-2 pr-3 rounded backdrop-blur-sm"
         onMouseEnter={onMouseEnter}
       >
         {notionHeadings.map((heading) => (

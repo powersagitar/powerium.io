@@ -48,7 +48,7 @@ export default function NotionBlockCode({
           }
         }}
       >
-        <span className="absolute top-[0.5em] right-[1em] font-light text-xs backdrop-blur">
+        <span className="absolute top-[0.5em] right-[1em] font-light text-xs backdrop-blur-sm">
           {copyIndicator === 'copy' ? (
             <button
               onClick={() => {

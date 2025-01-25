@@ -89,7 +89,7 @@ export default function NotionBlockCallout({
     <Callout borderColor={color}>
       <CalloutBadge color={color}>{badge}</CalloutBadge>
 
-      <P className="[&:not(:first-child)]:mt-1">
+      <P className="not-first:mt-1">
         <NotionRichTextItems baseKey={children.id}>
           {children.callout.rich_text}
         </NotionRichTextItems>

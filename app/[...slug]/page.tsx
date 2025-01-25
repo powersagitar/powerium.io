@@ -115,7 +115,7 @@ export default async function Article(props: {
                   <strong>{dateFormat(lastEdited, 'mediumDate')}</strong>
                 </time>
               </P>
-              <P className="[&:not(:first-child)]:mt-0">
+              <P className="not-first:mt-0">
                 <Link href={siteConfig.metadata.author.url ?? '/'}>
                   <strong>{siteConfig.metadata.author.name}</strong>
                 </Link>

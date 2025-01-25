@@ -10,7 +10,7 @@ import ThemeToggle from './theme-toggle';
 
 export default function Header() {
   return (
-    <header className="backdrop-blur sticky flex items-center justify-between top-0 h-12 z-50">
+    <header className="backdrop-blur-sm sticky flex items-center justify-between top-0 h-12 z-50">
       <Desktop />
       <Mobile />
 

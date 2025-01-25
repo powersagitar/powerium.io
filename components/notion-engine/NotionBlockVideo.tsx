@@ -11,7 +11,7 @@ export default function NotionBlockVideo({ video }: NotionBlockVideoProps) {
       <video
         controls
         src={url}
-        className="[&:not(:first-child)]:mt-6 rounded"
+        className="not-first:mt-6 rounded"
       />
     );
   } else {
@@ -20,7 +20,7 @@ export default function NotionBlockVideo({ video }: NotionBlockVideoProps) {
     //   <iframe
     //     src={url}
     //     loading="lazy"
-    //     className="[&:not(:first-child)]:mt-6 rounded"
+    //     className="not-first:mt-6 rounded"
     //   />
     // );
     return null;

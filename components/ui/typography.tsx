@@ -98,7 +98,7 @@ export const P = forwardRef<ComponentRef<'p'>, ComponentPropsWithoutRef<'p'>>(
       <p
         {...otherProps}
         ref={ref}
-        className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
+        className={cn('leading-7 not-first:mt-6', className)}
       >
         {children}
       </p>

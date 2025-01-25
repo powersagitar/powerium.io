@@ -98,7 +98,7 @@ function renderPage(page: PageObjectResponse) {
                 <BlogPublishLastEditDate page={page} />
               </P>
 
-              <P className="[&:not(:first-child)]:mt-0">
+              <P className="not-first:mt-0">
                 {(() => {
                   const authors = (
                     page.properties as unknown as NotionArticlePageProperties
