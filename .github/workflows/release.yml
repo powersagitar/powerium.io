@@ -25,4 +25,4 @@ jobs:
       - name: Create Release
         run: |
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
-          gh release create "$tag" --verify-tag --notes-from-tag
+          gh release create "$tag" --verify-tag --generate-notes
