@@ -6,9 +6,9 @@ export default function BlogArticleSkeleton() {
   return (
     <>
       {/* page header */}
-      <Skeleton className="h-14 w-full mb-4" />
-      <Skeleton className="h-6 w-3/4 mb-4" />
-      <Skeleton className="h-6 w-1/2 mb-4" />
+      <Skeleton className="h-14 w-full mb-4 mx-auto" />
+      <Skeleton className="h-6 w-3/4 mb-4 mx-auto" />
+      <Skeleton className="h-6 w-1/2 mb-4 mx-auto" />
 
       {/* separator */}
       <Skeleton className="h-1 w-full my-6" />

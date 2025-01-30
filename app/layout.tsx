@@ -39,7 +39,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Providers>
           <Header />
 
-          <main className="mt-32 mb-20 scroll-mt-32 flex grow flex-col items-center">
+          <main className="mt-32 mb-20 scroll-mt-32 flex grow flex-col">
             {children}
             <Analytics />
             <SpeedInsights />
