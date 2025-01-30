@@ -1,0 +1,113 @@
+'use client';
+
+import dateFormat from 'dateformat';
+import { Fragment, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+import {
+  DatabaseObjectResponse,
+  QueryDatabaseResponse,
+} from '@notionhq/client/build/src/api-endpoints';
+
+import { getBlogHref, retrievePublishedArticles } from '@/lib/notion/client';
+import { NotionArticlePageProperties } from '@/lib/notion/types';
+
+import LazyLoader from '../LazyLoader';
+import NotionRichTextItems from '../notion-engine/rich-text';
+import { Link } from '../ui/link';
+import { Skeleton } from '../ui/skeleton';
+import { H2 } from '../ui/typography';
+
+export default function PublishedBlogs() {
+  const [publishedArticles, setPublishedArticles] = useState<
+    DatabaseObjectResponse[]
+  >([]);
+
+  const [startCursor, setStartCursor] = useState<string | null | undefined>(
+    undefined,
+  );
+
+  const [lazyLoaderId, setLazyLoaderId] = useState(0);
+  return (
+    <>
+      <H2 className="w-full">Blogs</H2>
+      <LazyLoader
+        load={() => {
+          retrievePublishedArticles(startCursor).then(
+            (queryDatabaseResponse: QueryDatabaseResponse) => {
+              setPublishedArticles([
+                ...publishedArticles,
+                ...(queryDatabaseResponse.results as DatabaseObjectResponse[]),
+              ]);
+
+              setStartCursor(queryDatabaseResponse.next_cursor);
+            },
+          );
+        }}
+        id={lazyLoaderId}
+      >
+        <div className="w-full">
+          <InfiniteScroll
+            dataLength={publishedArticles.length}
+            next={() => {
+              setLazyLoaderId((id) => id + 1);
+            }}
+            hasMore={startCursor !== null}
+            loader={
+              <div className="grid grid-cols-[8em_4fr_6fr] gap-4">
+                {Array.from({ length: 20 }).map((_, i) => (
+                  <Fragment key={`published-blogs-skeleton-${i}`}>
+                    <Skeleton className="w-[8em] h-7" />
+                    <Skeleton className="w-[4fr] h-7" />
+                    <Skeleton className="w-[6fr] h-7" />
+                  </Fragment>
+                ))}
+              </div>
+            }
+          >
+            <div className="grid grid-cols-[8em_4fr_6fr] gap-4 mt-6">
+              {publishedArticles.map((article) => {
+                const properties =
+                  article.properties as unknown as NotionArticlePageProperties;
+
+                const publishDate = new Date(properties.published.date.start);
+
+                return (
+                  <Link
+                    key={article.id}
+                    className="contents"
+                    href={getBlogHref(article.id)}
+                  >
+                    <span className="text-muted-foreground">
+                      {dateFormat(publishDate, 'mediumDate')}
+                    </span>
+
+                    <span className="underline" tabIndex={0}>
+                      {properties.title.title.length > 0 ? (
+                        <NotionRichTextItems baseKey={article.id}>
+                          {properties.title.title}
+                        </NotionRichTextItems>
+                      ) : (
+                        <>&lt;untitled&gt;</>
+                      )}
+                    </span>
+
+                    <span className="text-muted-foreground">
+                      {properties.description.rich_text.length > 0 ? (
+                        <NotionRichTextItems baseKey={article.id}>
+                          {properties.description.rich_text}
+                        </NotionRichTextItems>
+                      ) : (
+                        <>&lt;no description&gt;</>
+                      )}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </InfiniteScroll>
+        </div>
+      </LazyLoader>
+    </>
+  );
+}

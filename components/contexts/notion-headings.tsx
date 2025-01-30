@@ -1,4 +1,6 @@
-import { SetStateAction, createContext } from 'react';
+'use client';
+
+import { SetStateAction, createContext, useContext, useEffect } from 'react';
 
 import {
   Heading1BlockObjectResponse,
@@ -15,3 +17,10 @@ export const NotionHeadingsContext = createContext<{
   notionHeadings: NotionHeading[];
   setNotionHeadings: (value: SetStateAction<NotionHeading[]>) => void;
 }>({ notionHeadings: [], setNotionHeadings: () => {} });
+
+export function ResetNotionHeadings() {
+  const { setNotionHeadings } = useContext(NotionHeadingsContext);
+  useEffect(() => setNotionHeadings([]), [setNotionHeadings]);
+
+  return null;
+}
