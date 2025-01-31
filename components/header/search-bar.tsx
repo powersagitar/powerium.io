@@ -19,6 +19,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -26,10 +27,11 @@ import {
 import { Input } from '../ui/input';
 
 type SearchBarProps = {
+  title: SiteConfig['metadata']['title'];
   origin: SiteConfig['url']['origin'];
 };
 
-export default function SearchBar({ origin }: SearchBarProps) {
+export default function SearchBar({ title, origin }: SearchBarProps) {
   const [platform, setPlatform] = useState<
     'macos' | 'windows' | 'linux' | 'unix' | 'unknown'
   >('macos');
@@ -90,7 +92,7 @@ export default function SearchBar({ origin }: SearchBarProps) {
         <DialogContent>
           <DialogTitle>Search</DialogTitle>
           <DialogDescription>
-            Search for anything on the site with Google.
+            Search for anything on {title} with Google.
           </DialogDescription>
           <InputForm origin={origin} />
         </DialogContent>
@@ -103,9 +105,7 @@ const FormSchema = z.object({
   search: z.string().min(1, { message: 'Nothing to search for.' }),
 });
 
-type InputFormProps = {
-  origin: SiteConfig['url']['origin'];
-};
+type InputFormProps = { origin: SearchBarProps['origin'] };
 
 function InputForm({ origin }: InputFormProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -137,6 +137,7 @@ function InputForm({ origin }: InputFormProps) {
                   {...field}
                 />
               </FormControl>
+              <FormDescription>Input may not be empty.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

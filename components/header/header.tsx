@@ -14,7 +14,10 @@ export default function Header() {
       <Desktop />
       <Mobile />
 
-      <SearchBar origin={siteConfig.url.origin} />
+      <SearchBar
+        title={siteConfig.metadata.title}
+        origin={siteConfig.url.origin}
+      />
       <ThemeToggle />
       {siteConfig.githubRepository && <GithubButton />}
     </header>
