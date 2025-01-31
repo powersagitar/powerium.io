@@ -122,7 +122,7 @@ function InputForm({ origin }: InputFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form autoComplete="off" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="search"
