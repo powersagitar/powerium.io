@@ -15,6 +15,7 @@ import { NotionArticlePageProperties } from '@/lib/notion/types';
 import LazyLoader from '../LazyLoader';
 import NotionRichTextItems from '../notion-engine/rich-text';
 import { Link } from '../ui/link';
+import { Separator } from '../ui/separator';
 import { Skeleton } from '../ui/skeleton';
 import { H2 } from '../ui/typography';
 
@@ -65,7 +66,7 @@ export default function PublishedBlogs() {
               </div>
             }
           >
-            <div className="grid grid-cols-[8em_4fr_6fr] gap-4 mt-6">
+            <div className="grid md:grid-cols-[8em_4fr_6fr] gap-4 mt-6">
               {publishedArticles.map((article) => {
                 const properties =
                   article.properties as unknown as NotionArticlePageProperties;
@@ -73,35 +74,39 @@ export default function PublishedBlogs() {
                 const publishDate = new Date(properties.published.date.start);
 
                 return (
-                  <Link
-                    key={article.id}
-                    className="contents"
-                    href={getBlogHref(article.id)}
-                  >
-                    <span className="text-muted-foreground">
-                      {dateFormat(publishDate, 'mediumDate')}
-                    </span>
+                  <>
+                    <Link
+                      key={article.id}
+                      className="contents"
+                      href={getBlogHref(article.id)}
+                    >
+                      <span className="text-muted-foreground">
+                        {dateFormat(publishDate, 'mediumDate')}
+                      </span>
 
-                    <span className="underline" tabIndex={0}>
-                      {properties.title.title.length > 0 ? (
-                        <NotionRichTextItems baseKey={article.id}>
-                          {properties.title.title}
-                        </NotionRichTextItems>
-                      ) : (
-                        <>&lt;untitled&gt;</>
-                      )}
-                    </span>
+                      <span className="underline" tabIndex={0}>
+                        {properties.title.title.length > 0 ? (
+                          <NotionRichTextItems baseKey={article.id}>
+                            {properties.title.title}
+                          </NotionRichTextItems>
+                        ) : (
+                          <>&lt;untitled&gt;</>
+                        )}
+                      </span>
 
-                    <span className="text-muted-foreground">
-                      {properties.description.rich_text.length > 0 ? (
-                        <NotionRichTextItems baseKey={article.id}>
-                          {properties.description.rich_text}
-                        </NotionRichTextItems>
-                      ) : (
-                        <>&lt;no description&gt;</>
-                      )}
-                    </span>
-                  </Link>
+                      <span className="text-muted-foreground">
+                        {properties.description.rich_text.length > 0 ? (
+                          <NotionRichTextItems baseKey={article.id}>
+                            {properties.description.rich_text}
+                          </NotionRichTextItems>
+                        ) : (
+                          <>&lt;no description&gt;</>
+                        )}
+                      </span>
+                    </Link>
+
+                    <Separator className="md:hidden" />
+                  </>
                 );
               })}
             </div>
