@@ -25,7 +25,7 @@ export default async function NotionPage({ children }: NotionPageProps) {
   const startCursor = pageChildrenResponse.next_cursor;
 
   return (
-    <article className="whitespace-pre-wrap px-3 w-full">
+    <article className="whitespace-pre-wrap w-full">
       {children.pageHeader}
 
       <NotionPageLazy
