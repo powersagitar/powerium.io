@@ -54,7 +54,7 @@ export default function PublishedBlogs() {
           }}
           hasMore={startCursor !== null}
           loader={
-            <div className="grid gap-4 md:grid-cols-[8em_4fr_6fr]">
+            <div className="relative -top-6 z-20 grid gap-4 md:grid-cols-[8em_4fr_6fr]">
               {Array.from({ length: 20 }).map((_, i) => (
                 <Fragment key={`published-blogs-skeleton-${i}`}>
                   <Skeleton className="h-7 w-[8em]" />
