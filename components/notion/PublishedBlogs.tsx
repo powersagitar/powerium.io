@@ -66,7 +66,7 @@ export default function PublishedBlogs() {
             </div>
           }
         >
-          <div className="mt-6 grid gap-4 md:grid-cols-[8em_4fr_6fr]">
+          <div className="mt-6 grid max-h-[30em] gap-4 overflow-y-scroll md:grid-cols-[8em_4fr_6fr]">
             {publishedArticles.map((article) => {
               const properties =
                 article.properties as unknown as NotionArticlePageProperties;
