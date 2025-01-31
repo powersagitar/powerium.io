@@ -47,68 +47,66 @@ export default function PublishedBlogs() {
         }}
         id={lazyLoaderId}
       >
-        <div className="w-full">
-          <InfiniteScroll
-            dataLength={publishedArticles.length}
-            next={() => {
-              setLazyLoaderId((id) => id + 1);
-            }}
-            hasMore={startCursor !== null}
-            loader={
-              <div className="grid gap-4 md:grid-cols-[8em_4fr_6fr]">
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <Fragment key={`published-blogs-skeleton-${i}`}>
-                    <Skeleton className="h-7 w-[8em]" />
-                    <Skeleton className="h-7 w-[4fr]" />
-                    <Skeleton className="h-7 w-[6fr]" />
-                    <Separator className="md:hidden" />
-                  </Fragment>
-                ))}
-              </div>
-            }
-          >
-            <div className="mt-6 grid gap-4 md:grid-cols-[8em_4fr_6fr]">
-              {publishedArticles.map((article) => {
-                const properties =
-                  article.properties as unknown as NotionArticlePageProperties;
-
-                const publishDate = new Date(properties.published.date.start);
-
-                return (
-                  <Fragment key={article.id}>
-                    <Link href={getBlogHref(article.id)} className="contents">
-                      <span className="text-muted-foreground">
-                        {dateFormat(publishDate, 'mediumDate')}
-                      </span>
-
-                      <span className="underline" tabIndex={0}>
-                        {properties.title.title.length > 0 ? (
-                          <NotionRichTextItems baseKey={article.id}>
-                            {properties.title.title}
-                          </NotionRichTextItems>
-                        ) : (
-                          <>&lt;untitled&gt;</>
-                        )}
-                      </span>
-
-                      <span className="text-muted-foreground">
-                        {properties.description.rich_text.length > 0 ? (
-                          <NotionRichTextItems baseKey={article.id}>
-                            {properties.description.rich_text}
-                          </NotionRichTextItems>
-                        ) : (
-                          <>&lt;no description&gt;</>
-                        )}
-                      </span>
-                    </Link>
-
-                    <Separator className="md:hidden" />
-                  </Fragment>
-                );
-              })}
+        <InfiniteScroll
+          dataLength={publishedArticles.length}
+          next={() => {
+            setLazyLoaderId((id) => id + 1);
+          }}
+          hasMore={startCursor !== null}
+          loader={
+            <div className="grid gap-4 md:grid-cols-[8em_4fr_6fr]">
+              {Array.from({ length: 20 }).map((_, i) => (
+                <Fragment key={`published-blogs-skeleton-${i}`}>
+                  <Skeleton className="h-7 w-[8em]" />
+                  <Skeleton className="h-7 w-[4fr]" />
+                  <Skeleton className="h-7 w-[6fr]" />
+                  <Separator className="md:hidden" />
+                </Fragment>
+              ))}
             </div>
-          </InfiniteScroll>
-        </div>
+          }
+        >
+          <div className="mt-6 grid gap-4 md:grid-cols-[8em_4fr_6fr]">
+            {publishedArticles.map((article) => {
+              const properties =
+                article.properties as unknown as NotionArticlePageProperties;
+
+              const publishDate = new Date(properties.published.date.start);
+
+              return (
+                <Fragment key={article.id}>
+                  <Link href={getBlogHref(article.id)} className="contents">
+                    <span className="text-muted-foreground">
+                      {dateFormat(publishDate, 'mediumDate')}
+                    </span>
+
+                    <span className="underline" tabIndex={0}>
+                      {properties.title.title.length > 0 ? (
+                        <NotionRichTextItems baseKey={article.id}>
+                          {properties.title.title}
+                        </NotionRichTextItems>
+                      ) : (
+                        <>&lt;untitled&gt;</>
+                      )}
+                    </span>
+
+                    <span className="text-muted-foreground">
+                      {properties.description.rich_text.length > 0 ? (
+                        <NotionRichTextItems baseKey={article.id}>
+                          {properties.description.rich_text}
+                        </NotionRichTextItems>
+                      ) : (
+                        <>&lt;no description&gt;</>
+                      )}
+                    </span>
+                  </Link>
+
+                  <Separator className="md:hidden" />
+                </Fragment>
+              );
+            })}
+          </div>
+        </InfiniteScroll>
       </LazyLoader>
     </>
   );
