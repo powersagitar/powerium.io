@@ -48,7 +48,7 @@ export default function NotionBlockCode({
           }
         }}
       >
-        <span className="absolute top-[0.5em] right-[1em] font-light text-xs backdrop-blur-sm">
+        <span className="absolute top-[0.5em] right-[1em] text-xs font-light backdrop-blur-sm">
           {copyIndicator === 'copy' ? (
             <button
               onClick={() => {
@@ -78,7 +78,7 @@ export default function NotionBlockCode({
 
         <Pre>
           <code
-            className={`language-${languageIdentifierMap.get(children.code.language.toLowerCase()) ?? children.code.language.toLowerCase()} rounded w-full overflow-x-scroll`}
+            className={`language-${languageIdentifierMap.get(children.code.language.toLowerCase()) ?? children.code.language.toLowerCase()} w-full overflow-x-scroll rounded`}
             ref={codeRef}
           >
             <NotionRichTextItems baseKey={children.id}>

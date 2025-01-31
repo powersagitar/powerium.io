@@ -118,7 +118,7 @@ export const Muted = forwardRef<
     <p
       {...otherProps}
       ref={ref}
-      className={cn('text-sm text-muted-foreground', className)}
+      className={cn('text-muted-foreground text-sm', className)}
     >
       {children}
     </p>
@@ -138,7 +138,7 @@ export const Code = forwardRef<
       {...otherProps}
       ref={ref}
       className={cn(
-        'relative rounded bg-muted whitespace-nowrap px-[0.3rem] py-[0.2rem] font-mono font-semibold',
+        'bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono font-semibold whitespace-nowrap',
         className,
       )}
     >
@@ -212,7 +212,7 @@ export const Tr = forwardRef<
 
   return (
     <tr
-      className={cn('m-0 border-t p-0 even:bg-muted', className)}
+      className={cn('even:bg-muted m-0 border-t p-0', className)}
       ref={ref}
       {...otherProps}
     >

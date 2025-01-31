@@ -11,11 +11,11 @@ export default function CustomLinkEntries() {
   }
 
   return (
-    <nav className="hidden md:flex items-center text-sm">
+    <nav className="hidden items-center text-sm md:flex">
       <ul>
         {Array.from(notionConfig.customPages).map(
           ([href, { navTitle: name }]) => (
-            <li className="ml-6 inline text-muted-foreground" key={href}>
+            <li className="text-muted-foreground ml-6 inline" key={href}>
               <Button variant="ghost" asChild>
                 <Link href={href} className="no-underline">
                   {name}

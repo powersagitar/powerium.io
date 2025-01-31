@@ -26,7 +26,7 @@ export default function NotionBlockImage({
       alt={alt}
       width={1024}
       height={1024}
-      className="w-auto h-auto rounded my-6"
+      className="my-6 h-auto w-auto rounded"
     />
   );
 }

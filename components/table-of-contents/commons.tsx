@@ -16,7 +16,7 @@ export default function TOCEntries({ activeHeading }: TOCEntriesProps) {
   const { notionHeadings } = useContext(NotionHeadingsContext);
 
   return (
-    <Ul className="list-none my-0">
+    <Ul className="my-0 list-none">
       {notionHeadings.map((heading) => (
         <li
           key={'toc-desktop-' + heading.id}

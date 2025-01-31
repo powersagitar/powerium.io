@@ -24,9 +24,13 @@ module.exports = {
     },
   ],
 
+  // some prettier plugins may conflict with each other
+  // see https://github.com/tailwindlabs/prettier-plugin-tailwindcss/issues/31#issuecomment-1319130168
   plugins: [
     ...styleguide.plugins,
-    'prettier-plugin-tailwindcss',
     '@trivago/prettier-plugin-sort-imports',
+    'prettier-plugin-tailwindcss',
   ],
+
+  pluginSearchDirs: false,
 };

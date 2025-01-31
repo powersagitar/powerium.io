@@ -43,7 +43,7 @@ export function Pre({ children }: { children: ReactNode }) {
 export function Figcaption({ children }: { children: ReactNode }) {
   return (
     <figcaption className="my-2">
-      <ChevronUpIcon className="h-[1em] w-[1em] inline" /> {children}
+      <ChevronUpIcon className="inline h-[1em] w-[1em]" /> {children}
     </figcaption>
   );
 }

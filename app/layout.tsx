@@ -35,11 +35,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className="flex flex-col items-center scroll-smooth"
       suppressHydrationWarning
     >
-      <body className="min-h-screen flex flex-col w-full lg:w-2/3">
+      <body className="flex min-h-screen w-full flex-col lg:w-2/3">
         <Providers>
           <Header />
 
-          <main className="px-3 mt-32 mb-20 scroll-mt-32 flex grow flex-col">
+          <main className="mt-32 mb-20 flex grow scroll-mt-32 flex-col px-3">
             {children}
             <Analytics />
             <SpeedInsights />

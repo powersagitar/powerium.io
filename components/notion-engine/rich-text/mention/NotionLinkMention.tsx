@@ -52,7 +52,7 @@ export default function NotionLinkMention({ mention }: NotionLinkMentionProps) {
           <Link2Icon height={18} width={18} />
         )}
       </span>
-      <span className="mr-1 text-muted-foreground">
+      <span className="text-muted-foreground mr-1">
         {link_provider ?? new URL(href).host}
       </span>
       <span className="underline">{title}</span>

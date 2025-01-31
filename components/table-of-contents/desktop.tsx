@@ -25,10 +25,10 @@ export default function TOCDesktop() {
   }
 
   return (
-    <aside className="hidden md:flex fixed right-0 top-0 bottom-0 items-center z-50">
+    <aside className="fixed top-0 right-0 bottom-0 z-50 hidden items-center md:flex">
       {isTocOpen ? (
         <nav
-          className="flex flex-col backdrop-blur-sm pr-6 py-3 rounded max-w-prose max-h-[75vh] overflow-y-scroll"
+          className="flex max-h-[75vh] max-w-prose flex-col overflow-y-scroll rounded py-3 pr-6 backdrop-blur-sm"
           onMouseLeave={() => setIsTocOpen(false)}
         >
           <TOCEntries activeHeading={activeHeading} />
@@ -58,13 +58,13 @@ function Hint({ notionHeadings, activeHeading, onMouseEnter }: HintProps) {
   return (
     <div className="max-h-[75vh] overflow-y-hidden">
       <div
-        className="flex flex-col items-end gap-3 py-2 pl-2 pr-3 rounded backdrop-blur-sm"
+        className="flex flex-col items-end gap-3 rounded py-2 pr-3 pl-2 backdrop-blur-sm"
         onMouseEnter={onMouseEnter}
       >
         {notionHeadings.map((heading) => (
           <div
             key={'toc-desktop-hint-' + heading.id}
-            className={cn('rounded-full h-1 bg-muted transition', {
+            className={cn('bg-muted h-1 rounded-full transition', {
               'bg-foreground':
                 activeHeading !== undefined && activeHeading === heading.id,
               'w-9': heading.type === 'heading_1',

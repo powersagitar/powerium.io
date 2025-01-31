@@ -12,7 +12,7 @@ export default function GithubButton() {
     <Button
       variant="ghost"
       asChild
-      className="px-3 mx-1"
+      className="mx-1 px-3"
       aria-label="Go to website source on GitHub"
     >
       <Link href={'https://github.com/' + siteConfig.githubRepository}>

@@ -55,19 +55,19 @@ export default function PublishedBlogs() {
             }}
             hasMore={startCursor !== null}
             loader={
-              <div className="grid md:grid-cols-[8em_4fr_6fr] gap-4">
+              <div className="grid gap-4 md:grid-cols-[8em_4fr_6fr]">
                 {Array.from({ length: 20 }).map((_, i) => (
                   <Fragment key={`published-blogs-skeleton-${i}`}>
-                    <Skeleton className="w-[8em] h-7" />
-                    <Skeleton className="w-[4fr] h-7" />
-                    <Skeleton className="w-[6fr] h-7" />
+                    <Skeleton className="h-7 w-[8em]" />
+                    <Skeleton className="h-7 w-[4fr]" />
+                    <Skeleton className="h-7 w-[6fr]" />
                     <Separator className="md:hidden" />
                   </Fragment>
                 ))}
               </div>
             }
           >
-            <div className="grid md:grid-cols-[8em_4fr_6fr] gap-4 mt-6">
+            <div className="mt-6 grid gap-4 md:grid-cols-[8em_4fr_6fr]">
               {publishedArticles.map((article) => {
                 const properties =
                   article.properties as unknown as NotionArticlePageProperties;

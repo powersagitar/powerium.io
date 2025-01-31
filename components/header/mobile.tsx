@@ -62,7 +62,7 @@ export default function Mobile() {
       <DrawerTrigger asChild>
         <Button
           variant="ghost"
-          className="px-3 mx-1 flex md:hidden"
+          className="mx-1 flex px-3 md:hidden"
           aria-label="Open left sidebar (mobile only)"
         >
           <HamburgerMenuIcon />
@@ -73,25 +73,25 @@ export default function Mobile() {
           defaultValue={notionHeadings.length < 1 ? 'nav' : 'toc'}
           className="mt-2 max-h-[75vh] overflow-y-auto"
         >
-          <TabsList className="sticky top-0 w-11/12 mx-auto grid grid-cols-2 z-50">
+          <TabsList className="sticky top-0 z-50 mx-auto grid w-11/12 grid-cols-2">
             <TabsTrigger value="nav">Navigation</TabsTrigger>
             <TabsTrigger value="toc" disabled={notionHeadings.length < 1}>
               Table of Contents
             </TabsTrigger>
           </TabsList>
           <TabsContent value="nav">
-            <DrawerHeader className="px-0 ml-6">
+            <DrawerHeader className="ml-6 px-0">
               <DrawerTitle>
                 <MobileLink
                   href="/"
-                  className="no-underline text-left"
+                  className="text-left no-underline"
                   onOpenChange={setOpen}
                 >
                   <Large>{siteConfig.metadata.title}</Large>
                 </MobileLink>
               </DrawerTitle>
             </DrawerHeader>
-            <Ul className="list-none my-0 mb-6">
+            <Ul className="my-0 mb-6 list-none">
               {customPages.map(({ href, title }) => (
                 <li key={href}>
                   <MobileLink
@@ -107,7 +107,7 @@ export default function Mobile() {
 
             {blogArticles.length > 0 && (
               <>
-                <Large className="text-base ml-6">Recent Posts</Large>
+                <Large className="ml-6 text-base">Recent Posts</Large>
                 <Ul className="list-none">
                   {blogArticles.map((article) => {
                     const properties =
@@ -117,7 +117,7 @@ export default function Mobile() {
                       <li key={'sidebar-nav-' + article.id}>
                         <MobileLink
                           href={getBlogHref(article.id)}
-                          className="no-underline text-muted-foreground"
+                          className="text-muted-foreground no-underline"
                           onOpenChange={setOpen}
                         >
                           <NotionRichTextItems baseKey={article.id}>
@@ -132,7 +132,7 @@ export default function Mobile() {
             )}
           </TabsContent>
           <TabsContent value="toc">
-            <DrawerHeader className="px-0 ml-6">
+            <DrawerHeader className="ml-6 px-0">
               <DrawerTitle className="text-left">Table of Contents</DrawerTitle>
             </DrawerHeader>
             <div onClick={() => setOpen(false)}>

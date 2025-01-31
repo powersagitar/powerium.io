@@ -30,7 +30,7 @@ export default function NotionBlockCallout({
         return {
           badge: (
             <>
-              <InformationCircleIcon className="h-[1.25em] w-[1.25em] mr-1" />
+              <InformationCircleIcon className="mr-1 h-[1.25em] w-[1.25em]" />
               Note
             </>
           ),
@@ -40,7 +40,7 @@ export default function NotionBlockCallout({
         return {
           badge: (
             <>
-              <LightBulbIcon className="h-[1.25em] w-[1.25em] mr-1" />
+              <LightBulbIcon className="mr-1 h-[1.25em] w-[1.25em]" />
               Tip
             </>
           ),
@@ -50,7 +50,7 @@ export default function NotionBlockCallout({
         return {
           badge: (
             <>
-              <MegaphoneIcon className="h-[1.25em] w-[1.25em] mr-1" />
+              <MegaphoneIcon className="mr-1 h-[1.25em] w-[1.25em]" />
               Important
             </>
           ),
@@ -60,7 +60,7 @@ export default function NotionBlockCallout({
         return {
           badge: (
             <>
-              <ExclamationTriangleIcon className="h-[1.25em] w-[1.25em] mr-1" />
+              <ExclamationTriangleIcon className="mr-1 h-[1.25em] w-[1.25em]" />
               Warning
             </>
           ),
@@ -70,7 +70,7 @@ export default function NotionBlockCallout({
         return {
           badge: (
             <>
-              <HandRaisedIcon className="h-[1.25em] w-[1.25em] mr-1" />
+              <HandRaisedIcon className="mr-1 h-[1.25em] w-[1.25em]" />
               Caution
             </>
           ),
