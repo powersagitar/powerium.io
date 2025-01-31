@@ -18,10 +18,19 @@ export const ImageWithFallback = forwardRef<
     throw new Error('onError of ImageWithFallback will not be used.');
   }
 
+  const { alt, ...otherProps } = props;
+
   const [isLoaded, setIsLoaded] = useState(true);
 
   if (isLoaded) {
-    return <Image {...props} ref={ref} onError={() => setIsLoaded(false)} />;
+    return (
+      <Image
+        {...otherProps}
+        alt={alt}
+        ref={ref}
+        onError={() => setIsLoaded(false)}
+      />
+    );
   }
 
   return <ImageIcon width="5em" height="5em" className={props.className} />;
