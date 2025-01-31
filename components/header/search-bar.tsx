@@ -90,7 +90,7 @@ export default function SearchBar({ origin }: SearchBarProps) {
         <DialogContent>
           <DialogTitle>Search</DialogTitle>
           <DialogDescription>
-            Search for anything on the site.
+            Search for anything on the site with Google.
           </DialogDescription>
           <InputForm origin={origin} />
         </DialogContent>
