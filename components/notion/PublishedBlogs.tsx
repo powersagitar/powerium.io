@@ -55,12 +55,13 @@ export default function PublishedBlogs() {
             }}
             hasMore={startCursor !== null}
             loader={
-              <div className="grid grid-cols-[8em_4fr_6fr] gap-4">
+              <div className="grid md:grid-cols-[8em_4fr_6fr] gap-4">
                 {Array.from({ length: 20 }).map((_, i) => (
                   <Fragment key={`published-blogs-skeleton-${i}`}>
                     <Skeleton className="w-[8em] h-7" />
                     <Skeleton className="w-[4fr] h-7" />
                     <Skeleton className="w-[6fr] h-7" />
+                    <Separator className="md:hidden" />
                   </Fragment>
                 ))}
               </div>
@@ -74,12 +75,8 @@ export default function PublishedBlogs() {
                 const publishDate = new Date(properties.published.date.start);
 
                 return (
-                  <>
-                    <Link
-                      key={article.id}
-                      className="contents"
-                      href={getBlogHref(article.id)}
-                    >
+                  <Fragment key={article.id}>
+                    <Link href={getBlogHref(article.id)} className="contents">
                       <span className="text-muted-foreground">
                         {dateFormat(publishDate, 'mediumDate')}
                       </span>
@@ -106,7 +103,7 @@ export default function PublishedBlogs() {
                     </Link>
 
                     <Separator className="md:hidden" />
-                  </>
+                  </Fragment>
                 );
               })}
             </div>
