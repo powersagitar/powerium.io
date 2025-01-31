@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 
 import { Button } from '../ui/button';
 
-export default function CommandBar() {
+export default function SearchBar() {
   const [platform, setPlatform] = useState<
     'macos' | 'windows' | 'linux' | 'unix' | 'unknown'
   >('macos');

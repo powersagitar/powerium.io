@@ -2,10 +2,10 @@ import 'server-only';
 
 import { siteConfig } from '@/config/site';
 
-import CommandBar from './command-bar';
 import Desktop from './desktop';
 import GithubButton from './github-button';
 import Mobile from './mobile';
+import SearchBar from './search-bar';
 import ThemeToggle from './theme-toggle';
 
 export default function Header() {
@@ -14,7 +14,7 @@ export default function Header() {
       <Desktop />
       <Mobile />
 
-      <CommandBar />
+      <SearchBar />
       <ThemeToggle />
       {siteConfig.githubRepository && <GithubButton />}
     </header>
