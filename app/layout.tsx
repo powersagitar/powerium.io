@@ -37,7 +37,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <body className="flex min-h-screen w-full flex-col px-3 lg:w-2/3">
         <Providers>
-          <main className="mt-32 mb-20 flex grow scroll-mt-32 flex-col">
+          <main className="my-22 flex grow scroll-mt-32 flex-col">
             {children}
             <Analytics />
             <SpeedInsights />
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Toolbar />
 
           {/* margin is to make room for toolbar, which appears on the bottom of mobile devices  */}
-          <footer className="mb-13 flex flex-col items-center py-2 text-center text-sm sm:mb-0">
+          <footer className="mb-12 flex flex-col items-center py-2 text-center text-sm sm:mb-0">
             <Muted>
               Copyright &copy; {new Date().getUTCFullYear()}{' '}
               <Link href={siteConfig.metadata.author.url ?? '/'}>
