@@ -24,6 +24,7 @@ export default function TOCMobile() {
       <DrawerTrigger asChild>
         <Button
           variant="ghost"
+          size="icon"
           disabled={notionHeadings.length < 1}
           onClick={() => setOpen(true)}
         >

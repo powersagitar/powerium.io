@@ -12,7 +12,7 @@ export default function SearchMobile() {
 
   return (
     <>
-      <Button variant="ghost" onClick={() => setOpen(true)}>
+      <Button variant="ghost" size="icon" onClick={() => setOpen(true)}>
         <MagnifyingGlassIcon />
       </Button>
       <SearchDialog open={open} setOpen={setOpen} />

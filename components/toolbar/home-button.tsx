@@ -5,7 +5,7 @@ import { Link } from '../ui/link';
 
 export default function HomeButton() {
   return (
-    <Button variant="ghost" asChild>
+    <Button variant="ghost" size="icon" asChild>
       <Link href="/">
         <HomeIcon />
       </Link>
