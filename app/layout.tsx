@@ -43,8 +43,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <SpeedInsights />
           </main>
 
-          <Toaster />
-
           <Toolbar />
 
           {/* margin is to make room for toolbar, which appears on the bottom of mobile devices  */}
