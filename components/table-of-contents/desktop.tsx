@@ -12,7 +12,7 @@ import {
 import { cn } from '@/lib/utils';
 
 import { NotionHeadingsContext } from '../contexts/notion-headings';
-import TOCEntries from './commons';
+import TOCEntries from './entries';
 
 export default function TOCDesktop() {
   const { notionHeadings } = useContext(NotionHeadingsContext);

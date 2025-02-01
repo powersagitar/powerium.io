@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Providers from '@/components/contexts/providers';
-import Header from '@/components/header/header';
+import Toolbar from '@/components/toolbar';
 import { Link } from '@/components/ui/link';
 import { Toaster } from '@/components/ui/toaster';
 import { Muted } from '@/components/ui/typography';
@@ -35,11 +35,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className="flex flex-col items-center scroll-smooth"
       suppressHydrationWarning
     >
-      <body className="flex min-h-screen w-full flex-col lg:w-2/3">
+      <body className="flex min-h-screen w-full flex-col px-3 lg:w-2/3">
         <Providers>
-          <Header />
-
-          <main className="mt-32 mb-20 flex grow scroll-mt-32 flex-col px-3">
+          <main className="mt-32 mb-20 flex grow scroll-mt-32 flex-col">
             {children}
             <Analytics />
             <SpeedInsights />
@@ -47,7 +45,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
           <Toaster />
 
-          <footer className="flex flex-col items-center py-2 text-center text-sm">
+          <Toolbar />
+
+          {/* margin is to make room for toolbar, which appears on the bottom of mobile devices  */}
+          <footer className="mb-13 flex flex-col items-center py-2 text-center text-sm sm:mb-0">
             <Muted>
               Copyright &copy; {new Date().getUTCFullYear()}{' '}
               <Link href={siteConfig.metadata.author.url ?? '/'}>
@@ -56,7 +57,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </Muted>
             <Muted>
               {/* spans for line breaking: https://stackoverflow.com/a/24357132/20143641 */}
-              <span className="inline-block">Articles are licensed under</span>{' '}
+              <span className="inline-block">Contents are licensed under</span>{' '}
               <span className="inline-block">
                 <Link href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
                   <strong>CC BY-SA 4.0</strong>
