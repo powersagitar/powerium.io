@@ -9,7 +9,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import Providers from '@/components/contexts/providers';
 import Toolbar from '@/components/toolbar';
 import { Link } from '@/components/ui/link';
-import { Toaster } from '@/components/ui/toaster';
 import { Muted } from '@/components/ui/typography';
 import { siteConfig } from '@/config/site';
 import '@/styles/global.css';
@@ -37,13 +36,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <body className="flex min-h-screen w-full flex-col px-3 lg:w-2/3">
         <Providers>
+          <Toolbar />
+
           <main className="my-22 flex grow scroll-mt-32 flex-col">
             {children}
             <Analytics />
             <SpeedInsights />
           </main>
-
-          <Toolbar />
 
           {/* margin is to make room for toolbar, which appears on the bottom of mobile devices  */}
           <footer className="mb-12 flex flex-col items-center py-2 text-center text-sm sm:mb-0">
