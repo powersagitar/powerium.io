@@ -1,10 +1,18 @@
 import 'server-only';
 
+type DatabaseID = string;
+type PageID = string;
+
 export type NotionConfig = {
   notionApiKey: string;
-  notionDatabaseId: string;
+  notionDatabaseId: DatabaseID;
 
   cacheTtl: number;
+
+  auxiliaryPages: {
+    about?: PageID;
+    contact?: PageID;
+  };
 
   customPages?: Map<
     Pathname,

@@ -7,9 +7,8 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Providers from '@/components/contexts/providers';
+import Footer from '@/components/footer';
 import Toolbar from '@/components/toolbar';
-import { Link } from '@/components/ui/link';
-import { Muted } from '@/components/ui/typography';
 import { siteConfig } from '@/config/site';
 import '@/styles/global.css';
 
@@ -29,40 +28,19 @@ type RootLayoutProps = { children: Readonly<React.ReactNode> };
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html
-      lang="en"
-      className="flex flex-col items-center scroll-smooth"
-      suppressHydrationWarning
-    >
-      <body className="flex min-h-screen w-full flex-col px-3 lg:w-2/3">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className="flex min-h-screen w-full flex-col items-center transition">
         <Providers>
           <Toolbar />
 
-          <main className="my-22 flex grow flex-col">
+          <main className="mt-22 flex w-full grow flex-col px-3 lg:w-2/3">
             {children}
             <Analytics />
             <SpeedInsights />
           </main>
 
-          {/* margin is to make room for toolbar, which appears on the bottom of mobile devices  */}
-          <footer className="mb-12 flex flex-col items-center py-2 text-center text-sm sm:mb-0">
-            <Muted>
-              Copyright &copy; {new Date().getUTCFullYear()}{' '}
-              <Link href={siteConfig.metadata.author.url ?? '/'}>
-                <strong>{siteConfig.metadata.author.name}</strong>
-              </Link>
-            </Muted>
-            <Muted>
-              {/* spans for line breaking: https://stackoverflow.com/a/24357132/20143641 */}
-              <span className="inline-block">Contents are licensed under</span>{' '}
-              <span className="inline-block">
-                <Link href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
-                  <strong>CC BY-SA 4.0</strong>
-                </Link>
-              </span>{' '}
-              <span className="inline-block">unless otherwise noted.</span>
-            </Muted>
-          </footer>
+          {/* margin is to make room for toolbar, which appears on the bottom of mobile devices */}
+          <Footer className="flex w-full flex-col items-center pt-22 pb-12 text-center text-sm sm:pb-3" />
         </Providers>
       </body>
     </html>

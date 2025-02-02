@@ -8,6 +8,11 @@ export const notionConfig: NotionConfig = {
 
   cacheTtl: process.env.NODE_ENV === 'development' ? 1 : 14400,
 
+  auxiliaryPages: {
+    about: process.env.NOTION_PAGE_ID_ABOUT!,
+    contact: process.env.NOTION_PAGE_ID_CONTACT!,
+  },
+
   customPages: new Map([
     [
       '/about',
