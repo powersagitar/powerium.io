@@ -8,6 +8,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Providers from '@/components/contexts/providers';
 import Footer from '@/components/footer';
+import Header from '@/components/header';
 import Toolbar from '@/components/toolbar';
 import { siteConfig } from '@/config/site';
 import '@/styles/global.css';
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className="flex min-h-screen w-full flex-col items-center transition">
         <Providers>
-          <Toolbar />
+          <Header className="hidden sm:block" />
 
           <main className="mt-22 flex w-full grow flex-col px-3 lg:w-2/3">
             {children}
@@ -41,6 +42,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
           {/* margin is to make room for toolbar, which appears on the bottom of mobile devices */}
           <Footer className="flex w-full flex-col items-center pt-22 pb-14 text-center sm:pb-3" />
+
+          <Toolbar className="flex sm:hidden" />
         </Providers>
       </body>
     </html>
