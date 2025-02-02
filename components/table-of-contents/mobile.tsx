@@ -31,7 +31,7 @@ export default function TOCMobile() {
           <ActivityLogIcon />
         </Button>
       </DrawerTrigger>
-      <DrawerContent onClick={() => setOpen(false)}>
+      <DrawerContent onClick={() => setOpen(false)} className="pb-4">
         <DrawerHeader>
           <DrawerTitle>Table of Contents</DrawerTitle>
         </DrawerHeader>
