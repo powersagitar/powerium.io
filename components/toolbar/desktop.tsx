@@ -24,7 +24,7 @@ export default function Desktop() {
   const current = pathname[pathname.length - 1];
 
   return (
-    <Breadcrumb className="mt-6 hidden sm:block">
+    <Breadcrumb className="mt-6 hidden w-full px-3 sm:block lg:w-2/3">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
