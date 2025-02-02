@@ -40,7 +40,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </main>
 
           {/* margin is to make room for toolbar, which appears on the bottom of mobile devices */}
-          <Footer className="flex w-full flex-col items-center pt-22 pb-12 text-center text-sm sm:pb-3" />
+          <Footer className="flex w-full flex-col items-center pt-22 pb-14 text-center sm:pb-3" />
         </Providers>
       </body>
     </html>
