@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { isDesktop } from 'react-device-detect';
 
-import SearchDialog from '../search-dialog';
+import SearchForm from '../search/form';
 import { Button } from '../ui/button';
 
 export default function SearchBar() {
@@ -63,7 +63,7 @@ export default function SearchBar() {
           </kbd>
         )}
       </Button>
-      <SearchDialog open={open} setOpen={setOpen} />
+      <SearchForm open={open} setOpen={setOpen} />
     </>
   );
 }

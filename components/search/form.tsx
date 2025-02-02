@@ -1,18 +1,13 @@
+'use client';
+
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { siteConfig } from '@/config/site';
-import { SiteConfig } from '@/lib/config/site';
 
-import { Button } from './ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from './ui/dialog';
+import { Button } from '../ui/button';
 import {
   Form,
   FormControl,
@@ -20,35 +15,14 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from './ui/form';
-import { Input } from './ui/input';
-
-type SearchDialogProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-};
-
-export default function SearchDialog({ open, setOpen }: SearchDialogProps) {
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent>
-        <DialogTitle>Search</DialogTitle>
-        <DialogDescription>
-          Search for anything on {siteConfig.metadata.title} with Google.
-        </DialogDescription>
-        <InputForm origin={siteConfig.url.origin} />
-      </DialogContent>
-    </Dialog>
-  );
-}
+} from '../ui/form';
+import { Input } from '../ui/input';
 
 const FormSchema = z.object({
   search: z.string().min(1, { message: 'Nothing to search for.' }),
 });
 
-type InputFormProps = { origin: SiteConfig['url']['origin'] };
-
-function InputForm({ origin }: InputFormProps) {
+export default function SearchForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: { search: '' },
@@ -56,7 +30,7 @@ function InputForm({ origin }: InputFormProps) {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     window.open(
-      `https://www.google.com/search?q=site:${origin} ${data.search}`,
+      `https://www.google.com/search?q=site:${siteConfig.url.origin} ${data.search}`,
       '_blank',
     );
   }
@@ -83,7 +57,7 @@ function InputForm({ origin }: InputFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-4">
+        <Button type="submit" className="mt-4 w-full sm:w-auto">
           Search
         </Button>
       </form>

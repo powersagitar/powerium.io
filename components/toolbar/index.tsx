@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 
+import { SearchMobile } from '../search';
 import TOCMobile from '../table-of-contents/mobile';
 import HomeButton from './home-button';
-import SearchMobile from './search-mobile';
 import ThemeToggle from './theme-toggle';
 
 type ToolbarProps = {
