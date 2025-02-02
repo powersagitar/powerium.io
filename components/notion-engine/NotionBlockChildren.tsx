@@ -23,7 +23,6 @@ import {
   VideoBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import LazyLoader from '@/components/LazyLoader';
 import NotionBlockAudio from '@/components/notion-engine/NotionBlockAudio';
 import NotionBlockBulletedListItem from '@/components/notion-engine/NotionBlockBulletedListItem';
 import NotionBlockCallout from '@/components/notion-engine/NotionBlockCallout';
@@ -41,6 +40,7 @@ import NotionBlockParagraph from '@/components/notion-engine/NotionBlockParagrap
 import NotionBlockQuote from '@/components/notion-engine/NotionBlockQuote';
 import NotionBlockTable from '@/components/notion-engine/NotionBlockTable';
 import NotionBlockVideo from '@/components/notion-engine/NotionBlockVideo';
+import LazyLoader from '@/components/utils/lazy-loader';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
 const defaultBlockRenderer = (type: BlockObjectResponse['type']) => {

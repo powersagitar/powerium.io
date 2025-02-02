@@ -12,13 +12,13 @@ import {
 import { getBlogHref, retrievePublishedArticles } from '@/lib/notion/client';
 import { NotionArticlePageProperties } from '@/lib/notion/types';
 
-import LazyLoader from '../LazyLoader';
 import NotionRichTextItems from '../notion-engine/rich-text';
 import { Link } from '../ui/link';
 import { VerticalScrollAreaWithShadow } from '../ui/scroll-area-with-shadow';
 import { Separator } from '../ui/separator';
 import { Skeleton } from '../ui/skeleton';
 import { H2 } from '../ui/typography';
+import LazyLoader from '../utils/lazy-loader';
 
 export default function PublishedBlogs() {
   const [publishedArticles, setPublishedArticles] = useState<

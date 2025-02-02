@@ -7,8 +7,8 @@ import {
 
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
-import LazyLoader from '../LazyLoader';
 import { Table, Td, Th, Tr } from '../ui/typography';
+import LazyLoader from '../utils/lazy-loader';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockTable({

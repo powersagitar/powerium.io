@@ -4,9 +4,9 @@ import { useContext, useEffect, useState } from 'react';
 
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import LazyLoader from '@/components/LazyLoader';
 import { NotionHeadingsContext } from '@/components/contexts/notion-headings';
 import NotionBlockChildren from '@/components/notion-engine/NotionBlockChildren';
+import LazyLoader from '@/components/utils/lazy-loader';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
 type NotionPageLazyProps = {
