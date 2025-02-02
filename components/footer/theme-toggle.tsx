@@ -2,6 +2,7 @@
 
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 import { DesktopIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons';
 
@@ -12,6 +13,9 @@ type ThemeToggleProps = {
 };
 
 export default function ThemeToggle({ className }: ThemeToggleProps) {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => setIsClient(true), []);
+
   const { theme, setTheme } = useTheme();
 
   return (
@@ -21,9 +25,9 @@ export default function ThemeToggle({ className }: ThemeToggleProps) {
         size="icon"
         onClick={() => setTheme('system')}
         className={clsx(
-          theme !== 'system' && 'text-muted-foreground cursor-pointer',
+          'cursor-pointer',
+          isClient && theme !== 'system' && 'text-muted-foreground',
         )}
-        suppressHydrationWarning
       >
         <DesktopIcon />
       </Button>
@@ -32,9 +36,9 @@ export default function ThemeToggle({ className }: ThemeToggleProps) {
         size="icon"
         onClick={() => setTheme('light')}
         className={clsx(
-          theme !== 'light' && 'text-muted-foreground cursor-pointer',
+          'cursor-pointer',
+          isClient && theme !== 'light' && 'text-muted-foreground',
         )}
-        suppressHydrationWarning
       >
         <SunIcon />
       </Button>
@@ -43,9 +47,9 @@ export default function ThemeToggle({ className }: ThemeToggleProps) {
         size="icon"
         onClick={() => setTheme('dark')}
         className={clsx(
-          theme !== 'dark' && 'text-muted-foreground cursor-pointer',
+          'cursor-pointer',
+          isClient && theme !== 'dark' && 'text-muted-foreground',
         )}
-        suppressHydrationWarning
       >
         <MoonIcon />
       </Button>
