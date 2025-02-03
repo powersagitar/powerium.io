@@ -54,53 +54,41 @@ const blockRenderers: {
   ) => JSX.Element | null;
 } = {
   heading_1: (block) => (
-    <NotionBlockHeading1>
-      {block as Heading1BlockObjectResponse}
-    </NotionBlockHeading1>
+    <NotionBlockHeading1 heading={block as Heading1BlockObjectResponse} />
   ),
 
   heading_2: (block) => (
-    <NotionBlockHeading2>
-      {block as Heading2BlockObjectResponse}
-    </NotionBlockHeading2>
+    <NotionBlockHeading2 heading={block as Heading2BlockObjectResponse} />
   ),
 
   heading_3: (block) => (
-    <NotionBlockHeading3>
-      {block as Heading3BlockObjectResponse}
-    </NotionBlockHeading3>
+    <NotionBlockHeading3 heading={block as Heading3BlockObjectResponse} />
   ),
 
   paragraph: (block) => (
-    <NotionBlockParagraph>
-      {block as ParagraphBlockObjectResponse}
-    </NotionBlockParagraph>
+    <NotionBlockParagraph paragraph={block as ParagraphBlockObjectResponse} />
   ),
 
   bulleted_list_item: (block) => (
-    <NotionBlockBulletedListItem>
-      {block as BulletedListItemBlockObjectResponse}
-    </NotionBlockBulletedListItem>
+    <NotionBlockBulletedListItem
+      bulletedListItem={block as BulletedListItemBlockObjectResponse}
+    />
   ),
 
   embed: (block) => (
-    <NotionBlockEmbed>{block as EmbedBlockObjectResponse}</NotionBlockEmbed>
+    <NotionBlockEmbed embed={block as EmbedBlockObjectResponse} />
   ),
 
   quote: (block) => (
-    <NotionBlockQuote>{block as QuoteBlockObjectResponse}</NotionBlockQuote>
+    <NotionBlockQuote quote={block as QuoteBlockObjectResponse} />
   ),
 
-  code: (block) => (
-    <NotionBlockCode>{block as CodeBlockObjectResponse}</NotionBlockCode>
-  ),
+  code: (block) => <NotionBlockCode code={block as CodeBlockObjectResponse} />,
 
   divider: () => <NotionBlockDivider />,
 
   callout: (block) => (
-    <NotionBlockCallout>
-      {block as CalloutBlockObjectResponse}
-    </NotionBlockCallout>
+    <NotionBlockCallout callout={block as CalloutBlockObjectResponse} />
   ),
 
   image: (block) => (

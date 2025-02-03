@@ -12,9 +12,9 @@ import { Figcaption, Pre } from '../../ui/CommonElements';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockCode({
-  children,
+  code,
 }: {
-  children: CodeBlockObjectResponse;
+  code: CodeBlockObjectResponse;
 }) {
   const codeRef = useRef(null);
 
@@ -55,7 +55,7 @@ export default function NotionBlockCode({
                 setCopyIndicator('copying');
                 navigator.clipboard
                   .writeText(
-                    children.code.rich_text
+                    code.code.rich_text
                       .map((richText) => richText.plain_text)
                       .join(''),
                   )
@@ -72,27 +72,26 @@ export default function NotionBlockCode({
           ) : copyIndicator === 'copied' ? (
             <CheckIcon />
           ) : (
-            children.code.language
+            code.code.language
           )}
         </span>
 
         <Pre>
           <code
-            className={`language-${languageIdentifierMap.get(children.code.language.toLowerCase()) ?? children.code.language.toLowerCase()} w-full overflow-x-scroll rounded`}
+            className={`language-${languageIdentifierMap.get(code.code.language.toLowerCase()) ?? code.code.language.toLowerCase()} w-full overflow-x-scroll rounded`}
             ref={codeRef}
           >
-            <NotionRichTextItems baseKey={children.id}>
-              {children.code.rich_text}
-            </NotionRichTextItems>
+            <NotionRichTextItems
+              baseKey={code.id}
+              richText={code.code.rich_text}
+            />
           </code>
         </Pre>
       </div>
 
-      {children.code.caption.length > 0 && (
+      {code.code.caption.length > 0 && (
         <Figcaption>
-          <NotionRichTextItems baseKey={children.id}>
-            {children.code.caption}
-          </NotionRichTextItems>
+          <NotionRichTextItems baseKey={code.id} richText={code.code.caption} />
         </Figcaption>
       )}
     </>

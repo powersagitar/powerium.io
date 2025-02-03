@@ -5,16 +5,17 @@ import { P } from '../../ui/typography';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockQuote({
-  children,
+  quote,
 }: {
-  children: QuoteBlockObjectResponse;
+  quote: QuoteBlockObjectResponse;
 }) {
   return (
     <Blockquote>
       <P>
-        <NotionRichTextItems baseKey={children.id}>
-          {children.quote.rich_text}
-        </NotionRichTextItems>
+        <NotionRichTextItems
+          baseKey={quote.id}
+          richText={quote.quote.rich_text}
+        />
       </P>
     </Blockquote>
   );

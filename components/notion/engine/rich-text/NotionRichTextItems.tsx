@@ -13,12 +13,12 @@ import NotionMentionRichTextItem from '@/components/notion/engine/rich-text/ment
 
 export default function NotionRichTextItems({
   baseKey,
-  children: notionRichText,
+  richText,
 }: {
   baseKey: string;
-  children: RichTextItemResponse[];
+  richText: RichTextItemResponse[];
 }) {
-  return notionRichText.map((richTextItem, idx) => {
+  return richText.map((richText, idx) => {
     type Renderers = {
       [key in RichTextItemResponse['type']]: JSX.Element;
     };
@@ -27,25 +27,25 @@ export default function NotionRichTextItems({
       text: (
         <NotionTextRichTextItem
           key={`rich-text-${baseKey}-${idx}`}
-          text={richTextItem as TextRichTextItemResponse}
+          text={richText as TextRichTextItemResponse}
         />
       ),
 
       mention: (
         <NotionMentionRichTextItem
           key={`rich-text-${baseKey}-${idx}`}
-          mention={richTextItem as MentionRichTextItemResponse}
+          mention={richText as MentionRichTextItemResponse}
         />
       ),
 
       equation: (
         <NotionEquationRichTextItem
           key={`rich-text-${baseKey}-${idx}`}
-          equation={richTextItem as EquationRichTextItemResponse}
+          equation={richText as EquationRichTextItemResponse}
         />
       ),
     };
 
-    return renderers[richTextItem.type];
+    return renderers[richText.type];
   });
 }

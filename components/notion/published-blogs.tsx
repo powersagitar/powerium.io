@@ -10,7 +10,7 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import { getBlogHref, retrievePublishedArticles } from '@/lib/notion/client';
-import { NotionArticlePageProperties } from '@/lib/notion/types';
+import { NotionBlogPageProperties } from '@/lib/notion/types';
 
 import { Link } from '../ui/link';
 import { VerticalScrollAreaWithShadow } from '../ui/scroll-area-with-shadow';
@@ -70,7 +70,7 @@ export default function PublishedBlogs() {
           <VerticalScrollAreaWithShadow className="grid max-h-[65vh] gap-4 md:grid-cols-[8em_4fr_6fr]">
             {publishedArticles.map((article) => {
               const properties =
-                article.properties as unknown as NotionArticlePageProperties;
+                article.properties as unknown as NotionBlogPageProperties;
 
               const publishDate = new Date(properties.published.date.start);
 
@@ -83,9 +83,10 @@ export default function PublishedBlogs() {
 
                     <span className="underline" tabIndex={0}>
                       {properties.title.title.length > 0 ? (
-                        <NotionRichTextItems baseKey={article.id}>
-                          {properties.title.title}
-                        </NotionRichTextItems>
+                        <NotionRichTextItems
+                          baseKey={article.id}
+                          richText={properties.title.title}
+                        />
                       ) : (
                         <>&lt;untitled&gt;</>
                       )}
@@ -93,9 +94,10 @@ export default function PublishedBlogs() {
 
                     <span className="text-muted-foreground">
                       {properties.description.rich_text.length > 0 ? (
-                        <NotionRichTextItems baseKey={article.id}>
-                          {properties.description.rich_text}
-                        </NotionRichTextItems>
+                        <NotionRichTextItems
+                          baseKey={article.id}
+                          richText={properties.description.rich_text}
+                        />
                       ) : (
                         <>&lt;no description&gt;</>
                       )}

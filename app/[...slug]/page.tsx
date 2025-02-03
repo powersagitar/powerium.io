@@ -1,22 +1,17 @@
 import 'server-only';
 
-import dateFormat from 'dateformat';
 import { Metadata } from 'next';
 import { unstable_cache as cache } from 'next/cache';
 import { notFound } from 'next/navigation';
 
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import NotionRichTextItems from '@/components/notion/engine/rich-text';
-import NotionPage from '@/components/notion/page';
-import { Link } from '@/components/ui/link';
-import { Separator } from '@/components/ui/separator';
-import { H1, P } from '@/components/ui/typography';
+import NotionPageNormal from '@/components/notion/normal-page';
 import { notionConfig } from '@/config/notion';
 import { siteConfig } from '@/config/site';
 import { Pathname } from '@/lib/config/notion';
 import { retrieveNotionPage as _retrieveNotionPage } from '@/lib/notion/server';
-import { NotionCommonPageProperties } from '@/lib/notion/types';
+import { NotionPageProperties } from '@/lib/notion/types';
 
 const retrieveNotionPage = cache(
   async (
@@ -54,8 +49,7 @@ export async function generateMetadata(props: {
   const params = await props.params;
   const { page, canonical } = await retrieveNotionPage(params.slug);
 
-  const pageProperties =
-    page.properties as unknown as NotionCommonPageProperties;
+  const pageProperties = page.properties as unknown as NotionPageProperties;
 
   const title = pageProperties.title.title
     .map((richtext) => richtext.plain_text)
@@ -87,46 +81,11 @@ export async function generateMetadata(props: {
   };
 }
 
-export default async function Article(props: {
+export default async function NotionPage(props: {
   params: Promise<{ slug: string[] }>;
 }) {
   const params = await props.params;
   const { page } = await retrieveNotionPage(params.slug);
 
-  const lastEdited = new Date(page.last_edited_time);
-
-  return (
-    <NotionPage>
-      {{
-        pageHeader: (
-          <div className="text-center [overflow-wrap:anywhere]">
-            <H1 className="mb-4">
-              <NotionRichTextItems baseKey={page.id}>
-                {
-                  (page.properties as unknown as NotionCommonPageProperties)
-                    .title.title
-                }
-              </NotionRichTextItems>
-            </H1>
-
-            <address className="not-italic">
-              <P className="whitespace-nowrap">
-                <time dateTime={lastEdited.toISOString()}>
-                  <strong>{dateFormat(lastEdited, 'mediumDate')}</strong>
-                </time>
-              </P>
-              <P className="not-first:mt-0">
-                <Link href={siteConfig.metadata.author.url ?? '/'}>
-                  <strong>{siteConfig.metadata.author.name}</strong>
-                </Link>
-              </P>
-            </address>
-
-            <Separator className="my-6" />
-          </div>
-        ),
-        pageId: page.id,
-      }}
-    </NotionPage>
-  );
+  return <NotionPageNormal page={page} />;
 }

@@ -15,16 +15,16 @@ import NotionBlockChildren from './NotionBlockChildren';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockCallout({
-  children,
+  callout,
 }: {
-  children: CalloutBlockObjectResponse;
+  callout: CalloutBlockObjectResponse;
 }) {
   const { badge, color } = ((): {
     badge: JSX.Element;
     color: 'blue' | 'green' | 'violet' | 'yellow' | 'red' | 'inherit';
   } => {
-    if (children.callout.icon?.type === 'external') {
-      const iconUrl = children.callout.icon.external.url;
+    if (callout.callout.icon?.type === 'external') {
+      const iconUrl = callout.callout.icon.external.url;
 
       if (iconUrl.includes('info-alternate')) {
         return {
@@ -90,14 +90,15 @@ export default function NotionBlockCallout({
       <CalloutBadge color={color}>{badge}</CalloutBadge>
 
       <P className="not-first:mt-1">
-        <NotionRichTextItems baseKey={children.id}>
-          {children.callout.rich_text}
-        </NotionRichTextItems>
+        <NotionRichTextItems
+          baseKey={callout.id}
+          richText={callout.callout.rich_text}
+        />
       </P>
 
-      {children.has_children && (
+      {callout.has_children && (
         <NotionBlockChildren>
-          {{ fetching: 'automatic', blockId: children.id }}
+          {{ fetching: 'automatic', blockId: callout.id }}
         </NotionBlockChildren>
       )}
     </Callout>

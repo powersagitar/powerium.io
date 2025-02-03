@@ -11,9 +11,10 @@ export default function NotionBlockNumberedListItem({
   return (
     <Ul>
       <li>
-        <NotionRichTextItems baseKey={numberedListItem.id}>
-          {numberedListItem.numbered_list_item.rich_text}
-        </NotionRichTextItems>
+        <NotionRichTextItems
+          baseKey={numberedListItem.id}
+          richText={numberedListItem.numbered_list_item.rich_text}
+        />
       </li>
     </Ul>
   );

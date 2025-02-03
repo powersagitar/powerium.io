@@ -7,7 +7,7 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { siteConfig } from '@/config/site';
 import { retrieveNotionPage } from '@/lib/notion/server';
-import { NotionArticlePageProperties } from '@/lib/notion/types';
+import { NotionBlogPageProperties } from '@/lib/notion/types';
 
 export const runtime = 'edge';
 
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     return new Response(undefined, { status: 404 });
   }
 
-  const properties = page.properties as NotionArticlePageProperties;
+  const properties = page.properties as NotionBlogPageProperties;
 
   const title = properties.title.title
     .map((richtext) => richtext.plain_text)

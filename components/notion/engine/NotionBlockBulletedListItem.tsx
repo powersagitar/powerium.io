@@ -5,16 +5,17 @@ import { Ul } from '../../ui/typography';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockBulletedListItem({
-  children,
+  bulletedListItem,
 }: {
-  children: BulletedListItemBlockObjectResponse;
+  bulletedListItem: BulletedListItemBlockObjectResponse;
 }) {
   return (
     <Ul className="my-0">
       <Li>
-        <NotionRichTextItems baseKey={children.id}>
-          {children.bulleted_list_item.rich_text}
-        </NotionRichTextItems>
+        <NotionRichTextItems
+          baseKey={bulletedListItem.id}
+          richText={bulletedListItem.bulleted_list_item.rich_text}
+        />
       </Li>
     </Ul>
   );

@@ -28,10 +28,11 @@ export default function TOCEntries({ activeHeading }: TOCEntriesProps) {
           })}
         >
           <Link href={'#' + heading.id} className="no-underline">
-            <NotionRichTextItems baseKey={heading.id}>
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {(heading as any)[heading.type].rich_text}
-            </NotionRichTextItems>
+            <NotionRichTextItems
+              baseKey={heading.id}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              richText={(heading as any)[heading.type].rich_text}
+            />
           </Link>
         </li>
       ))}

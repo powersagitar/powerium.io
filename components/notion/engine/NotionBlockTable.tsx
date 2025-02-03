@@ -47,9 +47,10 @@ export default function NotionBlockTable({
                 const key = `${row.id}-${cellIdx}`;
 
                 const cell = (
-                  <NotionRichTextItems baseKey={`${row.id}-${cellIdx}`}>
-                    {richTextCell}
-                  </NotionRichTextItems>
+                  <NotionRichTextItems
+                    baseKey={`${row.id}-${cellIdx}`}
+                    richText={richTextCell}
+                  />
                 );
 
                 const isColHeader =

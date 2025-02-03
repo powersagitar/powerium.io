@@ -4,15 +4,16 @@ import { P } from '../../ui/typography';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockParagraph({
-  children,
+  paragraph,
 }: {
-  children: ParagraphBlockObjectResponse;
+  paragraph: ParagraphBlockObjectResponse;
 }) {
   return (
     <P>
-      <NotionRichTextItems baseKey={children.id}>
-        {children.paragraph.rich_text}
-      </NotionRichTextItems>
+      <NotionRichTextItems
+        baseKey={paragraph.id}
+        richText={paragraph.paragraph.rich_text}
+      />
     </P>
   );
 }

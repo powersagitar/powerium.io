@@ -2,7 +2,7 @@ import 'server-only';
 
 import { RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints';
 
-export type NotionCommonPageProperties = {
+export type NotionPageProperties = {
   title: {
     id: 'title';
     type: 'title';
@@ -10,7 +10,7 @@ export type NotionCommonPageProperties = {
   };
 };
 
-export type NotionArticlePageProperties = NotionCommonPageProperties & {
+export type NotionBlogPageProperties = NotionPageProperties & {
   published: {
     id: string;
     type: 'date';

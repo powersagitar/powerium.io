@@ -4,15 +4,16 @@ import { H4 } from '../../ui/typography';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockHeading3({
-  children,
+  heading,
 }: {
-  children: Heading3BlockObjectResponse;
+  heading: Heading3BlockObjectResponse;
 }) {
   return (
-    <H4 id={children.id}>
-      <NotionRichTextItems baseKey={children.id}>
-        {children.heading_3.rich_text}
-      </NotionRichTextItems>
+    <H4 id={heading.id}>
+      <NotionRichTextItems
+        baseKey={heading.id}
+        richText={heading.heading_3.rich_text}
+      />
     </H4>
   );
 }
