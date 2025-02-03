@@ -10,8 +10,14 @@ export type NotionConfig = {
   cacheTtl: number;
 
   auxiliaryPages: {
-    about?: PageID;
-    contact?: PageID;
+    about?: {
+      id: PageID;
+      description: string;
+    };
+    contact?: {
+      id: PageID;
+      description: string;
+    };
   };
 
   customPages?: Map<

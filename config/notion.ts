@@ -9,26 +9,13 @@ export const notionConfig: NotionConfig = {
   cacheTtl: process.env.NODE_ENV === 'development' ? 1 : 14400,
 
   auxiliaryPages: {
-    about: process.env.NOTION_PAGE_ID_ABOUT!,
-    contact: process.env.NOTION_PAGE_ID_CONTACT!,
+    about: {
+      id: process.env.NOTION_PAGE_ID_ABOUT!,
+      description: 'Learn more about @powersagitar.',
+    },
+    contact: {
+      id: process.env.NOTION_PAGE_ID_CONTACT!,
+      description: 'Connect with @powersagitar on various platforms.',
+    },
   },
-
-  customPages: new Map([
-    [
-      '/about',
-      {
-        navTitle: 'About',
-        description: 'Learn more about @powersagitar.',
-        notionPageId: process.env.NOTION_PAGE_ID_ABOUT!,
-      },
-    ],
-    [
-      '/contact',
-      {
-        navTitle: 'Contact',
-        description: 'Connect with @powersagitar on various platforms.',
-        notionPageId: process.env.NOTION_PAGE_ID_CONTACT!,
-      },
-    ],
-  ]),
 };
