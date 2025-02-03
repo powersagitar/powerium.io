@@ -9,8 +9,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { CalloutBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { Callout, CalloutBadge } from '../ui/callout';
-import { P } from '../ui/typography';
+import { Callout, CalloutBadge } from '../../ui/callout';
+import { P } from '../../ui/typography';
 import NotionBlockChildren from './NotionBlockChildren';
 import NotionRichTextItems from './rich-text';
 

@@ -7,9 +7,9 @@ import {
   TextRichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import NotionEquationRichTextItem from '@/components/notion-engine/rich-text/NotionEquationRichTextItem';
-import NotionTextRichTextItem from '@/components/notion-engine/rich-text/NotionTextRichTextItem';
-import NotionMentionRichTextItem from '@/components/notion-engine/rich-text/mention';
+import NotionEquationRichTextItem from '@/components/notion/engine/rich-text/NotionEquationRichTextItem';
+import NotionTextRichTextItem from '@/components/notion/engine/rich-text/NotionTextRichTextItem';
+import NotionMentionRichTextItem from '@/components/notion/engine/rich-text/mention';
 
 export default function NotionRichTextItems({
   baseKey,

@@ -1,6 +1,6 @@
 import { ImageBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { ImageWithFallback } from '../ui/image-with-fallback';
+import { ImageWithFallback } from '../../ui/image-with-fallback';
 
 export default function NotionBlockImage({
   image,

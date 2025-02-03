@@ -1,6 +1,6 @@
 import { TextRichTextItemResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import NotionRichTextAnnotations from '@/components/notion-engine/rich-text/NotionRichTextAnnotations';
+import NotionRichTextAnnotations from '@/components/notion/engine/rich-text/NotionRichTextAnnotations';
 import { Link } from '@/components/ui/link';
 
 type NotionTextRichTextItemProps = {

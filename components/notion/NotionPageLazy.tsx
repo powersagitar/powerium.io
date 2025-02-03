@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { NotionHeadingsContext } from '@/components/contexts/notion-headings';
-import NotionBlockChildren from '@/components/notion-engine/NotionBlockChildren';
+import NotionBlockChildren from '@/components/notion/engine';
 import LazyLoader from '@/components/utils/lazy-loader';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 

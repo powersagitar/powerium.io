@@ -23,23 +23,23 @@ import {
   VideoBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
-import NotionBlockAudio from '@/components/notion-engine/NotionBlockAudio';
-import NotionBlockBulletedListItem from '@/components/notion-engine/NotionBlockBulletedListItem';
-import NotionBlockCallout from '@/components/notion-engine/NotionBlockCallout';
-import NotionBlockCode from '@/components/notion-engine/NotionBlockCode';
-import NotionBlockDivider from '@/components/notion-engine/NotionBlockDivider';
-import NotionBlockEmbed from '@/components/notion-engine/NotionBlockEmbed';
-import NotionBlockEquation from '@/components/notion-engine/NotionBlockEquation';
-import NotionBlockFile from '@/components/notion-engine/NotionBlockFile';
-import NotionBlockHeading1 from '@/components/notion-engine/NotionBlockHeading1';
-import NotionBlockHeading2 from '@/components/notion-engine/NotionBlockHeading2';
-import NotionBlockHeading3 from '@/components/notion-engine/NotionBlockHeading3';
-import NotionBlockImage from '@/components/notion-engine/NotionBlockImage';
-import NotionBlockNumberedListItem from '@/components/notion-engine/NotionBlockNumberedListItem';
-import NotionBlockParagraph from '@/components/notion-engine/NotionBlockParagraph';
-import NotionBlockQuote from '@/components/notion-engine/NotionBlockQuote';
-import NotionBlockTable from '@/components/notion-engine/NotionBlockTable';
-import NotionBlockVideo from '@/components/notion-engine/NotionBlockVideo';
+import NotionBlockAudio from '@/components/notion/engine/NotionBlockAudio';
+import NotionBlockBulletedListItem from '@/components/notion/engine/NotionBlockBulletedListItem';
+import NotionBlockCallout from '@/components/notion/engine/NotionBlockCallout';
+import NotionBlockCode from '@/components/notion/engine/NotionBlockCode';
+import NotionBlockDivider from '@/components/notion/engine/NotionBlockDivider';
+import NotionBlockEmbed from '@/components/notion/engine/NotionBlockEmbed';
+import NotionBlockEquation from '@/components/notion/engine/NotionBlockEquation';
+import NotionBlockFile from '@/components/notion/engine/NotionBlockFile';
+import NotionBlockHeading1 from '@/components/notion/engine/NotionBlockHeading1';
+import NotionBlockHeading2 from '@/components/notion/engine/NotionBlockHeading2';
+import NotionBlockHeading3 from '@/components/notion/engine/NotionBlockHeading3';
+import NotionBlockImage from '@/components/notion/engine/NotionBlockImage';
+import NotionBlockNumberedListItem from '@/components/notion/engine/NotionBlockNumberedListItem';
+import NotionBlockParagraph from '@/components/notion/engine/NotionBlockParagraph';
+import NotionBlockQuote from '@/components/notion/engine/NotionBlockQuote';
+import NotionBlockTable from '@/components/notion/engine/NotionBlockTable';
+import NotionBlockVideo from '@/components/notion/engine/NotionBlockVideo';
 import LazyLoader from '@/components/utils/lazy-loader';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 

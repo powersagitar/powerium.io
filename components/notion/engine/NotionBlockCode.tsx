@@ -8,7 +8,7 @@ import { CheckIcon, CopyIcon, UpdateIcon } from '@radix-ui/react-icons';
 
 import '@/styles/highlightjs-theme.css';
 
-import { Figcaption, Pre } from '../ui/CommonElements';
+import { Figcaption, Pre } from '../../ui/CommonElements';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockCode({

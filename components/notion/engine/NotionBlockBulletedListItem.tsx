@@ -1,7 +1,7 @@
 import { BulletedListItemBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { Li } from '../ui/CommonElements';
-import { Ul } from '../ui/typography';
+import { Li } from '../../ui/CommonElements';
+import { Ul } from '../../ui/typography';
 import NotionRichTextItems from './rich-text';
 
 export default function NotionBlockBulletedListItem({
