@@ -20,11 +20,8 @@ export default function Copyright({ className }: CopyrightProps) {
     >
       <div>
         <Muted className="flex flex-col justify-center sm:flex-row sm:justify-start sm:text-left">
-          <span className="inline-block">
-            Copyright &copy; {new Date().getUTCFullYear()}{' '}
-            {siteConfig.metadata.author.name}.&nbsp;
-          </span>
-          <span className="inline-block">Some rights reserved.</span>
+          Copyright &copy; {new Date().getUTCFullYear()}{' '}
+          {siteConfig.metadata.author.name}. Some rights reserved.
         </Muted>
         <Muted className="mt-1 flex justify-center sm:justify-start">
           Contents distributed under CC BY-SA 4.0.
