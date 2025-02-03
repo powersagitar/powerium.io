@@ -5,10 +5,7 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { NotionPageNormal } from '@/components/notion';
 import { siteConfig } from '@/config/site';
-import {
-  retrieveNotionPage as _retrieveNotionPage,
-  retrieveNotionPage,
-} from '@/lib/notion/server';
+import { retrieveNotionPage } from '@/lib/notion/server';
 import { NotionPageProperties } from '@/lib/notion/types';
 
 type Props = {
