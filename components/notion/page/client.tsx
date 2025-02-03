@@ -9,7 +9,7 @@ import NotionBlockChildren from '@/components/notion/engine';
 import LazyLoader from '@/components/utils/lazy-loader';
 import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 
-type NotionPageLazyProps = {
+type NotionPageClientProps = {
   pageId: string;
   initial: {
     pageChildren: BlockObjectResponse[];
@@ -17,10 +17,10 @@ type NotionPageLazyProps = {
   };
 };
 
-export default function NotionPageLazy({
+export default function NotionPageClient({
   pageId,
   initial,
-}: NotionPageLazyProps) {
+}: NotionPageClientProps) {
   const [pageChildren, setPageChildren] = useState(initial.pageChildren);
 
   const [startCursor, setStartCursor] = useState(initial.startCursor);

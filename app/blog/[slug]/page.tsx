@@ -5,9 +5,9 @@ import { notFound } from 'next/navigation';
 
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import NotionPage from '@/components/notion/NotionPage';
 import BlogPublishLastEditDate from '@/components/notion/blog-publish-last-edit-date';
 import NotionRichTextItems from '@/components/notion/engine/rich-text';
+import NotionPage from '@/components/notion/page';
 import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
 import { H1, P } from '@/components/ui/typography';

@@ -6,8 +6,8 @@ import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { retrieveNotionBlockChildren } from '@/lib/notion/server';
 
-import TOCDesktop from '../table-of-contents/desktop';
-import NotionPageLazy from './NotionPageLazy';
+import TOCDesktop from '../../table-of-contents/desktop';
+import NotionPageClient from './client';
 
 type NotionPageProps = {
   children: {
@@ -28,7 +28,7 @@ export default async function NotionPage({ children }: NotionPageProps) {
     <article className="w-full whitespace-pre-wrap">
       {children.pageHeader}
 
-      <NotionPageLazy
+      <NotionPageClient
         pageId={children.pageId}
         initial={{ pageChildren, startCursor }}
       />
