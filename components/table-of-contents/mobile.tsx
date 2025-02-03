@@ -9,6 +9,7 @@ import { Button } from '../ui/button';
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -34,6 +35,9 @@ export default function TOCMobile() {
       <DrawerContent onClick={() => setOpen(false)} className="pb-4">
         <DrawerHeader>
           <DrawerTitle>Table of Contents</DrawerTitle>
+          <DrawerDescription>
+            Navigate the flow and uncover every part of the story.
+          </DrawerDescription>
         </DrawerHeader>
         <TOCEntries />
       </DrawerContent>
