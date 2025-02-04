@@ -12,13 +12,13 @@ import { retrieveNotionPage } from '@/lib/notion/server';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
 };
 
 async function getPage({ params }: Props) {
   // exception is intentinally not caught
   // as it triggers a 500 internal server error
-  const id = (await params).slug;
+  const id = (await params).id;
 
   try {
     return (await retrieveNotionPage(id)) as PageObjectResponse;
