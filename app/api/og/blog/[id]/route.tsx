@@ -3,13 +3,26 @@ import 'server-only';
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+  DatabaseObjectResponse,
+  PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 
 import { siteConfig } from '@/config/site';
-import { retrieveNotionPage } from '@/lib/notion/server';
+import {
+  retrieveAllPublishedArticles,
+  retrieveNotionPage,
+} from '@/lib/notion/server';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
-export const runtime = 'edge';
+export const revalidate = 14400;
+
+export async function generateStaticParams() {
+  const posts =
+    (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];
+
+  return posts.map((post) => ({ id: post.id }));
+}
 
 export async function GET(request: NextRequest) {
   const segments = request.nextUrl.pathname.split('/');
