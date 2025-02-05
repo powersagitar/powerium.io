@@ -20,9 +20,9 @@ export async function retrieveNotionBlockChildren(
     searchParams.set('start-cursor', startCursor);
   }
 
-  return fetch(`/api/notion/block-children?${searchParams.toString()}`).then(
-    (response) => response.json(),
-  );
+  return fetch(`/api/notion/block-children?${searchParams.toString()}`, {
+    next: { revalidate: 14400 },
+  }).then((response) => response.json());
 }
 
 export async function retrievePublishedArticles(
@@ -34,7 +34,7 @@ export async function retrievePublishedArticles(
     searchParams.set('start-cursor', startCursor);
   }
 
-  return fetch(
-    `/api/notion/published-articles?${searchParams.toString()}`,
-  ).then((response) => response.json());
+  return fetch(`/api/notion/published-articles?${searchParams.toString()}`, {
+    next: { revalidate: 14400 },
+  }).then((response) => response.json());
 }
