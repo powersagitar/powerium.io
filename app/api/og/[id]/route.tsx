@@ -5,11 +5,19 @@ import { NextRequest } from 'next/server';
 
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
+import { notionConfig } from '@/config/notion';
 import { siteConfig } from '@/config/site';
 import { retrieveNotionPage } from '@/lib/notion/server';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
-export const runtime = 'edge';
+export const revalidate = 14400;
+
+export async function generateStaticParams() {
+  return [
+    { id: notionConfig.auxiliaryPages.about?.id },
+    { id: notionConfig.auxiliaryPages.contact?.id },
+  ];
+}
 
 export async function GET(request: NextRequest) {
   const segments = request.nextUrl.pathname.split('/');
