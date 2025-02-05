@@ -1,15 +1,36 @@
-import 'server-only';
-
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+  DatabaseObjectResponse,
+  PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 
 import { NotionPageBlog } from '@/components/notion/page';
 import { siteConfig } from '@/config/site';
 import { getBlogHref } from '@/lib/notion/client';
-import { retrieveNotionPage } from '@/lib/notion/server';
+import {
+  retrieveAllPublishedArticles,
+  retrieveNotionPage,
+} from '@/lib/notion/server';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
+
+export const revalidate = 14400;
+
+export async function generateStaticParams() {
+  let posts;
+
+  try {
+    posts = (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+
+  return posts.map((post) => ({
+    id: post.id,
+  }));
+}
 
 type Props = {
   params: Promise<{ id: string }>;
