@@ -17,7 +17,11 @@ import { NotionBlogPageProperties } from '@/lib/notion/types';
 
 export const revalidate = 14400;
 
-export async function generateStaticParams() {
+type Params = {
+  id: string;
+};
+
+export async function generateStaticParams(): Promise<Params[]> {
   let posts;
 
   try {
@@ -33,7 +37,7 @@ export async function generateStaticParams() {
 }
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<Params>;
 };
 
 async function getPage({ params }: Props) {
