@@ -15,7 +15,7 @@ import {
   retrieveNotionPage,
 } from '@/lib/notion/server';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 14400;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publishedArticles =
