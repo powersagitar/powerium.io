@@ -10,6 +10,8 @@ import { retrieveNotionPage } from '@/lib/notion/server';
 
 const { about } = notionConfig.auxiliaryPages;
 
+export const revalidate = 14400;
+
 export const metadata: Metadata = {
   title: 'About',
   description: about?.description,
