@@ -1,3 +1,2 @@
-export { default as NotionPage } from './page';
-export { default as NotionPageHeader } from './page-header';
-export { default as NotionPageContent } from './content';
+export { default as NotionPageNormal } from './normal';
+export { default as NotionPageBlog } from './blog';

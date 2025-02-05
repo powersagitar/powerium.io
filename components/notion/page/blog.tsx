@@ -5,11 +5,11 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { siteConfig } from '@/config/site';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
-import { Link } from '../ui/link';
-import { Separator } from '../ui/separator';
-import { H1, P } from '../ui/typography';
-import NotionRichTextItems from './engine/rich-text';
-import { NotionPage, NotionPageContent, NotionPageHeader } from './page';
+import { Link } from '../../ui/link';
+import { Separator } from '../../ui/separator';
+import { H1, P } from '../../ui/typography';
+import NotionRichTextItems from '../engine/rich-text';
+import { NotionPage, NotionPageContent, NotionPageHeader } from './primitives';
 
 type NotionPageBlogProps = {
   page: PageObjectResponse;

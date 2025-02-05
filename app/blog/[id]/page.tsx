@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { NotionPageBlog } from '@/components/notion';
+import { NotionPageBlog } from '@/components/notion/page';
 import { siteConfig } from '@/config/site';
 import { getBlogHref } from '@/lib/notion/client';
 import { retrieveNotionPage } from '@/lib/notion/server';
