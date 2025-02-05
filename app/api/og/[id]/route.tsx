@@ -12,7 +12,7 @@ import { NotionBlogPageProperties } from '@/lib/notion/types';
 
 export const revalidate = 14400;
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return [
     { id: notionConfig.auxiliaryPages.about?.id },
     { id: notionConfig.auxiliaryPages.contact?.id },
