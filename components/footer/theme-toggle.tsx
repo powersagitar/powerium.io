@@ -23,6 +23,7 @@ export default function ThemeToggle({ className }: ThemeToggleProps) {
       <Button
         variant="ghost"
         size="icon"
+        aria-label="Use system theme"
         onClick={() => setTheme('system')}
         className={clsx(
           'cursor-pointer',
@@ -34,6 +35,7 @@ export default function ThemeToggle({ className }: ThemeToggleProps) {
       <Button
         variant="ghost"
         size="icon"
+        aria-label="Use light theme"
         onClick={() => setTheme('light')}
         className={clsx(
           'cursor-pointer',
@@ -45,6 +47,7 @@ export default function ThemeToggle({ className }: ThemeToggleProps) {
       <Button
         variant="ghost"
         size="icon"
+        aria-label="Use dark theme"
         onClick={() => setTheme('dark')}
         className={clsx(
           'cursor-pointer',
