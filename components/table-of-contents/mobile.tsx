@@ -30,6 +30,7 @@ export default function TOCMobile() {
           onClick={() => setOpen(true)}
         >
           <ActivityLogIcon />
+          <span className="sr-only">Open table of contents</span>
         </Button>
       </DrawerTrigger>
       <DrawerContent onClick={() => setOpen(false)} className="pb-4">

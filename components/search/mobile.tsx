@@ -19,6 +19,7 @@ export default function SearchMobile() {
       <DrawerTrigger asChild>
         <Button variant="ghost" size="icon">
           <MagnifyingGlassIcon />
+          <span className="sr-only">Search the site</span>
         </Button>
       </DrawerTrigger>
       <DrawerContent className="flex flex-col items-center pb-4">
