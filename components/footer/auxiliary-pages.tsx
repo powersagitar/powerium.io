@@ -33,7 +33,7 @@ export default function AuxiliaryPages({ className }: AuxiliaryPagesProps) {
         </Button>
       )}
       <Button variant="ghost" asChild>
-        <Link href="/sitemap.xml" className="no-underline">
+        <Link href="/sitemap.xml" prefetch={false} className="no-underline">
           Site Map
         </Link>
       </Button>
