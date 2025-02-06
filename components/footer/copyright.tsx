@@ -30,6 +30,7 @@ export default function Copyright({ className }: CopyrightProps) {
       <Link
         href="https://creativecommons.org/licenses/by-sa/4.0/legalcode.en"
         className="hidden sm:block"
+        aria-label="Creative Commons Attribution-ShareAlike 4.0 International License"
       >
         <CCBYSA className="h-8 justify-end" />
       </Link>
