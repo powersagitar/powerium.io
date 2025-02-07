@@ -1,0 +1,33 @@
+name: Canary
+
+permissions:
+  contents: write
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+on:
+  workflow_dispatch:
+  schedule:
+    # everyday at 12 am
+    - cron: 0 0 * * *
+
+jobs:
+  create-release-canary:
+    name: Create Canary Release From Tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Delete old canary release
+        run: gh release delete canary --cleanup-tag --yes
+
+      - name: Override canary to latest commit
+        run: git tag canary --force
+
+      - name: Push canary tag to remote
+        run: git push origin tag canary
+
+      - name: Create new canary release
+        run: gh release create canary --generate-notes --prerelease --verify-tag
