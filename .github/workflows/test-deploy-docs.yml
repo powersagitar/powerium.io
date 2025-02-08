@@ -21,5 +21,5 @@ jobs:
         run: bun install --frozen-lockfile
         working-directory: docs
       - name: Test build website
-        run: bun build
+        run: bun run build
         working-directory: docs
