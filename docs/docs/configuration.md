@@ -46,12 +46,12 @@ Properties names are **case-sensitive**.
 
 Create a Notion database with following properties:
 
-| Name          | Type  | Description                                                                |
-| :------------ | :---- | :------------------------------------------------------------------------- |
-| `title`       | Title | Title of the blog post.                                                    |
-| `published`   | Date  | Date of publication in UTC.                                                |
-| `authors`     | Text  | Authors of the blog post, if different from [default value](configsitets). |
-| `description` | Text  | Description of the blog post. Will also be used as page metadata.          |
+| Name          | Type  | Description                                                                     |
+| :------------ | :---- | :------------------------------------------------------------------------------ |
+| `title`       | Title | Title of the blog post.                                                         |
+| `published`   | Date  | Date of publication in UTC.                                                     |
+| `authors`     | Text  | Authors of the blog post, if different from the [default value](#configsitets). |
+| `description` | Text  | Description of the blog post. Will also be used as page metadata.               |
 
 ![image](https://github.com/user-attachments/assets/a3623fde-2754-4338-95b8-9f0021b9de07)
 
