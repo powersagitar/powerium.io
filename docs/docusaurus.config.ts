@@ -20,6 +20,9 @@ const config: Config = {
   organizationName: "powersagitar", // Usually your GitHub org/user name.
   projectName: "powerium.io", // Usually your repo name.
 
+  // https://docusaurus.io/docs/deployment#docusaurusconfigjs-settings
+  trailingSlash: false,
+
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
