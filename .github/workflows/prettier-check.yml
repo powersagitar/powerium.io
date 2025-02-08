@@ -10,6 +10,8 @@ jobs:
 
       - name: Install Dependencies
         run: npm install --force
+        working-directory: www
 
-      - name: 'Package Script: prettier:check'
+      - name: "Package Script: prettier:check"
         run: npm run prettier:check
+        working-directory: www
