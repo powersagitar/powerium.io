@@ -5,13 +5,14 @@ jobs:
   prettier:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install Dependencies
-        run: npm install --force
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
         working-directory: www
 
       - name: "Package Script: prettier:check"
-        run: npm run prettier:check
+        run: bun run prettier:check
         working-directory: www
