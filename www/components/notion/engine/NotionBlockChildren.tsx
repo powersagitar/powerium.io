@@ -1,7 +1,5 @@
-'use client';
-
 import clsx from 'clsx';
-import { Fragment, type JSX, useState } from 'react';
+import { Fragment, type JSX, Suspense } from 'react';
 
 import {
   AudioBlockObjectResponse,
@@ -40,8 +38,7 @@ import NotionBlockParagraph from '@/components/notion/engine/NotionBlockParagrap
 import NotionBlockQuote from '@/components/notion/engine/NotionBlockQuote';
 import NotionBlockTable from '@/components/notion/engine/NotionBlockTable';
 import NotionBlockVideo from '@/components/notion/engine/NotionBlockVideo';
-import LazyLoader from '@/components/utils/lazy-loader';
-import { retrieveNotionBlockChildren } from '@/lib/notion/client';
+import { retrieveNotionBlockChildrenAll } from '@/lib/notion/server';
 
 const defaultBlockRenderer = (type: BlockObjectResponse['type']) => {
   console.log(`${type} is not yet implemented.`);
@@ -146,80 +143,34 @@ const noFetchChildren = new Set<BlockObjectResponse['type']>([
 ]);
 
 type NotionBlockChildrenProps = {
-  children:
-    | {
-        fetching: 'automatic';
-        blockId: string;
-      }
-    | {
-        fetching: 'manual';
-        blockChildren: BlockObjectResponse[];
-      };
+  id: string;
 };
 
-export default function NotionBlockChildren({
-  children,
-}: NotionBlockChildrenProps) {
-  const [automaticBlockChildren, setAutomaticBlockChildren] = useState<
-    BlockObjectResponse[]
-  >([]);
+async function NotionBlockChildrenSuspended({ id }: NotionBlockChildrenProps) {
+  const blockChildren = await retrieveNotionBlockChildrenAll(id);
 
-  const [automaticStartCursor, setAutomaticStartCursor] = useState<
-    string | null | undefined
-  >(undefined);
+  return blockChildren.map((block) => (
+    <Fragment key={block.id}>
+      {blockRenderers[block.type](block)}
 
-  const renderedBlockChildren = (
-    children.fetching === 'automatic'
-      ? automaticBlockChildren
-      : children.blockChildren
-  ).map((block) => {
-    return (
-      <Fragment key={block.id}>
-        {blockRenderers[block.type](block)}
+      {block.has_children && !noFetchChildren.has(block.type) && (
+        <div
+          className={clsx({
+            'ml-[1rem]': block.type !== 'synced_block',
+          })}
+        >
+          <NotionBlockChildren id={block.id} />
+        </div>
+      )}
+    </Fragment>
+  ));
+}
 
-        {block.has_children && !noFetchChildren.has(block.type) && (
-          <div
-            className={clsx({
-              'ml-[1rem]': block.type !== 'synced_block',
-            })}
-          >
-            <NotionBlockChildren>
-              {{
-                fetching: 'automatic',
-                blockId: block.id,
-              }}
-            </NotionBlockChildren>
-          </div>
-        )}
-      </Fragment>
-    );
-  });
-
-  const [lazyLoaderId, setLazyLoaderId] = useState(0);
-
-  return children.fetching === 'automatic' ? (
-    <LazyLoader
-      load={() => {
-        retrieveNotionBlockChildren(
-          children.blockId,
-          automaticStartCursor,
-        ).then((listBlockChildrenResponse) => {
-          setAutomaticStartCursor(listBlockChildrenResponse.next_cursor);
-          setAutomaticBlockChildren([
-            ...automaticBlockChildren,
-            ...(listBlockChildrenResponse.results as BlockObjectResponse[]),
-          ]);
-
-          if (listBlockChildrenResponse.next_cursor !== null) {
-            setLazyLoaderId(lazyLoaderId + 1);
-          }
-        });
-      }}
-      id={lazyLoaderId}
-    >
-      {renderedBlockChildren}
-    </LazyLoader>
-  ) : (
-    renderedBlockChildren
+export default function NotionBlockChildren({ id }: NotionBlockChildrenProps) {
+  // TODO: fallback to be implemented
+  return (
+    <Suspense fallback={<>Loading...</>}>
+      <NotionBlockChildrenSuspended id={id} />
+    </Suspense>
   );
 }

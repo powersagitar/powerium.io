@@ -96,11 +96,7 @@ export default function NotionBlockCallout({
         />
       </P>
 
-      {callout.has_children && (
-        <NotionBlockChildren>
-          {{ fetching: 'automatic', blockId: callout.id }}
-        </NotionBlockChildren>
-      )}
+      {callout.has_children && <NotionBlockChildren id={callout.id} />}
     </Callout>
   );
 }

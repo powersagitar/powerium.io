@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 import {
@@ -10,6 +12,8 @@ import { retrieveNotionBlockChildren } from '@/lib/notion/client';
 import { Table, Td, Th, Tr } from '../../ui/typography';
 import LazyLoader from '../../utils/lazy-loader';
 import NotionRichTextItems from './rich-text';
+
+// TODO: fetch data on server and use suspense
 
 export default function NotionBlockTable({
   table,
