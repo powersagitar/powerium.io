@@ -3,6 +3,7 @@ import 'server-only';
 import { unstable_cache as cache } from 'next/cache';
 
 import { Client } from '@notionhq/client';
+import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { notionConfig } from '@/config/notion';
 
@@ -72,5 +73,29 @@ export const retrieveNotionBlockChildren = cache(
       start_cursor: startCursor,
     }),
   ['fetchNotionBlockChildren'],
+  { revalidate: notionConfig.cacheTtl },
+);
+
+export const retrieveNotionBlockChildrenAll = cache(
+  async (id: string) => {
+    const listBlockChildrenResponses = [await retrieveNotionBlockChildren(id)];
+
+    while (
+      listBlockChildrenResponses[listBlockChildrenResponses.length - 1].has_more
+    ) {
+      listBlockChildrenResponses.push(
+        await retrieveNotionBlockChildren(
+          id,
+          listBlockChildrenResponses[listBlockChildrenResponses.length - 1]
+            .next_cursor!,
+        ),
+      );
+    }
+
+    return listBlockChildrenResponses
+      .map((response) => response.results)
+      .flat() as BlockObjectResponse[];
+  },
+  ['retrieveNotionBlockChildrenAll'],
   { revalidate: notionConfig.cacheTtl },
 );
