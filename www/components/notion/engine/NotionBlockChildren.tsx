@@ -38,6 +38,7 @@ import NotionBlockParagraph from '@/components/notion/engine/NotionBlockParagrap
 import NotionBlockQuote from '@/components/notion/engine/NotionBlockQuote';
 import NotionBlockTable from '@/components/notion/engine/NotionBlockTable';
 import NotionBlockVideo from '@/components/notion/engine/NotionBlockVideo';
+import { Skeleton } from '@/components/ui/skeleton';
 import { retrieveNotionBlockChildrenAll } from '@/lib/notion/server';
 
 const defaultBlockRenderer = (type: BlockObjectResponse['type']) => {
@@ -166,10 +167,20 @@ async function NotionBlockChildrenSuspended({ id }: NotionBlockChildrenProps) {
   ));
 }
 
+function NotionBlockChildrenFallback({ id }: NotionBlockChildrenProps) {
+  return ['w-3/4', 'w-1/2', 'w-full', 'w-1/2', 'w-3/4', 'w-1/4', 'w-1/6'].map(
+    (width, idx) => (
+      <Skeleton
+        key={`skeleton-page-content-${id}-${idx}`}
+        className={'mt-6 h-6 self-start ' + width}
+      />
+    ),
+  );
+}
+
 export default function NotionBlockChildren({ id }: NotionBlockChildrenProps) {
-  // TODO: fallback to be implemented
   return (
-    <Suspense fallback={<>Loading...</>}>
+    <Suspense fallback={<NotionBlockChildrenFallback id={id} />}>
       <NotionBlockChildrenSuspended id={id} />
     </Suspense>
   );
