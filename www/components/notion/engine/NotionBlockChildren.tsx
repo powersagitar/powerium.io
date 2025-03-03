@@ -168,12 +168,14 @@ async function NotionBlockChildrenSuspended({ id }: NotionBlockChildrenProps) {
 }
 
 function NotionBlockChildrenFallback({ id }: NotionBlockChildrenProps) {
-  return ['w-3/4', 'w-1/2', 'w-full', 'w-1/2', 'w-3/4', 'w-1/4', 'w-1/6'].map(
-    (width, idx) => (
-      <Skeleton
-        key={`skeleton-page-content-${id}-${idx}`}
-        className={'mt-6 h-6 self-start ' + width}
-      />
+  return Array.from({ length: 2 }).map((_, i) =>
+    ['w-3/4', 'w-1/2', 'w-full', 'w-1/2', 'w-3/4', 'w-1/4', 'w-1/6'].map(
+      (width, j) => (
+        <Skeleton
+          key={`skeleton-page-content-${id}-${i}-${j}`}
+          className={'mt-6 h-6 self-start ' + width}
+        />
+      ),
     ),
   );
 }
