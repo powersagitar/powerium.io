@@ -47,7 +47,7 @@ export default function SearchForm() {
                 <Input
                   autoFocus
                   spellCheck
-                  type="text"
+                  type="search"
                   placeholder="Search..."
                   {...field}
                 />
