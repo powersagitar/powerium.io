@@ -23,11 +23,6 @@ export type NotionConfig = {
       description: string;
     };
   };
-
-  customPages?: Map<
-    Pathname,
-    { navTitle: string; description: string; notionPageId: string }
-  >;
 };
 
 export type Pathname = `/${string}`;
