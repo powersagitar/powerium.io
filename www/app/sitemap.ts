@@ -2,11 +2,18 @@ import 'server-only';
 
 import { MetadataRoute } from 'next';
 
-import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+  DatabaseObjectResponse,
+  PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 
+import { notionConfig } from '@/config/notion';
 import { siteConfig } from '@/config/site';
 import { getBlogHref } from '@/lib/notion/client';
-import { retrieveAllPublishedArticles } from '@/lib/notion/server';
+import {
+  retrieveAllPublishedArticles,
+  retrieveNotionPage,
+} from '@/lib/notion/server';
 
 export const revalidate = 14400;
 
@@ -23,6 +30,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
   ];
+
+  if (notionConfig.auxiliaryPages.about) {
+    try {
+      const page = (await retrieveNotionPage(
+        notionConfig.auxiliaryPages.about.id,
+      )) as PageObjectResponse;
+
+      auxiliaryPages.push({
+        url: siteConfig.url.origin + '/about',
+        lastModified: page.last_edited_time,
+        changeFrequency: 'monthly',
+        priority: 0.5,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  if (notionConfig.auxiliaryPages.contact) {
+    try {
+      const page = (await retrieveNotionPage(
+        notionConfig.auxiliaryPages.contact.id,
+      )) as PageObjectResponse;
+
+      auxiliaryPages.push({
+        url: siteConfig.url.origin + '/contact',
+        lastModified: page.last_edited_time,
+        changeFrequency: 'monthly',
+        priority: 0.5,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const articlePages: MetadataRoute.Sitemap = publishedArticles.map(
     (article) => {
