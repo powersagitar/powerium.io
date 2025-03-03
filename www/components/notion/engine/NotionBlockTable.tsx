@@ -5,6 +5,7 @@ import {
   TableRowBlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
+import { Skeleton } from '@/components/ui/skeleton';
 import { retrieveNotionBlockChildrenAll } from '@/lib/notion/server';
 
 import { Table, Td, Th, Tr } from '../../ui/typography';
@@ -51,10 +52,28 @@ async function NotionBlockTableSuspended({ table }: NotionBlockTableProps) {
   );
 }
 
-export default function NotionBlockTable({ table }: NotionBlockTableProps) {
-  // TODO: fallback to be implemented
+function NotionBlockTableFallback({ table }: NotionBlockTableProps) {
   return (
-    <Suspense fallback={<>Loading...</>}>
+    <Table>
+      <tbody>
+        {Array.from({ length: 3 }).map((_, idx) => (
+          <Tr key={`notion-table-skeleton-${table.id}-${idx}`}>
+            <Th className="w-1/3">
+              <Skeleton className="h-6" />
+            </Th>
+            <Td className="w-2/3">
+              <Skeleton className="h-6" />
+            </Td>
+          </Tr>
+        ))}
+      </tbody>
+    </Table>
+  );
+}
+
+export default function NotionBlockTable({ table }: NotionBlockTableProps) {
+  return (
+    <Suspense fallback={<NotionBlockTableFallback table={table} />}>
       <NotionBlockTableSuspended table={table} />
     </Suspense>
   );
