@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { Fragment } from 'react';
 
+import { siteConfig } from '@/config/site';
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,6 +14,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '../ui/breadcrumb';
+import { Button } from '../ui/button';
 
 type HeaderProps = {
   className?: string;
@@ -47,7 +50,17 @@ export default function Header({ className }: HeaderProps) {
           ))}
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>{current}</BreadcrumbPage>
+            <Button
+              variant="ghost"
+              className="cursor-pointer"
+              onClick={() =>
+                navigator.clipboard.writeText(
+                  siteConfig.url.origin + pathname.join('/'),
+                )
+              }
+            >
+              <BreadcrumbPage>{current}</BreadcrumbPage>
+            </Button>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
