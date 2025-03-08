@@ -8,13 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { siteConfig } from '@/config/site';
 
 import { Button } from '../ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '../ui/form';
+import { Form, FormControl, FormField, FormItem } from '../ui/form';
 import { Input } from '../ui/input';
 
 const schema = z.object({
@@ -50,7 +44,6 @@ export default function SearchOnHomePage() {
               <FormControl>
                 <Input type="search" placeholder="Search..." {...field} />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />

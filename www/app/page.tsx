@@ -14,7 +14,7 @@ export default function Home() {
       <H1>{siteConfig.metadata.title}</H1>
       <P>{siteConfig.metadata.description}</P>
 
-      <div className="mt-4 grid gap-2 sm:grid-cols-[1fr_1fr_2fr] sm:gap-4">
+      <div className="mt-4 mb-2 grid gap-2 sm:grid-cols-[1fr_1fr_2fr] sm:gap-4">
         <Button variant="outline" asChild>
           <Link href="/about" className="no-underline">
             About
