@@ -32,7 +32,7 @@ export default function PublishedBlogs() {
   const [lazyLoaderId, setLazyLoaderId] = useState(0);
   return (
     <>
-      <H2 className="w-full">Blogs</H2>
+      <H2 className="w-full">Blog</H2>
       <LazyLoader
         load={() => {
           retrievePublishedArticles(startCursor).then(
