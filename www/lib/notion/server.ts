@@ -10,7 +10,7 @@ import { notionConfig } from '@/config/notion';
 const notion = new Client({ auth: notionConfig.notionApiKey });
 
 export const retrievePublishedArticles = cache(
-  async (startCursor?: string) => {
+  async (startCursor?: string, pageSize?: number) => {
     return await notion.databases.query({
       database_id: notionConfig.notionDatabaseId,
       start_cursor: startCursor,
@@ -31,6 +31,7 @@ export const retrievePublishedArticles = cache(
           direction: 'descending' as 'ascending' | 'descending',
         },
       ],
+      page_size: pageSize,
     });
   },
   ['retrievePublishedArticles'],
