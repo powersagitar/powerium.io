@@ -29,6 +29,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    {
+      url: siteConfig.url.origin + '/blog',
+      lastModified: publishedArticles[0].last_edited_time,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
   ];
 
   if (notionConfig.auxiliaryPages.about) {
