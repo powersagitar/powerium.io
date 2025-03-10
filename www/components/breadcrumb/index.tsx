@@ -15,6 +15,7 @@ import {
   BreadcrumbSeparator,
 } from '../ui/breadcrumb';
 import { Button } from '../ui/button';
+import { Link } from '../ui/link';
 
 type HeaderProps = {
   className?: string;
@@ -36,7 +37,11 @@ export default function Header({ className }: HeaderProps) {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            <BreadcrumbLink asChild>
+              <Link href="/" className="no-underline">
+                Home
+              </Link>
+            </BreadcrumbLink>
           </BreadcrumbItem>
           {base.map((slug, idx) => (
             <Fragment key={`breadcrumb-${pathname}-${idx}`}>
