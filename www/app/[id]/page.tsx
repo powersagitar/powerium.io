@@ -20,7 +20,7 @@ async function getPage({ params }: Props) {
   try {
     return (await retrieveNotionPage(id)) as PageObjectResponse;
   } catch (e) {
-    console.error(e);
+    console.warn(e);
     notFound();
   }
 }
