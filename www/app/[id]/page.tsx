@@ -1,15 +1,45 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+  DatabaseObjectResponse,
+  PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 
 import { NotionPageNormal } from '@/components/notion/page';
+import { notionConfig } from '@/config/notion';
 import { siteConfig } from '@/config/site';
-import { retrieveNotionPage } from '@/lib/notion/server';
+import {
+  retrieveAllPublishedArticles,
+  retrieveNotionPage,
+} from '@/lib/notion/server';
 import { NotionPageProperties } from '@/lib/notion/types';
 
+export const revalidate = 14400;
+
+type Params = {
+  id: string;
+};
+
+export async function generateStaticParams(): Promise<Params[]> {
+  const posts =
+    (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];
+
+  const routes = posts.map((post) => ({ id: post.id }));
+
+  if (notionConfig.auxiliaryPages.about) {
+    routes.push({ id: notionConfig.auxiliaryPages.about.id });
+  }
+
+  if (notionConfig.auxiliaryPages.contact) {
+    routes.push({ id: notionConfig.auxiliaryPages.contact.id });
+  }
+
+  return routes;
+}
+
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<Params>;
 };
 
 async function getPage({ params }: Props) {

@@ -22,14 +22,8 @@ type Params = {
 };
 
 export async function generateStaticParams(): Promise<Params[]> {
-  let posts;
-
-  try {
-    posts = (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];
-  } catch (e) {
-    console.error(e);
-    return [];
-  }
+  const posts =
+    (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];
 
   return posts.map((post) => ({
     id: post.id,
