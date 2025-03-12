@@ -4,6 +4,7 @@ import { Separator } from '../ui/separator';
 import AuxiliaryPages from './auxiliary-pages';
 import Copyright from './copyright';
 import ThemeToggle from './theme-toggle';
+import WebRing from './webring';
 
 type FooterProps = {
   className?: string;
@@ -18,6 +19,8 @@ export default function Footer({ className }: FooterProps) {
           <AuxiliaryPages className="max-w-full overflow-x-scroll" />
           <ThemeToggle className="mr-4 hidden sm:flex" />
         </div>
+        <Separator className="my-3" />
+        <WebRing className="px-4" />
         <Separator className="my-3" />
         <Copyright className="px-4" />
       </div>
