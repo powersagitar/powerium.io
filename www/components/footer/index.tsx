@@ -20,7 +20,7 @@ export default function Footer({ className }: FooterProps) {
           <ThemeToggle className="mr-4 hidden sm:flex" />
         </div>
         <Separator className="my-3" />
-        <WebRing className="px-4" />
+        <WebRing className="sm:px-4" />
         <Separator className="my-3" />
         <Copyright className="px-4" />
       </div>

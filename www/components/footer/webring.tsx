@@ -9,15 +9,16 @@ type WebRingProps = {
 
 export default function WebRing({ className }: WebRingProps) {
   return (
-    <div className={clsx('items-center sm:flex', className)}>
+    <Link
+      href="https://se-webring.xyz/"
+      className={clsx('items-center no-underline sm:flex', className)}
+    >
       <WebRingLogo />
       <Muted className="mt-1 sm:mt-0">
-        <Link href="https://se-webring.xyz/" className="no-underline">
-          Current students and alumni of Software Engineering at the University
-          of Waterloo.
-        </Link>
+        Current students and alumni of Software Engineering at the University of
+        Waterloo.
       </Muted>
-    </div>
+    </Link>
   );
 }
 
