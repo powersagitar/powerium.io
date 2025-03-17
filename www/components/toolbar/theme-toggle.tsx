@@ -33,33 +33,36 @@ export default function ThemeToggle() {
           <DrawerTitle>Theme</DrawerTitle>
           <DrawerDescription>Let the ambience move with you.</DrawerDescription>
         </DrawerHeader>
-        <Button
-          variant="ghost"
-          onClick={() => {
-            setTheme('system');
-            setOpen(false);
-          }}
-        >
-          System
-        </Button>
-        <Button
-          variant="ghost"
-          onClick={() => {
-            setTheme('light');
-            setOpen(false);
-          }}
-        >
-          Light
-        </Button>
-        <Button
-          variant="ghost"
-          onClick={() => {
-            setTheme('dark');
-            setOpen(false);
-          }}
-        >
-          Dark
-        </Button>
+
+        <div className="mx-auto flex w-4/5 flex-col gap-2">
+          <Button
+            variant="outline"
+            onClick={() => {
+              setTheme('system');
+              setOpen(false);
+            }}
+          >
+            System
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setTheme('light');
+              setOpen(false);
+            }}
+          >
+            Light
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setTheme('dark');
+              setOpen(false);
+            }}
+          >
+            Dark
+          </Button>
+        </div>
       </DrawerContent>
     </Drawer>
   );
