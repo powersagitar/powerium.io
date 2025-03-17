@@ -11,8 +11,8 @@ import {
 
 import { cn } from '@/lib/utils';
 
-import { NotionHeadingsContext } from '../contexts/notion-headings';
 import TOCEntries from './entries';
+import { NotionHeadingsContext } from './notion-headings';
 
 export default function TOCDesktop() {
   const { notionHeadings } = useContext(NotionHeadingsContext);

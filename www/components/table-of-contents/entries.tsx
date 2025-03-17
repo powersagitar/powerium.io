@@ -3,10 +3,10 @@ import { useContext } from 'react';
 
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { NotionHeadingsContext } from '../contexts/notion-headings';
 import NotionRichTextItems from '../notion/engine/rich-text';
 import { Link } from '../ui/link';
 import { Ul } from '../ui/typography';
+import { NotionHeadingsContext } from './notion-headings';
 
 type TOCEntriesProps = {
   activeHeading?: BlockObjectResponse['id'];

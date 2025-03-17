@@ -4,7 +4,6 @@ import { useContext, useState } from 'react';
 
 import { ActivityLogIcon } from '@radix-ui/react-icons';
 
-import { NotionHeadingsContext } from '../contexts/notion-headings';
 import { Button } from '../ui/button';
 import {
   Drawer,
@@ -15,6 +14,7 @@ import {
   DrawerTrigger,
 } from '../ui/drawer';
 import TOCEntries from './entries';
+import { NotionHeadingsContext } from './notion-headings';
 
 export default function TOCMobile() {
   const { notionHeadings } = useContext(NotionHeadingsContext);

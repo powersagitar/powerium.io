@@ -3,8 +3,11 @@
 import { ThemeProvider } from 'next-themes';
 import { ReactNode, SetStateAction, useState } from 'react';
 
+import {
+  NotionHeading,
+  NotionHeadingsContext,
+} from '../table-of-contents/notion-headings';
 import { Toaster } from '../ui/toaster';
-import { NotionHeading, NotionHeadingsContext } from './notion-headings';
 
 type ProviderProps = { children: Readonly<ReactNode> };
 
