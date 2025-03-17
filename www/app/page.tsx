@@ -2,7 +2,7 @@ import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints
 
 import { ResetNotionHeadings } from '@/components/contexts/notion-headings';
 import { NotionPublishedBlog } from '@/components/notion/page';
-import { SearchOnHomePage } from '@/components/search';
+import { SearchDesktop } from '@/components/search';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
 import { H1, H2, P } from '@/components/ui/typography';
@@ -32,7 +32,7 @@ export default function Home() {
           </Link>
         </Button>
 
-        <SearchOnHomePage />
+        <SearchDesktop />
       </div>
 
       <PublishedBlog />

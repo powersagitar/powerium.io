@@ -8,56 +8,46 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { siteConfig } from '@/config/site';
 
 import { Button } from '../ui/button';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '../ui/form';
+import { Form, FormControl, FormField, FormItem } from '../ui/form';
 import { Input } from '../ui/input';
 
-const FormSchema = z.object({
-  search: z.string().min(1, { message: 'Nothing to search for.' }),
+const schema = z.object({
+  search: z.string().nonempty(),
 });
 
-export default function SearchForm() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: { search: '' },
-  });
+function onSubmit(values: z.infer<typeof schema>) {
+  window.open(
+    `https://www.google.com/search?q=site:${siteConfig.url.origin} ${values.search}`,
+    '_blank',
+  );
+}
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    window.open(
-      `https://www.google.com/search?q=site:${siteConfig.url.origin} ${data.search}`,
-      '_blank',
-    );
-  }
+export default function SearchForm() {
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      search: '',
+    },
+  });
 
   return (
     <Form {...form}>
-      <form autoComplete="off" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-2 sm:flex-row"
+      >
         <FormField
           control={form.control}
           name="search"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="w-full">
               <FormControl>
-                <Input
-                  autoFocus
-                  spellCheck
-                  type="search"
-                  placeholder="Search..."
-                  {...field}
-                />
+                <Input type="search" placeholder="Search..." {...field} />
               </FormControl>
-              <FormDescription>Input may not be empty.</FormDescription>
-              <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-4 w-full sm:w-auto">
+        <Button type="submit" className="mt-2 sm:mt-0">
           Search
         </Button>
       </form>
