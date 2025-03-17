@@ -20,7 +20,7 @@ export default function ThemeToggle() {
   const { setTheme } = useTheme();
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer open={open} onOpenChange={setOpen} autoFocus={open}>
       <DrawerTrigger asChild>
         <Button variant="ghost" size="icon">
           <SunIcon className="block dark:hidden" />

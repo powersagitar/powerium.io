@@ -21,7 +21,7 @@ export default function TOCMobile() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer open={open} onOpenChange={setOpen} autoFocus={open}>
       <DrawerTrigger asChild>
         <Button
           variant="ghost"
