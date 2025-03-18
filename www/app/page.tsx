@@ -1,8 +1,8 @@
 import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
-import { ResetNotionHeadings } from '@/components/contexts/notion-headings';
 import { NotionPublishedBlog } from '@/components/notion/page';
 import { SearchDesktop } from '@/components/search';
+import { ResetNotionHeadings } from '@/components/table-of-contents/notion-headings';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
 import { H1, H2, P } from '@/components/ui/typography';

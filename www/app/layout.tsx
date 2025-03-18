@@ -7,9 +7,9 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Breadcrumb from '@/components/breadcrumb';
-import Providers from '@/components/contexts/providers';
 import Footer from '@/components/footer';
 import Toolbar from '@/components/toolbar';
+import Providers from '@/components/utils/providers';
 import { siteConfig } from '@/config/site';
 import '@/styles/global.css';
 
