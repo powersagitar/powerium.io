@@ -9,7 +9,7 @@ import {
 
 import { notionConfig } from '@/config/notion';
 import { siteConfig } from '@/config/site';
-import { getBlogHref } from '@/lib/notion/href';
+import { getBlogHref } from '@/lib/notion/page';
 import {
   retrieveAllPublishedArticles,
   retrieveNotionPage,

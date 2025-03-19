@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   BlockObjectResponse,
@@ -9,18 +9,20 @@ import {
   Heading3BlockObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 
+import { NotionHeading } from '@/lib/notion/page';
 import { cn } from '@/lib/utils';
 
 import TOCEntries from './entries';
-import { NotionHeadingsContext } from './notion-headings';
 
-export default function TOCDesktop() {
-  const { notionHeadings } = useContext(NotionHeadingsContext);
+type TOCDesktopProps = {
+  headings: NotionHeading[];
+};
 
-  const activeHeading = useActiveHeading();
+export default function TOCDesktop({ headings }: TOCDesktopProps) {
+  const activeHeading = useActiveHeading(headings);
   const [isTocOpen, setIsTocOpen] = useState(false);
 
-  if (notionHeadings.length < 1) {
+  if (headings.length < 1) {
     return null;
   }
 
@@ -31,11 +33,11 @@ export default function TOCDesktop() {
           className="flex max-h-[75vh] max-w-prose flex-col overflow-y-scroll rounded py-3 pr-6 backdrop-blur-sm"
           onMouseLeave={() => setIsTocOpen(false)}
         >
-          <TOCEntries activeHeading={activeHeading} />
+          <TOCEntries activeHeading={activeHeading} headings={headings} />
         </nav>
       ) : (
         <Hint
-          notionHeadings={notionHeadings}
+          notionHeadings={headings}
           activeHeading={activeHeading}
           onMouseEnter={() => setIsTocOpen(true)}
         />
@@ -78,9 +80,7 @@ function Hint({ notionHeadings, activeHeading, onMouseEnter }: HintProps) {
   );
 }
 
-function useActiveHeading() {
-  const { notionHeadings } = useContext(NotionHeadingsContext);
-
+function useActiveHeading(headings: NotionHeading[]) {
   const [activeHeading, setActiveHeading] = useState<
     BlockObjectResponse['id'] | undefined
   >(undefined);
@@ -97,7 +97,7 @@ function useActiveHeading() {
       { rootMargin: '0% 0% -70% 0%' },
     );
 
-    notionHeadings.forEach((heading) => {
+    headings.forEach((heading) => {
       // element id is set to be exactly the same as the block id
       const headingElement = document.getElementById(heading.id);
       if (headingElement) {
@@ -106,13 +106,13 @@ function useActiveHeading() {
     });
 
     return () =>
-      notionHeadings.forEach((heading) => {
+      headings.forEach((heading) => {
         const headingElement = document.getElementById(heading.id);
         if (headingElement) {
           observer.unobserve(headingElement);
         }
       });
-  }, [notionHeadings]);
+  }, [headings]);
 
   return activeHeading;
 }

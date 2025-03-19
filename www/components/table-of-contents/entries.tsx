@@ -1,23 +1,25 @@
 import clsx from 'clsx';
-import { useContext } from 'react';
 
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+
+import { NotionHeading } from '@/lib/notion/page';
 
 import NotionRichTextItems from '../notion/engine/rich-text';
 import { Link } from '../ui/link';
 import { Ul } from '../ui/typography';
-import { NotionHeadingsContext } from './notion-headings';
 
 type TOCEntriesProps = {
   activeHeading?: BlockObjectResponse['id'];
+  headings: NotionHeading[];
 };
 
-export default function TOCEntries({ activeHeading }: TOCEntriesProps) {
-  const { notionHeadings } = useContext(NotionHeadingsContext);
-
+export default function TOCEntries({
+  activeHeading,
+  headings,
+}: TOCEntriesProps) {
   return (
     <Ul className="my-0 list-none">
-      {notionHeadings.map((heading) => (
+      {headings.map((heading) => (
         <li
           key={'toc-desktop-' + heading.id}
           className={clsx({

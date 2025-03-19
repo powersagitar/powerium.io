@@ -5,7 +5,7 @@ import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints
 
 import { Link } from '@/components/ui/link';
 import { Separator } from '@/components/ui/separator';
-import { getBlogHref } from '@/lib/notion/href';
+import { getBlogHref } from '@/lib/notion/page';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
 import { NotionRichTextItems } from '../engine';

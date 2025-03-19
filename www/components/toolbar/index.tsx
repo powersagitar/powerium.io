@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 import { SearchMobile } from '../search';
-import TOCMobile from '../table-of-contents/mobile';
+// import TOCMobile from '../table-of-contents/mobile';
 import HomeButton from './home-button';
 import ThemeToggle from './theme-toggle';
 
@@ -20,7 +20,7 @@ export default function Toolbar({ className }: ToolbarProps) {
       <HomeButton />
       <ThemeToggle />
       <SearchMobile />
-      <TOCMobile />
+      {/* <TOCMobile /> */}
     </aside>
   );
 }

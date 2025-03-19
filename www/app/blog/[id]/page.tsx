@@ -8,7 +8,7 @@ import {
 
 import { NotionPageBlog } from '@/components/notion/page';
 import { siteConfig } from '@/config/site';
-import { getBlogHref } from '@/lib/notion/href';
+import { getBlogHref } from '@/lib/notion/page';
 import {
   retrieveAllPublishedArticles,
   retrieveNotionPage,

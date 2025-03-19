@@ -1,8 +1,10 @@
 'use client';
 
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import { ActivityLogIcon } from '@radix-ui/react-icons';
+
+import { NotionHeading } from '@/lib/notion/page';
 
 import { Button } from '../ui/button';
 import {
@@ -14,10 +16,12 @@ import {
   DrawerTrigger,
 } from '../ui/drawer';
 import TOCEntries from './entries';
-import { NotionHeadingsContext } from './notion-headings';
 
-export default function TOCMobile() {
-  const { notionHeadings } = useContext(NotionHeadingsContext);
+type TOCMobileProps = {
+  headings: NotionHeading[];
+};
+
+export default function TOCMobile({ headings }: TOCMobileProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -26,7 +30,7 @@ export default function TOCMobile() {
         <Button
           variant="ghost"
           size="icon"
-          disabled={notionHeadings.length < 1}
+          disabled={headings.length < 1}
           onClick={() => setOpen(true)}
         >
           <ActivityLogIcon />
@@ -40,7 +44,7 @@ export default function TOCMobile() {
             Navigate the flow and uncover every part of the story.
           </DrawerDescription>
         </DrawerHeader>
-        <TOCEntries />
+        <TOCEntries headings={headings} />
       </DrawerContent>
     </Drawer>
   );

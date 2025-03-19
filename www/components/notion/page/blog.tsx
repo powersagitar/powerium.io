@@ -23,7 +23,7 @@ export default function NotionPageBlog({ page }: NotionPageBlogProps) {
   );
 
   return (
-    <NotionPage>
+    <NotionPage id={page.id}>
       <NotionPageHeader className="text-center [overflow-wrap:anywhere]">
         <H1 className="mb-4">
           <NotionRichTextItems

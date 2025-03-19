@@ -22,7 +22,7 @@ export default async function NotionPageNormal({
   const lastEdited = new Date(page.last_edited_time);
 
   return (
-    <NotionPage>
+    <NotionPage id={page.id}>
       <NotionPageHeader className="text-center [overflow-wrap:anywhere]">
         <H1 className="mb-4">
           <NotionRichTextItems

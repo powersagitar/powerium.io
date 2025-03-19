@@ -2,7 +2,6 @@ import { DatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints
 
 import { NotionPublishedBlog } from '@/components/notion/page';
 import { SearchDesktop } from '@/components/search';
-import { ResetNotionHeadings } from '@/components/table-of-contents/notion-headings';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
 import { H1, H2, P } from '@/components/ui/typography';
@@ -12,8 +11,6 @@ import { retrievePublishedArticles } from '@/lib/notion/queries';
 export default function Home() {
   return (
     <>
-      <ResetNotionHeadings />
-
       <H1>{siteConfig.metadata.title}</H1>
       <P>{siteConfig.metadata.description}</P>
 
