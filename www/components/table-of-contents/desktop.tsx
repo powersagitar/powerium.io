@@ -86,6 +86,10 @@ function useActiveHeading(headings: NotionHeading[]) {
   >(undefined);
 
   useEffect(() => {
+    if (headings.length > 0) {
+      setActiveHeading(headings[0].id);
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
