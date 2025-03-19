@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from '@/components/ui/link';
 import { H1, H2, P } from '@/components/ui/typography';
 import { siteConfig } from '@/config/site';
-import { retrievePublishedArticles } from '@/lib/notion/server';
+import { retrievePublishedArticles } from '@/lib/notion/queries';
 
 export default function Home() {
   return (

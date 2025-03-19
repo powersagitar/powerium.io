@@ -12,7 +12,7 @@ import { siteConfig } from '@/config/site';
 import {
   retrieveAllPublishedArticles,
   retrieveNotionPage,
-} from '@/lib/notion/server';
+} from '@/lib/notion/queries';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
 export async function generateStaticParams() {

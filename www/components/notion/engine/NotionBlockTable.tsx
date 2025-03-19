@@ -6,7 +6,7 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import { Skeleton } from '@/components/ui/skeleton';
-import { retrieveNotionBlockChildrenAll } from '@/lib/notion/server';
+import { retrieveNotionBlockChildrenAll } from '@/lib/notion/queries';
 
 import { Table, Td, Th, Tr } from '../../ui/typography';
 import NotionRichTextItems from './rich-text';

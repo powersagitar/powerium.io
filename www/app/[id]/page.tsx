@@ -12,7 +12,7 @@ import { siteConfig } from '@/config/site';
 import {
   retrieveAllPublishedArticles,
   retrieveNotionPage,
-} from '@/lib/notion/server';
+} from '@/lib/notion/queries';
 import { NotionPageProperties } from '@/lib/notion/types';
 
 type Params = {

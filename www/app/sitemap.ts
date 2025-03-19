@@ -9,11 +9,11 @@ import {
 
 import { notionConfig } from '@/config/notion';
 import { siteConfig } from '@/config/site';
-import { getBlogHref } from '@/lib/notion/client';
+import { getBlogHref } from '@/lib/notion/href';
 import {
   retrieveAllPublishedArticles,
   retrieveNotionPage,
-} from '@/lib/notion/server';
+} from '@/lib/notion/queries';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publishedArticles =

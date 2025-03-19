@@ -39,7 +39,7 @@ import NotionBlockQuote from '@/components/notion/engine/NotionBlockQuote';
 import NotionBlockTable from '@/components/notion/engine/NotionBlockTable';
 import NotionBlockVideo from '@/components/notion/engine/NotionBlockVideo';
 import { Skeleton } from '@/components/ui/skeleton';
-import { retrieveNotionBlockChildrenAll } from '@/lib/notion/server';
+import { retrieveNotionBlockChildrenAll } from '@/lib/notion/queries';
 
 const defaultBlockRenderer = (type: BlockObjectResponse['type']) => {
   console.log(`${type} is not yet implemented.`);

@@ -8,11 +8,11 @@ import {
 
 import { NotionPageBlog } from '@/components/notion/page';
 import { siteConfig } from '@/config/site';
-import { getBlogHref } from '@/lib/notion/client';
+import { getBlogHref } from '@/lib/notion/href';
 import {
   retrieveAllPublishedArticles,
   retrieveNotionPage,
-} from '@/lib/notion/server';
+} from '@/lib/notion/queries';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
 type Params = {

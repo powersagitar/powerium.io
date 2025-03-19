@@ -7,7 +7,7 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 import { notionConfig } from '@/config/notion';
 import { siteConfig } from '@/config/site';
-import { retrieveNotionPage } from '@/lib/notion/server';
+import { retrieveNotionPage } from '@/lib/notion/queries';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
 export function generateStaticParams() {
