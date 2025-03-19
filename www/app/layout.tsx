@@ -8,8 +8,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Breadcrumb from '@/components/breadcrumb';
 import Footer from '@/components/footer';
+import Providers from '@/components/providers';
 import Toolbar from '@/components/toolbar';
-import Providers from '@/components/utils/providers';
 import { siteConfig } from '@/config/site';
 import '@/styles/global.css';
 

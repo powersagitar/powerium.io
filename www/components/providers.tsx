@@ -6,8 +6,8 @@ import { ReactNode, SetStateAction, useState } from 'react';
 import {
   NotionHeading,
   NotionHeadingsContext,
-} from '../table-of-contents/notion-headings';
-import { Toaster } from '../ui/toaster';
+} from './table-of-contents/notion-headings';
+import { Toaster } from './ui/toaster';
 
 type ProviderProps = { children: Readonly<ReactNode> };
 
