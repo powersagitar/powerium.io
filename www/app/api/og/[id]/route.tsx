@@ -10,8 +10,6 @@ import { siteConfig } from '@/config/site';
 import { retrieveNotionPage } from '@/lib/notion/server';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
-export const revalidate = 14400;
-
 export function generateStaticParams() {
   return [
     { id: notionConfig.auxiliaryPages.about?.id },

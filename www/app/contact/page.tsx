@@ -10,8 +10,6 @@ import { retrieveNotionPage } from '@/lib/notion/server';
 
 const { contact } = notionConfig.auxiliaryPages;
 
-export const revalidate = 14400;
-
 export const metadata: Metadata = {
   title: 'Contact',
   description: contact?.description,

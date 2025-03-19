@@ -15,8 +15,6 @@ import {
 } from '@/lib/notion/server';
 import { NotionBlogPageProperties } from '@/lib/notion/types';
 
-export const revalidate = 14400;
-
 export async function generateStaticParams() {
   const posts =
     (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];

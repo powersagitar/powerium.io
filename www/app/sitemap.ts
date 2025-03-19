@@ -15,8 +15,6 @@ import {
   retrieveNotionPage,
 } from '@/lib/notion/server';
 
-export const revalidate = 14400;
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publishedArticles =
     (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];

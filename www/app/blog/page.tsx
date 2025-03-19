@@ -4,8 +4,6 @@ import { NotionPublishedBlog } from '@/components/notion/page';
 import { H1 } from '@/components/ui/typography';
 import { retrieveAllPublishedArticles } from '@/lib/notion/server';
 
-export const revalidate = 14400;
-
 export default async function PublishedBlog() {
   const publishedArticles =
     (await retrieveAllPublishedArticles()) as DatabaseObjectResponse[];

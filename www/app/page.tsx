@@ -9,8 +9,6 @@ import { H1, H2, P } from '@/components/ui/typography';
 import { siteConfig } from '@/config/site';
 import { retrievePublishedArticles } from '@/lib/notion/server';
 
-export const revalidate = 14400;
-
 export default function Home() {
   return (
     <>
