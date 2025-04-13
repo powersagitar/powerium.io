@@ -38,6 +38,7 @@ const renderers: Renderers = {
   ),
   database: () => <>database</>,
   template_mention: () => <>template_mention</>,
+  custom_emoji: () => <>custom emoji</>,
 };
 
 type NotionMentionRichTextItemProps = {
