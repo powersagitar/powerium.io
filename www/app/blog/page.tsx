@@ -18,7 +18,6 @@ export default async function PublishedBlog(props: PublishedBlobProps) {
   const searchParams = await props.searchParams;
   const startCursor = searchParams['start-cursor'] ?? undefined;
 
-  // TODO: suspense
   const queryResponse = await retrievePublishedArticles(startCursor, 10).catch(
     () => notFound(),
   );
