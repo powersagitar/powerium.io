@@ -75,7 +75,7 @@
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.2",
     "@vercel/style-guide": "^6.0.0",
-    "babel-plugin-react-compiler": "^19.0.0-beta-e993439-20250405",
+    "babel-plugin-react-compiler": "^19.0.0-beta-ebf51a3-20250411",
     "eslint": "^9.24.0",
     "eslint-config-next": "15.2.4",
     "eslint-config-prettier": "10.1.1",
