@@ -1,11 +1,8 @@
 version: 2
 updates:
   - package-ecosystem: "bun"
-    directory: "/www"
+    directories:
+      - "/www"
+      - "/docs"
     schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "bun"
-    directory: "/docs"
-    schedule:
-      interval: "weekly"
+      interval: "monthly"
