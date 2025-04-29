@@ -1,9 +1,10 @@
 import { readFileSync } from "fs";
 import { globbySync } from "globby";
 import matter from "gray-matter";
+import { cache } from "react";
 import { Blog, Metadata } from "./types";
 
-export function getAllPosts(): Blog[] {
+export const getAllPosts = cache((): Blog[] => {
   const paths = globbySync("content/blog/**/*.mdx");
 
   return paths.map((path) => {
@@ -15,4 +16,4 @@ export function getAllPosts(): Blog[] {
       metadata,
     };
   });
-}
+});
