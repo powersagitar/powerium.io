@@ -28,5 +28,5 @@ export const getAllPosts = cache(async (): Promise<Map<string, Blog>> => {
 });
 
 export const getPost = cache(async (path: string) => {
-  return getAllPosts().then((map) => map.get(path));
+  return getAllPosts().then((posts) => posts.get(path));
 });
