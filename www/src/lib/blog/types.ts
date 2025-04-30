@@ -1,6 +1,6 @@
 export type Blog = {
-  path: string;
-  metadata: Metadata;
+  content: string;
+  metdata: Metadata;
 };
 
 export type Metadata = {

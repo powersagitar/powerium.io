@@ -4,16 +4,21 @@ import matter from "gray-matter";
 import { cache } from "react";
 import { Blog, Metadata } from "./types";
 
-export const getAllPosts = cache((): Blog[] => {
+type MatterExtractType = {
+  content: string;
+  data: Metadata;
+};
+
+export const getAllPosts = cache((): Map<string, Blog> => {
   const paths = globbySync("content/blog/**/*.mdx");
+  const posts = new Map();
 
-  return paths.map((path) => {
+  paths.forEach((path) => {
     const post = readFileSync(path);
-    const metadata = matter(post).data as Metadata;
+    const { content, data } = matter(post) as unknown as MatterExtractType;
 
-    return {
-      path,
-      metadata,
-    };
+    posts.set(path, { content, metadata: data });
   });
+
+  return posts;
 });
