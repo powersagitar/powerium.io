@@ -1,5 +1,5 @@
-import { readFileSync } from "fs";
-import { globbySync } from "globby";
+import { readFile } from "fs/promises";
+import { globby } from "globby";
 import matter from "gray-matter";
 import { cache } from "react";
 import { Blog, Metadata } from "./types";
@@ -9,16 +9,20 @@ type MatterExtractType = {
   data: Metadata;
 };
 
-export const getAllPosts = cache((): Map<string, Blog> => {
-  const paths = globbySync("content/blog/**/*.mdx");
+export const getAllPosts = cache(async (): Promise<Map<string, Blog>> => {
+  const paths = await globby("content/blog/**/*.mdx");
   const posts = new Map();
 
-  paths.forEach((path) => {
-    const post = readFileSync(path);
-    const { content, data } = matter(post) as unknown as MatterExtractType;
+  await Promise.all(
+    paths.map(async (path) => {
+      const post = await readFile(path);
+      const { content, data: metadata } = matter(
+        post
+      ) as unknown as MatterExtractType;
 
-    posts.set(path, { content, metadata: data });
-  });
+      posts.set(path, { content, metadata });
+    })
+  );
 
   return posts;
 });
