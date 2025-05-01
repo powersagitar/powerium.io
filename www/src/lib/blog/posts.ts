@@ -2,10 +2,10 @@ import { readFile } from "fs/promises";
 import { globby } from "globby";
 import { getFrontmatter } from "next-mdx-remote-client/utils";
 import { cache } from "react";
-import { AllMetadata, Metadata, Post } from "./types";
+import { AllMetadata, Metadata, Path, Post } from "./types";
 
 export const getAllMetadata = cache(async (): Promise<AllMetadata[]> => {
-  const paths = await globby("content/blog/**/*.mdx");
+  const paths = (await globby("content/blog/**/*.mdx")) as Path[];
 
   return Promise.all(
     paths.map(async (path) => {
@@ -36,4 +36,14 @@ export const checkIsPublished = cache(
 
 export const sortByNewlyPublished = cache(
   (a: Date, b: Date) => b.valueOf() - a.valueOf()
+);
+
+export const pathToSlug = cache(
+  (path: Path) =>
+    "/blog/" +
+    path
+      .split("/")
+      .slice(2)
+      .join("/")
+      .replace(/\.mdx$/, "")
 );

@@ -5,8 +5,10 @@ export type Post = {
 
 export type AllMetadata = {
   metadata: Metadata;
-  path: string;
+  path: Path;
 };
+
+export type Path = `content/blog/${string}.mdx`;
 
 export type Metadata = {
   title: string;
