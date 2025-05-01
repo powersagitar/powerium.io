@@ -16,7 +16,7 @@ export default async function Page(props: Props) {
     notFound();
   }
 
-  if (new Date() < metadata.published) {
+  if (new Date() < new Date(metadata.published)) {
     notFound();
   }
 
