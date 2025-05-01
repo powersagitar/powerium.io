@@ -2,6 +2,7 @@ import type { MDXComponents } from "next-mdx-remote-client/rsc";
 import CodeBlock from "../ui/code-block";
 import { Link } from "../ui/link";
 import { Code, H1, H2, H3, P, Ul } from "../ui/typography";
+import Separator from "./separator";
 
 export const components: MDXComponents = {
   h1: H1,
@@ -12,4 +13,5 @@ export const components: MDXComponents = {
   code: Code,
   a: Link,
   pre: CodeBlock,
+  hr: Separator,
 };
