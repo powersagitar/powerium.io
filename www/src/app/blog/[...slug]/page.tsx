@@ -1,4 +1,5 @@
 import { getPost } from "@/lib/blog/posts";
+import { MDXRemote } from "next-mdx-remote-client/rsc";
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -15,7 +16,11 @@ export default async function Page(props: Props) {
     notFound();
   }
 
-  console.log(post);
+  const { content, metadata } = post;
 
-  return null;
+  if (new Date() < metadata.published) {
+    notFound();
+  }
+
+  return <MDXRemote source={content} />;
 }
