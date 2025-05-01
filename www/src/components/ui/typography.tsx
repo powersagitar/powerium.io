@@ -18,3 +18,11 @@ export function H1({ className, children }: TypographyProps) {
     </h1>
   );
 }
+
+export function P({ className, children }: TypographyProps) {
+  return (
+    <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}>
+      {children}
+    </p>
+  );
+}

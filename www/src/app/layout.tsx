@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
@@ -15,8 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="mx-auto max-w-7xl antialiased">
-        {children}
+      <body className="mx-auto flex min-h-screen max-w-7xl flex-col justify-between antialiased">
+        <div className="mt-22">{children}</div>
+        <Footer />
+
         <Analytics />
         <SpeedInsights />
       </body>
