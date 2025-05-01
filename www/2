@@ -1,0 +1,52 @@
+import { CSSProperties } from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import {
+  stackoverflowDark,
+  stackoverflowLight,
+} from "react-syntax-highlighter/dist/esm/styles/hljs";
+
+type CodeBlockProps = {
+  children: {
+    props: {
+      className: `language-${string}`;
+      children: string;
+    };
+  };
+};
+
+export default function CodeBlock({
+  children: {
+    props: { className, children },
+  },
+}: CodeBlockProps) {
+  const language = className.replace("language-", "");
+
+  const customStyle: CSSProperties = {
+    borderRadius: "0.375rem", // rounded-md
+    padding: "0.5rem", // p-2
+  };
+
+  return (
+    <div className="[&:not(:first-child)]:mt-6">
+      <div className="block dark:hidden">
+        <SyntaxHighlighter
+          language={language}
+          style={stackoverflowLight}
+          customStyle={customStyle}
+        >
+          {children}
+        </SyntaxHighlighter>
+      </div>
+
+      <div className="hidden dark:block">
+        <SyntaxHighlighter
+          language={language}
+          style={stackoverflowDark}
+          customStyle={customStyle}
+        >
+          {children}
+        </SyntaxHighlighter>
+      </div>
+    </div>
+  );
+}
