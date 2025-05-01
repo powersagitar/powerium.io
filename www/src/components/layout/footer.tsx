@@ -1,9 +1,10 @@
+import { config } from "@/lib/config/config";
 import { P } from "../ui/typography";
 
 export default function Footer() {
   return (
     <footer className="mb-4">
-      <P>Copyright &copy; 2025 powersagitar. Some rights reserved.</P>
+      <P>Copyright &copy; 2025 {config.author}. Some rights reserved.</P>
     </footer>
   );
 }
