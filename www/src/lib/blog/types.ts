@@ -1,6 +1,11 @@
-export type Blog = {
-  content: string;
+export type Post = {
   metadata: Metadata;
+  source: string;
+};
+
+export type AllMetadata = {
+  metadata: Metadata;
+  path: string;
 };
 
 export type Metadata = {

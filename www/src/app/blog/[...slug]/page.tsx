@@ -10,17 +10,17 @@ export default async function Page(props: Props) {
   const { slug } = await props.params;
   const path = "content/blog/" + slug.join("/") + ".mdx";
 
-  const post = await getPost(path).catch(() => notFound());
+  const { metadata, source } = await getPost(path).catch(() => notFound());
 
-  if (!post) {
+  console.log("metadata", metadata);
+
+  if (!metadata) {
     notFound();
   }
-
-  const { content, metadata } = post;
 
   if (new Date() < metadata.published) {
     notFound();
   }
 
-  return <MDXRemote source={content} />;
+  return <MDXRemote source={source} />;
 }

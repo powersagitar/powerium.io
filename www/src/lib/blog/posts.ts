@@ -1,32 +1,31 @@
 import { readFile } from "fs/promises";
 import { globby } from "globby";
-import matter from "gray-matter";
+import { getFrontmatter } from "next-mdx-remote-client/utils";
 import { cache } from "react";
-import { Blog, Metadata } from "./types";
+import { AllMetadata, Metadata, Post } from "./types";
 
-type MatterExtractType = {
-  content: string;
-  data: Metadata;
-};
-
-export const getAllPosts = cache(async (): Promise<Map<string, Blog>> => {
+export const getAllMetadata = cache(async (): Promise<AllMetadata[]> => {
   const paths = await globby("content/blog/**/*.mdx");
-  const posts = new Map();
 
-  await Promise.all(
+  return Promise.all(
     paths.map(async (path) => {
       const post = await readFile(path);
-      const { content, data: metadata } = matter(
-        post
-      ) as unknown as MatterExtractType;
+      const { frontmatter } = getFrontmatter<Metadata>(post);
 
-      posts.set(path, { content, metadata });
+      return {
+        path,
+        metadata: frontmatter,
+      };
     })
   );
-
-  return posts;
 });
 
-export const getPost = cache(async (path: string) => {
-  return getAllPosts().then((posts) => posts.get(path));
+export const getPost = cache(async (path: string): Promise<Post> => {
+  const post = await readFile(path);
+  const { frontmatter, strippedSource } = getFrontmatter<Metadata>(post);
+
+  return {
+    metadata: frontmatter,
+    source: strippedSource,
+  };
 });
