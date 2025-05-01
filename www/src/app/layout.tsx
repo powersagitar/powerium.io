@@ -1,14 +1,14 @@
 import Footer from "@/components/layout/footer";
 import ThemeProvider from "@/components/layout/theme-provider";
-import { config } from "@/lib/config/config";
+import { siteConfig } from "@/lib/config/config";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: config.title,
-  description: config.description,
+  title: siteConfig.title,
+  description: siteConfig.description,
 };
 
 export default function RootLayout({

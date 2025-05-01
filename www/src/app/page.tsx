@@ -5,7 +5,7 @@ import {
   pathToSlug,
   sortByNewlyPublished,
 } from "@/lib/blog/posts";
-import { config } from "@/lib/config/config";
+import { siteConfig } from "@/lib/config/config";
 import dateFormat from "dateformat";
 import { notFound } from "next/navigation";
 
@@ -27,8 +27,8 @@ export default async function Home() {
   return (
     <main>
       <hgroup>
-        <H1>{config.title}</H1>
-        <P>{config.description}</P>
+        <H1>{siteConfig.title}</H1>
+        <P>{siteConfig.description}</P>
       </hgroup>
 
       <H2 className="mt-10">Blog</H2>

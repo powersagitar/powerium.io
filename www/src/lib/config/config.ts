@@ -1,6 +1,6 @@
-import { Config } from "./types";
+import { SiteConfig } from "./types";
 
-export const config: Config = {
+export const siteConfig: SiteConfig = {
   title: "powerium.io",
   description:
     "@powersagitar's blog about software development, productivity, and many more.",
