@@ -12,8 +12,6 @@ export default async function Page(props: Props) {
 
   const { metadata, source } = await getPost(path).catch(() => notFound());
 
-  console.log("metadata", metadata);
-
   if (!metadata) {
     notFound();
   }

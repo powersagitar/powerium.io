@@ -15,9 +15,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        <main>{children}</main>
-
+      <body className="mx-auto max-w-7xl antialiased">
+        {children}
         <Analytics />
         <SpeedInsights />
       </body>
