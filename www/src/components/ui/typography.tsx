@@ -19,6 +19,19 @@ export function H1({ className, children }: TypographyProps) {
   );
 }
 
+export function H2({ className, children }: TypographyProps) {
+  return (
+    <h2
+      className={cn(
+        "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        className
+      )}
+    >
+      {children}
+    </h2>
+  );
+}
+
 export function P({ className, children }: TypographyProps) {
   return (
     <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}>

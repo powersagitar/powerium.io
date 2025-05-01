@@ -29,3 +29,11 @@ export const getPost = cache(async (path: string): Promise<Post> => {
     source: strippedSource,
   };
 });
+
+export const checkIsPublished = cache(
+  (publishDate: Date): boolean => new Date() >= publishDate
+);
+
+export const sortByNewlyPublished = cache(
+  (a: Date, b: Date) => b.valueOf() - a.valueOf()
+);

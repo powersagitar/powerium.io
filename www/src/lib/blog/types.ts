@@ -10,12 +10,12 @@ export type AllMetadata = {
 
 export type Metadata = {
   title: string;
-  published: Date;
+  published: string;
   authors: Author[];
   description: string;
 };
 
 type Author = {
   displayName: string;
-  href?: URL;
+  href?: string;
 };
