@@ -1,4 +1,5 @@
 import Footer from "@/components/layout/footer";
+import ThemeProvider from "@/components/layout/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
@@ -15,10 +16,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="mx-auto flex min-h-screen max-w-7xl flex-col justify-between antialiased">
-        <div className="mt-22">{children}</div>
-        <Footer />
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className="mx-auto flex min-h-screen max-w-7xl flex-col justify-between antialiased transition">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="mt-22">{children}</div>
+          <Footer />
+        </ThemeProvider>
 
         <Analytics />
         <SpeedInsights />
