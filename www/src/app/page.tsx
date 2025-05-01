@@ -1,4 +1,5 @@
-import { H1, H2, Link, P } from "@/components/ui/typography";
+import { Link } from "@/components/ui/link";
+import { H1, H2, P } from "@/components/ui/typography";
 import {
   checkIsPublished,
   getAllMetadata,
