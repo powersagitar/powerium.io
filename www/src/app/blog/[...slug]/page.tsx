@@ -1,3 +1,5 @@
+import { components } from "@/components/mdx/components";
+import { H1 } from "@/components/ui/typography";
 import { getPost } from "@/lib/blog/posts";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import { notFound } from "next/navigation";
@@ -20,5 +22,13 @@ export default async function Page(props: Props) {
     notFound();
   }
 
-  return <MDXRemote source={source} />;
+  return (
+    <article>
+      <hgroup>
+        <H1>{metadata.title}</H1>
+      </hgroup>
+
+      <MDXRemote source={source} components={components} />
+    </article>
+  );
 }
