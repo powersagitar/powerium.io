@@ -40,7 +40,7 @@ export default async function Home() {
             key={"home-published-blog-list-" + idx}
           >
             <p className="text-muted-foreground">
-              {dateFormat(metadata.published, "mediumDate")}
+              {dateFormat(metadata.published, "mediumDate", true)}
             </p>
 
             <p className="underline">{metadata.title}</p>
