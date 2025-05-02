@@ -1,10 +1,15 @@
-import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { ComponentPropsWithRef } from "react";
 import { Separator as UISeparator } from "../ui/separator";
 
-type SeparatorProps = {
-  children: ReactNode;
-};
-
-export default function Separator({ children }: SeparatorProps) {
-  return <UISeparator className="[&:not(:first-child)]:mt-6" />;
+export default function Separator({
+  className,
+  ...props
+}: ComponentPropsWithRef<typeof UISeparator>) {
+  return (
+    <UISeparator
+      className={cn("[&:not(:first-child)]:mt-6", className)}
+      {...props}
+    />
+  );
 }
