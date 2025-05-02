@@ -4,7 +4,6 @@ import { ComponentPropsWithRef } from "react";
 
 export function Link({
   className,
-  children,
   ...props
 }: ComponentPropsWithRef<typeof NextLink>) {
   return (
@@ -14,8 +13,6 @@ export function Link({
         className
       )}
       {...props}
-    >
-      {children}
-    </NextLink>
+    />
   );
 }

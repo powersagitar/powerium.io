@@ -1,11 +1,7 @@
 import { cn } from "@/lib/utils";
 import { ComponentPropsWithRef } from "react";
 
-export function H1({
-  className,
-  children,
-  ...props
-}: ComponentPropsWithRef<"h1">) {
+export function H1({ className, ...props }: ComponentPropsWithRef<"h1">) {
   return (
     <h1
       className={cn(
@@ -13,17 +9,11 @@ export function H1({
         className
       )}
       {...props}
-    >
-      {children}
-    </h1>
+    />
   );
 }
 
-export function H2({
-  className,
-  children,
-  ...props
-}: ComponentPropsWithRef<"h2">) {
+export function H2({ className, ...props }: ComponentPropsWithRef<"h2">) {
   return (
     <h2
       className={cn(
@@ -31,17 +21,11 @@ export function H2({
         className
       )}
       {...props}
-    >
-      {children}
-    </h2>
+    />
   );
 }
 
-export function H3({
-  className,
-  children,
-  ...props
-}: ComponentPropsWithRef<"h3">) {
+export function H3({ className, ...props }: ComponentPropsWithRef<"h3">) {
   return (
     <h3
       className={cn(
@@ -49,44 +33,29 @@ export function H3({
         className
       )}
       {...props}
-    >
-      {children}
-    </h3>
+    />
   );
 }
 
-export function P({
-  className,
-  children,
-  ...props
-}: ComponentPropsWithRef<"p">) {
+export function P({ className, ...props }: ComponentPropsWithRef<"p">) {
   return (
     <p
       className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
       {...props}
-    >
-      {children}
-    </p>
+    />
   );
 }
 
-export function Ul({
-  className,
-  children,
-  ...props
-}: ComponentPropsWithRef<"ul">) {
+export function Ul({ className, ...props }: ComponentPropsWithRef<"ul">) {
   return (
-    <ul className={cn("my-6 ml-6 list-disc [&>li]:mt-2", className)} {...props}>
-      {children}
-    </ul>
+    <ul
+      className={cn("my-6 ml-6 list-disc [&>li]:mt-2", className)}
+      {...props}
+    />
   );
 }
 
-export function Code({
-  className,
-  children,
-  ...props
-}: ComponentPropsWithRef<"code">) {
+export function Code({ className, ...props }: ComponentPropsWithRef<"code">) {
   return (
     <code
       className={cn(
@@ -94,8 +63,6 @@ export function Code({
         className
       )}
       {...props}
-    >
-      {children}
-    </code>
+    />
   );
 }
