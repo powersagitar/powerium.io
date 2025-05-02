@@ -33,7 +33,7 @@ export default async function Home() {
       </hgroup>
 
       <H2 className="mt-10">Blog</H2>
-      <div className="my-4 grid gap-4 sm:grid-cols-[8em_2fr_3fr]">
+      <div className="my-4 grid-cols-[8em_2fr_3fr] gap-4 font-medium sm:grid">
         {metadata.map(({ metadata, path }, idx) => (
           <Link
             href={pathToSlug(path)}
