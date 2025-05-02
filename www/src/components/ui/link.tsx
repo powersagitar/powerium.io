@@ -1,19 +1,19 @@
 import { cn } from "@/lib/utils";
 import NextLink from "next/link";
-import { TypographyProps } from "./typography";
+import { ComponentPropsWithRef } from "react";
 
-type LinkProps = TypographyProps & {
-  href: string;
-};
-
-export function Link({ className, children, href }: LinkProps) {
+export function Link({
+  className,
+  children,
+  ...props
+}: ComponentPropsWithRef<typeof NextLink>) {
   return (
     <NextLink
-      href={href}
       className={cn(
         "hover:text-muted-foreground underline underline-offset-4",
         className
       )}
+      {...props}
     >
       {children}
     </NextLink>
