@@ -12,8 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="scroll-smooth">
+      <body className="mx-auto flex min-h-screen max-w-7xl flex-col justify-between transition">
+        <div className="mt-22">{children}</div>
+      </body>
     </html>
   );
 }
