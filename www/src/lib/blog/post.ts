@@ -2,7 +2,7 @@ import { globby } from "globby";
 import { getFrontmatter } from "next-mdx-remote-client/utils";
 import fs from "node:fs/promises";
 import { cache } from "react";
-import { Metadata, MetadataWithPath, Path } from "./types";
+import { Metadata, MetadataWithPath, MetadataWithSource, Path } from "./types";
 
 export const getAllPosts = cache(async () => {
   const paths = await globby("content/blog/**/*.mdx");
@@ -19,6 +19,18 @@ export const getAllPosts = cache(async () => {
     })
   );
 });
+
+export const getPost = cache(
+  async (path: Path): Promise<MetadataWithSource> => {
+    const post = await fs.readFile(path);
+    const { frontmatter, strippedSource } = getFrontmatter<Metadata>(post);
+
+    return {
+      metadata: frontmatter,
+      strippedSource,
+    };
+  }
+);
 
 export const pathToSlug = cache(
   (path: Path) =>

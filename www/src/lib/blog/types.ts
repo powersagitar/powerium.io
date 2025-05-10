@@ -1,3 +1,8 @@
+export type MetadataWithSource = {
+  metadata: Metadata;
+  strippedSource: string;
+};
+
 export type MetadataWithPath = {
   path: Path;
   metadata: Metadata;
