@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -15,6 +17,9 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="mx-auto flex min-h-screen max-w-7xl flex-col justify-between transition">
         <div className="mt-22">{children}</div>
+
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
