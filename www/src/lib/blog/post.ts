@@ -32,6 +32,14 @@ export const getPost = cache(
   }
 );
 
+export const checkIsPublished = cache(
+  (publishDate: Date): boolean => new Date() >= publishDate
+);
+
+export const sortByNewlyPublished = cache(
+  (a: Date, b: Date) => b.valueOf() - a.valueOf()
+);
+
 export const pathToSlug = cache(
   (path: Path) =>
     "/blog/" +

@@ -1,6 +1,6 @@
 import { components } from "@/components/mdx/components";
 import { H1 } from "@/components/ui/typography";
-import { getPost } from "@/lib/blog/post";
+import { checkIsPublished, getPost } from "@/lib/blog/post";
 import { Path } from "@/lib/blog/types";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import { notFound } from "next/navigation";
@@ -17,7 +17,7 @@ export default async function BlogPage({ params }: Props) {
     notFound()
   );
 
-  if (new Date() < new Date(metadata.publishedAt)) {
+  if (!checkIsPublished(new Date(metadata.publishedAt))) {
     notFound();
   }
 
