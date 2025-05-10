@@ -19,3 +19,13 @@ export const getAllPosts = cache(async () => {
     })
   );
 });
+
+export const pathToSlug = cache(
+  (path: Path) =>
+    "/blog/" +
+    path
+      .split("/")
+      .slice(2)
+      .join("/")
+      .replace(/\.mdx$/, "")
+);
