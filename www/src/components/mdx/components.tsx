@@ -1,4 +1,5 @@
 import { MDXComponents } from "next-mdx-remote-client";
+import BlockQuote from "../ui/block-quote";
 import CodeBlock from "../ui/code-block";
 import Iframe from "../ui/iframe";
 import { Link } from "../ui/link";
@@ -15,5 +16,6 @@ export const components: MDXComponents = {
   a: Link,
   pre: CodeBlock,
   hr: Separator,
+  blockquote: BlockQuote,
   Iframe: Iframe,
 };
