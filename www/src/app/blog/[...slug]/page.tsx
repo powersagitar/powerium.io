@@ -17,6 +17,10 @@ export default async function BlogPage({ params }: Props) {
     notFound()
   );
 
+  if (new Date() < new Date(metadata.publishedAt)) {
+    notFound();
+  }
+
   return (
     <main>
       <article>
