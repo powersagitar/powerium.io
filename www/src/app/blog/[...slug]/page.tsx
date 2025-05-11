@@ -1,8 +1,6 @@
-import { components } from "@/components/mdx/components";
 import { H1 } from "@/components/ui/typography";
-import { checkIsPublished, getPost } from "@/lib/blog/post";
-import { Path } from "@/lib/blog/types";
-import { MDXRemote } from "next-mdx-remote-client/rsc";
+import { checkIsPublished as isPublished } from "@/lib/blog/post";
+import { Path, Post } from "@/lib/blog/types";
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -13,11 +11,9 @@ export default async function BlogPage({ params }: Props) {
   const { slug } = await params;
   const path = ("content/blog/" + slug.join("/") + ".mdx") as Path;
 
-  const { metadata, strippedSource } = await getPost(path).catch(() =>
-    notFound()
-  );
+  const { default: Post, frontmatter }: Post = await import("@/../" + path);
 
-  if (!checkIsPublished(new Date(metadata.publishedAt))) {
+  if (!isPublished(new Date(frontmatter.publishedAt))) {
     notFound();
   }
 
@@ -25,10 +21,10 @@ export default async function BlogPage({ params }: Props) {
     <main>
       <article>
         <hgroup>
-          <H1>{metadata.title}</H1>
+          <H1>{frontmatter.title}</H1>
         </hgroup>
 
-        <MDXRemote source={strippedSource} components={components} />
+        <Post />
       </article>
     </main>
   );

@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/config/config";
 import dateFormat from "dateformat";
 
 export default async function Home() {
-  const metadata = await getAllPosts();
+  const posts = await getAllPosts();
 
   return (
     <main>
@@ -16,19 +16,19 @@ export default async function Home() {
 
       <H2 className="mt-10">Blog</H2>
       <div className="my-4 grid-cols-[8em_2fr_3fr] gap-4 font-medium sm:grid">
-        {metadata.map(({ metadata, path }, idx) => (
+        {posts.map(({ frontmatter, path }, idx) => (
           <Link
             href={pathToSlug(path)}
             className="contents"
             key={"home-published-blog-list-" + idx}
           >
             <p className="text-muted-foreground">
-              {dateFormat(metadata.publishedAt, "mediumDate", true)}
+              {dateFormat(frontmatter.publishedAt, "mediumDate", true)}
             </p>
 
-            <p className="underline">{metadata.title}</p>
+            <p className="underline">{frontmatter.title}</p>
 
-            <p className="text-muted-foreground">{metadata.description}</p>
+            <p className="text-muted-foreground">{frontmatter.description}</p>
           </Link>
         ))}
       </div>

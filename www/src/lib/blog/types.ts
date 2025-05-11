@@ -1,16 +1,18 @@
-export type MetadataWithSource = {
-  metadata: Metadata;
-  strippedSource: string;
+import { FC } from "react";
+
+export type Post = {
+  frontmatter: Frontmatter;
+  default: FC;
 };
 
-export type MetadataWithPath = {
+export type FrontmatterWithPath = {
   path: Path;
-  metadata: Metadata;
+  frontmatter: Frontmatter;
 };
 
 export type Path = `content/blog/${string}.mdx`;
 
-export type Metadata = {
+export type Frontmatter = {
   title: string;
   description: string;
   authors: Author[];
