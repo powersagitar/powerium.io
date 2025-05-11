@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
@@ -7,8 +9,11 @@ const nextConfig: NextConfig = {
 
 const withMDX = createMDX({
   options: {
-    // @ts-expect-error
-    remarkPlugins: [["remark-frontmatter"], ["remark-mdx-frontmatter"]],
+    remarkPlugins: [
+      ["remark-gfm"],
+      ["remark-frontmatter"],
+      ["remark-mdx-frontmatter"],
+    ],
     rehypePlugins: [],
   },
 });
