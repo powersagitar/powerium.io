@@ -1,8 +1,8 @@
 import type { MDXComponents } from "mdx/types";
-import Separator from "./components/mdx/separator";
 import BlockQuote from "./components/ui/block-quote";
 import CodeBlock from "./components/ui/code-block";
 import { Link } from "./components/ui/link";
+import { Separator } from "./components/ui/separator";
 import { Code, H1, H2, H3, P, Ul } from "./components/ui/typography";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -15,7 +15,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     a: Link,
     blockquote: BlockQuote,
     code: Code,
-    hr: Separator,
+    hr: () => <Separator className="[&:not(:first-child)]:mt-6" />,
     pre: CodeBlock,
     ul: Ul,
   };
