@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/footer";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -24,6 +25,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="mt-22">{children}</div>
+          <Footer />
         </ThemeProvider>
 
         <Analytics />
