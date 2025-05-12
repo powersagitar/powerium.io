@@ -66,3 +66,9 @@ export function Code({ className, ...props }: ComponentPropsWithRef<"code">) {
     />
   );
 }
+
+export function Muted({ className, ...props }: ComponentPropsWithRef<"p">) {
+  return (
+    <p className={cn("text-muted-foreground text-sm", className)} {...props} />
+  );
+}
