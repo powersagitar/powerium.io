@@ -1,5 +1,5 @@
 import { Link } from "@/components/ui/link";
-import { H1, H2 } from "@/components/ui/typography";
+import { H1, H2, P } from "@/components/ui/typography";
 import { getAllPosts, pathToSlug } from "@/lib/blog/post";
 import { siteConfig } from "@/lib/config/config";
 import dateFormat from "dateformat";
@@ -11,7 +11,7 @@ export default async function Home() {
     <main>
       <hgroup>
         <H1>{siteConfig.title}</H1>
-        <p>{siteConfig.description}</p>
+        <P>{siteConfig.description}</P>
       </hgroup>
 
       <H2 className="mt-10">Blog</H2>
