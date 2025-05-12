@@ -10,7 +10,9 @@ const nextConfig: NextConfig = {
 const withMDX = createMDX({
   options: {
     remarkPlugins: [
+      ["remark-directive"],
       ["remark-gfm"],
+      ["remark-math"],
       ["remark-frontmatter"],
       ["remark-mdx-frontmatter"],
     ],
