@@ -23,7 +23,7 @@ export default function AuxiliaryPages() {
         </Link>
       </Button>
 
-      <Button variant="ghost" asChild>
+      <Button variant="ghost" size="icon" asChild>
         <Link href="https://github.com/powersagitar/powerium.io">
           <GitHubIcon />
         </Link>
