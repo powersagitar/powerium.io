@@ -14,7 +14,7 @@
       },
       "devDependencies": {
         "@docusaurus/module-type-aliases": "3.8.0",
-        "@docusaurus/tsconfig": "3.8.0",
+        "@docusaurus/tsconfig": "3.8.1",
         "@docusaurus/types": "3.8.0",
         "typescript": "~5.8.2",
       },
@@ -395,7 +395,7 @@
 
     "@docusaurus/theme-translations": ["@docusaurus/theme-translations@3.7.0", "", { "dependencies": { "fs-extra": "^11.1.1", "tslib": "^2.6.0" } }, "sha512-Ewq3bEraWDmienM6eaNK7fx+/lHMtGDHQyd1O+4+3EsDxxUmrzPkV7Ct3nBWTuE0MsoZr3yNwQVKjllzCMuU3g=="],
 
-    "@docusaurus/tsconfig": ["@docusaurus/tsconfig@3.8.0", "", {}, "sha512-utLl48nNjSYBoq47RKukZ9fPLEX3nJWThzrujb0ndQQ1jc/gh4RhTRaAqItH9nImnsgGKmLMnyoMBpfGmoop+w=="],
+    "@docusaurus/tsconfig": ["@docusaurus/tsconfig@3.8.1", "", {}, "sha512-XBWCcqhRHhkhfolnSolNL+N7gj3HVE3CoZVqnVjfsMzCoOsuQw2iCLxVVHtO+rePUUfouVZHURDgmqIySsF66A=="],
 
     "@docusaurus/types": ["@docusaurus/types@3.8.0", "", { "dependencies": { "@mdx-js/mdx": "^3.0.0", "@types/history": "^4.7.11", "@types/react": "*", "commander": "^5.1.0", "joi": "^17.9.2", "react-helmet-async": "npm:@slorber/react-helmet-async@1.3.0", "utility-types": "^3.10.0", "webpack": "^5.95.0", "webpack-merge": "^5.9.0" }, "peerDependencies": { "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" } }, "sha512-RDEClpwNxZq02c+JlaKLWoS13qwWhjcNsi2wG1UpzmEnuti/z1Wx4SGpqbUqRPNSd8QWWePR8Cb7DvG0VN/TtA=="],
 
