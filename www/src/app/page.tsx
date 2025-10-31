@@ -1,3 +1,5 @@
+"use cache";
+
 import { Link } from "@/components/ui/link";
 import { H1, H2, P } from "@/components/ui/typography";
 import { getAllPosts, pathToHref } from "@/lib/blog/post";

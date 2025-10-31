@@ -15,7 +15,7 @@ export default async function BlogPage({
 
   const { default: Post, frontmatter }: Post = await import("@/../" + path);
 
-  if (!isPublished(new Date(frontmatter.publishedAt))) {
+  if (!(await isPublished(new Date(frontmatter.publishedAt)))) {
     notFound();
   }
 
@@ -31,8 +31,6 @@ export default async function BlogPage({
     </main>
   );
 }
-
-export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<Params[]> {
   const posts = await getAllPosts();

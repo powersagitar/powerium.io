@@ -1,5 +1,6 @@
 import { globby } from "globby";
 import matter from "gray-matter";
+import { cacheLife } from "next/cache";
 import fs from "node:fs/promises";
 import { cache } from "react";
 import { Frontmatter, FrontmatterWithPath, Path } from "./types";
@@ -30,9 +31,11 @@ export const getAllPosts = cache(async () => {
 //   };
 // };
 
-export const isPublished = cache(
-  (publishDate: Date): boolean => new Date() >= publishDate
-);
+export const isPublished = async (publishDate: Date): Promise<boolean> => {
+  "use cache";
+  cacheLife("max");
+  return new Date() >= publishDate;
+};
 
 export const sortByNewlyPublished = cache(
   (a: Date, b: Date) => b.valueOf() - a.valueOf()

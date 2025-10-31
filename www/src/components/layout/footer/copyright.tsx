@@ -1,7 +1,12 @@
+"use cache";
+
 import { Muted } from "@/components/ui/typography";
 import { siteConfig } from "@/lib/config/config";
+import { cacheLife } from "next/cache";
 
-export default function Copyright() {
+export default async function Copyright() {
+  cacheLife("max");
+
   return (
     <div className="mx-4 flex flex-col gap-y-1">
       <Muted>
