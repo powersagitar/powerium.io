@@ -36,7 +36,7 @@
         "@radix-ui/react-toggle-group": "^1.1.7",
         "@radix-ui/react-tooltip": "^1.2.0",
         "@vercel/analytics": "^1.5.0",
-        "@vercel/speed-insights": "^1.2.0",
+        "@vercel/speed-insights": "^1.3.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "cmdk": "1.1.1",
@@ -487,7 +487,7 @@
 
     "@vercel/analytics": ["@vercel/analytics@1.5.0", "", { "peerDependencies": { "@remix-run/react": "^2", "@sveltejs/kit": "^1 || ^2", "next": ">= 13", "react": "^18 || ^19 || ^19.0.0-rc", "svelte": ">= 4", "vue": "^3", "vue-router": "^4" }, "optionalPeers": ["@remix-run/react", "@sveltejs/kit", "next", "react", "svelte", "vue", "vue-router"] }, "sha512-MYsBzfPki4gthY5HnYN7jgInhAZ7Ac1cYDoRWFomwGHWEX7odTEzbtg9kf/QSo7XEsEAqlQugA6gJ2WS2DEa3g=="],
 
-    "@vercel/speed-insights": ["@vercel/speed-insights@1.2.0", "", { "peerDependencies": { "@sveltejs/kit": "^1 || ^2", "next": ">= 13", "react": "^18 || ^19 || ^19.0.0-rc", "svelte": ">= 4", "vue": "^3", "vue-router": "^4" }, "optionalPeers": ["@sveltejs/kit", "next", "react", "svelte", "vue", "vue-router"] }, "sha512-y9GVzrUJ2xmgtQlzFP2KhVRoCglwfRQgjyfY607aU0hh0Un6d0OUyrJkjuAlsV18qR4zfoFPs/BiIj9YDS6Wzw=="],
+    "@vercel/speed-insights": ["@vercel/speed-insights@1.3.1", "", { "peerDependencies": { "@sveltejs/kit": "^1 || ^2", "next": ">= 13", "react": "^18 || ^19 || ^19.0.0-rc", "svelte": ">= 4", "vue": "^3", "vue-router": "^4" }, "optionalPeers": ["@sveltejs/kit", "next", "react", "svelte", "vue", "vue-router"] }, "sha512-PbEr7FrMkUrGYvlcLHGkXdCkxnylCWePx7lPxxq36DNdfo9mcUjLOmqOyPDHAOgnfqgGGdmE3XI9L/4+5fr+vQ=="],
 
     "@vercel/style-guide": ["@vercel/style-guide@6.0.0", "", { "dependencies": { "@babel/core": "^7.24.0", "@babel/eslint-parser": "^7.23.10", "@rushstack/eslint-patch": "^1.7.2", "@typescript-eslint/eslint-plugin": "^7.1.1", "@typescript-eslint/parser": "^7.1.1", "eslint-config-prettier": "^9.1.0", "eslint-import-resolver-alias": "^1.1.2", "eslint-import-resolver-typescript": "^3.6.1", "eslint-plugin-eslint-comments": "^3.2.0", "eslint-plugin-import": "^2.29.1", "eslint-plugin-jest": "^27.9.0", "eslint-plugin-jsx-a11y": "^6.8.0", "eslint-plugin-playwright": "^1.5.2", "eslint-plugin-react": "^7.34.0", "eslint-plugin-react-hooks": "^4.6.0", "eslint-plugin-testing-library": "^6.2.0", "eslint-plugin-tsdoc": "^0.2.17", "eslint-plugin-unicorn": "^51.0.1", "eslint-plugin-vitest": "^0.3.22", "prettier-plugin-packagejson": "^2.4.12" }, "peerDependencies": { "@next/eslint-plugin-next": ">=12.3.0 <15.0.0-0", "eslint": ">=8.48.0 <9", "prettier": ">=3.0.0 <4", "typescript": ">=4.8.0 <6" }, "optionalPeers": ["@next/eslint-plugin-next", "eslint", "prettier", "typescript"] }, "sha512-tu0wFINGz91EPwaT5VjSqUwbvCY9pvLach7SPG4XyfJKPU9Vku2TFa6+AyzJ4oroGbo9fK+TQhIFHrnFl0nCdg=="],
 
