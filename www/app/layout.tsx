@@ -6,7 +6,7 @@ import React from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import Breadcrumb from '@/components/breadcrumb';
+// import Breadcrumb from '@/components/breadcrumb';
 import Footer from '@/components/footer';
 import Providers from '@/components/providers';
 import Toolbar from '@/components/toolbar';
@@ -32,7 +32,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className="flex min-h-screen w-full flex-col items-center transition">
         <Providers>
-          <Breadcrumb className="hidden sm:block" />
+          {/* <Breadcrumb className="hidden sm:block" /> */}
 
           <main className="mt-22 flex w-full grow flex-col px-3 lg:w-2/3">
             {children}
