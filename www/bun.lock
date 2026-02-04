@@ -70,7 +70,7 @@
         "@types/react": "19.2.7",
         "@types/react-dom": "19.1.7",
         "@vercel/style-guide": "^6.0.0",
-        "babel-plugin-react-compiler": "^19.0.0-beta-ebf51a3-20250411",
+        "babel-plugin-react-compiler": "^19.0.0-beta-714736e-20250131",
         "eslint": "^9.24.0",
         "eslint-config-next": "15.3.1",
         "eslint-config-prettier": "10.1.1",
@@ -535,7 +535,7 @@
 
     "axobject-query": ["axobject-query@4.1.0", "", {}, "sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ=="],
 
-    "babel-plugin-react-compiler": ["babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411", "", { "dependencies": { "@babel/types": "^7.26.0" } }, "sha512-q84bNR9JG1crykAlJUt5Ud0/5BUyMFuQww/mrwIQDFBaxsikqBDj3f/FNDsVd2iR26A1HvXKWPEIfgJDv8/V2g=="],
+    "babel-plugin-react-compiler": ["babel-plugin-react-compiler@19.0.0-beta-714736e-20250131", "", { "dependencies": { "@babel/types": "^7.19.0" } }, "sha512-frj2l6fRWVi26iw9WthFKyFyE4u5ZSHH3KdKiscOOwpz210seTtwnp0QbJmi8Zoa5HK7Fk2fH40JffN2y8GvLg=="],
 
     "balanced-match": ["balanced-match@1.0.2", "", {}, "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw=="],
 
