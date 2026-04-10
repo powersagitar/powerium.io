@@ -1,6 +1,5 @@
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
-import rehypeFormat from 'rehype-format';
 import rehypeKatex from 'rehype-katex';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeRaw from 'rehype-raw';
@@ -62,6 +61,5 @@ export const mdxOptions: Record<string, any> = {
       rehypeExternalLinks, // open external links in new tab
       { target: '_blank', rel: ['nofollow', 'noopener', 'noreferrer'] },
     ],
-    rehypeFormat, // normalize HTML whitespace (runs last)
   ],
 };
