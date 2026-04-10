@@ -145,7 +145,7 @@ body {
 }
 
 .prose :is(h1, h2, h3, h4) > .anchor {
-  @apply text-inherit no-underline;
+  @apply text-inherit no-underline hover:opacity-70;
 }
 
 .prose :is(h2, h3, h4) > .anchor::before {
@@ -168,8 +168,8 @@ body {
   @apply mb-4 leading-7;
 }
 
-.prose a:not(:is(.not-prose, .not-prose *)) {
-  @apply text-primary underline underline-offset-4 hover:opacity-80;
+.prose a:not(:is(.not-prose, .not-prose *, .anchor)) {
+  @apply text-primary underline underline-offset-4 hover:opacity-70;
 }
 
 .prose ul {
