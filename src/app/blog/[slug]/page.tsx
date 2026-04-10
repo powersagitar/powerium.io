@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { compileMDX } from 'next-mdx-remote/rsc';
 
 import { mdxComponents } from '@/components/mdx';
-import { getBlogFrontmatter, getBlogSlugs, getBlogSource } from '@/lib/mdx';
+import type { BlogFrontmatter } from '@/lib/blog';
+import { getBlogFrontmatter, getBlogSlugs, getBlogSource } from '@/lib/blog';
 import { mdxOptions } from '@/lib/mdx-options';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -31,11 +32,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!slugs.includes(slug)) notFound();
 
   const source = getBlogSource(slug);
-  const { content, frontmatter } = await compileMDX<{
-    title: string;
-    date: string;
-    description?: string;
-  }>({
+  const { content, frontmatter } = await compileMDX<BlogFrontmatter>({
     source,
     components: mdxComponents,
     options: {

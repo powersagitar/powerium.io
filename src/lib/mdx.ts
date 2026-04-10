@@ -5,44 +5,33 @@ import 'server-only';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 
-export type BlogFrontmatter = {
+export type Frontmatter = {
   title: string;
-  date: string;
   description: string;
-  tags?: string[];
+  date: string;
   draft?: boolean;
 };
 
-export type BlogPost = BlogFrontmatter & {
+export type Article = Frontmatter & {
   slug: string;
 };
 
-export function getBlogSlugs(): string[] {
-  const blogDir = path.join(CONTENT_DIR, 'blog');
-  if (!fs.existsSync(blogDir)) return [];
-  return fs
-    .readdirSync(blogDir)
+export function getAllPosts(dir: string): Article[] {
+  const targetDir = path.join(CONTENT_DIR, dir);
+  if (!fs.existsSync(targetDir)) return [];
+  const slugs = fs
+    .readdirSync(targetDir)
     .filter((f) => f.endsWith('.mdx'))
     .map((f) => f.replace(/\.mdx$/, ''));
-}
-
-export function getBlogFrontmatter(slug: string): BlogFrontmatter {
-  const filePath = path.join(CONTENT_DIR, 'blog', `${slug}.mdx`);
-  const source = fs.readFileSync(filePath, 'utf-8');
-  const { data } = matter(source);
-  return data as BlogFrontmatter;
-}
-
-export function getAllBlogPosts(): BlogPost[] {
-  return getBlogSlugs()
-    .map((slug) => ({ slug, ...getBlogFrontmatter(slug) }))
-    .filter((post) => !post.draft)
+  return slugs
+    .map((slug) => {
+      const filePath = path.join(targetDir, `${slug}.mdx`);
+      const source = fs.readFileSync(filePath, 'utf-8');
+      const { data } = matter(source);
+      return { slug, ...(data as Frontmatter) };
+    })
+    .filter((article) => !article.draft)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-}
-
-export function getBlogSource(slug: string): string {
-  const filePath = path.join(CONTENT_DIR, 'blog', `${slug}.mdx`);
-  return fs.readFileSync(filePath, 'utf-8');
 }
 
 export function getPageSource(page: string): string {

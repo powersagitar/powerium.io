@@ -1,14 +1,14 @@
 import type { MDXComponents } from 'mdx/types';
 
-import { BlogList } from './BlogList';
-import { BlogPostCard } from './BlogPostCard';
+import { ArticleCard } from './ArticleCard';
+import { ArticleList } from './ArticleList';
 import { Spacer } from './Spacer';
 import { TableOfContents } from './TableOfContents';
 
 export const mdxComponents: MDXComponents = {
   // Custom components usable in MDX
-  BlogList,
-  BlogPostCard,
+  ArticleList,
+  ArticleCard,
   TableOfContents,
   Spacer,
 };

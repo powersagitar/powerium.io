@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import { BlogPostCard } from '@/components/mdx/BlogPostCard';
-import { getAllBlogPosts } from '@/lib/mdx';
+import { ArticleCard } from '@/components/mdx/ArticleCard';
+import { getAllPosts } from '@/lib/mdx';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const posts = getAllBlogPosts();
+  const posts = getAllPosts('blog');
 
   return (
     <div className="prose">
@@ -20,7 +20,7 @@ export default function BlogPage() {
       </h1>
       <div className="not-prose space-y-6">
         {posts.map((post) => (
-          <BlogPostCard key={post.slug} post={post} />
+          <ArticleCard key={post.slug} article={post} urlPrefix="/blog" />
         ))}
       </div>
     </div>
