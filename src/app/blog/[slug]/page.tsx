@@ -47,8 +47,10 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <article className="prose">
       <header className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold tracking-tight">
-          {frontmatter.title}
+        <h1 id="title" className="mb-2">
+          <a href="#title" className="anchor">
+            {frontmatter.title}
+          </a>
         </h1>
         <time className="text-muted-foreground text-sm">
           {frontmatter.date}
