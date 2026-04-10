@@ -18,7 +18,7 @@ export default function BlogPage() {
           Blog
         </a>
       </h1>
-      <div className="space-y-6">
+      <div className="not-prose space-y-6">
         {posts.map((post) => (
           <BlogPostCard key={post.slug} post={post} />
         ))}
