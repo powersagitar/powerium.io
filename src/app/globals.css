@@ -147,9 +147,20 @@ body {
   @apply text-inherit no-underline;
 }
 
-.prose :is(h2, h3) > .anchor::before {
-  content: '#';
+.prose :is(h2, h3, h4) > .anchor::before {
   @apply text-muted-foreground mr-2 font-normal;
+}
+
+.prose h2 > .anchor::before {
+  content: '#';
+}
+
+.prose h3 > .anchor::before {
+  content: '##';
+}
+
+.prose h4 > .anchor::before {
+  content: '###';
 }
 
 .prose p {
