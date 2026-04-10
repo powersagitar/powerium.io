@@ -2,6 +2,7 @@ import type React from 'react';
 
 import type { Metadata } from 'next';
 
+import { BackToHome } from '@/components/BackToHome';
 import { ThemeProvider } from '@/components/theme-provider';
 
 import './globals.css';
@@ -29,7 +30,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="mx-auto max-w-3xl px-4 py-12">{children}</div>
+          <div className="mx-auto max-w-3xl px-4 py-12">
+            <BackToHome />
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
