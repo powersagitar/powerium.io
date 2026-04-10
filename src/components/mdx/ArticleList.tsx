@@ -1,6 +1,6 @@
 import { getArticlesInDir } from '@/lib/mdx';
 
-import { ArticleCard } from './ArticleCard';
+import { ArticleListItem } from './ArticleListItem';
 
 type Props = {
   dir: string;
@@ -12,14 +12,14 @@ export function ArticleList({ dir, limit }: Props) {
   const urlPrefix = `/${dir}`;
 
   return (
-    <div className="not-prose space-y-4">
+    <ul className="not-prose divide-y">
       {posts.map((article) => (
-        <ArticleCard
+        <ArticleListItem
           key={article.slug}
           article={article}
           urlPrefix={urlPrefix}
         />
       ))}
-    </div>
+    </ul>
   );
 }

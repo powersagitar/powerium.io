@@ -3,18 +3,17 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { Button } from '@/components/ui/button';
+
 export function BackToHome() {
   const pathname = usePathname();
   if (pathname === '/') return null;
 
   return (
     <div className="mb-8">
-      <Link
-        href="/"
-        className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-      >
-        ← Home
-      </Link>
+      <Button variant="ghost" size="sm" asChild className="-ml-3">
+        <Link href="/">← Home</Link>
+      </Button>
     </div>
   );
 }

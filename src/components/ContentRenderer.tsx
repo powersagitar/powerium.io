@@ -4,7 +4,8 @@ import matter from 'gray-matter';
 import { compileMDX } from 'next-mdx-remote/rsc';
 
 import { mdxComponents } from '@/components/mdx';
-import { ArticleCard } from '@/components/mdx/ArticleCard';
+import { ArticleListItem } from '@/components/mdx/ArticleListItem';
+import { Badge } from '@/components/ui/badge';
 import {
   type Frontmatter,
   getArticlesInDir,
@@ -63,9 +64,13 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
             </p>
           )}
           {frontmatter.tags && (
-            <p className="text-muted-foreground text-sm">
-              {frontmatter.tags.join(', ')}
-            </p>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {frontmatter.tags.map((tag) => (
+                <Badge key={tag} variant="secondary">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
           )}
         </header>
         {content}
@@ -85,15 +90,15 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
             {title}
           </a>
         </h1>
-        <div className="not-prose space-y-4">
+        <ul className="not-prose divide-y">
           {articles.map((article) => (
-            <ArticleCard
+            <ArticleListItem
               key={article.slug}
               article={article}
               urlPrefix={resolved.urlPath}
             />
           ))}
-        </div>
+        </ul>
       </div>
     );
   }

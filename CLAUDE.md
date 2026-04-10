@@ -61,7 +61,8 @@ src/
 │   └── globals.css
 ├── components/
 │   ├── ContentRenderer.tsx  # Shared file/directory rendering logic
-│   └── mdx/              # MDX component map + individual components
+│   ├── mdx/              # MDX component map + individual components
+│   └── ui/               # shadcn/ui primitives (card, button, badge, …)
 └── lib/                  # Server-only utilities (mdx.ts, mdx-options.ts)
 content/
 ├── index.mdx             # Renders at /
@@ -80,12 +81,15 @@ content/
    - `readMdxSource(filePath)` — reads raw MDX source.
 2. `src/lib/mdx-options.ts` — Shared MDX compiler options (remark/rehype
    plugins). Passed as `options: { mdxOptions }` to every `compileMDX()` call.
-   Plugins: `remark-gfm`, `rehype-slug`, `rehype-autolink-headings`,
-   `rehype-pretty-code` (syntax highlighting via shiki, themes:
-   `github-light`/`github-dark`).
+   Remark plugins: `remark-gfm`, `remark-math`, `remark-directive`,
+   `remark-frontmatter`. Rehype plugins: `rehype-raw`, `rehype-slug`,
+   `rehype-autolink-headings`, `rehype-pretty-code` (shiki, themes:
+   `github-light`/`github-dark`), `rehype-katex`, `rehype-external-links`.
+   **Note:** `rehype-format` is intentionally omitted — it inserts whitespace
+   text nodes inside `<table>` elements which causes React hydration errors.
 3. `src/components/ContentRenderer.tsx` — Server component that handles both
-   rendering branches: compiles MDX for file paths; renders `ArticleCard` list
-   for directory paths. Also exports `generateContentMetadata` for use in
+   rendering branches: compiles MDX for file paths; renders `ArticleListItem`
+   list for directory paths. Also exports `generateContentMetadata` for use in
    `generateMetadata`.
 4. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
@@ -98,8 +102,8 @@ file:
 
 | Component             | Props                                        | Purpose                                                     |
 | --------------------- | -------------------------------------------- | ----------------------------------------------------------- |
-| `<ArticleList />`     | `dir: string`, `limit?: number`              | Renders sorted article cards from a content directory       |
-| `<ArticleCard />`     | `article: Article`, `urlPrefix: string`      | Single article card (also used by ArticleList)              |
+| `<ArticleList />`     | `dir: string`, `limit?: number`              | Renders sorted article list from a content directory        |
+| `<ArticleListItem />` | `article: Article`, `urlPrefix: string`      | Single list-style article row (also used by ArticleList)    |
 | `<TableOfContents />` | —                                            | Client component; auto-detects `h2`/`h3`, highlights active |
 | `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'` | Vertical whitespace                                         |
 
@@ -129,14 +133,22 @@ used via `var(--font-sans)` / `var(--font-mono)` — no web font downloads.
 Prose/MDX content is styled via the `.prose` utility class defined in
 `globals.css` (custom, not `@tailwindcss/typography`).
 
-### Adding shadcn/ui Components
+### shadcn/ui Components
+
+`components.json` is pre-configured (style: `new-york`, Tailwind v4, path
+aliases). Installed primitives live in `src/components/ui/`:
+
+| Component                                                          | Used in                               |
+| ------------------------------------------------------------------ | ------------------------------------- |
+| `Button`                                                           | `BackToHome` (variant `ghost`)        |
+| `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction` | _(unused — available for future use)_ |
+| `Badge`                                                            | `ContentRenderer` (article tags)      |
+
+To add more:
 
 ```sh
 bunx shadcn add <component>
 ```
-
-`components.json` is pre-configured (style: `new-york`, Tailwind v4, path
-aliases).
 
 ## Pre-commit Hooks
 
@@ -150,5 +162,6 @@ files. Configuration in `package.json` under `"lint-staged"`.
 - `src/lib/mdx.ts` and `src/lib/mdx-options.ts` both import `'server-only'` —
   any attempt to import them in a client component will cause a build error.
   Keep all file system access in these modules.
-- `TableOfContents` is the only `'use client'` component — it uses
-  `IntersectionObserver` to track scroll position.
+- `TableOfContents` and `BackToHome` are `'use client'` components —
+  `TableOfContents` uses `IntersectionObserver`; `BackToHome` uses `usePathname`
+  to hide itself on the root route.
