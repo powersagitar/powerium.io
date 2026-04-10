@@ -26,22 +26,25 @@ works normally.
 
 ### Content Model
 
-All content lives in `content/`:
+All content lives in `content/`. URL paths map directly to the filesystem:
 
-- `content/blog/*.mdx` — Blog posts. Filename becomes the URL slug
-  (`hello-world.mdx` → `/blog/hello-world`).
-- `content/pages/*.mdx` — Standalone pages. `home.mdx` renders at `/`; other
-  files (e.g. `about.mdx`) render at `/<slug>`.
+- If `content/<path>.mdx` exists → render that file.
+- If `content/<path>/` is a directory → render an article listing of all MDX
+  files in it.
+- Otherwise → 404.
 
-**Blog post frontmatter schema** (parsed by `gray-matter`):
+The root path `/` maps to `content/index.mdx`.
+
+**Frontmatter schema** (unified, parsed by `gray-matter`):
 
 ```yaml
 ---
 title: string # required
-date: string # required, ISO date (e.g. 2025-01-01)
 description: string # required
-tags: string[] # optional
-draft: boolean # optional, omits post from all listings
+date: string # optional, ISO date (e.g. 2025-01-01); shown in article header and listing cards
+author: string # optional; shown in article header if present
+tags: string[] # optional; shown in article header if present
+draft: boolean # optional; omits the file from directory listings
 ---
 ```
 
@@ -52,27 +55,40 @@ maps to `src/`.
 
 ```
 src/
-├── app/          # Next.js App Router (pages, layout, globals.css)
-├── components/   # React components
-│   └── mdx/      # MDX component map + individual components
-└── lib/          # Server-only utilities (mdx.ts, mdx-options.ts)
+├── app/                  # Next.js App Router
+│   ├── [[...slug]]/      # Single catch-all route for all content paths
+│   ├── layout.tsx
+│   └── globals.css
+├── components/
+│   ├── ContentRenderer.tsx  # Shared file/directory rendering logic
+│   └── mdx/              # MDX component map + individual components
+└── lib/                  # Server-only utilities (mdx.ts, mdx-options.ts)
 content/
-├── blog/         # Blog post MDX files
-└── pages/        # Standalone page MDX files
+├── index.mdx             # Renders at /
+├── about.mdx             # Renders at /about
+└── blog/                 # Renders listing at /blog; each file at /blog/<slug>
 ```
 
 ### Data Flow
 
-1. `src/lib/mdx.ts` — All file system reads. Functions: `getAllBlogPosts()`,
-   `getBlogSource(slug)`, `getPageSource(page)`, `getBlogSlugs()`,
-   `getPageSlugs()`. Called only at build time (server components).
+1. `src/lib/mdx.ts` — All file system reads. Key functions:
+   - `resolveContent(slugParts)` — resolves a path to `file`, `directory`, or
+     `not-found`.
+   - `getArticlesInDir(dirSegments)` — returns sorted, non-draft articles in a
+     directory.
+   - `getAllStaticPaths()` — enumerates all routes for `generateStaticParams`.
+   - `readMdxSource(filePath)` — reads raw MDX source.
 2. `src/lib/mdx-options.ts` — Shared MDX compiler options (remark/rehype
    plugins). Passed as `options: { mdxOptions }` to every `compileMDX()` call.
    Plugins: `remark-gfm`, `rehype-slug`, `rehype-autolink-headings`,
    `rehype-pretty-code` (syntax highlighting via shiki, themes:
    `github-light`/`github-dark`).
-3. App Router pages call `compileMDX()` from `next-mdx-remote/rsc` to turn MDX
-   source into React elements.
+3. `src/components/ContentRenderer.tsx` — Server component that handles both
+   rendering branches: compiles MDX for file paths; renders `ArticleCard` list
+   for directory paths. Also exports `generateContentMetadata` for use in
+   `generateMetadata`.
+4. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
+   `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
 
 ### MDX Components
 
@@ -82,8 +98,8 @@ file:
 
 | Component             | Props                                        | Purpose                                                     |
 | --------------------- | -------------------------------------------- | ----------------------------------------------------------- |
-| `<BlogList />`        | `limit?: number`                             | Renders sorted post cards, latest first                     |
-| `<BlogPostCard />`    | `post: BlogPost`                             | Single post card (also used by BlogList)                    |
+| `<ArticleList />`     | `dir: string`, `limit?: number`              | Renders sorted article cards from a content directory       |
+| `<ArticleCard />`     | `article: Article`, `urlPrefix: string`      | Single article card (also used by ArticleList)              |
 | `<TableOfContents />` | —                                            | Client component; auto-detects `h2`/`h3`, highlights active |
 | `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'` | Vertical whitespace                                         |
 
@@ -92,15 +108,12 @@ To add a new MDX component: create it in `src/components/mdx/`, export it from
 
 ### App Router Pages
 
-| Route          | Source                                                  |
-| -------------- | ------------------------------------------------------- |
-| `/`            | `content/pages/home.mdx`                                |
-| `/blog`        | lists all non-draft posts via `getAllBlogPosts()`       |
-| `/blog/[slug]` | `content/blog/<slug>.mdx`                               |
-| `/[slug]`      | `content/pages/<slug>.mdx` (any file except `home.mdx`) |
+All routes are handled by `src/app/[[...slug]]/page.tsx`. The catch-all maps
+every URL to `content/` via `resolveContent`.
 
-`src/app/[slug]/page.tsx` has `export const dynamicParams = false` — unknown
-slugs 404 without a runtime.
+`generateStaticParams` returns all content paths by appending `{ slug: [] }` for
+root **last** in the array. Note: in Next.js 15, `{}` (empty object) for the
+root entry breaks all prerendering — `{ slug: [] }` must be used instead.
 
 ### Styling
 

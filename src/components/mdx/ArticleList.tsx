@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/mdx';
+import { getArticlesInDir } from '@/lib/mdx';
 
 import { ArticleCard } from './ArticleCard';
 
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export function ArticleList({ dir, limit }: Props) {
-  const posts = getAllPosts(dir).slice(0, limit);
+  const posts = getArticlesInDir([dir]).slice(0, limit);
   const urlPrefix = `/${dir}`;
 
   return (

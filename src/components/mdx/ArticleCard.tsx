@@ -24,13 +24,15 @@ export function ArticleCard({ article, urlPrefix }: Props) {
             </p>
           )}
         </div>
-        <time className="text-muted-foreground shrink-0 text-sm">
-          {new Date(article.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          })}
-        </time>
+        {article.date && (
+          <time className="text-muted-foreground shrink-0 text-sm">
+            {new Date(article.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            })}
+          </time>
+        )}
       </div>
     </Link>
   );
