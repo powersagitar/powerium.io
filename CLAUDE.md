@@ -138,11 +138,10 @@ Prose/MDX content is styled via the `.prose` utility class defined in
 `components.json` is pre-configured (style: `new-york`, Tailwind v4, path
 aliases). Installed primitives live in `src/components/ui/`:
 
-| Component                                                          | Used in                               |
-| ------------------------------------------------------------------ | ------------------------------------- |
-| `Button`                                                           | `BackToHome` (variant `ghost`)        |
-| `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction` | _(unused — available for future use)_ |
-| `Badge`                                                            | `ContentRenderer` (article tags)      |
+| Component | Used in                          |
+| --------- | -------------------------------- |
+| `Button`  | `BackToHome` (variant `ghost`)   |
+| `Badge`   | `ContentRenderer` (article tags) |
 
 To add more:
 
@@ -165,3 +164,8 @@ files. Configuration in `package.json` under `"lint-staged"`.
 - `TableOfContents` and `BackToHome` are `'use client'` components —
   `TableOfContents` uses `IntersectionObserver`; `BackToHome` uses `usePathname`
   to hide itself on the root route.
+- **Remove unused code** — delete files, imports, components, and dependencies
+  that are no longer used. Don't leave dead code behind when refactoring.
+- **Keep CLAUDE.md current** — update it whenever components are added, renamed,
+  or removed; plugins change; or architectural decisions are made. It should
+  always reflect the actual state of the codebase.
