@@ -80,6 +80,8 @@ content/
      directory.
    - `getAllStaticPaths()` — enumerates all routes for `generateStaticParams`.
    - `readMdxSource(filePath)` — reads raw MDX source.
+   - `getLastModified(fsPath)` — returns filesystem mtime as ISO date string
+     (`YYYY-MM-DD`); works for both files and directories.
 2. `src/lib/mdx-options.ts` — Shared MDX compiler options (remark/rehype
    plugins). Passed as `options: { mdxOptions }` to every `compileMDX()` call.
    Remark plugins: `remark-gfm`, `remark-math`, `remark-directive`,
@@ -90,10 +92,14 @@ content/
    text nodes inside `<table>` elements which causes React hydration errors.
 3. `src/components/ContentRenderer.tsx` — Server component that handles both
    rendering branches: compiles MDX for file paths; renders `ArticleListItem`
-   list for directory paths. Also exports `generateContentMetadata` for use in
-   `generateMetadata`.
+   list for directory paths. Both branches display a "Last Edited" date (from
+   `lastEdited` frontmatter or `getLastModified` fallback). Also exports
+   `generateContentMetadata` for use in `generateMetadata`.
 4. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
+5. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
+   `MetadataRoute.Sitemap`. Enumerates all routes with `getAllStaticPaths`; sets
+   `lastModified` from `getLastModified` for both file and directory routes.
 
 ### MDX Components
 

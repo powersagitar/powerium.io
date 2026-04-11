@@ -15,9 +15,8 @@ export type Frontmatter = {
   tags?: string[];
 };
 
-export function getFileLastModified(filePath: string): string {
-  const mtime = fs.statSync(filePath).mtime;
-  return mtime.toISOString().slice(0, 10);
+export function getLastModified(fsPath: string): string {
+  return fs.statSync(fsPath).mtime.toISOString().slice(0, 10);
 }
 
 export type Article = Frontmatter & {

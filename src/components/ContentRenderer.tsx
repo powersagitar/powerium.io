@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import {
   type Frontmatter,
   getArticlesInDir,
-  getFileLastModified,
+  getLastModified,
   readMdxSource,
   resolveContent,
 } from '@/lib/mdx';
@@ -47,7 +47,7 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
     });
 
     const lastEdited =
-      frontmatter.lastEdited ?? getFileLastModified(resolved.filePath);
+      frontmatter.lastEdited ?? getLastModified(resolved.filePath);
 
     return (
       <article className="prose">
@@ -93,14 +93,19 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
     const articles = getArticlesInDir(slugParts, false);
     const name = slugParts.at(-1) ?? '';
     const title = name.charAt(0).toUpperCase() + name.slice(1);
+    const lastEdited = getLastModified(resolved.dirPath);
 
     return (
       <div className="prose">
-        <h1 id="title" className="mb-8">
+        <h1 id="title" className="mb-2">
           <a href="#title" className="anchor">
             {title}
           </a>
         </h1>
+        <p className="text-muted-foreground mb-8 text-sm">
+          <time dateTime={lastEdited}>{lastEdited}</time>
+          {' (Last Edited)'}
+        </p>
         <ul className="not-prose divide-y">
           {articles.map((article) => (
             <ArticleListItem
