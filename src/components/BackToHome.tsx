@@ -11,7 +11,7 @@ export function BackToHome() {
 
   return (
     <div className="mb-8">
-      <Button variant="ghost" size="sm" asChild className="-ml-3">
+      <Button variant="link" size="sm" asChild className="-ml-3">
         <Link href="/">← Home</Link>
       </Button>
     </div>
