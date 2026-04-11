@@ -1,8 +1,8 @@
 import type { MetadataRoute } from 'next';
 
-import { getAllStaticPaths, getLastModified, resolveContent } from '@/lib/mdx';
+import siteConfig from '~/site.config';
 
-const BASE_URL = 'https://powerium.io';
+import { getAllStaticPaths, getLastModified, resolveContent } from '@/lib/mdx';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return getAllStaticPaths().map((segments) => {
@@ -15,6 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ? getLastModified(resolved.dirPath)
           : undefined;
 
-    return { url: `${BASE_URL}${urlPath}`, lastModified };
+    return { url: `${siteConfig.url}${urlPath}`, lastModified };
   });
 }

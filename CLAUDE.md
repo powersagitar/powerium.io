@@ -64,16 +64,21 @@ src/
 │   ├── ContentRenderer.tsx  # Shared file/directory rendering logic
 │   ├── mdx/              # MDX component map + individual components
 │   └── ui/               # shadcn/ui primitives (card, button, badge, …)
-└── lib/                  # Server-only utilities (mdx.ts, mdx-options.ts)
+└── lib/                  # Utilities (mdx.ts, mdx-options.ts, site.ts)
 content/
 ├── index.mdx             # Renders at /
 ├── about.mdx             # Renders at /about
 └── blog/                 # Renders listing at /blog; each file at /blog/<slug>
+site.config.ts            # Site-specific values (name, url, description) — edit when forking
 ```
 
 ### Data Flow
 
-1. `src/lib/mdx.ts` — All file system reads. Key functions:
+1. `site.config.ts` (project root) — Site-specific values (`name`,
+   `description`, `url`). Edit this file when forking. Imports `SiteConfig` from
+   `src/lib/site.ts`. Imported via the `~/` alias (maps to project root).
+2. `src/lib/site.ts` — Defines the `SiteConfig` interface only; no values.
+3. `src/lib/mdx.ts` — All file system reads. Key functions:
    - `resolveContent(slugParts)` — resolves a path to `file`, `directory`, or
      `not-found`.
    - `getArticlesInDir(dirSegments)` — returns sorted, non-draft articles in a
@@ -82,7 +87,7 @@ content/
    - `readMdxSource(filePath)` — reads raw MDX source.
    - `getLastModified(fsPath)` — returns filesystem mtime as ISO date string
      (`YYYY-MM-DD`); works for both files and directories.
-2. `src/lib/mdx-options.ts` — Shared MDX compiler options (remark/rehype
+4. `src/lib/mdx-options.ts` — Shared MDX compiler options (remark/rehype
    plugins). Passed as `options: { mdxOptions }` to every `compileMDX()` call.
    Remark plugins: `remark-gfm`, `remark-math`, `remark-directive`,
    `remark-frontmatter`. Rehype plugins: `rehype-raw`, `rehype-slug`,
@@ -90,14 +95,14 @@ content/
    `github-light`/`github-dark`), `rehype-katex`, `rehype-external-links`.
    **Note:** `rehype-format` is intentionally omitted — it inserts whitespace
    text nodes inside `<table>` elements which causes React hydration errors.
-3. `src/components/ContentRenderer.tsx` — Server component that handles both
+5. `src/components/ContentRenderer.tsx` — Server component that handles both
    rendering branches: compiles MDX for file paths; renders `ArticleListItem`
    list for directory paths. Both branches display a "Last Edited" date (from
    `lastEdited` frontmatter or `getLastModified` fallback). Also exports
    `generateContentMetadata` for use in `generateMetadata`.
-4. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
+6. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
-5. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
+7. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
    `MetadataRoute.Sitemap`. Enumerates all routes with `getAllStaticPaths`; sets
    `lastModified` from `getLastModified` for both file and directory routes.
 
@@ -171,6 +176,8 @@ files. Configuration in `package.json` under `"lint-staged"`.
 - `TableOfContents` and `BackToHome` are `'use client'` components —
   `TableOfContents` uses `IntersectionObserver`; `BackToHome` uses `usePathname`
   to hide itself on the root route.
+- **Prefer `type` over `interface`** — use `type` for all TypeScript type
+  definitions; avoid `interface`.
 - **Remove unused code** — delete files, imports, components, and dependencies
   that are no longer used. Don't leave dead code behind when refactoring.
 - **Keep CLAUDE.md current** — update it whenever components are added, renamed,

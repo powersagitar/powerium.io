@@ -2,6 +2,8 @@ import type React from 'react';
 
 import type { Metadata } from 'next';
 
+import siteConfig from '~/site.config';
+
 import { BackToHome } from '@/components/BackToHome';
 import { ThemeProvider } from '@/components/theme-provider';
 
@@ -9,11 +11,11 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'powerium.io',
-    template: '%s | powerium.io',
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: "@powersagitar's personal site.",
-  metadataBase: new URL('https://www.powerium.io'),
+  description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
 };
 
 export default function RootLayout({
