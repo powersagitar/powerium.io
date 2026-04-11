@@ -35,7 +35,7 @@ export default function RootLayout({
         >
           <div className="mx-auto max-w-3xl px-4 py-12">
             <BackToHome />
-            {children}
+            <main>{children}</main>
           </div>
         </ThemeProvider>
 
