@@ -1,7 +1,9 @@
+import * as runtime from 'react/jsx-runtime';
+
 import { notFound } from 'next/navigation';
 
+import { compile, run } from '@mdx-js/mdx';
 import matter from 'gray-matter';
-import { compileMDX } from 'next-mdx-remote/rsc';
 
 import { mdxComponents } from '@/components/mdx';
 import { ArticleListItem } from '@/components/mdx/ArticleListItem';
@@ -40,10 +42,17 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
   if (resolved.kind === 'not-found') notFound();
 
   if (resolved.kind === 'file') {
-    const { content, frontmatter } = await compileMDX<Frontmatter>({
-      source: readMdxSource(resolved.filePath),
-      components: mdxComponents,
-      options: { parseFrontmatter: true, mdxOptions, blockJS: false },
+    const rawSource = readMdxSource(resolved.filePath);
+    const { data } = matter(rawSource);
+    const frontmatter = data as Frontmatter;
+
+    const compiled = await compile(rawSource, {
+      outputFormat: 'function-body',
+      ...mdxOptions,
+    });
+    const { default: Content } = await run(compiled, {
+      ...runtime,
+      baseUrl: import.meta.url,
     });
 
     const lastEdited =
@@ -86,7 +95,7 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
             </div>
           )}
         </header>
-        {content}
+        <Content components={mdxComponents} />
       </article>
     );
   }

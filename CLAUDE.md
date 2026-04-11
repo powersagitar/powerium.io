@@ -94,18 +94,22 @@ site.config.ts            # Site-specific values (name, url, description) — ed
    - `getLastModified(fsPath)` — returns filesystem mtime as ISO date string
      (`YYYY-MM-DD`); works for both files and directories.
 4. `src/lib/mdx-options.ts` — Shared MDX compiler options (remark/rehype
-   plugins). Passed as `options: { mdxOptions }` to every `compileMDX()` call.
-   Remark plugins: `remark-gfm`, `remark-math`, `remark-directive`,
-   `remark-frontmatter`. Rehype plugins: `rehype-raw`, `rehype-slug`,
-   `rehype-autolink-headings`, `rehype-pretty-code` (shiki, themes:
-   `github-light`/`github-dark`), `rehype-katex`, `rehype-external-links`.
-   **Note:** `rehype-format` is intentionally omitted — it inserts whitespace
-   text nodes inside `<table>` elements which causes React hydration errors.
+   plugins). Spread into every `compile()` call alongside
+   `outputFormat: 'function-body'`. Typed as
+   `Omit<CompileOptions, 'outputFormat'>` from `@mdx-js/mdx`. Remark plugins:
+   `remark-gfm`, `remark-math`, `remark-directive`, `remark-frontmatter`. Rehype
+   plugins: `rehype-raw`, `rehype-slug`, `rehype-autolink-headings`,
+   `rehype-pretty-code` (shiki, themes: `github-light`/`github-dark`),
+   `rehype-katex`, `rehype-external-links`. **Note:** `rehype-format` is
+   intentionally omitted — it inserts whitespace text nodes inside `<table>`
+   elements which causes React hydration errors.
 5. `src/components/ContentRenderer.tsx` — Server component that handles both
-   rendering branches: compiles MDX for file paths; renders `ArticleListItem`
-   list for directory paths. Both branches display a "Last Edited" date (from
-   `lastEdited` frontmatter or `getLastModified` fallback). Also exports
-   `generateContentMetadata` for use in `generateMetadata`.
+   rendering branches: compiles MDX for file paths via `compile()` + `run()`
+   from `@mdx-js/mdx` (frontmatter extracted separately with `gray-matter`);
+   renders `ArticleListItem` list for directory paths. Both branches display a
+   "Last Edited" date (from `lastEdited` frontmatter or `getLastModified`
+   fallback). Also exports `generateContentMetadata` for use in
+   `generateMetadata`.
 6. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
 7. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
@@ -115,8 +119,9 @@ site.config.ts            # Site-specific values (name, url, description) — ed
 ### MDX Components
 
 `src/components/mdx/index.tsx` exports `mdxComponents` — the component map
-passed to every `compileMDX()` call. Custom components usable inside any MDX
-file:
+passed to the compiled MDX content component via
+`<Content components={mdxComponents} />`. Custom components usable inside any
+MDX file:
 
 | Component             | Props                                        | Purpose                                                     |
 | --------------------- | -------------------------------------------- | ----------------------------------------------------------- |

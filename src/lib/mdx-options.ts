@@ -1,3 +1,4 @@
+import type { CompileOptions } from '@mdx-js/mdx';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeKatex from 'rehype-katex';
@@ -24,8 +25,7 @@ const MDX_NODE_TYPES = [
   'mdxTextExpression',
 ] as const;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const mdxOptions: Record<string, any> = {
+export const mdxOptions: Omit<CompileOptions, 'outputFormat'> = {
   remarkPlugins: [
     remarkFrontmatter, // parse YAML/TOML frontmatter blocks
     remarkGfm, // tables, strikethrough, task lists, autolinks
