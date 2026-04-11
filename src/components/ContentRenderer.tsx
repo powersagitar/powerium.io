@@ -43,7 +43,7 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
     const { content, frontmatter } = await compileMDX<Frontmatter>({
       source: readMdxSource(resolved.filePath),
       components: mdxComponents,
-      options: { parseFrontmatter: true, mdxOptions },
+      options: { parseFrontmatter: true, mdxOptions, blockJS: false },
     });
 
     const lastEdited =
