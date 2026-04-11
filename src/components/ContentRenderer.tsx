@@ -74,7 +74,7 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
               {frontmatter.date}
             </time>
           )}
-          {lastEdited !== frontmatter.date && (
+          {(!frontmatter.date || lastEdited > frontmatter.date) && (
             <p className="text-muted-foreground text-sm">
               <time dateTime={lastEdited}>{lastEdited}</time>
               {' (Last Edited)'}

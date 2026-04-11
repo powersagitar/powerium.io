@@ -48,7 +48,7 @@ The root path `/` maps to `content/index.mdx`.
 title: string # required
 description: string # required
 date: string # optional, ISO date (e.g. 2025-01-01); shown in article header and listing cards
-lastEdited: string # optional, ISO date (e.g. 2025-01-01); shown in article header; falls back to filesystem mtime if omitted
+lastEdited: string # optional, ISO date (e.g. 2025-01-01); shown in article header only when later than date; falls back to filesystem mtime if omitted
 author: string # optional; shown in article header if present
 tags: string[] # optional; shown in article header if present
 draft: boolean # optional; omits the file from directory listings
@@ -106,9 +106,10 @@ site.config.ts            # Site-specific values (name, url, description) — ed
 5. `src/components/ContentRenderer.tsx` — Server component that handles both
    rendering branches: compiles MDX for file paths via `compile()` + `run()`
    from `@mdx-js/mdx` (frontmatter extracted separately with `gray-matter`);
-   renders `ArticleListItem` list for directory paths. Both branches display a
-   "Last Edited" date (from `lastEdited` frontmatter or `getLastModified`
-   fallback). Also exports `generateContentMetadata` for use in
+   renders `ArticleListItem` list for directory paths. For file paths, "Last
+   Edited" (from `lastEdited` frontmatter or `getLastModified` fallback) is
+   shown only when it is strictly later than `date`; for directory paths it is
+   always shown. Also exports `generateContentMetadata` for use in
    `generateMetadata`.
 6. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
