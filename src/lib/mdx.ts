@@ -45,18 +45,33 @@ export function resolveContent(slugParts: string[]): ResolvedContent {
   return { kind: 'not-found' };
 }
 
-export function getArticlesInDir(dirSegments: string[]): Article[] {
+export function getArticlesInDir(
+  dirSegments: string[],
+  recursive: boolean,
+): Article[] {
   const dirPath = path.join(CONTENT_DIR, ...dirSegments);
   if (!fs.existsSync(dirPath)) return [];
 
   const urlDirPrefix = '/' + dirSegments.join('/');
 
-  return fs
-    .readdirSync(dirPath)
-    .filter((f) => f.endsWith('.mdx'))
-    .map((f) => {
-      const slug = f.replace(/\.mdx$/, '');
-      const source = fs.readFileSync(path.join(dirPath, f), 'utf-8');
+  function collectMdxFiles(dir: string): string[] {
+    const results: string[] = [];
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory() && recursive) {
+        results.push(...collectMdxFiles(fullPath));
+      } else if (entry.name.endsWith('.mdx')) {
+        results.push(fullPath);
+      }
+    }
+    return results;
+  }
+
+  return collectMdxFiles(dirPath)
+    .map((filePath) => {
+      const relative = path.relative(dirPath, filePath).replace(/\.mdx$/, '');
+      const slug = relative.split(path.sep).join('/');
+      const source = fs.readFileSync(filePath, 'utf-8');
       const { data } = matter(source);
       const fm = data as Frontmatter;
       return { slug, urlPath: `${urlDirPrefix}/${slug}`, ...fm };

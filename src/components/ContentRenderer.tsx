@@ -79,7 +79,7 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
   }
 
   if (resolved.kind === 'directory') {
-    const articles = getArticlesInDir(slugParts);
+    const articles = getArticlesInDir(slugParts, false);
     const name = slugParts.at(-1) ?? '';
     const title = name.charAt(0).toUpperCase() + name.slice(1);
 
