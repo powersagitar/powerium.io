@@ -9,10 +9,16 @@ export type Frontmatter = {
   title: string;
   description: string;
   date?: string;
+  lastEdited?: string;
   draft?: boolean;
   author?: string;
   tags?: string[];
 };
+
+export function getFileLastModified(filePath: string): string {
+  const mtime = fs.statSync(filePath).mtime;
+  return mtime.toISOString().slice(0, 10);
+}
 
 export type Article = Frontmatter & {
   slug: string;

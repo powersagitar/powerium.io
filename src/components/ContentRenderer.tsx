@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import {
   type Frontmatter,
   getArticlesInDir,
+  getFileLastModified,
   readMdxSource,
   resolveContent,
 } from '@/lib/mdx';
@@ -45,6 +46,9 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
       options: { parseFrontmatter: true, mdxOptions },
     });
 
+    const lastEdited =
+      frontmatter.lastEdited ?? getFileLastModified(resolved.filePath);
+
     return (
       <article className="prose">
         <header className="mb-8">
@@ -54,10 +58,17 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
             </a>
           </h1>
           {frontmatter.date && (
-            <time className="text-muted-foreground text-sm">
+            <time
+              dateTime={frontmatter.date}
+              className="text-muted-foreground text-sm"
+            >
               {frontmatter.date}
             </time>
           )}
+          <p className="text-muted-foreground text-sm">
+            <time dateTime={lastEdited}>{lastEdited}</time>
+            {' (Last Edited)'}
+          </p>
           {frontmatter.author && (
             <p className="text-muted-foreground text-sm">
               by {frontmatter.author}

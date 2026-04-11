@@ -19,7 +19,10 @@ export function ArticleListItem({ article, urlPrefix }: Props) {
             {article.title}
           </span>
           {article.date && (
-            <time className="text-muted-foreground shrink-0 text-sm">
+            <time
+              dateTime={article.date}
+              className="text-muted-foreground shrink-0 text-sm"
+            >
               {new Date(article.date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',

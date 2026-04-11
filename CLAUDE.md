@@ -42,6 +42,7 @@ The root path `/` maps to `content/index.mdx`.
 title: string # required
 description: string # required
 date: string # optional, ISO date (e.g. 2025-01-01); shown in article header and listing cards
+lastEdited: string # optional, ISO date (e.g. 2025-01-01); shown in article header; falls back to filesystem mtime if omitted
 author: string # optional; shown in article header if present
 tags: string[] # optional; shown in article header if present
 draft: boolean # optional; omits the file from directory listings
