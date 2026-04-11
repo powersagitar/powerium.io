@@ -1,0 +1,62 @@
+---
+title: Getting Started
+description: Fork, configure, and run powerium.io in minutes.
+---
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org) 18+
+- [Bun](https://bun.sh)
+
+## 1. Fork the repository
+
+Fork [powersagitar/powerium.io](https://github.com/powersagitar/powerium.io) on
+GitHub, then clone your fork:
+
+```sh
+git clone https://github.com/<your-username>/powerium.io
+cd powerium.io
+```
+
+## 2. Install dependencies
+
+```sh
+bun install
+```
+
+## 3. Configure the site
+
+Edit `site.config.ts` at the project root:
+
+```ts
+const siteConfig: SiteConfig = {
+  name: 'your-site-name',
+  description: 'Your site description.',
+  url: 'https://your-domain.com',
+};
+```
+
+This is the only file you need to touch to rebrand the site.
+
+## 4. Add your content
+
+Replace the files in `content/` with your own MDX files. See
+[Writing Content](/guides/writing-content) for the full content model.
+
+## 5. Run locally
+
+```sh
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+## 6. Build for production
+
+```sh
+bun run build
+bun start
+```
+
+Or deploy to any platform that supports Node.js (Vercel, Netlify, Fly.io, etc.).
+Vercel picks up the Next.js project automatically with zero configuration.

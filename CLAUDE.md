@@ -3,6 +3,12 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with
 code in this repository.
 
+## Purpose
+
+The `next` branch is the **documentation + tutorial site** for the powerium.io
+project itself — explaining how to fork, configure, and use it. The portfolio
+content lives on a separate branch and is out of scope here.
+
 ## Commands
 
 Uses **bun** as the package manager.
@@ -65,10 +71,10 @@ src/
 │   ├── mdx/              # MDX component map + individual components
 │   └── ui/               # shadcn/ui primitives (card, button, badge, …)
 └── lib/                  # Utilities (mdx.ts, mdx-options.ts, site.ts)
-content/
-├── index.mdx             # Renders at /
-├── about.mdx             # Renders at /about
-└── blog/                 # Renders listing at /blog; each file at /blog/<slug>
+content/                  # Documentation + tutorial content for the project itself
+├── index.mdx             # Landing page at /
+├── guides/               # Tutorial-style articles (getting-started, writing-content, customization)
+└── reference/            # Reference docs (configuration, frontmatter, mdx-components)
 site.config.ts            # Site-specific values (name, url, description) — edit when forking
 ```
 

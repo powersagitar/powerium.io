@@ -1,17 +1,34 @@
 ---
-title: powerium.io
-description: "@powersagitar's personal site."
+title: Minimal Static Site Generator
+description:
+  A minimal, file-based static site generator based on Next.js and MDX.
 ---
 
-Welcome to my personal site. I write about software development, productivity,
-and whatever else I find interesting.
+**Minimal Static Site Generator (mSSG)** is a minimal static site framework
+built on Next.js, MDX, and shadcn/ui. Content lives as plain `.mdx` files on
+disk, without databases or CMS's.
 
-<Spacer size="lg" />
+Checkout the repository on
+[GitHub](https://github.com/powersagitar/powerium.io).
 
-## Recent Posts
+## Features
 
-<ArticleList dir="blog" recursive={true} limit={5} />
+- **File-based routing** — URL paths map directly to `content/` on the
+  filesystem
+- **MDX** — write content in Markdown with JSX components embedded
+- **GitHub Flavored Markdown** — tables, strikethrough, task lists, and more
+- **Static generation** — every page is pre-rendered at build time
+- **Dark mode** — follows system settings
+- **Math** — KaTeX rendering via `remark-math` + `rehype-katex`
+- **Syntax highlighting** — Shiki with `github-light` / `github-dark` themes
+- **Sitemap** — auto-generated `/sitemap.xml` from all content routes
 
-<Spacer size="sm" />
+## Documentation
 
-[View all posts →](/blog)
+Start from [Getting Started](/guides/getting-started).
+
+Below is an exhaustive list of all documentations.
+
+<ArticleList dir="guides" />
+
+<ArticleList dir="reference" />
