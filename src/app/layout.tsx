@@ -2,6 +2,7 @@ import type React from 'react';
 
 import type { Metadata } from 'next';
 
+import { Analytics } from '@vercel/analytics/next';
 import siteConfig from '~/site.config';
 
 import { BackToHome } from '@/components/BackToHome';
@@ -37,6 +38,8 @@ export default function RootLayout({
             {children}
           </div>
         </ThemeProvider>
+
+        <Analytics />
       </body>
     </html>
   );
