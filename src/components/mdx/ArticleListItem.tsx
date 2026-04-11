@@ -8,10 +8,15 @@ type Props = {
 };
 
 export function ArticleListItem({ article, urlPrefix }: Props) {
+  const safeSlug = article.slug
+    .split('/')
+    .map((segment) => encodeURIComponent(segment))
+    .join('/');
+
   return (
     <li>
       <Link
-        href={`${urlPrefix}/${article.slug}`}
+        href={`${urlPrefix}/${safeSlug}`}
         className="group flex flex-col gap-1 py-3 no-underline"
       >
         <div className="flex items-baseline justify-between gap-4">
