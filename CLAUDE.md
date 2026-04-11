@@ -5,9 +5,9 @@ code in this repository.
 
 ## Purpose
 
-The `next` branch is the **documentation + tutorial site** for the powerium.io
-project itself — explaining how to fork, configure, and use it. The portfolio
-content lives on a separate branch and is out of scope here.
+The `main` branch of `powersagitar/mssg` is the **documentation + tutorial
+site** for the mSSG project itself — explaining how to fork, configure, and use
+it.
 
 ## Commands
 
