@@ -1,0 +1,128 @@
+---
+title: timeline
+description:
+  Renders a vertical timeline from structured entries with freeform badge
+  metadata.
+---
+
+`:::timeline` / `:::timeline-item` render a vertical chronological list of
+entries. Use them together: `Timeline` is the container that draws the rail, and
+`TimelineItem` is each individual entry.
+
+Maps to the `<Timeline />` and `<TimelineItem />` React components via the
+kebab-case → PascalCase directive convention.
+
+## Reference
+
+```mdx
+::::timeline
+
+:::timeline-item{title="..." badges="Badge One|Badge Two|Badge Three"}  
+Optional description.  
+:::
+
+::::
+```
+
+### `:::timeline`
+
+No attributes. Acts solely as the container that renders the vertical rail and
+wraps all `:::timeline-item` children.
+
+### `:::timeline-item`
+
+| Attribute | Type     | Required | Description                                                                    |
+| --------- | -------- | -------- | ------------------------------------------------------------------------------ |
+| `title`   | `string` | Yes      | Primary label for the entry.                                                   |
+| `badges`  | `string` | No       | Pipe-separated list of metadata strings rendered inline with `·` between them. |
+| children  | MDX      | No       | Optional description rendered below the badge row.                             |
+
+Badges are plain strings — any text works: company name, location, date range,
+employment type, etc. Separate values with `|`; surrounding whitespace is
+trimmed.
+
+> **Note:** End each line inside a `:::timeline-item` block — including the
+> opening directive line — with two trailing spaces. This prevents Prettier from
+> merging lines when formatting the file.
+
+## Examples
+
+### Job experience timeline
+
+```mdx
+::::timeline
+
+:::timeline-item{title="Senior Engineer" badges="Acme Corp|Remote|2023–Now"}  
+Led architecture for the payments platform and mentored junior engineers.  
+:::
+
+:::timeline-item{title="Software Engineer" badges="Startup XYZ|Remote|21–23"}  
+Built and shipped the real-time collaboration feature used by 50k users.  
+:::
+
+:::timeline-item{title="Junior Developer" badges="Agency Co.|2019–2021"}  
+Maintained client websites and implemented new features in React and Rails.  
+:::
+
+::::
+```
+
+::::timeline
+
+:::timeline-item{title="Senior Engineer" badges="Acme Corp|Remote|2023–Now"}  
+Led architecture for the payments platform and mentored junior engineers.  
+:::
+
+:::timeline-item{title="Software Engineer" badges="Startup XYZ|Remote|21–23"}  
+Built and shipped the real-time collaboration feature used by 50k users.  
+:::
+
+:::timeline-item{title="Junior Developer" badges="Agency Co.|2019–2021"}  
+Maintained client websites and implemented new features in React and Rails.  
+:::
+
+::::
+
+### Without descriptions
+
+```mdx
+::::timeline
+
+:::timeline-item{title="CTO" badges="Example Inc.|Jan 2022 – Present"}  
+:::
+
+:::timeline-item{title="VP Engineering" badges="Other Co.|Apr 2018–Dec 2021"}  
+:::
+
+::::
+```
+
+::::timeline
+
+:::timeline-item{title="CTO" badges="Example Inc.|Jan 2022 – Present"}  
+:::
+
+:::timeline-item{title="VP Engineering" badges="Other Co.|Apr 2018–Dec 2021"}  
+:::
+
+::::
+
+### No badges
+
+```mdx
+::::timeline
+
+:::timeline-item{title="Open Source Contributor"}  
+Contributed patches to several projects.  
+:::
+
+::::
+```
+
+::::timeline
+
+:::timeline-item{title="Open Source Contributor"}  
+Contributed patches to several projects.  
+:::
+
+::::
