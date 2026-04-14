@@ -206,7 +206,7 @@ body {
 }
 
 .prose table:not(:is(.not-prose, .not-prose *)) {
-  @apply w-full border-collapse;
+  @apply mb-4 w-full border-collapse;
 }
 
 .prose th:not(:is(.not-prose, .not-prose *)) {
