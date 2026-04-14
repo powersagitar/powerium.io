@@ -1,71 +1,26 @@
 ---
 title: MDX Components
-description:
-  Reference for all built-in MDX components available in content files.
+description: Overview of all built-in MDX components available in content files.
 ---
 
 These components are available globally in every `.mdx` file — no import needed.
+Each component has its own page with a full reference and live examples.
 
-## ArticleList
+| Component             | Description                                               |
+| --------------------- | --------------------------------------------------------- |
+| `<ArticleList />`     | Sorted article list from a content directory              |
+| `<ArticleListItem />` | Single article row (used internally by `<ArticleList />`) |
+| `<TableOfContents />` | Scroll-aware heading navigation                           |
+| `<Spacer />`          | Vertical whitespace                                       |
 
-Renders a sorted list of articles from a content directory.
-
-```mdx
-<ArticleList dir="blog" />
-<ArticleList dir="blog" limit={5} />
-```
-
-| Prop    | Type     | Required | Description                            |
-| ------- | -------- | -------- | -------------------------------------- |
-| `dir`   | `string` | Yes      | Directory path relative to `content/`. |
-| `limit` | `number` | No       | Maximum number of articles to show.    |
-
-Articles are sorted by `date` descending. Undated articles sort last. Draft
-articles are excluded.
-
-## ArticleListItem
-
-Renders a single article row. Used internally by `<ArticleList>` but available
-for custom layouts.
-
-```mdx
-<ArticleListItem article={article} urlPrefix="/blog" />
-```
-
-| Prop        | Type      | Required | Description                               |
-| ----------- | --------- | -------- | ----------------------------------------- |
-| `article`   | `Article` | Yes      | Article object from `getArticlesInDir`.   |
-| `urlPrefix` | `string`  | Yes      | URL prefix prepended to the article slug. |
-
-## TableOfContents
-
-Client component. Auto-detects all `h2` and `h3` headings on the page and
-renders a linked list. Highlights the active heading as you scroll.
-
-```mdx
-<TableOfContents />
-```
-
-No props. Place it anywhere in the MDX body — typically near the top of long
-articles.
-
-## Spacer
-
-Inserts vertical whitespace.
-
-```mdx
-<Spacer />
-<Spacer size="xl" />
-```
-
-| Prop   | Type                                            | Default | Description               |
-| ------ | ----------------------------------------------- | ------- | ------------------------- |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'`  | Amount of vertical space. |
+<ArticleList dir="components" recursive={false} />
 
 ## Adding new components
 
 1. Create the component in `src/components/mdx/`.
 2. Export it from `src/components/mdx/index.tsx` and add it to the
    `mdxComponents` map.
-
-The component is then available globally in all MDX files without any import.
+3. Add a page in `content/components/` with a synopsis, reference table, and
+   examples.
+4. Update `content/reference/mdx-components.mdx` to include the new row in the
+   table above.

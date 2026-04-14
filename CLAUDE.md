@@ -74,7 +74,8 @@ src/
 content/                  # Documentation + tutorial content for the project itself
 ├── index.mdx             # Landing page at /
 ├── guides/               # Tutorial-style articles (getting-started, writing-content, customization)
-└── reference/            # Reference docs (configuration, frontmatter, mdx-components)
+├── reference/            # Reference docs (configuration, frontmatter, mdx-components)
+└── components/           # One page per MDX component: synopsis + reference + examples
 site.config.ts            # Site-specific values (name, url, description) — edit when forking
 ```
 
@@ -124,12 +125,12 @@ passed to the compiled MDX content component via
 `<Content components={mdxComponents} />`. Custom components usable inside any
 MDX file:
 
-| Component             | Props                                        | Purpose                                                     |
-| --------------------- | -------------------------------------------- | ----------------------------------------------------------- |
-| `<ArticleList />`     | `dir: string`, `limit?: number`              | Renders sorted article list from a content directory        |
-| `<ArticleListItem />` | `article: Article`, `urlPrefix: string`      | Single list-style article row (also used by ArticleList)    |
-| `<TableOfContents />` | —                                            | Client component; auto-detects `h2`/`h3`, highlights active |
-| `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'` | Vertical whitespace                                         |
+| Component             | Props                                                 | Purpose                                                     |
+| --------------------- | ----------------------------------------------------- | ----------------------------------------------------------- |
+| `<ArticleList />`     | `dir: string`, `recursive: boolean`, `limit?: number` | Renders sorted article list from a content directory        |
+| `<ArticleListItem />` | `article: Article`, `urlPrefix: string`               | Single list-style article row (also used by ArticleList)    |
+| `<TableOfContents />` | —                                                     | Client component; auto-detects `h2`/`h3`, highlights active |
+| `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'`          | Vertical whitespace                                         |
 
 To add a new MDX component: create it in `src/components/mdx/`, export it from
 `src/components/mdx/index.tsx`.
@@ -195,3 +196,9 @@ files. Configuration in `package.json` under `"lint-staged"`.
 - **Keep CLAUDE.md current** — update it whenever components are added, renamed,
   or removed; plugins change; or architectural decisions are made. It should
   always reflect the actual state of the codebase.
+- **Keep docs and examples current** — whenever an MDX component is added,
+  renamed, removed, or its props change: (1) add or update its page in
+  `content/components/` (synopsis + reference + examples), (2) update the
+  summary table in `content/reference/mdx-components.mdx`. New content features
+  (plugins, frontmatter fields, etc.) follow the same rule: update the relevant
+  reference doc in `content/reference/`.

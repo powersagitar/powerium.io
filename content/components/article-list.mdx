@@ -1,0 +1,48 @@
+---
+title: ArticleList
+description: Renders a sorted list of articles from a content directory.
+---
+
+`<ArticleList>` queries a content directory at build time and renders its
+articles as a linked list. Articles are sorted by `date` descending; undated
+articles sort last. Draft articles (those with `draft: true` in frontmatter) are
+excluded.
+
+## Reference
+
+```mdx
+<ArticleList dir="guides" recursive={false} />
+<ArticleList dir="guides" recursive={true} limit={5} />
+```
+
+| Prop        | Type      | Required | Default | Description                                                    |
+| ----------- | --------- | -------- | ------- | -------------------------------------------------------------- |
+| `dir`       | `string`  | Yes      | —       | Directory path relative to `content/`.                         |
+| `recursive` | `boolean` | Yes      | —       | When `true`, collects articles from all nested subdirectories. |
+| `limit`     | `number`  | No       | —       | Maximum number of articles to show.                            |
+
+## Examples
+
+### All articles in a directory
+
+```mdx
+<ArticleList dir="guides" recursive={false} />
+```
+
+<ArticleList dir="guides" recursive={false} />
+
+### With a limit
+
+```mdx
+<ArticleList dir="guides" recursive={false} limit={2} />
+```
+
+<ArticleList dir="guides" recursive={false} limit={2} />
+
+### Recursive — include subdirectories
+
+```mdx
+<ArticleList dir="reference" recursive={true} />
+```
+
+<ArticleList dir="reference" recursive={true} />

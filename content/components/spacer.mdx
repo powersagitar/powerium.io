@@ -1,0 +1,92 @@
+---
+title: Spacer
+description: Inserts vertical whitespace between elements.
+---
+
+`<Spacer>` renders an invisible `div` of a fixed height. Use it to add breathing
+room between sections when the default paragraph spacing is not enough.
+
+## Reference
+
+```mdx
+<Spacer />
+<Spacer size="xl" />
+```
+
+| Prop   | Type                                            | Required | Default | Description               |
+| ------ | ----------------------------------------------- | -------- | ------- | ------------------------- |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | No       | `'md'`  | Amount of vertical space. |
+
+| `size` | Height |
+| ------ | ------ |
+| `xs`   | 8px    |
+| `sm`   | 16px   |
+| `md`   | 32px   |
+| `lg`   | 48px   |
+| `xl`   | 64px   |
+| `2xl`  | 96px   |
+
+## Examples
+
+Each example below uses a horizontal rule immediately after the spacer to make
+the gap visible.
+
+### xs — 8px
+
+```mdx
+<Spacer size="xs" />
+```
+
+<Spacer size="xs" />
+
+---
+
+### sm — 16px
+
+```mdx
+<Spacer size="sm" />
+```
+
+<Spacer size="sm" />
+
+---
+
+### md — 32px (default)
+
+```mdx
+<Spacer />
+```
+
+<Spacer />
+
+---
+
+### lg — 48px
+
+```mdx
+<Spacer size="lg" />
+```
+
+<Spacer size="lg" />
+
+---
+
+### xl — 64px
+
+```mdx
+<Spacer size="xl" />
+```
+
+<Spacer size="xl" />
+
+---
+
+### 2xl — 96px
+
+```mdx
+<Spacer size="2xl" />
+```
+
+<Spacer size="2xl" />
+
+---
