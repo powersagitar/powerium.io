@@ -1,0 +1,56 @@
+---
+title: MDX Directives
+description: Overview of all built-in directives available in content files.
+---
+
+These directives are available in every `.mdx` file — no import needed. Each has
+its own page with a full reference and live examples.
+
+| Directive             | Description                                              |
+| --------------------- | -------------------------------------------------------- |
+| `::article-list`      | Sorted article list from a content directory             |
+| `::article-list-item` | Single article row (used internally by `::article-list`) |
+| `::table-of-contents` | Scroll-aware heading navigation                          |
+| `::spacer`            | Vertical whitespace                                      |
+
+::article-list{dir=directives}
+
+## Directive syntax
+
+Block-level (leaf) directives use a double-colon prefix:
+
+```mdx
+::directive-name  
+::directive-name{attr=value flag}
+```
+
+Attributes follow a simple coercion scheme — no quotes or braces needed for
+common cases:
+
+| Written as        | Prop received     | Example                                 |
+| ----------------- | ----------------- | --------------------------------------- |
+| `attr=text`       | `string`          | `dir=guides` → `dir="guides"`           |
+| `flag` (no value) | `true` (boolean)  | `recursive` → `recursive={true}`        |
+| `attr=false`      | `false` (boolean) | `recursive=false` → `recursive={false}` |
+| `attr=5`          | `number`          | `limit=5` → `limit={5}`                 |
+
+## How directives map to components
+
+Each directive name is converted from kebab-case to PascalCase, then looked up
+in the MDX component map. No additional configuration is needed — a new
+component registered in `mdxComponents` is immediately usable as a directive:
+
+| Directive             | Component             |
+| --------------------- | --------------------- |
+| `::spacer`            | `<Spacer />`          |
+| `::article-list`      | `<ArticleList />`     |
+| `::table-of-contents` | `<TableOfContents />` |
+
+## Adding new directives
+
+1. Create the underlying component in `src/components/mdx/`.
+2. Export it from `src/components/mdx/index.tsx` and add it to the
+   `mdxComponents` map.
+
+The directive name is derived automatically: kebab-case the component name (e.g.
+`MyWidget` → `::my-widget`).

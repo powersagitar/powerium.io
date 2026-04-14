@@ -40,17 +40,16 @@ A directory without an `index.mdx` automatically renders a listing of all
 non-draft MDX files inside it, sorted by `date` descending (undated files sort
 last). No configuration needed.
 
-To embed a listing inside any MDX file, use the `<ArticleList>` component:
+To embed a listing inside any MDX file, use the `::article-list` directive:
 
 ```mdx
-<ArticleList dir="blog" />
-<ArticleList dir="blog" limit={5} />
+::article-list{dir=blog} ::article-list{dir=blog limit=5}
 ```
 
 ## Drafts
 
 Set `draft: true` in frontmatter to exclude a file from directory listings and
-`<ArticleList>`. The page is still accessible directly by URL during
+`::article-list`. The page is still accessible directly by URL during
 development.
 
 ## MDX

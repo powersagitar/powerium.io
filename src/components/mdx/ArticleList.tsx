@@ -4,11 +4,11 @@ import { ArticleListItem } from './ArticleListItem';
 
 type Props = {
   dir: string;
-  recursive: boolean;
+  recursive?: boolean;
   limit?: number;
 };
 
-export function ArticleList({ dir, recursive, limit }: Props) {
+export function ArticleList({ dir, recursive = false, limit }: Props) {
   const posts = getArticlesInDir([dir], recursive).slice(0, limit);
   const urlPrefix = `/${dir}`;
 

@@ -70,12 +70,12 @@ src/
 │   ├── ContentRenderer.tsx  # Shared file/directory rendering logic
 │   ├── mdx/              # MDX component map + individual components
 │   └── ui/               # shadcn/ui primitives (card, button, badge, …)
-└── lib/                  # Utilities (mdx.ts, mdx-options.ts, site.ts)
+└── lib/                  # Utilities (mdx.ts, mdx-options.ts, remark-directive-components.ts, site.ts)
 content/                  # Documentation + tutorial content for the project itself
 ├── index.mdx             # Landing page at /
 ├── guides/               # Tutorial-style articles (getting-started, writing-content, customization)
-├── reference/            # Reference docs (configuration, frontmatter, mdx-components)
-└── components/           # One page per MDX component: synopsis + reference + examples
+├── reference/            # Reference docs (configuration, frontmatter, mdx-directives)
+└── directives/           # One page per directive: synopsis + reference + examples
 site.config.ts            # Site-specific values (name, url, description) — edit when forking
 ```
 
@@ -98,13 +98,21 @@ site.config.ts            # Site-specific values (name, url, description) — ed
    plugins). Spread into every `compile()` call alongside
    `outputFormat: 'function-body'`. Typed as
    `Omit<CompileOptions, 'outputFormat'>` from `@mdx-js/mdx`. Remark plugins:
-   `remark-gfm`, `remark-math`, `remark-directive`, `remark-frontmatter`. Rehype
-   plugins: `rehype-raw`, `rehype-slug`, `rehype-autolink-headings`,
-   `rehype-pretty-code` (shiki, themes: `github-light`/`github-dark`),
-   `rehype-katex`, `rehype-external-links`. **Note:** `rehype-format` is
-   intentionally omitted — it inserts whitespace text nodes inside `<table>`
-   elements which causes React hydration errors.
-5. `src/components/ContentRenderer.tsx` — Server component that handles both
+   `remark-gfm`, `remark-math`, `remark-directive`, `remark-frontmatter`,
+   `remarkDirectiveComponents`. Rehype plugins: `rehype-raw`, `rehype-slug`,
+   `rehype-autolink-headings`, `rehype-pretty-code` (shiki, themes:
+   `github-light`/`github-dark`), `rehype-katex`, `rehype-external-links`.
+   **Note:** `rehype-format` is intentionally omitted — it inserts whitespace
+   text nodes inside `<table>` elements which causes React hydration errors.
+5. `src/lib/remark-directive-components.ts` — Remark plugin (runs after
+   `remark-directive`) that converts directive AST nodes into
+   `mdxJsxFlowElement` / `mdxJsxTextElement` nodes so the MDX component map can
+   render them as React components. Directive names are converted from
+   kebab-case to PascalCase (e.g. `article-list` → `ArticleList`). Attribute
+   coercion: empty value → `{true}` (boolean flag), numeric string → `{number}`,
+   otherwise string. Guards against remark-directive v4 creating nodes for
+   digit-starting tokens (e.g. `:3000` in `localhost:3000` URLs).
+6. `src/components/ContentRenderer.tsx` — Server component that handles both
    rendering branches: compiles MDX for file paths via `compile()` + `run()`
    from `@mdx-js/mdx` (frontmatter extracted separately with `gray-matter`);
    renders `ArticleListItem` list for directory paths. For file paths, "Last
@@ -112,28 +120,31 @@ site.config.ts            # Site-specific values (name, url, description) — ed
    shown only when it is strictly later than `date`; for directory paths it is
    always shown. Also exports `generateContentMetadata` for use in
    `generateMetadata`.
-6. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
+7. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
-7. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
+8. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
    `MetadataRoute.Sitemap`. Enumerates all routes with `getAllStaticPaths`; sets
    `lastModified` from `getLastModified` for both file and directory routes.
 
-### MDX Components
+### MDX Directives
 
 `src/components/mdx/index.tsx` exports `mdxComponents` — the component map
 passed to the compiled MDX content component via
-`<Content components={mdxComponents} />`. Custom components usable inside any
-MDX file:
+`<Content components={mdxComponents} />`. In content files, these components are
+invoked through the `::directive-name{attrs}` syntax (handled by
+`src/lib/remark-directive-components.ts`). The directive name is the kebab-case
+form of the component name.
 
-| Component             | Props                                                 | Purpose                                                     |
-| --------------------- | ----------------------------------------------------- | ----------------------------------------------------------- |
-| `<ArticleList />`     | `dir: string`, `recursive: boolean`, `limit?: number` | Renders sorted article list from a content directory        |
-| `<ArticleListItem />` | `article: Article`, `urlPrefix: string`               | Single list-style article row (also used by ArticleList)    |
-| `<TableOfContents />` | —                                                     | Client component; auto-detects `h2`/`h3`, highlights active |
-| `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'`          | Vertical whitespace                                         |
+| Directive             | Component             | Props                                                  | Purpose                                                     |
+| --------------------- | --------------------- | ------------------------------------------------------ | ----------------------------------------------------------- |
+| `::article-list`      | `<ArticleList />`     | `dir: string`, `recursive?: boolean`, `limit?: number` | Renders sorted article list from a content directory        |
+| `::article-list-item` | `<ArticleListItem />` | `article: Article`, `urlPrefix: string`                | Single list-style article row (also used by ArticleList)    |
+| `::table-of-contents` | `<TableOfContents />` | —                                                      | Client component; auto-detects `h2`/`h3`, highlights active |
+| `::spacer`            | `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'`           | Vertical whitespace                                         |
 
-To add a new MDX component: create it in `src/components/mdx/`, export it from
-`src/components/mdx/index.tsx`.
+To add a new directive: create the component in `src/components/mdx/`, export it
+from `src/components/mdx/index.tsx`. The `::kebab-case-name` directive form is
+derived automatically — no changes to the remark plugin are needed.
 
 ### App Router Pages
 
@@ -183,9 +194,10 @@ files. Configuration in `package.json` under `"lint-staged"`.
 
 - **Import order** enforced by Prettier: React/Next.js → third-party → `@/`
   internal → relative.
-- `src/lib/mdx.ts` and `src/lib/mdx-options.ts` both import `'server-only'` —
-  any attempt to import them in a client component will cause a build error.
-  Keep all file system access in these modules.
+- `src/lib/mdx.ts`, `src/lib/mdx-options.ts`, and
+  `src/lib/remark-directive-components.ts` all import `'server-only'` — any
+  attempt to import them in a client component will cause a build error. Keep
+  all file system access in these modules.
 - `TableOfContents` and `BackToHome` are `'use client'` components —
   `TableOfContents` uses `IntersectionObserver`; `BackToHome` uses `usePathname`
   to hide itself on the root route.
@@ -196,9 +208,10 @@ files. Configuration in `package.json` under `"lint-staged"`.
 - **Keep CLAUDE.md current** — update it whenever components are added, renamed,
   or removed; plugins change; or architectural decisions are made. It should
   always reflect the actual state of the codebase.
-- **Keep docs and examples current** — whenever an MDX component is added,
+- **Keep docs and examples current** — whenever a directive/component is added,
   renamed, removed, or its props change: (1) add or update its page in
-  `content/components/` (synopsis + reference + examples), (2) update the
-  summary table in `content/reference/mdx-components.mdx`. New content features
-  (plugins, frontmatter fields, etc.) follow the same rule: update the relevant
-  reference doc in `content/reference/`.
+  `content/directives/` (synopsis, reference table with "Attribute" columns, and
+  live examples), (2) update the directive and component columns in
+  `content/reference/mdx-components.mdx`. New content features (plugins,
+  frontmatter fields, etc.) follow the same rule: update the relevant reference
+  doc in `content/reference/`.

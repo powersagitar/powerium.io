@@ -1,24 +1,26 @@
 ---
-title: ArticleList
+title: article-list
 description: Renders a sorted list of articles from a content directory.
 ---
 
-`<ArticleList>` queries a content directory at build time and renders its
+`::article-list` queries a content directory at build time and renders its
 articles as a linked list. Articles are sorted by `date` descending; undated
 articles sort last. Draft articles (those with `draft: true` in frontmatter) are
 excluded.
 
+Maps to the `<ArticleList />` React component via the kebab-case → PascalCase
+directive convention.
+
 ## Reference
 
 ```mdx
-<ArticleList dir="guides" recursive={false} />
-<ArticleList dir="guides" recursive={true} limit={5} />
+::article-list{dir=guides} ::article-list{dir=guides recursive limit=5}
 ```
 
-| Prop        | Type      | Required | Default | Description                                                    |
+| Attribute   | Type      | Required | Default | Description                                                    |
 | ----------- | --------- | -------- | ------- | -------------------------------------------------------------- |
 | `dir`       | `string`  | Yes      | —       | Directory path relative to `content/`.                         |
-| `recursive` | `boolean` | Yes      | —       | When `true`, collects articles from all nested subdirectories. |
+| `recursive` | `boolean` | No       | `false` | When `true`, collects articles from all nested subdirectories. |
 | `limit`     | `number`  | No       | —       | Maximum number of articles to show.                            |
 
 ## Examples
@@ -26,23 +28,23 @@ excluded.
 ### All articles in a directory
 
 ```mdx
-<ArticleList dir="guides" recursive={false} />
+::article-list{dir=guides}
 ```
 
-<ArticleList dir="guides" recursive={false} />
+::article-list{dir=guides}
 
 ### With a limit
 
 ```mdx
-<ArticleList dir="guides" recursive={false} limit={2} />
+::article-list{dir=guides limit=2}
 ```
 
-<ArticleList dir="guides" recursive={false} limit={2} />
+::article-list{dir=guides limit=2}
 
 ### Recursive — include subdirectories
 
 ```mdx
-<ArticleList dir="reference" recursive={true} />
+::article-list{dir=reference recursive}
 ```
 
-<ArticleList dir="reference" recursive={true} />
+::article-list{dir=reference recursive}

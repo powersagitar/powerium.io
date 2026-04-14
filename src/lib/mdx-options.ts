@@ -11,6 +11,8 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import 'server-only';
 
+import { remarkDirectiveComponents } from './remark-directive-components';
+
 // MDX-specific hast node types that must be passed through by any plugin that
 // iterates the tree. hast-util-sanitize drops all node types outside the
 // standard hast set, so rehype-sanitize cannot be used in an MDX pipeline
@@ -31,6 +33,7 @@ export const mdxOptions: Omit<CompileOptions, 'outputFormat'> = {
     remarkGfm, // tables, strikethrough, task lists, autolinks
     remarkMath, // $inline$ and $$block$$ math
     remarkDirective, // ::directive[content]{key=val} syntax
+    remarkDirectiveComponents, // convert directive nodes → MDX JSX component calls
   ],
   rehypePlugins: [
     [

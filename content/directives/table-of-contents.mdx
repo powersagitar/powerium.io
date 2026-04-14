@@ -1,29 +1,32 @@
 ---
-title: TableOfContents
+title: table-of-contents
 description:
   Auto-detects headings and renders a linked, scroll-aware navigation list.
 ---
 
-`<TableOfContents>` is a client component that reads all `h2` and `h3` headings
-from the current article and renders a linked navigation list. The active
-heading is highlighted as you scroll using `IntersectionObserver`. Returns
-`null` if the page has no qualifying headings.
+`::table-of-contents` reads all `h2` and `h3` headings from the current article
+and renders a linked navigation list. The active heading is highlighted as you
+scroll using `IntersectionObserver`. Returns nothing if the page has no
+qualifying headings.
+
+Maps to the `<TableOfContents />` React component via the kebab-case →
+PascalCase directive convention. Runs client-side.
 
 ## Reference
 
 ```mdx
-<TableOfContents />
+::table-of-contents
 ```
 
-No props. Place it anywhere in the MDX body — typically near the top of long
-articles, before the first heading.
+No attributes. Place it anywhere in the MDX body — typically near the top of
+long articles, before the first heading.
 
 ## Examples
 
-The navigation below is a live `<TableOfContents />` rendered on this page.
+The navigation below is a live `::table-of-contents` rendered on this page.
 Scroll down to see the active heading update.
 
-<TableOfContents />
+::table-of-contents
 
 ### Section one
 
