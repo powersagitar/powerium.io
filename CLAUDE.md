@@ -35,8 +35,9 @@ works normally.
 All content lives in `content/`. URL paths map directly to the filesystem:
 
 - If `content/<path>.mdx` exists → render that file.
-- If `content/<path>/` is a directory → render an article listing of all MDX
-  files in it.
+- If `content/<path>/index.mdx` exists → render that file.
+- If `content/<path>/` is a directory (no `index.mdx`) → render an article
+  listing of all MDX files in it.
 - Otherwise → 404.
 
 The root path `/` maps to `content/index.mdx`.
@@ -87,10 +88,19 @@ site.config.ts            # Site-specific values (name, url, description) — ed
 2. `src/lib/site.ts` — Defines the `SiteConfig` interface only; no values.
 3. `src/lib/mdx.ts` — All file system reads. Key functions:
    - `resolveContent(slugParts)` — resolves a path to `file`, `directory`, or
-     `not-found`.
-   - `getArticlesInDir(dirSegments)` — returns sorted, non-draft articles in a
-     directory.
+     `not-found`. Checks `<path>.mdx` first, then `<path>/index.mdx`, then
+     directory listing.
+   - `getArticlesInDir(dirSegments, recursive)` — returns sorted, non-draft
+     articles in a directory. `index.mdx` files are never collected as files;
+     instead, each subdirectory is checked for an `index.mdx` and, if found,
+     that subdirectory is surfaced as a peer article at its own slug.
+     `recursive` controls only whether the contents inside subdirectories are
+     also collected — subdirectory `index.mdx` peers are always included.
    - `getAllStaticPaths()` — enumerates all routes for `generateStaticParams`.
+     Non-root `index.mdx` files are not emitted as `/slug/index`; the directory
+     path `/slug` is emitted instead.
+   - `normalizeFrontmatter(data)` — coerces gray-matter `Date` objects (parsed
+     from bare YAML dates) back to `YYYY-MM-DD` strings.
    - `readMdxSource(filePath)` — reads raw MDX source.
    - `getLastModified(fsPath)` — returns filesystem mtime as ISO date string
      (`YYYY-MM-DD`); works for both files and directories.

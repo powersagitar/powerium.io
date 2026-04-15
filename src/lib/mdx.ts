@@ -15,6 +15,18 @@ export type Frontmatter = {
   tags?: string[];
 };
 
+// gray-matter parses bare YAML dates (e.g. `date: 2025-01-01`) as Date objects.
+// Normalize them back to ISO date strings so callers can rely on the type.
+export function normalizeFrontmatter(
+  data: Record<string, unknown>,
+): Frontmatter {
+  if (data['date'] instanceof Date)
+    data['date'] = data['date'].toISOString().slice(0, 10);
+  if (data['lastEdited'] instanceof Date)
+    data['lastEdited'] = data['lastEdited'].toISOString().slice(0, 10);
+  return data as unknown as Frontmatter;
+}
+
 export function getLastModified(fsPath: string): string {
   return fs.statSync(fsPath).mtime.toISOString().slice(0, 10);
 }
@@ -43,6 +55,10 @@ export function resolveContent(slugParts: string[]): ResolvedContent {
 
   const dirPath = path.join(CONTENT_DIR, ...slugParts);
   if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
+    const indexPath = path.join(dirPath, 'index.mdx');
+    if (fs.existsSync(indexPath))
+      return { kind: 'file', filePath: indexPath, urlPath };
+
     const hasMdx = fs.readdirSync(dirPath).some((f) => f.endsWith('.mdx'));
     if (hasMdx) return { kind: 'directory', dirPath, urlPath };
   }
@@ -63,9 +79,13 @@ export function getArticlesInDir(
     const results: string[] = [];
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const fullPath = path.join(dir, entry.name);
-      if (entry.isDirectory() && recursive) {
-        results.push(...collectMdxFiles(fullPath));
-      } else if (entry.name.endsWith('.mdx')) {
+      if (entry.isDirectory()) {
+        // A subdirectory with index.mdx is a peer article at this level.
+        const indexPath = path.join(fullPath, 'index.mdx');
+        if (fs.existsSync(indexPath)) results.push(indexPath);
+        // Descend further only in recursive mode.
+        if (recursive) results.push(...collectMdxFiles(fullPath));
+      } else if (entry.name.endsWith('.mdx') && entry.name !== 'index.mdx') {
         results.push(fullPath);
       }
     }
@@ -75,10 +95,13 @@ export function getArticlesInDir(
   return collectMdxFiles(dirPath)
     .map((filePath) => {
       const relative = path.relative(dirPath, filePath).replace(/\.mdx$/, '');
-      const slug = relative.split(path.sep).join('/');
+      const segments = relative.split(path.sep);
+      // subdir/index.mdx represents the page at /subdir, not /subdir/index
+      if (segments[segments.length - 1] === 'index') segments.pop();
+      const slug = segments.join('/');
       const source = fs.readFileSync(filePath, 'utf-8');
       const { data } = matter(source);
-      const fm = data as Frontmatter;
+      const fm = normalizeFrontmatter(data);
       return { slug, urlPath: `${urlDirPrefix}/${slug}`, ...fm };
     })
     .filter((a) => !a.draft)
@@ -113,6 +136,9 @@ export function getAllStaticPaths(): string[][] {
         const segments = withoutExt.split(path.sep);
         if (segments.length === 1 && segments[0] === 'index') {
           paths.push([]);
+        } else if (segments[segments.length - 1] === 'index') {
+          // index.mdx inside a subdirectory — the directory path is emitted
+          // by the hasMdxInThisDir branch below; skip a /slug/index route.
         } else {
           paths.push(segments);
         }

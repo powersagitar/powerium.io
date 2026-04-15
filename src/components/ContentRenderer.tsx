@@ -12,6 +12,7 @@ import {
   type Frontmatter,
   getArticlesInDir,
   getLastModified,
+  normalizeFrontmatter,
   readMdxSource,
   resolveContent,
 } from '@/lib/mdx';
@@ -44,7 +45,7 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
   if (resolved.kind === 'file') {
     const rawSource = readMdxSource(resolved.filePath);
     const { data } = matter(rawSource);
-    const frontmatter = data as Frontmatter;
+    const frontmatter = normalizeFrontmatter(data);
 
     const compiled = await compile(rawSource, {
       outputFormat: 'function-body',
