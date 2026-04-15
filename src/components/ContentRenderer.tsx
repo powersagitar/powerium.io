@@ -102,7 +102,8 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
   }
 
   if (resolved.kind === 'directory') {
-    const articles = getArticlesInDir(slugParts, false);
+    const articles = getArticlesInDir(slugParts, true);
+    if (articles.length === 0) notFound();
     const name = slugParts.at(-1) ?? '';
     const title = name.charAt(0).toUpperCase() + name.slice(1);
     const lastEdited = getLastModified(resolved.dirPath);

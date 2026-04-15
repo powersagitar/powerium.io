@@ -59,7 +59,16 @@ export function resolveContent(slugParts: string[]): ResolvedContent {
     if (fs.existsSync(indexPath))
       return { kind: 'file', filePath: indexPath, urlPath };
 
-    const hasMdx = fs.readdirSync(dirPath).some((f) => f.endsWith('.mdx'));
+    const hasMdx = (function check(dir: string): boolean {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (entry.isDirectory()) {
+          if (check(path.join(dir, entry.name))) return true;
+        } else if (entry.name.endsWith('.mdx') && entry.name !== 'index.mdx') {
+          return true;
+        }
+      }
+      return false;
+    })(dirPath);
     if (hasMdx) return { kind: 'directory', dirPath, urlPath };
   }
 

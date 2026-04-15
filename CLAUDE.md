@@ -88,8 +88,9 @@ site.config.ts            # Site-specific values (name, url, description) — ed
 2. `src/lib/site.ts` — Defines the `SiteConfig` interface only; no values.
 3. `src/lib/mdx.ts` — All file system reads. Key functions:
    - `resolveContent(slugParts)` — resolves a path to `file`, `directory`, or
-     `not-found`. Checks `<path>.mdx` first, then `<path>/index.mdx`, then
-     directory listing.
+     `not-found`. Checks `<path>.mdx` first, then `<path>/index.mdx`, then falls
+     back to a recursive directory scan for any `.mdx` files (excluding
+     `index.mdx`) in the subtree; returns `directory` if any are found.
    - `getArticlesInDir(dirSegments, recursive)` — returns sorted, non-draft
      articles in a directory. `index.mdx` files are never collected as files;
      instead, each subdirectory is checked for an `index.mdx` and, if found,
@@ -125,10 +126,10 @@ site.config.ts            # Site-specific values (name, url, description) — ed
 6. `src/components/ContentRenderer.tsx` — Server component that handles both
    rendering branches: compiles MDX for file paths via `compile()` + `run()`
    from `@mdx-js/mdx` (frontmatter extracted separately with `gray-matter`);
-   renders `ArticleListItem` list for directory paths. For file paths, "Last
-   Edited" (from `lastEdited` frontmatter or `getLastModified` fallback) is
-   shown only when it is strictly later than `date`; for directory paths it is
-   always shown. Also exports `generateContentMetadata` for use in
+   renders a recursive `ArticleListItem` list for directory paths. For file
+   paths, "Last Edited" (from `lastEdited` frontmatter or `getLastModified`
+   fallback) is shown only when it is strictly later than `date`; for directory
+   paths it is always shown. Also exports `generateContentMetadata` for use in
    `generateMetadata`.
 7. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
