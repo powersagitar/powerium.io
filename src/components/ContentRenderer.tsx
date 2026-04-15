@@ -67,20 +67,20 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
               {frontmatter.title}
             </a>
           </h1>
-          {frontmatter.date && (
-            <time
-              dateTime={frontmatter.date}
-              className="text-muted-foreground text-sm"
-            >
-              {frontmatter.date}
-            </time>
-          )}
-          {(!frontmatter.date || lastEdited > frontmatter.date) && (
-            <p className="text-muted-foreground text-sm">
-              <time dateTime={lastEdited}>{lastEdited}</time>
-              {' (Last Edited)'}
-            </p>
-          )}
+          <p className="text-muted-foreground flex items-center gap-x-2 text-sm">
+            {frontmatter.date && (
+              <time dateTime={frontmatter.date}>{frontmatter.date}</time>
+            )}
+            {(!frontmatter.date || lastEdited > frontmatter.date) && (
+              <>
+                {frontmatter.date && <span aria-hidden="true">·</span>}
+                <span>
+                  <time dateTime={lastEdited}>{lastEdited}</time>
+                  {' (Last Edited)'}
+                </span>
+              </>
+            )}
+          </p>
           {frontmatter.author && (
             <p className="text-muted-foreground text-sm">
               by {frontmatter.author}
