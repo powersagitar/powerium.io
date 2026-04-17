@@ -36,8 +36,11 @@ All content lives in `content/`. URL paths map directly to the filesystem:
 
 - If `content/<path>.mdx` exists → render that file.
 - If `content/<path>/index.mdx` exists → render that file.
-- If `content/<path>/` is a directory (no `index.mdx`) → render an article
-  listing of all MDX files in it.
+- If `content/<path>/` is a directory (no `index.mdx`) and has immediate `.mdx`
+  files → render a non-recursive article listing.
+- If `content/<path>/` is a directory (no `index.mdx`, no immediate `.mdx`
+  files) → render a recursive listing of the full subtree. Returns 404 if no
+  non-draft articles are found either way.
 - Otherwise → 404.
 
 The root path `/` maps to `content/index.mdx`.
@@ -88,9 +91,11 @@ site.config.ts            # Site-specific values (name, url, description) — ed
 2. `src/lib/site.ts` — Defines the `SiteConfig` interface only; no values.
 3. `src/lib/mdx.ts` — All file system reads. Key functions:
    - `resolveContent(slugParts)` — resolves a path to `file`, `directory`, or
-     `not-found`. Checks `<path>.mdx` first, then `<path>/index.mdx`, then falls
-     back to a recursive directory scan for any `.mdx` files (excluding
-     `index.mdx`) in the subtree; returns `directory` if any are found.
+     `not-found`. Checks `<path>.mdx` first, then `<path>/index.mdx`, then
+     checks the directory for immediate `.mdx` files (non-recursive,
+     `recursive: false`) or, if none exist, scans the subtree recursively
+     (`recursive: true`). The `recursive` flag is carried on the `directory`
+     result and consumed by `ContentRenderer`.
    - `getArticlesInDir(dirSegments, recursive)` — returns sorted, non-draft
      articles in a directory. `index.mdx` files are never collected as files;
      instead, each subdirectory is checked for an `index.mdx` and, if found,
@@ -99,7 +104,10 @@ site.config.ts            # Site-specific values (name, url, description) — ed
      also collected — subdirectory `index.mdx` peers are always included.
    - `getAllStaticPaths()` — enumerates all routes for `generateStaticParams`.
      Non-root `index.mdx` files are not emitted as `/slug/index`; the directory
-     path `/slug` is emitted instead.
+     path `/slug` is emitted instead. Directory paths are emitted for any
+     directory that contains MDX files anywhere in its subtree (not just
+     immediate children), so intermediate directories without direct `.mdx`
+     files also get pre-rendered routes.
    - `normalizeFrontmatter(data)` — coerces gray-matter `Date` objects (parsed
      from bare YAML dates) back to `YYYY-MM-DD` strings.
    - `readMdxSource(filePath)` — reads raw MDX source.
@@ -126,11 +134,12 @@ site.config.ts            # Site-specific values (name, url, description) — ed
 6. `src/components/ContentRenderer.tsx` — Server component that handles both
    rendering branches: compiles MDX for file paths via `compile()` + `run()`
    from `@mdx-js/mdx` (frontmatter extracted separately with `gray-matter`);
-   renders a recursive `ArticleListItem` list for directory paths. For file
-   paths, "Last Edited" (from `lastEdited` frontmatter or `getLastModified`
-   fallback) is shown only when it is strictly later than `date`; for directory
-   paths it is always shown. Also exports `generateContentMetadata` for use in
-   `generateMetadata`.
+   renders an `ArticleListItem` list for directory paths — recursive when
+   `resolved.recursive` is true, non-recursive otherwise (404s if the list is
+   empty). For file paths, "Last Edited" (from `lastEdited` frontmatter or
+   `getLastModified` fallback) is shown only when it is strictly later than
+   `date`; for directory paths it is always shown. Also exports
+   `generateContentMetadata` for use in `generateMetadata`.
 7. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
 8. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js

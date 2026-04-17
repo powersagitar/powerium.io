@@ -38,7 +38,7 @@ export type Article = Frontmatter & {
 
 export type ResolvedContent =
   | { kind: 'file'; filePath: string; urlPath: string }
-  | { kind: 'directory'; dirPath: string; urlPath: string }
+  | { kind: 'directory'; dirPath: string; urlPath: string; recursive: boolean }
   | { kind: 'not-found' };
 
 export function resolveContent(slugParts: string[]): ResolvedContent {
@@ -59,17 +59,28 @@ export function resolveContent(slugParts: string[]): ResolvedContent {
     if (fs.existsSync(indexPath))
       return { kind: 'file', filePath: indexPath, urlPath };
 
-    const hasMdx = (function check(dir: string): boolean {
+    const immediateEntries = fs.readdirSync(dirPath, { withFileTypes: true });
+    const hasImmediateMdx = immediateEntries.some(
+      (e) => e.isFile() && e.name.endsWith('.mdx') && e.name !== 'index.mdx',
+    );
+
+    if (hasImmediateMdx)
+      return { kind: 'directory', dirPath, urlPath, recursive: false };
+
+    // No immediate .mdx files — search the subtree. Any index.mdx found here
+    // is inside a subdirectory and counts as a valid peer article.
+    const hasMdxInSubtree = (function check(dir: string): boolean {
       for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
         if (entry.isDirectory()) {
           if (check(path.join(dir, entry.name))) return true;
-        } else if (entry.name.endsWith('.mdx') && entry.name !== 'index.mdx') {
+        } else if (entry.name.endsWith('.mdx')) {
           return true;
         }
       }
       return false;
     })(dirPath);
-    if (hasMdx) return { kind: 'directory', dirPath, urlPath };
+    if (hasMdxInSubtree)
+      return { kind: 'directory', dirPath, urlPath, recursive: true };
   }
 
   return { kind: 'not-found' };
@@ -131,15 +142,15 @@ export function getAllStaticPaths(): string[][] {
   const paths: string[][] = [];
   const seenDirs = new Set<string>();
 
-  function walk(dir: string) {
+  function walk(dir: string): boolean {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
-    let hasMdxInThisDir = false;
+    let hasMdxAnywhere = false;
 
     for (const entry of entries) {
       if (entry.isDirectory()) {
-        walk(path.join(dir, entry.name));
+        if (walk(path.join(dir, entry.name))) hasMdxAnywhere = true;
       } else if (entry.name.endsWith('.mdx')) {
-        hasMdxInThisDir = true;
+        hasMdxAnywhere = true;
         const relative = path.relative(CONTENT_DIR, path.join(dir, entry.name));
         const withoutExt = relative.replace(/\.mdx$/, '');
         const segments = withoutExt.split(path.sep);
@@ -147,14 +158,14 @@ export function getAllStaticPaths(): string[][] {
           paths.push([]);
         } else if (segments[segments.length - 1] === 'index') {
           // index.mdx inside a subdirectory — the directory path is emitted
-          // by the hasMdxInThisDir branch below; skip a /slug/index route.
+          // by the hasMdxAnywhere branch below; skip a /slug/index route.
         } else {
           paths.push(segments);
         }
       }
     }
 
-    if (hasMdxInThisDir && dir !== CONTENT_DIR) {
+    if (hasMdxAnywhere && dir !== CONTENT_DIR) {
       const relative = path.relative(CONTENT_DIR, dir);
       const segments = relative.split(path.sep);
       const key = segments.join('/');
@@ -163,6 +174,8 @@ export function getAllStaticPaths(): string[][] {
         paths.push(segments);
       }
     }
+
+    return hasMdxAnywhere;
   }
 
   walk(CONTENT_DIR);

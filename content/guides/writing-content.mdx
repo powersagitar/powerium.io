@@ -36,9 +36,13 @@ displayed in the article header if it differs from `date`.
 
 ## Directory listings
 
-A directory without an `index.mdx` automatically renders a listing of all
-non-draft MDX files inside it, sorted by `date` descending (undated files sort
-last). No configuration needed.
+A directory without an `index.mdx` automatically renders a listing of non-draft
+MDX files, sorted by `date` descending (undated files sort last). No
+configuration needed. If no articles are found the route returns 404.
+
+The listing is **non-recursive** when the directory contains at least one `.mdx`
+file directly. If the directory contains only subdirectories, the listing
+becomes **recursive** and collects articles from the entire subtree.
 
 To embed a listing inside any MDX file, use the `::article-list` directive:
 
