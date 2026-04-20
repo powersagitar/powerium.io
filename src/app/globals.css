@@ -225,3 +225,7 @@ body {
 .prose img:not(:is(.not-prose, .not-prose *)) {
   @apply rounded-lg;
 }
+
+.prose iframe:not(:is(.not-prose, .not-prose *)) {
+  @apply mb-4;
+}
