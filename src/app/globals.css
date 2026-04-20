@@ -206,6 +206,17 @@ body {
   @apply bg-transparent p-0 text-sm;
 }
 
+/* rehype-pretty-code v0.14 dual-theme: apply Shiki CSS variable colors */
+code[data-theme*=' '],
+code[data-theme*=' '] span {
+  color: var(--shiki-light);
+}
+
+.dark code[data-theme*=' '],
+.dark code[data-theme*=' '] span {
+  color: var(--shiki-dark);
+}
+
 .prose hr:not(:is(.not-prose, .not-prose *)) {
   @apply border-border my-8;
 }
