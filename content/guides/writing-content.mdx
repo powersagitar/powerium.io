@@ -23,21 +23,21 @@ Every MDX file should start with a YAML frontmatter block:
 ---
 title: My Page # required
 description: A short blurb. # required
-date: 2026-01-15 # optional — shown in header and listing cards
-lastEdited: 2026-02-01 # optional — shown in header if different from date
+publish-date: 2026-01-15 # optional — shown in header and listing cards
+last-edited: 2026-02-01 # optional — shown in header if different from publish-date
 author: your name # optional
 tags: [one, two] # optional
 draft: true # optional — hides the file from directory listings
 ---
 ```
 
-`lastEdited` falls back to the file's filesystem mtime when omitted. It is only
-displayed in the article header if it differs from `date`.
+`last-edited` falls back to the file's filesystem mtime when omitted. It is only
+displayed in the article header if it differs from `publish-date`.
 
 ## Directory listings
 
 A directory without an `index.mdx` automatically renders a listing of non-draft
-MDX files, sorted by `date` descending (undated files sort last). No
+MDX files, sorted by `publish-date` descending (undated files sort last). No
 configuration needed. If no articles are found the route returns 404.
 
 The listing is **non-recursive** when the directory contains at least one `.mdx`

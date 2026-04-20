@@ -51,13 +51,17 @@ The root path `/` maps to `content/index.mdx`.
 ---
 title: string # required
 description: string # required
-date: string # optional, ISO date (e.g. 2025-01-01); shown in article header and listing cards
-lastEdited: string # optional, ISO date (e.g. 2025-01-01); shown in article header only when later than date; falls back to filesystem mtime if omitted
+publish-date: string # optional, ISO date (e.g. 2025-01-01); shown in article header and listing cards
+last-edited: string # optional, ISO date (e.g. 2025-01-01); shown in article header only when later than publish-date; falls back to filesystem mtime if omitted
 author: string # optional; shown in article header if present
 tags: string[] # optional; shown in article header if present
 draft: boolean # optional; omits the file from directory listings
 ---
 ```
+
+**Frontmatter field naming convention:** all multi-word field names use
+kebab-case (e.g. `publish-date`, `last-edited`). Never use camelCase in
+frontmatter keys.
 
 ### Directory Layout
 
@@ -136,9 +140,9 @@ site.config.ts            # Site-specific values (name, url, description) — ed
    from `@mdx-js/mdx` (frontmatter extracted separately with `gray-matter`);
    renders an `ArticleListItem` list for directory paths — recursive when
    `resolved.recursive` is true, non-recursive otherwise (404s if the list is
-   empty). For file paths, "Last Edited" (from `lastEdited` frontmatter or
+   empty). For file paths, "Last Edited" (from `last-edited` frontmatter or
    `getLastModified` fallback) is shown only when it is strictly later than
-   `date`; for directory paths it is always shown. Also exports
+   `publish-date`; for directory paths it is always shown. Also exports
    `generateContentMetadata` for use in `generateMetadata`.
 7. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.

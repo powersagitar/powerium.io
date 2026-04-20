@@ -7,15 +7,15 @@ Frontmatter is YAML at the top of every `.mdx` file, delimited by `---`.
 
 ## Fields
 
-| Field         | Type       | Required | Description                                                                                                                        |
-| ------------- | ---------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `title`       | `string`   | Yes      | Page title. Used in `<h1>`, `<title>`, and listing cards.                                                                          |
-| `description` | `string`   | Yes      | Meta description. Used in `<meta name="description">` and listing cards.                                                           |
-| `date`        | `string`   | No       | ISO date (`YYYY-MM-DD`). Shown in the article header and listing cards.                                                            |
-| `lastEdited`  | `string`   | No       | ISO date (`YYYY-MM-DD`). Shown in the article header only when it is later than `date`. Falls back to filesystem mtime if omitted. |
-| `author`      | `string`   | No       | Author name. Shown in the article header.                                                                                          |
-| `tags`        | `string[]` | No       | List of tags. Rendered as badges in the article header.                                                                            |
-| `draft`       | `boolean`  | No       | When `true`, the file is excluded from directory listings and `::article-list`. The page is still accessible by direct URL.        |
+| Field          | Type       | Required | Description                                                                                                                                |
+| -------------- | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `title`        | `string`   | Yes      | Page title. Used in `<h1>`, `<title>`, and listing cards.                                                                                  |
+| `description`  | `string`   | Yes      | Meta description. Used in `<meta name="description">` and listing cards.                                                                   |
+| `publish-date` | `string`   | No       | ISO date (`YYYY-MM-DD`). Shown in the article header and listing cards.                                                                    |
+| `last-edited`  | `string`   | No       | ISO date (`YYYY-MM-DD`). Shown in the article header only when it is later than `publish-date`. Falls back to filesystem mtime if omitted. |
+| `author`       | `string`   | No       | Author name. Shown in the article header.                                                                                                  |
+| `tags`         | `string[]` | No       | List of tags. Rendered as badges in the article header.                                                                                    |
+| `draft`        | `boolean`  | No       | When `true`, the file is excluded from directory listings and `::article-list`. The page is still accessible by direct URL.                |
 
 ## Example
 
@@ -23,8 +23,8 @@ Frontmatter is YAML at the top of every `.mdx` file, delimited by `---`.
 ---
 title: My Article
 description: A short summary of the article.
-date: 2026-01-15
-lastEdited: 2026-03-01
+publish-date: 2026-01-15
+last-edited: 2026-03-01
 author: powersagitar
 tags: [next.js, mdx]
 draft: false
@@ -33,11 +33,12 @@ draft: false
 
 ## Notes
 
-- `date` and `lastEdited` are plain strings — no timezone handling is applied.
-  Use `YYYY-MM-DD` format consistently to avoid display issues.
-- If `lastEdited` is omitted, the filesystem mtime of the file is used as the
+- `publish-date` and `last-edited` are plain strings — no timezone handling is
+  applied. Use `YYYY-MM-DD` format consistently to avoid display issues.
+- If `last-edited` is omitted, the filesystem mtime of the file is used as the
   fallback. This means the "Last Edited" date updates automatically whenever the
   file is saved, without any manual frontmatter changes required.
-- `lastEdited` is only displayed in the article header when it is strictly later
-  than `date`. If `date` is not set, "Last Edited" is always shown. If you
-  publish and last-edit on the same day, only `date` is shown.
+- `last-edited` is only displayed in the article header when it is strictly
+  later than `publish-date`. If `publish-date` is not set, "Last Edited" is
+  always shown. If you publish and last-edit on the same day, only
+  `publish-date` is shown.

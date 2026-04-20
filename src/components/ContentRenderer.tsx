@@ -56,8 +56,9 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
       baseUrl: import.meta.url,
     });
 
+    const publishDate = frontmatter['publish-date'];
     const lastEdited =
-      frontmatter.lastEdited ?? getLastModified(resolved.filePath);
+      frontmatter['last-edited'] ?? getLastModified(resolved.filePath);
 
     return (
       <article className="prose">
@@ -68,12 +69,10 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
             </a>
           </h1>
           <p className="text-muted-foreground flex items-center gap-x-2 text-sm">
-            {frontmatter.date && (
-              <time dateTime={frontmatter.date}>{frontmatter.date}</time>
-            )}
-            {(!frontmatter.date || lastEdited > frontmatter.date) && (
+            {publishDate && <time dateTime={publishDate}>{publishDate}</time>}
+            {(!publishDate || lastEdited > publishDate) && (
               <>
-                {frontmatter.date && <span aria-hidden="true">·</span>}
+                {publishDate && <span aria-hidden="true">·</span>}
                 <span>
                   <time dateTime={lastEdited}>{lastEdited}</time>
                   {' (Last Edited)'}

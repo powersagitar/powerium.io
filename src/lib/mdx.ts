@@ -8,22 +8,26 @@ const CONTENT_DIR = path.join(process.cwd(), 'content');
 export type Frontmatter = {
   title: string;
   description: string;
-  date?: string;
-  lastEdited?: string;
+  'publish-date'?: string;
+  'last-edited'?: string;
   draft?: boolean;
   author?: string;
   tags?: string[];
 };
 
-// gray-matter parses bare YAML dates (e.g. `date: 2025-01-01`) as Date objects.
+// gray-matter parses bare YAML dates (e.g. `publish-date: 2025-01-01`) as Date objects.
 // Normalize them back to ISO date strings so callers can rely on the type.
 export function normalizeFrontmatter(
   data: Record<string, unknown>,
 ): Frontmatter {
-  if (data['date'] instanceof Date)
-    data['date'] = data['date'].toISOString().slice(0, 10);
-  if (data['lastEdited'] instanceof Date)
-    data['lastEdited'] = data['lastEdited'].toISOString().slice(0, 10);
+  if (data['publish-date'] instanceof Date)
+    data['publish-date'] = (data['publish-date'] as Date)
+      .toISOString()
+      .slice(0, 10);
+  if (data['last-edited'] instanceof Date)
+    data['last-edited'] = (data['last-edited'] as Date)
+      .toISOString()
+      .slice(0, 10);
   return data as unknown as Frontmatter;
 }
 
@@ -126,10 +130,12 @@ export function getArticlesInDir(
     })
     .filter((a) => !a.draft)
     .sort((a, b) => {
-      if (a.date && b.date)
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-      if (a.date) return -1;
-      if (b.date) return 1;
+      const aDate = a['publish-date'];
+      const bDate = b['publish-date'];
+      if (aDate && bDate)
+        return new Date(bDate).getTime() - new Date(aDate).getTime();
+      if (aDate) return -1;
+      if (bDate) return 1;
       return a.slug.localeCompare(b.slug);
     });
 }

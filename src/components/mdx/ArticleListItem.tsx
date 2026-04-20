@@ -23,12 +23,12 @@ export function ArticleListItem({ article, urlPrefix }: Props) {
           <span className="font-medium group-hover:underline">
             {article.title}
           </span>
-          {article.date && (
+          {article['publish-date'] && (
             <time
-              dateTime={article.date}
+              dateTime={article['publish-date']}
               className="text-muted-foreground shrink-0 text-sm"
             >
-              {new Date(article.date).toLocaleDateString('en-US', {
+              {new Date(article['publish-date']).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',
