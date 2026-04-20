@@ -185,7 +185,12 @@ body {
 }
 
 .prose blockquote:not(:is(.not-prose, .not-prose *)) {
-  @apply border-border text-muted-foreground border-l-4 pl-4 italic;
+  @apply text-muted-foreground relative pl-5 italic;
+}
+
+.prose blockquote:not(:is(.not-prose, .not-prose *))::before {
+  @apply bg-border absolute top-0 bottom-0 left-0 w-1 rounded-full;
+  content: '';
 }
 
 .prose code:not(:is(.not-prose, .not-prose *, pre code)) {
