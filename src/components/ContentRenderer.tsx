@@ -118,7 +118,7 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
           <time dateTime={lastEdited}>{lastEdited}</time>
           {' (Last Edited)'}
         </p>
-        <ul className="not-prose divide-y">
+        <ul className="not-prose divide-border divide-y">
           {articles.map((article) => (
             <ArticleListItem
               key={article.slug}
