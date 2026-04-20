@@ -155,14 +155,15 @@ invoked through the `::directive-name{attrs}` syntax (handled by
 `src/lib/remark-directive-components.ts`). The directive name is the kebab-case
 form of the component name.
 
-| Directive             | Component             | Props                                                  | Purpose                                                                           |
-| --------------------- | --------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| `::article-list`      | `<ArticleList />`     | `dir: string`, `recursive?: boolean`, `limit?: number` | Renders sorted article list from a content directory                              |
-| `::article-list-item` | `<ArticleListItem />` | `article: Article`, `urlPrefix: string`                | Single list-style article row (also used by ArticleList)                          |
-| `::table-of-contents` | `<TableOfContents />` | —                                                      | Client component; auto-detects `h2`/`h3`, highlights active                       |
-| `::spacer`            | `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'`           | Vertical whitespace                                                               |
-| `:::timeline`         | `<Timeline />`        | —                                                      | Container for a vertical timeline                                                 |
-| `:::timeline-item`    | `<TimelineItem />`    | `title`, `badges?` (pipe-separated)                    | Individual entry; badges rendered inline with `·`; children render as description |
+| Directive             | Component             | Props                                                     | Purpose                                                                           |
+| --------------------- | --------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `::article-list`      | `<ArticleList />`     | `dir: string`, `recursive?: boolean`, `limit?: number`    | Renders sorted article list from a content directory                              |
+| `::article-list-item` | `<ArticleListItem />` | `article: Article`, `urlPrefix: string`                   | Single list-style article row (also used by ArticleList)                          |
+| `::table-of-contents` | `<TableOfContents />` | —                                                         | Client component; auto-detects `h2`/`h3`, highlights active                       |
+| `::spacer`            | `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'`              | Vertical whitespace                                                               |
+| `:::timeline`         | `<Timeline />`        | —                                                         | Container for a vertical timeline                                                 |
+| `:::timeline-item`    | `<TimelineItem />`    | `title`, `badges?` (pipe-separated)                       | Individual entry; badges rendered inline with `·`; children render as description |
+| `:::callout`          | `<Callout />`         | `type?: 'note'\|'tip'\|'important'\|'warning'\|'caution'` | GitHub-style callout box with colored border, background, and icon                |
 
 To add a new directive: create the component in `src/components/mdx/`, export it
 from `src/components/mdx/index.tsx`. The `::kebab-case-name` directive form is
