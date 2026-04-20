@@ -1,0 +1,184 @@
+---
+title: Mastermind—The ICS4U Culminating Project
+description:
+  We finished Mastermind, the ICS4U culminating project. Here's what I learned
+  from the process.
+publish-date: 2025-01-16
+last-edited: 2025-01-16
+---
+
+It's January 15, 2025. We just finished
+[Mastermind](<https://en.wikipedia.org/wiki/Mastermind_(board_game)>), the ICS4U
+culminating project.
+
+Overall, the development process was fun, except for the occasional late-night
+commits we had to make to meet the deadline, but that was our fault.
+
+- Repository:
+  [github.com/powersagitar/ics4u](https://github.com/powersagitar/ics4u/tree/main/culminating-mastermind)
+- Wiki: [powersagitar.github.io/ics4u](https://powersagitar.github.io/ics4u/)
+
+## The Communications
+
+### The Team Dynamics
+
+Starting with the conclusion, it was excellent.
+
+We were a team of two, and we were friends outside the project.
+
+We knew what each other was capable of, so we had been able to assign different
+tasks to the person who could best resolve it.
+
+There wasn't any dispute, nor any conflicts. We maintained collaboration and
+motivation&mdash;even when being slightly behind on progress.
+
+Given the team consisted of only two people, leadership and control were
+minimal. Whenever one of us encountered a challenge, we simply paused and helped
+here and there.
+
+:::callout{type=note}  
+Minimal control does not mean no control at all. We did employ monitor and
+control strategies to ensure we stayed on track. Read more on
+[project wiki](https://powersagitar.github.io/ics4u/monitoring-controlling/).  
+:::
+
+### Allocation of Tasks
+
+I had plenty of project experience already. Naturally, I was in charge of the
+design and the most difficult parts of the project.
+
+Some tasks assigned to me were:
+
+- [Design of the program's structure and components](https://powersagitar.github.io/ics4u/design/)
+- Implementation of the
+  [Donald Knuth Five-Guess Algorithm](<https://en.wikipedia.org/wiki/Mastermind_(board_game)#Worst_case:_Five-guess_algorithm>)
+- Everything else my partner did not have experience working with
+
+My partner was an awesome developer, too. He contributed a lot to the GUI,
+documentation, and spotted numerous bugs.
+
+The program wouldn't be in its current polished state without him.
+
+### Methods of Communication
+
+#### Direct Messaging
+
+Like a lot of other teams, we used direct messages to discuss progress, issues,
+and solutions in general.
+
+Direct messages excel at getting instant responses, so we never missed important
+updates.
+
+#### GitHub
+
+Professional problems require professional solutions.
+
+GitHub is designed for collaboration on software projects, so we used
+[Issues](https://github.com/powersagitar/ics4u/issues?q=is%3Aissue+is%3Aopen)
+for bug tracking, feature requests, enhancements, as a todo list. The automatic
+push and email notifications gave us heads-ups on what to do.
+
+[Projects](https://github.com/users/powersagitar/projects/3) is where we kept
+the GANTT chart. Its integration with issues significantly simplified the
+monitor and control workflow, helping us to focus on things that mattered the
+most, the code.
+
+### Strengths
+
+We delegated tasks to the right person, communicated effectively and
+efficiently, resulting in a well-executed project. At least, _I think_ it was
+well done.
+
+We knew what issues we were assigned to, and were able to master them and
+produce quality outcomes.
+
+These are essential building blocks for the overall success of the project.
+
+### Weaknesses
+
+Remember I mentioned that we fell behind on progress?
+
+There were several reasons for this:
+
+- My partner attended a piano competition mid-project; this was objectively
+  uncontrollable and unavoidable.
+- A few communications were received, but forgotten, due to the large volume.
+- Some ETAs were not estimated accurately, so the time allocated for them was
+  insufficient, delaying the project as a whole.
+
+### Lessons Learned
+
+In future projects, I will absolutely maintain the strengths.
+
+I will take time to learn about my team members' capabilities, establish a
+proper communication protocol, and ensure everyone is performing at their best.
+
+To address the weaknesses:
+
+- Forgotten communications: I will centralize important messages or use
+  strategies to make them stand out, preventing them from being lost in the
+  flow.
+- Inaccurate ETAs: I will add buffers to all tasks, regardless of size, to
+  account for unforeseen issues.
+
+By preserving what works well and proactively improving weaker areas, I will
+build more effective and resilient teams moving forward.
+
+## The Engineering
+
+In addition to the rubric, I also wanted to write about the technical portion of
+my learnings.
+
+### Declarative UI Frameworks
+
+I must admit that working with
+[Swing](<https://en.wikipedia.org/wiki/Swing_(Java)>) was an absolute pain. The
+development process felt legacy, and testing changes was cumbersome.
+
+Swing was so difficult to use that I had three severe headaches in a single day,
+completely disrupting my development workflow.
+
+Coming from a React background, I have experienced firsthand how much the
+declarative approach can boost productivity. I find it particularly advantageous
+in these aspects:
+
+- The declarative approach provides a clearer, more visual way to express the
+  relationships between components.
+- It simplifies development by letting me focus on what the UI should look like,
+  rather than how to create it.
+- State management becomes easier, as related UI elements automatically
+  re-render when the state changes.
+
+In one line, declarative UI frameworks make the development process more
+intuitive and enjoyable.
+
+Shout out to [React](https://react.dev),
+[SwiftUI](https://developer.apple.com/xcode/swiftui/), and other declarative
+frameworks out there.
+
+### Containerization
+
+I also encountered a weird bug while writing unit tests.
+
+On my local machine, the tests were passing, however in the CI pipelines, they
+were failing without any apparent reason.
+
+Thanks to a
+[post on Stack Overflow](https://stackoverflow.com/q/56715387/20143641), I
+discovered that the issue stemmed from not explicitly specifying a version
+number for [JUnit](https://junit.org/) in the build system. This resulted in
+different behaviors between environments, causing the tests to fail in CI.
+
+This issue could have been easily avoided if I had used
+[Docker](https://www.docker.com) for containerization in the first place.
+
+By using containers, I can ensure that the environment is exactly the same
+across all runs, regardless of the platform. This guarantees consistency and
+helps avoid environment-related bugs.
+
+## Conclusion
+
+Once again, working on Mastermind was a rewarding and enjoyable experience.
+
+A huge thank you to my teachers and the open source community for helping shape
+me into who I am today.
