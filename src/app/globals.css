@@ -132,6 +132,10 @@ body {
   @apply mt-8 mb-5 text-3xl font-bold tracking-tight;
 }
 
+.prose h1#title {
+  @apply mt-0 mb-4 text-6xl leading-tight font-black tracking-tighter;
+}
+
 .prose h2 {
   @apply mt-8 mb-4 text-2xl font-semibold tracking-tight;
 }
