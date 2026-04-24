@@ -40,7 +40,7 @@ export function TableOfContents() {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="not-prose">
+    <nav className="not-prose mb-6">
       <p className="text-muted-foreground mb-3 text-sm font-semibold tracking-wider uppercase">
         On this page
       </p>

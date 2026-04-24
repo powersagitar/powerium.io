@@ -60,7 +60,7 @@ export function Callout({ type = 'note', children }: Props) {
   const { label, Icon, barClass, accentClass } = config[type] ?? config.note;
 
   return (
-    <div className="not-prose relative my-4 pl-5">
+    <div className="not-prose relative my-6 pl-5">
       <span
         className={`absolute top-0 bottom-0 left-0 w-1 rounded-full ${barClass}`}
       />

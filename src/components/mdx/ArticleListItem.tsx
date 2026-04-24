@@ -17,7 +17,7 @@ export function ArticleListItem({ article, urlPrefix }: Props) {
     <li>
       <Link
         href={`${urlPrefix}/${safeSlug}`}
-        className="group flex flex-col gap-1 py-3 no-underline"
+        className="group flex flex-col gap-2 py-4 no-underline"
       >
         <div className="flex items-baseline justify-between gap-4">
           <span className="font-medium group-hover:underline">

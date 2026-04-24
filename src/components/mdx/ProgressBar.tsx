@@ -37,7 +37,7 @@ export function ProgressBar({ value, start, end, label }: Props) {
   const pct = Math.round(progress);
 
   return (
-    <div className="not-prose my-4 flex flex-col gap-1.5">
+    <div className="not-prose my-6 flex flex-col gap-1.5">
       <div className="flex items-center justify-between text-sm">
         {label ? (
           <span className="text-foreground font-medium">{label}</span>
