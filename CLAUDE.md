@@ -219,6 +219,16 @@ used via `var(--font-sans)` / `var(--font-mono)` — no web font downloads.
 Prose/MDX content is styled via the `.prose` utility class defined in
 `globals.css` (custom, not `@tailwindcss/typography`).
 
+**Overflow handling for prose elements** — all prose elements that can exceed
+the container width must be made safe on both mobile and desktop:
+
+- `pre`, `table` — use `overflow-x-auto` (with `display: block` on `table` since
+  `overflow-x` has no effect on `display: table`). Content scrolls horizontally
+  rather than breaking the layout.
+- `img`, `iframe` — use `max-w-full`. These are replaced elements where
+  horizontal scrolling is not useful; constraining to the container width is the
+  correct behavior.
+
 ### shadcn/ui Components
 
 `components.json` is pre-configured (style: `new-york`, Tailwind v4, path

@@ -226,7 +226,7 @@ code[data-theme*=' '] span {
 }
 
 .prose table:not(:is(.not-prose, .not-prose *)) {
-  @apply mb-6 w-full border-collapse;
+  @apply mb-6 block w-full border-collapse overflow-x-auto;
 }
 
 .prose th:not(:is(.not-prose, .not-prose *)) {
@@ -238,9 +238,9 @@ code[data-theme*=' '] span {
 }
 
 .prose img:not(:is(.not-prose, .not-prose *)) {
-  @apply rounded-lg;
+  @apply max-w-full rounded-lg;
 }
 
 .prose iframe:not(:is(.not-prose, .not-prose *)) {
-  @apply mb-6;
+  @apply mb-6 max-w-full;
 }
