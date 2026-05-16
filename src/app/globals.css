@@ -133,7 +133,7 @@ body {
 }
 
 .prose h1#title {
-  @apply mt-0 mb-4 text-6xl leading-tight font-black tracking-tighter;
+  @apply mt-0 mb-3 text-[44px] leading-[1.1] font-extrabold tracking-[-0.03em];
 }
 
 .prose h2 {
@@ -173,7 +173,7 @@ body {
 }
 
 .prose a:not(:is(.not-prose, .not-prose *, .anchor)) {
-  @apply text-primary underline underline-offset-4 hover:opacity-70;
+  @apply text-foreground decoration-muted-foreground/60 hover:decoration-foreground underline underline-offset-4 transition-[text-decoration-color];
 }
 
 .prose ul:not(:is(.not-prose, .not-prose *)) {
@@ -243,4 +243,17 @@ code[data-theme*=' '] span {
 
 .prose iframe:not(:is(.not-prose, .not-prose *)) {
   @apply mb-6 max-w-full;
+}
+
+.thin-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+  border: 2px solid var(--background);
+}
+.thin-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
 }

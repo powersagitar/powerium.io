@@ -62,38 +62,55 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
 
     return (
       <article className="prose">
-        <header className="mb-8">
-          <h1 id="title" className="mb-2">
+        <header className="mb-7">
+          <h1 id="title" className="mb-3">
             <a href="#title" className="anchor">
               {frontmatter.title}
             </a>
           </h1>
-          <p className="text-muted-foreground flex items-center gap-x-2 text-sm">
-            {publishDate && <time dateTime={publishDate}>{publishDate}</time>}
+          {frontmatter.description && (
+            <p className="text-muted-foreground mb-3.5 text-[17px] leading-[1.55]">
+              {frontmatter.description}
+            </p>
+          )}
+          <div className="text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+            {frontmatter.author && (
+              <>
+                <span>
+                  By{' '}
+                  <span className="text-foreground font-medium">
+                    {frontmatter.author}
+                  </span>
+                </span>
+              </>
+            )}
+            {publishDate && (
+              <>
+                {frontmatter.author && <span aria-hidden="true">·</span>}
+                <time dateTime={publishDate}>{publishDate}</time>
+              </>
+            )}
             {(!publishDate || lastEdited > publishDate) && (
               <>
-                {publishDate && <span aria-hidden="true">·</span>}
+                {(publishDate || frontmatter.author) && (
+                  <span aria-hidden="true">·</span>
+                )}
                 <span>
                   <time dateTime={lastEdited}>{lastEdited}</time>
                   {' (Last Edited)'}
                 </span>
               </>
             )}
-          </p>
-          {frontmatter.author && (
-            <p className="text-muted-foreground text-sm">
-              by {frontmatter.author}
-            </p>
-          )}
-          {frontmatter.tags && (
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {frontmatter.tags.map((tag) => (
-                <Badge key={tag} variant="secondary">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          )}
+            {frontmatter.tags && frontmatter.tags.length > 0 && (
+              <div className="ml-1 flex flex-wrap gap-1.5">
+                {frontmatter.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </div>
         </header>
         <Content components={mdxComponents} />
       </article>

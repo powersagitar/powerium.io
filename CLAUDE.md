@@ -76,6 +76,7 @@ src/
 │   └── globals.css
 ├── components/
 │   ├── ContentRenderer.tsx  # Shared file/directory rendering logic
+│   ├── Sidebar.tsx          # Persistent left nav sidebar (client component)
 │   ├── mdx/              # MDX component map + individual components
 │   └── ui/               # shadcn/ui primitives (card, button, badge, …)
 └── lib/                  # Utilities (mdx.ts, mdx-options.ts, remark-directive-components.ts, site.ts)
@@ -140,13 +141,22 @@ site.config.ts            # Site-specific values (name, url, description) — ed
    from `@mdx-js/mdx` (frontmatter extracted separately with `gray-matter`);
    renders an `ArticleListItem` list for directory paths — recursive when
    `resolved.recursive` is true, non-recursive otherwise (404s if the list is
-   empty). For file paths, "Last Edited" (from `last-edited` frontmatter or
-   `getLastModified` fallback) is shown only when it is strictly later than
-   `publish-date`; for directory paths it is always shown. Also exports
-   `generateContentMetadata` for use in `generateMetadata`.
-7. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
+   empty). For file paths, the article header renders `title`, `description`
+   (from frontmatter), author, publish-date, and tags. "Last Edited" (from
+   `last-edited` frontmatter or `getLastModified` fallback) is shown only when
+   it is strictly later than `publish-date`; for directory paths it is always
+   shown. Also exports `generateContentMetadata` for use in `generateMetadata`.
+7. `src/components/Sidebar.tsx` — Client component rendering the persistent left
+   navigation sidebar. Hardcoded nav sections (Getting Started, Guides,
+   Reference, Directives) mirror the `content/` tree. Includes theme toggle,
+   GitHub link, mobile off-canvas drawer (floating `<Menu>` button at top-left
+   on small screens), and a footer note about the planned `::nav` directive.
+   `src/app/layout.tsx` also renders `<TableOfContents />` in a sticky
+   right-rail aside (`xl:block`, 200px wide) — no `::table-of-contents`
+   directive is needed in content files.
+8. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
-8. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
+9. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
    `MetadataRoute.Sitemap`. Enumerates all routes with `getAllStaticPaths`; sets
    `lastModified` from `getLastModified` for both file and directory routes.
 
@@ -159,15 +169,15 @@ invoked through the `::directive-name{attrs}` syntax (handled by
 `src/lib/remark-directive-components.ts`). The directive name is the kebab-case
 form of the component name.
 
-| Directive             | Component             | Props                                                     | Purpose                                                                           |
-| --------------------- | --------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `::article-list`      | `<ArticleList />`     | `dir: string`, `recursive?: boolean`, `limit?: number`    | Renders sorted article list from a content directory                              |
-| `::article-list-item` | `<ArticleListItem />` | `article: Article`, `urlPrefix: string`                   | Single list-style article row (also used by ArticleList)                          |
-| `::table-of-contents` | `<TableOfContents />` | —                                                         | Client component; auto-detects `h2`/`h3`, highlights active                       |
-| `::spacer`            | `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'`              | Vertical whitespace                                                               |
-| `:::timeline`         | `<Timeline />`        | —                                                         | Container for a vertical timeline                                                 |
-| `:::timeline-item`    | `<TimelineItem />`    | `title`, `badges?` (pipe-separated)                       | Individual entry; badges rendered inline with `·`; children render as description |
-| `:::callout`          | `<Callout />`         | `type?: 'note'\|'tip'\|'important'\|'warning'\|'caution'` | GitHub-style callout box with colored border, background, and icon                |
+| Directive             | Component             | Props                                                     | Purpose                                                                                                                                              |
+| --------------------- | --------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `::article-list`      | `<ArticleList />`     | `dir: string`, `recursive?: boolean`, `limit?: number`    | Renders sorted article list from a content directory                                                                                                 |
+| `::article-list-item` | `<ArticleListItem />` | `article: Article`, `urlPrefix: string`                   | Single list-style article row (also used by ArticleList)                                                                                             |
+| `::table-of-contents` | `<TableOfContents />` | —                                                         | Inline use only — the component is already rendered in the layout right-rail automatically; directive is available for an additional inline instance |
+| `::spacer`            | `<Spacer />`          | `size?: 'xs'\|'sm'\|'md'\|'lg'\|'xl'\|'2xl'`              | Vertical whitespace                                                                                                                                  |
+| `:::timeline`         | `<Timeline />`        | —                                                         | Container for a vertical timeline                                                                                                                    |
+| `:::timeline-item`    | `<TimelineItem />`    | `title`, `badges?` (pipe-separated)                       | Individual entry; badges rendered inline with `·`; children render as description                                                                    |
+| `:::callout`          | `<Callout />`         | `type?: 'note'\|'tip'\|'important'\|'warning'\|'caution'` | GitHub-style callout box with colored border, background, and icon                                                                                   |
 
 To add a new directive: create the component in `src/components/mdx/`, export it
 from `src/components/mdx/index.tsx`. The `::kebab-case-name` directive form is
@@ -236,7 +246,7 @@ aliases). Installed primitives live in `src/components/ui/`:
 
 | Component | Used in                          |
 | --------- | -------------------------------- |
-| `Button`  | `BackToHome` (variant `ghost`)   |
+| `Button`  | `Sidebar` (nav links)            |
 | `Badge`   | `ContentRenderer` (article tags) |
 
 To add more:
@@ -258,9 +268,12 @@ files. Configuration in `package.json` under `"lint-staged"`.
   `src/lib/remark-directive-components.ts` all import `'server-only'` — any
   attempt to import them in a client component will cause a build error. Keep
   all file system access in these modules.
-- `TableOfContents` and `BackToHome` are `'use client'` components —
-  `TableOfContents` uses `IntersectionObserver`; `BackToHome` uses `usePathname`
-  to hide itself on the root route.
+- `TableOfContents` and `Sidebar` are `'use client'` components.
+  `TableOfContents` uses `IntersectionObserver` and is rendered persistently in
+  the layout right-rail (`xl:` and above) — no `::table-of-contents` directive
+  needed. `Sidebar` uses `usePathname` for active-route highlighting, `useTheme`
+  for the theme toggle, and `useState` for the mobile off-canvas open/close
+  state.
 - **Prefer `type` over `interface`** — use `type` for all TypeScript type
   definitions; avoid `interface`.
 - **Remove unused code** — delete files, imports, components, and dependencies

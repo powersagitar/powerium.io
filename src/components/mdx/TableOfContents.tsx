@@ -40,22 +40,20 @@ export function TableOfContents() {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="not-prose mb-6">
-      <p className="text-muted-foreground mb-3 text-sm font-semibold tracking-wider uppercase">
+    <nav className="not-prose">
+      <p className="text-muted-foreground mb-2.5 text-[11px] font-semibold tracking-[0.05em] uppercase">
         On this page
       </p>
-      <ul className="space-y-1.5 text-sm">
+      <ul className="border-border flex flex-col gap-0.5 border-l">
         {headings.map((heading) => (
-          <li
-            key={heading.id}
-            style={{ paddingLeft: `${(heading.level - 2) * 12}px` }}
-          >
+          <li key={heading.id}>
             <a
               href={`#${heading.id}`}
-              className={`hover:text-foreground transition-colors ${
+              style={{ paddingLeft: heading.level === 2 ? 10 : 20 }}
+              className={`-ml-px block border-l py-0.5 pr-2 text-[13px] transition-colors ${
                 activeId === heading.id
-                  ? 'text-foreground font-medium'
-                  : 'text-muted-foreground'
+                  ? 'border-foreground text-foreground font-medium'
+                  : 'text-muted-foreground hover:text-foreground border-transparent'
               }`}
             >
               {heading.text}

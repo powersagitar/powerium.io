@@ -5,7 +5,8 @@ import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import siteConfig from '~/site.config';
 
-import { BackToHome } from '@/components/BackToHome';
+import { Sidebar } from '@/components/Sidebar';
+import { TableOfContents } from '@/components/mdx/TableOfContents';
 import { ThemeProvider } from '@/components/theme-provider';
 
 import './globals.css';
@@ -33,9 +34,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="mx-auto max-w-3xl px-4 py-12">
-            <BackToHome />
-            <main>{children}</main>
+          <div className="mx-auto flex max-w-350 gap-8 px-6">
+            <Sidebar />
+            <main className="max-w-190 min-w-0 flex-1 pt-14 pb-16 lg:py-10">
+              {children}
+            </main>
+            <aside className="thin-scroll sticky top-0 hidden h-screen w-50 shrink-0 overflow-y-auto pt-10 xl:block">
+              <TableOfContents />
+            </aside>
           </div>
         </ThemeProvider>
 
