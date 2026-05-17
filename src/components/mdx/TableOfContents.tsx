@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { usePathname } from 'next/navigation';
+
 type Heading = {
   id: string;
   text: string;
@@ -9,10 +11,12 @@ type Heading = {
 };
 
 export function TableOfContents() {
+  const pathname = usePathname();
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>('');
 
   useEffect(() => {
+    setActiveId('');
     const elements = Array.from(
       document.querySelectorAll('article h2, article h3'),
     );
@@ -35,7 +39,7 @@ export function TableOfContents() {
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   if (headings.length === 0) return null;
 
