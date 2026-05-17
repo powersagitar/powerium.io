@@ -43,6 +43,12 @@ All content lives in `content/`. URL paths map directly to the filesystem:
   non-draft articles are found either way.
 - Otherwise → 404.
 
+Files and directories whose names start with `_` are excluded from all content
+pipelines (`resolveContent`, `getArticlesInDir`, `getAllStaticPaths`). They have
+no public URL and never appear in listings. Use the `_` prefix for
+infrastructure files that live in `content/` but are not content pages (e.g.
+`content/_nav.mdx`).
+
 The root path `/` maps to `content/index.mdx`.
 
 **Frontmatter schema** (unified, parsed by `gray-matter`):
@@ -79,8 +85,9 @@ src/
 │   ├── Sidebar.tsx          # Persistent left nav sidebar (client component)
 │   ├── mdx/              # MDX component map + individual components
 │   └── ui/               # shadcn/ui primitives (card, button, badge, …)
-└── lib/                  # Utilities (mdx.ts, mdx-options.ts, remark-directive-components.ts, site.ts)
+└── lib/                  # Utilities (mdx.ts, nav.ts, mdx-options.ts, remark-directive-components.ts, site.ts)
 content/                  # Documentation + tutorial content for the project itself
+├── _nav.mdx              # Sidebar nav definition — uses :::nav-section / ::nav-item / ::nav-dir directives
 ├── index.mdx             # Landing page at /
 ├── guides/               # Tutorial-style articles (getting-started, writing-content, customization)
 ├── reference/            # Reference docs (configuration, frontmatter, mdx-directives)
@@ -146,19 +153,27 @@ site.config.ts            # Site-specific values (name, url, description) — ed
    `last-edited` frontmatter or `getLastModified` fallback) is shown only when
    it is strictly later than `publish-date`; for directory paths it is always
    shown. Also exports `generateContentMetadata` for use in `generateMetadata`.
-7. `src/components/Sidebar.tsx` — Client component rendering the persistent left
-   navigation sidebar. Hardcoded nav sections (Getting Started, Guides,
-   Reference, Directives) mirror the `content/` tree. Includes theme toggle,
-   GitHub link, mobile off-canvas drawer (floating `<Menu>` button at top-left
-   on small screens), and a footer note about the planned `::nav` directive.
-   `src/app/layout.tsx` also renders `<TableOfContents />` in a sticky
+7. `src/lib/nav.ts` (`server-only`) — Parses `content/_nav.mdx` to produce
+   `NavSection[]`. `getNavSections()` reads the file, strips frontmatter with
+   `gray-matter`, then line-scans for `:::nav-section{...}` / `:::` container
+   blocks. Inside each block, `::nav-item{href title}` adds a single fixed link
+   and `::nav-dir{dir}` calls `getArticlesInDir` to populate from a content
+   directory. `type=directive` on `:::nav-section` sets `isDirective: true`
+   (triggers `::` prefix rendering). Types: `NavItem = { href, title }`,
+   `NavSection = { label, items, isDirective? }`.
+8. `src/components/Sidebar.tsx` — Client component rendering the persistent left
+   navigation sidebar. Receives `nav: NavSection[]` prop from the server layout
+   (prop-threaded from `getNavSections()`). Includes theme toggle, GitHub link,
+   and mobile off-canvas drawer (floating `<Menu>` button at top-left on small
+   screens). `src/app/layout.tsx` also renders `<TableOfContents />` in a sticky
    right-rail aside (`xl:block`, 200px wide) — no `::table-of-contents`
    directive is needed in content files.
-8. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
+9. `src/app/[[...slug]]/page.tsx` — Single catch-all route. Delegates to
    `ContentRenderer`. Has `dynamicParams = false`; unknown paths 404.
-9. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
-   `MetadataRoute.Sitemap`. Enumerates all routes with `getAllStaticPaths`; sets
-   `lastModified` from `getLastModified` for both file and directory routes.
+10. `src/app/sitemap.ts` — Generates `/sitemap.xml` via Next.js
+    `MetadataRoute.Sitemap`. Enumerates all routes with `getAllStaticPaths`;
+    sets `lastModified` from `getLastModified` for both file and directory
+    routes.
 
 ### MDX Directives
 
@@ -168,6 +183,12 @@ passed to the compiled MDX content component via
 invoked through the `::directive-name{attrs}` syntax (handled by
 `src/lib/remark-directive-components.ts`). The directive name is the kebab-case
 form of the component name.
+
+**`:::nav-section`, `::nav-item`, and `::nav-dir` are special directives**
+parsed only in `content/_nav.mdx` by `src/lib/nav.ts` — they are **not** in
+`mdxComponents` and cannot be used in regular content files. Their format is
+documented in `content/reference/sidebar.mdx` and the `content/_nav.mdx` entry
+of the Directory Layout above.
 
 | Directive             | Component             | Props                                                     | Purpose                                                                                                                                              |
 | --------------------- | --------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -271,9 +292,10 @@ files. Configuration in `package.json` under `"lint-staged"`.
 - `TableOfContents` and `Sidebar` are `'use client'` components.
   `TableOfContents` uses `IntersectionObserver` and is rendered persistently in
   the layout right-rail (`xl:` and above) — no `::table-of-contents` directive
-  needed. `Sidebar` uses `usePathname` for active-route highlighting, `useTheme`
-  for the theme toggle, and `useState` for the mobile off-canvas open/close
-  state.
+  needed. `Sidebar` receives its `nav: NavSection[]` prop from the server layout
+  (sourced from `getNavSections()` in `src/lib/nav.ts`); it uses `usePathname`
+  for active-route highlighting, `useTheme` for the theme toggle, and `useState`
+  for the mobile off-canvas open/close state.
 - **Prefer `type` over `interface`** — use `type` for all TypeScript type
   definitions; avoid `interface`.
 - **Remove unused code** — delete files, imports, components, and dependencies

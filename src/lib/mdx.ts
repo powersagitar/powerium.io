@@ -46,6 +46,8 @@ export type ResolvedContent =
   | { kind: 'not-found' };
 
 export function resolveContent(slugParts: string[]): ResolvedContent {
+  if (slugParts.some((s) => s.startsWith('_'))) return { kind: 'not-found' };
+
   const urlPath = slugParts.length === 0 ? '/' : '/' + slugParts.join('/');
 
   if (slugParts.length === 0) {
@@ -102,6 +104,7 @@ export function getArticlesInDir(
   function collectMdxFiles(dir: string): string[] {
     const results: string[] = [];
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name.startsWith('_')) continue;
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         // A subdirectory with index.mdx is a peer article at this level.
@@ -153,6 +156,7 @@ export function getAllStaticPaths(): string[][] {
     let hasMdxAnywhere = false;
 
     for (const entry of entries) {
+      if (entry.name.startsWith('_')) continue;
       if (entry.isDirectory()) {
         if (walk(path.join(dir, entry.name))) hasMdxAnywhere = true;
       } else if (entry.name.endsWith('.mdx')) {

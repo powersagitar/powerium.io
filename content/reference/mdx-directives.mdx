@@ -62,3 +62,10 @@ component registered in `mdxComponents` is immediately usable as a directive:
 
 The directive name is derived automatically: kebab-case the component name (e.g.
 `MyWidget` → `::my-widget`).
+
+## Special directives
+
+`::nav-section` is not part of `mdxComponents`. It is parsed at build time by
+`src/lib/nav.ts` exclusively from `content/_nav.mdx` to populate the sidebar. It
+cannot be used in regular content files. See the
+[Sidebar reference](/reference/sidebar) for the full attribute reference.

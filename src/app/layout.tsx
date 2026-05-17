@@ -8,6 +8,7 @@ import siteConfig from '~/site.config';
 import { Sidebar } from '@/components/Sidebar';
 import { TableOfContents } from '@/components/mdx/TableOfContents';
 import { ThemeProvider } from '@/components/theme-provider';
+import { getNavSections } from '@/lib/nav';
 
 import './globals.css';
 
@@ -25,6 +26,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const nav = getNavSections();
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-background min-h-screen antialiased">
@@ -34,12 +36,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="mx-auto flex max-w-350 gap-8 px-6">
-            <Sidebar />
-            <main className="max-w-190 min-w-0 flex-1 pt-14 pb-16 lg:py-10">
+          <div className="mx-auto max-w-350 px-6 lg:grid lg:grid-cols-[240px_1fr_240px] lg:gap-x-8">
+            <Sidebar nav={nav} />
+            <main className="max-w-190 min-w-0 pt-14 pb-16 lg:col-start-2 lg:row-start-1 lg:py-10">
               {children}
             </main>
-            <aside className="thin-scroll sticky top-0 hidden h-screen w-50 shrink-0 overflow-y-auto pt-10 xl:block">
+            <aside className="thin-scroll sticky top-0 hidden h-screen w-50 shrink-0 overflow-y-auto pt-16 lg:col-start-3 lg:row-start-1 xl:block">
               <TableOfContents />
             </aside>
           </div>
