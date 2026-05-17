@@ -9,7 +9,6 @@ import { mdxComponents } from '@/components/mdx';
 import { ArticleListItem } from '@/components/mdx/ArticleListItem';
 import { Badge } from '@/components/ui/badge';
 import {
-  type Frontmatter,
   getArticlesInDir,
   getLastModified,
   normalizeFrontmatter,
@@ -135,7 +134,7 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
           <time dateTime={lastEdited}>{lastEdited}</time>
           {' (Last Edited)'}
         </p>
-        <ul className="not-prose divide-border divide-y">
+        <ul className="not-prose mb-5.5 grid list-none grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-3 p-0">
           {articles.map((article) => (
             <ArticleListItem
               key={article.slug}

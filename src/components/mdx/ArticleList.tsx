@@ -13,7 +13,7 @@ export function ArticleList({ dir, recursive = false, limit }: Props) {
   const urlPrefix = `/${dir}`;
 
   return (
-    <ul className="not-prose divide-border mb-6 divide-y">
+    <ul className="not-prose mb-5.5 grid list-none grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-3 p-0">
       {posts.map((article) => (
         <ArticleListItem
           key={article.slug}
