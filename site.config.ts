@@ -5,6 +5,8 @@ const siteConfig: SiteConfig = {
   description:
     'A minimal, file-based static site generator based on Next.js and MDX.',
   url: 'https://mssg.powerium.io',
+  repository: 'https://github.com/powersagitar/mssg',
+  branch: 'main',
 };
 
 export default siteConfig;
