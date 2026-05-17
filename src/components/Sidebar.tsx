@@ -77,19 +77,27 @@ export function Sidebar({ nav }: { nav: NavSection[] }) {
         </div>
       ))}
 
-      {siteConfig.repository && (
+      {(siteConfig.repository || siteConfig.author) && (
         <>
           <div className="border-border mx-2.5 my-3 border-t" />
-          <div className="px-2.5">
-            <a
-              href={`${siteConfig.repository}/blob/${siteConfig.branch ?? 'main'}/content${pathname === '/' ? '/index' : pathname}.mdx`}
-              target="_blank"
-              rel="noreferrer"
-              className="text-muted-foreground hover:text-foreground flex items-center gap-2 py-1.5 text-xs transition-colors"
-            >
-              <span>Edit on GitHub</span>
-              <ExternalLink size={11} />
-            </a>
+          <div className="text-muted-foreground flex flex-col gap-1 px-2.5 text-xs">
+            {siteConfig.repository && (
+              <a
+                href={`${siteConfig.repository}/blob/${siteConfig.branch ?? 'main'}/content${pathname === '/' ? '/index' : pathname}.mdx`}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-foreground flex items-center gap-2 py-1.5 transition-colors"
+              >
+                <span>Edit on GitHub</span>
+                <ExternalLink size={11} />
+              </a>
+            )}
+            {siteConfig.author && (
+              <p className="py-1.5">
+                Copyright &copy; {new Date().getFullYear()} {siteConfig.author}.
+                Share with attribution.
+              </p>
+            )}
           </div>
         </>
       )}
