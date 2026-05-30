@@ -22,6 +22,7 @@ import type { NavSection } from '@/lib/nav';
 export function Sidebar({ nav }: { nav: NavSection[] }) {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [pendingScrollId, setPendingScrollId] = useState<string | null>(null);
   const { lastEdited } = useLastEdited();
 
   function isActive(href: string) {
@@ -141,7 +142,15 @@ export function Sidebar({ nav }: { nav: NavSection[] }) {
             Menu
           </button>
         </DrawerTrigger>
-        <DrawerContent className="h-[75vh]">
+        <DrawerContent
+          className="h-[75vh]"
+          onCloseAutoFocus={() => {
+            if (pendingScrollId) {
+              location.hash = pendingScrollId;
+              setPendingScrollId(null);
+            }
+          }}
+        >
           <DrawerTitle className="sr-only">Site navigation</DrawerTitle>
           <Tabs
             defaultValue="navigation"
@@ -163,14 +172,8 @@ export function Sidebar({ nav }: { nav: NavSection[] }) {
             >
               <TableOfContents
                 onLinkClick={(id) => {
+                  setPendingScrollId(id);
                   setDrawerOpen(false);
-                  document.addEventListener(
-                    'transitionend',
-                    () => {
-                      document.getElementById(id)?.scrollIntoView();
-                    },
-                    { once: true },
-                  );
                 }}
               />
             </TabsContent>
