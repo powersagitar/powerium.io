@@ -276,6 +276,11 @@ To add more:
 bunx shadcn add <component>
 ```
 
+**Prefer shadcn/ui primitives** — when building UI, always reach for an existing
+shadcn/ui component (or add one with `bunx shadcn add`) before writing custom
+markup. Only write bespoke HTML/Tailwind when no shadcn/ui primitive fits the
+use case.
+
 ## Pre-commit Hooks
 
 Husky runs `lint-staged` on every commit, which runs Prettier on all staged
