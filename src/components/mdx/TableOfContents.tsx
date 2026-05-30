@@ -10,7 +10,11 @@ type Heading = {
   level: number;
 };
 
-export function TableOfContents() {
+export function TableOfContents({
+  onLinkClick,
+}: {
+  onLinkClick?: (id: string) => void;
+}) {
   const pathname = usePathname();
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>('');
@@ -62,6 +66,14 @@ export function TableOfContents() {
           <li key={heading.id}>
             <a
               href={`#${heading.id}`}
+              onClick={
+                onLinkClick
+                  ? (e) => {
+                      e.preventDefault();
+                      onLinkClick(heading.id);
+                    }
+                  : undefined
+              }
               style={{ paddingLeft: heading.level === 2 ? 10 : 20 }}
               className={`-ml-px block border-l py-0.5 pr-2 text-[13px] transition-colors ${
                 activeId === heading.id

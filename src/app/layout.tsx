@@ -29,7 +29,11 @@ export default function RootLayout({
 }) {
   const nav = getNavSections();
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className="motion-safe:scroll-smooth"
+    >
       <body className="bg-background min-h-screen antialiased">
         <ThemeProvider
           attribute="class"

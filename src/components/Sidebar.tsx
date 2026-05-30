@@ -161,7 +161,18 @@ export function Sidebar({ nav }: { nav: NavSection[] }) {
               value="contents"
               className="thin-scroll mt-0 flex-1 overflow-y-auto px-4 pt-2 pb-6"
             >
-              <TableOfContents />
+              <TableOfContents
+                onLinkClick={(id) => {
+                  setDrawerOpen(false);
+                  document.addEventListener(
+                    'transitionend',
+                    () => {
+                      document.getElementById(id)?.scrollIntoView();
+                    },
+                    { once: true },
+                  );
+                }}
+              />
             </TabsContent>
           </Tabs>
         </DrawerContent>
