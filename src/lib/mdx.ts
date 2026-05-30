@@ -160,8 +160,12 @@ export function getAllStaticPaths(): string[][] {
       if (entry.isDirectory()) {
         if (walk(path.join(dir, entry.name))) hasMdxAnywhere = true;
       } else if (entry.name.endsWith('.mdx')) {
+        const fullPath = path.join(dir, entry.name);
+        const { data } = matter(fs.readFileSync(fullPath, 'utf-8'));
+        if (normalizeFrontmatter(data).draft) continue;
+
         hasMdxAnywhere = true;
-        const relative = path.relative(CONTENT_DIR, path.join(dir, entry.name));
+        const relative = path.relative(CONTENT_DIR, fullPath);
         const withoutExt = relative.replace(/\.mdx$/, '');
         const segments = withoutExt.split(path.sep);
         if (segments.length === 1 && segments[0] === 'index') {
