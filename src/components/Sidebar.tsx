@@ -8,11 +8,13 @@ import { usePathname } from 'next/navigation';
 import { ExternalLink, Menu } from 'lucide-react';
 import siteConfig from '~/site.config';
 
+import { useLastEdited } from '@/components/LastEditedContext';
 import type { NavSection } from '@/lib/nav';
 
 export function Sidebar({ nav }: { nav: NavSection[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { lastEdited } = useLastEdited();
 
   function isActive(href: string) {
     if (href === '/') return pathname === '/';
@@ -77,10 +79,15 @@ export function Sidebar({ nav }: { nav: NavSection[] }) {
         </div>
       ))}
 
-      {(siteConfig.repository || siteConfig.author) && (
+      {(siteConfig.repository || siteConfig.author || lastEdited) && (
         <>
           <div className="border-border mx-2.5 my-3 border-t" />
           <div className="text-muted-foreground flex flex-col gap-1 px-2.5 text-xs">
+            {lastEdited && (
+              <p className="py-1.5">
+                Last edited <time dateTime={lastEdited}>{lastEdited}</time>
+              </p>
+            )}
             {siteConfig.repository && (
               <a
                 href={`${siteConfig.repository}/blob/${siteConfig.branch ?? 'main'}/content${pathname === '/' ? '/index' : pathname}.mdx`}

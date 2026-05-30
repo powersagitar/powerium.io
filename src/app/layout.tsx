@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import siteConfig from '~/site.config';
 
+import { LastEditedProvider } from '@/components/LastEditedContext';
 import { Sidebar } from '@/components/Sidebar';
 import { TableOfContents } from '@/components/mdx/TableOfContents';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -36,15 +37,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="mx-auto max-w-350 px-6 lg:grid lg:grid-cols-[240px_1fr_240px] lg:gap-x-8">
-            <Sidebar nav={nav} />
-            <main className="pt-14 pb-16 lg:col-start-2 lg:row-start-1 lg:py-10">
-              {children}
-            </main>
-            <aside className="thin-scroll sticky top-0 hidden h-screen w-50 shrink-0 overflow-y-auto pt-16 lg:col-start-3 lg:row-start-1 xl:block">
-              <TableOfContents />
-            </aside>
-          </div>
+          <LastEditedProvider>
+            <div className="mx-auto max-w-350 px-6 lg:grid lg:grid-cols-[240px_1fr_240px] lg:gap-x-8">
+              <Sidebar nav={nav} />
+              <main className="pt-14 pb-16 lg:col-start-2 lg:row-start-1 lg:py-10">
+                {children}
+              </main>
+              <aside className="thin-scroll sticky top-0 hidden h-screen w-50 shrink-0 overflow-y-auto pt-16 lg:col-start-3 lg:row-start-1 xl:block">
+                <TableOfContents />
+              </aside>
+            </div>
+          </LastEditedProvider>
         </ThemeProvider>
 
         <Analytics />

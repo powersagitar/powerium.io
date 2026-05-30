@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { compile, run } from '@mdx-js/mdx';
 import matter from 'gray-matter';
 
+import { LastEditedSetter } from '@/components/LastEditedContext';
 import { mdxComponents } from '@/components/mdx';
 import { ArticleListItem } from '@/components/mdx/ArticleListItem';
 import { Badge } from '@/components/ui/badge';
@@ -59,8 +60,12 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
     const lastEdited =
       frontmatter['last-edited'] ?? getLastModified(resolved.filePath);
 
+    const sidebarLastEdited =
+      !publishDate || lastEdited > publishDate ? lastEdited : null;
+
     return (
       <article className="prose">
+        <LastEditedSetter date={sidebarLastEdited} />
         <header className="mb-7">
           <h1 id="title" className="mb-3">
             <a href="#title" className="anchor">
@@ -89,17 +94,6 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
                 <time dateTime={publishDate}>{publishDate}</time>
               </>
             )}
-            {(!publishDate || lastEdited > publishDate) && (
-              <>
-                {(publishDate || frontmatter.author) && (
-                  <span aria-hidden="true">·</span>
-                )}
-                <span>
-                  <time dateTime={lastEdited}>{lastEdited}</time>
-                  {' (Last Edited)'}
-                </span>
-              </>
-            )}
             {frontmatter.tags && frontmatter.tags.length > 0 && (
               <div className="ml-1 flex flex-wrap gap-1.5">
                 {frontmatter.tags.map((tag) => (
@@ -125,15 +119,12 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
 
     return (
       <div className="prose">
-        <h1 id="title" className="mb-2">
+        <LastEditedSetter date={lastEdited} />
+        <h1 id="title" className="mb-8">
           <a href="#title" className="anchor">
             {title}
           </a>
         </h1>
-        <p className="text-muted-foreground mb-8 text-sm">
-          <time dateTime={lastEdited}>{lastEdited}</time>
-          {' (Last Edited)'}
-        </p>
         <ul className="not-prose mb-5.5 grid list-none grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-3 p-0">
           {articles.map((article) => (
             <ArticleListItem
