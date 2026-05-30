@@ -13,14 +13,14 @@ export function ResolveTrace() {
   ];
 
   return (
-    <div className="mb-6.5 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950">
-      <div className="flex items-center gap-2 border-b border-zinc-800 px-4 py-2.5">
-        <span className="font-mono text-[11px] font-medium tracking-wide text-zinc-500 uppercase">
+    <div className="bg-card mb-6.5 overflow-hidden rounded-lg border">
+      <div className="bg-muted flex items-center gap-2 border-b px-4 py-2.5">
+        <span className="text-muted-foreground font-mono text-[11px] font-medium tracking-wide uppercase">
           console
         </span>
-        <span className="font-sans text-zinc-700">·</span>
-        <span className="font-mono text-[11.5px] text-zinc-400">
-          resolving <span className="text-zinc-200">{pathname}</span>
+        <span className="text-muted-foreground/50 font-sans">·</span>
+        <span className="text-muted-foreground font-mono text-[11.5px]">
+          resolving <span className="text-foreground">{pathname}</span>
         </span>
       </div>
       <div className="p-4 font-mono text-[12.5px] leading-[1.9]">
@@ -29,10 +29,10 @@ export function ResolveTrace() {
             key={i}
             className="thin-scroll flex items-baseline gap-2.5 overflow-x-auto whitespace-nowrap"
           >
-            <span className="shrink-0 font-sans text-zinc-600 select-none">
+            <span className="text-muted-foreground shrink-0 font-sans select-none">
               →
             </span>
-            <span className="text-zinc-300">{s.probe}</span>
+            <span className="text-foreground">{s.probe}</span>
             <span className="flex-1" />
             <span className="text-destructive flex shrink-0 items-center gap-1.5">
               <svg
@@ -51,10 +51,10 @@ export function ResolveTrace() {
             </span>
           </div>
         ))}
-        <div className="mt-2 flex items-center gap-2.5 border-t border-zinc-800 pt-2.5">
-          <span className="font-sans text-zinc-600 select-none">↳</span>
-          <span className="font-semibold text-zinc-200">no .mdx source</span>
-          <span className="font-sans text-zinc-600">·</span>
+        <div className="mt-2 flex items-center gap-2.5 border-t pt-2.5">
+          <span className="text-muted-foreground font-sans select-none">↳</span>
+          <span className="text-foreground font-semibold">no .mdx source</span>
+          <span className="text-muted-foreground font-sans">·</span>
           <span className="text-destructive">HTTP 404</span>
         </div>
       </div>
