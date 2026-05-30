@@ -40,7 +40,7 @@ export default function RootLayout({
           <LastEditedProvider>
             <div className="mx-auto max-w-350 px-6 lg:grid lg:grid-cols-[240px_1fr_240px] lg:gap-x-8">
               <Sidebar nav={nav} />
-              <main className="pt-14 pb-16 lg:col-start-2 lg:row-start-1 lg:py-10">
+              <main className="pt-6 pb-20 lg:col-start-2 lg:row-start-1 lg:py-10">
                 {children}
               </main>
               <aside className="thin-scroll sticky top-0 hidden h-screen w-50 shrink-0 overflow-y-auto pt-16 lg:col-start-3 lg:row-start-1 xl:block">

@@ -38,6 +38,15 @@ export function TableOfContents() {
     );
 
     elements.forEach((el) => observer.observe(el));
+
+    // Seed activeId from current scroll position so the drawer TOC is
+    // immediately correct when it mounts mid-page.
+    const above = elements.filter(
+      (el) => el.getBoundingClientRect().top < window.innerHeight * 0.3,
+    );
+    const initial = above[above.length - 1];
+    if (initial?.id) setActiveId(initial.id);
+
     return () => observer.disconnect();
   }, [pathname]);
 

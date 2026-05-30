@@ -242,6 +242,16 @@ Tailwind CSS v4 with CSS custom property tokens (no `tailwind.config.*`). Theme
 tokens are defined in `src/app/globals.css`. Dark mode via the `.dark` class
 (managed by `next-themes`).
 
+**Glassmorphism rule** — floating or overlapping UI elements that appear above
+content should use a glassmorphism style: semi-transparent background
+(`bg-background/70`), `backdrop-blur-md`, and a softened border
+(`border-border/60`). Elements where the UI surface itself is the dominant
+content (drawers, modals, cards, sidebars) should use a fully opaque background
+(`bg-background`) and must not use `backdrop-blur`. Examples:
+
+- ✅ Glassmorphism: the mobile "Menu" trigger button (floats over page content)
+- ❌ No glassmorphism: the Drawer sheet, Sidebar, cards
+
 Fonts are platform-native: `--font-sans` resolves to SF Pro on macOS/iOS, Segoe
 UI on Windows, Roboto on Android. `--font-mono` resolves to SF Mono on macOS,
 Cascadia Code on Windows, etc. Both are defined as CSS variables in `@theme` and
