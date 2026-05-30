@@ -252,10 +252,13 @@ content (drawers, modals, cards, sidebars) should use a fully opaque background
 - ✅ Glassmorphism: the mobile "Menu" trigger button (floats over page content)
 - ❌ No glassmorphism: the Drawer sheet, Sidebar, cards
 
-Fonts are platform-native: `--font-sans` resolves to SF Pro on macOS/iOS, Segoe
-UI on Windows, Roboto on Android. `--font-mono` resolves to SF Mono on macOS,
-Cascadia Code on Windows, etc. Both are defined as CSS variables in `@theme` and
-used via `var(--font-sans)` / `var(--font-mono)` — no web font downloads.
+Fonts are platform-native system font stacks — no web font downloads.
+`--font-sans` starts with `-apple-system, BlinkMacSystemFont` (macOS/iOS), then
+falls back to `'Segoe UI'`, `Roboto`, `'Helvetica Neue'`, `Arial`. `--font-mono`
+starts with `ui-monospace, SFMono-Regular, 'SF Mono'`, then `Menlo`, `Monaco`,
+`Consolas`, `'Liberation Mono'`, `'Courier New'`. Both are defined as CSS
+variables in `@theme inline` and used via `var(--font-sans)` /
+`var(--font-mono)`.
 
 Prose/MDX content is styled via the `.prose` utility class defined in
 `globals.css` (custom, not `@tailwindcss/typography`).

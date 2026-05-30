@@ -16,23 +16,35 @@ properties in `src/app/globals.css` under `@theme`. Edit that file to change
 colors, spacing, or any other design token.
 
 Dark mode is handled by the `.dark` class via `next-themes`. Colors are defined
-as light/dark pairs using CSS `light-dark()`:
+as raw values in `:root` (light) and `.dark`, then aliased into Tailwind's token
+layer via `@theme inline`:
 
 ```css
-@theme {
-  --color-background: light-dark(#ffffff, #0a0a0a);
-  --color-foreground: light-dark(#171717, #ededed);
+@theme inline {
+  --color-background: var(--background);
+}
+
+:root {
+  --background: oklch(1 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
 }
 ```
 
 ## Fonts
 
 Fonts are platform-native — no web font downloads. They are set as CSS variables
-in `globals.css`:
+in `globals.css` under `@theme inline`:
 
 ```css
---font-sans: 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
---font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+--font-sans:
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+  Arial, sans-serif;
+--font-mono:
+  ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas,
+  'Liberation Mono', 'Courier New', monospace;
 ```
 
 Change these variables to use any font stack you prefer. To load a web font, add
