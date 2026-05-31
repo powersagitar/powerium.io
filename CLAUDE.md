@@ -78,6 +78,7 @@ maps to `src/`.
 src/
 ├── app/                  # Next.js App Router
 │   ├── [[...slug]]/      # Single catch-all route for all content paths
+│   ├── rss.xml/          # RSS 2.0 feed route
 │   ├── layout.tsx
 │   └── globals.css
 ├── components/
@@ -85,7 +86,7 @@ src/
 │   ├── Sidebar.tsx          # Persistent left nav sidebar (client component)
 │   ├── mdx/              # MDX component map + individual components
 │   └── ui/               # shadcn/ui primitives (card, button, badge, …)
-└── lib/                  # Utilities (mdx.ts, nav.ts, mdx-options.ts, remark-directive-components.ts, site.ts)
+└── lib/                  # Utilities (mdx.ts, nav.ts, mdx-options.ts, remark-directive-components.ts, rss-render.ts, site.ts)
 content/                  # Documentation + tutorial content for the project itself
 ├── _nav.mdx              # Sidebar nav definition — uses :::nav-section / ::nav-item / ::nav-dir directives
 ├── index.mdx             # Landing page at /
@@ -174,6 +175,18 @@ site.config.ts            # Site-specific values (name, url, description) — ed
     `MetadataRoute.Sitemap`. Enumerates all routes with `getAllStaticPaths`;
     sets `lastModified` from `getLastModified` for both file and directory
     routes.
+11. `src/app/rss.xml/route.tsx` — Statically prerendered RSS 2.0 Route Handler
+    (`force-static`). Reads `siteConfig.rss.include` to collect content:
+    `'none'` → empty feed, `'all'` → all non-draft articles via
+    `getAllStaticPaths`, `string[]` → specific files/directories via
+    `resolveContent`/`getArticlesInDir`. Compiles each MDX file with the
+    `mdx-options.ts` pipeline, renders to HTML with `renderToStaticMarkup` (via
+    `src/lib/rss-render.ts` shim — required because Next.js/Turbopack blocks
+    direct `react-dom/server` imports from `app/` files), assembles the feed
+    with the `feed` package, and returns `application/rss+xml`. Uses inline stub
+    components (`rssComponents`) for custom MDX directives — **when new
+    components are added to `src/components/mdx/index.tsx`, a corresponding stub
+    must be added to `rssComponents` in this file**.
 
 ### MDX Directives
 
@@ -321,6 +334,10 @@ files. Configuration in `package.json` under `"lint-staged"`.
 - **Keep CLAUDE.md current** — update it whenever components are added, renamed,
   or removed; plugins change; or architectural decisions are made. It should
   always reflect the actual state of the codebase.
+- **Keep `rssComponents` stubs current** — `src/app/rss.xml/route.tsx` defines
+  stub implementations of every custom MDX component for RSS rendering. When a
+  component is added to or removed from `src/components/mdx/index.tsx`, update
+  `rssComponents` in the RSS route handler to match.
 - **Keep docs and examples current** — whenever a directive/component is added,
   renamed, removed, or its props change: (1) add or update its page in
   `content/directives/` (synopsis, reference table with "Attribute" columns, and
