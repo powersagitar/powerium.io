@@ -124,16 +124,19 @@ export async function GET() {
   const include = siteConfig.rss?.include ?? 'none';
   const entries = collectFileEntries(include);
 
-  const items = await Promise.all(
-    entries.map(async ({ filePath, urlPath }) => {
-      const rawSource = readMdxSource(filePath);
-      const { data } = matter(rawSource);
-      const fm = normalizeFrontmatter(data);
-      const date = resolveItemDate(fm, filePath);
-      const html = await renderToHtml(rawSource);
-      return { urlPath, fm, date, html };
-    }),
-  );
+  const items = (
+    await Promise.all(
+      entries.map(async ({ filePath, urlPath }) => {
+        const rawSource = readMdxSource(filePath);
+        const { data } = matter(rawSource);
+        const fm = normalizeFrontmatter(data);
+        if (fm.draft) return null;
+        const date = resolveItemDate(fm, filePath);
+        const html = await renderToHtml(rawSource);
+        return { urlPath, fm, date, html };
+      }),
+    )
+  ).filter((item) => item !== null);
 
   items.sort((a, b) => b.date.getTime() - a.date.getTime());
 
