@@ -1,13 +1,12 @@
 import type { SiteConfig } from '@/lib/config';
 
 const siteConfig: SiteConfig = {
-  name: 'mSSG',
-  description:
-    'A minimal, file-based static site generator based on Next.js and MDX.',
-  url: 'https://mssg.powerium.io',
+  name: 'powerium.io',
+  description: "powersagitar's portfolio",
+  url: 'https://www.powerium.io',
   author: 'powersagitar',
   repository: 'https://github.com/powersagitar/mssg',
-  branch: 'main',
+  branch: 'powerium.io',
 
   // RSS feed configuration.
   //
@@ -17,7 +16,7 @@ const siteConfig: SiteConfig = {
   //               .mdx extension. Supports both files and directories:
   //               'guides'                  → all articles under guides/
   //               'guides/getting-started'  → that specific page only
-  rss: 'none',
+  rss: ['blog'],
 };
 
 export default siteConfig;
