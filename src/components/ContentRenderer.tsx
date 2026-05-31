@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { compile, run } from '@mdx-js/mdx';
 import matter from 'gray-matter';
+import siteConfig from '~/site.config';
 
 import { LastEditedSetter } from '@/components/LastEditedContext';
 import { mdxComponents } from '@/components/mdx';
@@ -18,19 +19,32 @@ import {
 } from '@/lib/mdx';
 import { mdxOptions } from '@/lib/mdx-options';
 
+function buildCanonicalUrl(slugParts: string[]) {
+  const base = siteConfig.url.replace(/\/$/, '');
+  return slugParts.length > 0 ? `${base}/${slugParts.join('/')}` : base;
+}
+
 export async function generateContentMetadata(slugParts: string[]) {
   const resolved = resolveContent(slugParts);
+  const canonical = buildCanonicalUrl(slugParts);
 
   if (resolved.kind === 'file') {
     const { data } = matter(readMdxSource(resolved.filePath));
     const fm = normalizeFrontmatter(data);
     if (fm.draft) return {};
-    return { title: fm.title, description: fm.description };
+    return {
+      title: fm.title,
+      description: fm.description,
+      alternates: { canonical },
+    };
   }
 
   if (resolved.kind === 'directory') {
     const name = slugParts.at(-1) ?? '';
-    return { title: name.charAt(0).toUpperCase() + name.slice(1) };
+    return {
+      title: name.charAt(0).toUpperCase() + name.slice(1),
+      alternates: { canonical },
+    };
   }
 
   return {};
