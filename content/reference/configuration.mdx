@@ -9,7 +9,7 @@ description: Reference for site.config.ts and the SiteConfig schema.
 project. It exports a default object typed against `SiteConfig`.
 
 ```ts
-import type { SiteConfig } from '@/lib/site';
+import type { SiteConfig } from '@/lib/config';
 
 const siteConfig: SiteConfig = {
   name: 'My Site',
@@ -25,17 +25,17 @@ export default siteConfig;
 
 ## SiteConfig schema
 
-Defined in `src/lib/site.ts`:
+Defined in `src/lib/config.ts`:
 
-| Field         | Type                                       | Required | Description                                                                                                                                                                                                                                                  |
-| ------------- | ------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `name`        | `string`                                   | Yes      | Site name. Used as the default `<title>`, in the title template, and in the sidebar logo.                                                                                                                                                                    |
-| `description` | `string`                                   | Yes      | Default meta description for the root page.                                                                                                                                                                                                                  |
-| `url`         | `string`                                   | Yes      | Canonical base URL. Used in `metadataBase` and `sitemap.xml`. Must not have a trailing slash.                                                                                                                                                                |
-| `author`      | `string`                                   | No       | Site author. Shown in the sidebar copyright notice.                                                                                                                                                                                                          |
-| `repository`  | `string`                                   | No       | Full URL of the source repository. Enables the "Edit on GitHub" link in the sidebar.                                                                                                                                                                         |
-| `branch`      | `string`                                   | No       | Branch to link to in "Edit on GitHub". Defaults to `main` when `repository` is set.                                                                                                                                                                          |
-| `rss`         | `{ include: 'none' \| 'all' \| string[] }` | No       | RSS feed content. `'none'` = empty feed (default), `'all'` = all published articles, `string[]` = specific content paths (files or directories relative to `content/`, no `.mdx` extension). The feed is served at `/rss.xml` and is statically prerendered. |
+| Field         | Type                          | Required | Description                                                                                                                                                                                                                                                  |
+| ------------- | ----------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `name`        | `string`                      | Yes      | Site name. Used as the default `<title>`, in the title template, and in the sidebar logo.                                                                                                                                                                    |
+| `description` | `string`                      | Yes      | Default meta description for the root page.                                                                                                                                                                                                                  |
+| `url`         | `string`                      | Yes      | Canonical base URL. Used in `metadataBase` and `sitemap.xml`. Must not have a trailing slash.                                                                                                                                                                |
+| `author`      | `string`                      | No       | Site author. Shown in the sidebar copyright notice.                                                                                                                                                                                                          |
+| `repository`  | `string`                      | No       | Full URL of the source repository. Enables the "Edit on GitHub" link in the sidebar.                                                                                                                                                                         |
+| `branch`      | `string`                      | No       | Branch to link to in "Edit on GitHub". Defaults to `main` when `repository` is set.                                                                                                                                                                          |
+| `rss`         | `'none' \| 'all' \| string[]` | No       | RSS feed content. `'none'` = empty feed (default), `'all'` = all published articles, `string[]` = specific content paths (files or directories relative to `content/`, no `.mdx` extension). The feed is served at `/rss.xml` and is statically prerendered. |
 
 ## Where values are consumed
 

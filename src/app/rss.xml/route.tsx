@@ -121,7 +121,7 @@ export async function GET() {
     author: siteConfig.author ? { name: siteConfig.author } : undefined,
   });
 
-  const include = siteConfig.rss?.include ?? 'none';
+  const include = siteConfig.rss ?? 'none';
   const entries = collectFileEntries(include);
 
   const items = (

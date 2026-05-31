@@ -86,7 +86,7 @@ src/
 │   ├── Sidebar.tsx          # Persistent left nav sidebar (client component)
 │   ├── mdx/              # MDX component map + individual components
 │   └── ui/               # shadcn/ui primitives (card, button, badge, …)
-└── lib/                  # Utilities (mdx.ts, nav.ts, mdx-options.ts, remark-directive-components.ts, rss-render.ts, site.ts)
+└── lib/                  # Utilities (mdx.ts, nav.ts, mdx-options.ts, remark-directive-components.ts, rss-render.ts, config.ts)
 content/                  # Documentation + tutorial content for the project itself
 ├── _nav.mdx              # Sidebar nav definition — uses :::nav-section / ::nav-item / ::nav-dir directives
 ├── index.mdx             # Landing page at /
@@ -100,8 +100,8 @@ site.config.ts            # Site-specific values (name, url, description) — ed
 
 1. `site.config.ts` (project root) — Site-specific values (`name`,
    `description`, `url`). Edit this file when forking. Imports `SiteConfig` from
-   `src/lib/site.ts`. Imported via the `~/` alias (maps to project root).
-2. `src/lib/site.ts` — Defines the `SiteConfig` interface only; no values.
+   `src/lib/config.ts`. Imported via the `~/` alias (maps to project root).
+2. `src/lib/config.ts` — Defines the `SiteConfig` type only; no values.
 3. `src/lib/mdx.ts` — All file system reads. Key functions:
    - `resolveContent(slugParts)` — resolves a path to `file`, `directory`, or
      `not-found`. Checks `<path>.mdx` first, then `<path>/index.mdx`, then
@@ -176,9 +176,9 @@ site.config.ts            # Site-specific values (name, url, description) — ed
     sets `lastModified` from `getLastModified` for both file and directory
     routes.
 11. `src/app/rss.xml/route.tsx` — Statically prerendered RSS 2.0 Route Handler
-    (`force-static`). Reads `siteConfig.rss.include` to collect content:
-    `'none'` → empty feed, `'all'` → all non-draft articles via
-    `getAllStaticPaths`, `string[]` → specific files/directories via
+    (`force-static`). Reads `siteConfig.rss` to collect content: `'none'` →
+    empty feed, `'all'` → all non-draft articles via `getAllStaticPaths`,
+    `string[]` → specific files/directories via
     `resolveContent`/`getArticlesInDir`. Compiles each MDX file with the
     `mdx-options.ts` pipeline, renders to HTML with `renderToStaticMarkup` (via
     `src/lib/rss-render.ts` shim — required because Next.js/Turbopack blocks

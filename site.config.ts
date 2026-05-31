@@ -1,4 +1,4 @@
-import type { SiteConfig } from '@/lib/site';
+import type { SiteConfig } from '@/lib/config';
 
 const siteConfig: SiteConfig = {
   name: 'mSSG',
@@ -11,13 +11,13 @@ const siteConfig: SiteConfig = {
 
   // RSS feed configuration.
   //
-  // include: 'none'        — feed exists at /rss.xml but contains no items (default)
-  // include: 'all'         — all non-draft published content
-  // include: string[]      — explicit list of paths relative to content/, without
-  //                          .mdx extension. Supports both files and directories:
-  //                          'guides'                  → all articles under guides/
-  //                          'guides/getting-started'  → that specific page only
-  rss: { include: 'none' },
+  // 'none'      — feed exists at /rss.xml but contains no items (default)
+  // 'all'       — all non-draft published content
+  // string[]    — explicit list of paths relative to content/, without
+  //               .mdx extension. Supports both files and directories:
+  //               'guides'                  → all articles under guides/
+  //               'guides/getting-started'  → that specific page only
+  rss: 'none',
 };
 
 export default siteConfig;
