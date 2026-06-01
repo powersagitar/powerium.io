@@ -70,6 +70,22 @@ themes: {
 
 Replace these with any [Shiki-bundled theme](https://shiki.style/themes).
 
+## robots.txt
+
+A `robots.txt` is included at `public/robots.txt`. It currently allows all
+crawlers and points to the sitemap:
+
+```txt
+User-Agent: *
+Allow: /
+
+Sitemap: https://mssg.powerium.io/sitemap.xml
+```
+
+Update the `Sitemap` URL to match your own domain after forking. You can also
+restrict crawlers, block specific paths, or remove the file entirely — Next.js
+serves everything in `public/` as static assets at the root.
+
 ## Adding shadcn/ui components
 
 The project is pre-configured for shadcn/ui (style: `new-york`, Tailwind v4).
