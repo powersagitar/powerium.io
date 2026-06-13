@@ -33,6 +33,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className="motion-safe:scroll-smooth"
+      data-scroll-behavior="smooth"
     >
       <body className="bg-background min-h-screen antialiased">
         <ThemeProvider
