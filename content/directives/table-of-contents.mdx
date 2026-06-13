@@ -5,8 +5,9 @@ description:
 ---
 
 `<TableOfContents />` reads all `h2` and `h3` headings from the current article
-and renders a linked navigation list. The active heading is highlighted as you
-scroll using `IntersectionObserver`. Returns nothing if the page has no
+and renders a linked navigation list. As you scroll, a vertical indicator bar
+spans every heading whose section is currently visible, while the topmost of
+those headings is highlighted in bold. Returns nothing if the page has no
 qualifying headings.
 
 The component is rendered automatically in the right-rail of the layout shell on
