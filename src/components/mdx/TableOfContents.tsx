@@ -27,6 +27,9 @@ export function TableOfContents({
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   useEffect(() => {
+    // Reset highlight state when navigating to a new page, before
+    // recomputing it for the new article's headings below.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setActiveId('');
     setBarRect(null);
     const headingEls = Array.from(

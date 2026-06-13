@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type Props = {
   value?: number;
@@ -22,17 +22,12 @@ function calcTimeProgress(start: string, end: string): number {
 }
 
 export function ProgressBar({ value, start, end, label }: Props) {
-  const isTimeBased = start !== undefined && end !== undefined;
-
-  const [progress, setProgress] = useState<number>(() =>
-    value !== undefined ? clamp(value, 0, 100) : 0,
-  );
-
-  useEffect(() => {
-    if (isTimeBased) {
-      setProgress(calcTimeProgress(start, end));
+  const [progress] = useState<number>(() => {
+    if (start !== undefined && end !== undefined) {
+      return calcTimeProgress(start, end);
     }
-  }, [isTimeBased, start, end]);
+    return value !== undefined ? clamp(value, 0, 100) : 0;
+  });
 
   const pct = Math.round(progress);
 
