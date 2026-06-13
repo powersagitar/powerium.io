@@ -22,6 +22,9 @@ bun run prettier     # Format in-place
 bun run prettier:check  # Check formatting (CI)
 ```
 
+**Run `bun run lint` after every code change** and fix any errors/warnings it
+reports before considering the change complete.
+
 ## Architecture
 
 ### Static Site Generation
