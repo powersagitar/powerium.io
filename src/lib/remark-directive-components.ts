@@ -82,7 +82,6 @@ export const remarkDirectiveComponents: Plugin<[], Root> = () => (tree) => {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const directive = node as any;
 
     // remark-directive v4 creates directive nodes for colon-prefixed tokens

@@ -5,7 +5,6 @@ import 'server-only';
 // "You're importing a component that imports react-dom/server" build error,
 // which fires on any file inside app/ that directly or transitively imports it.
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { renderToStaticMarkup } =
   require('react-dom/server') as typeof import('react-dom/server');
 

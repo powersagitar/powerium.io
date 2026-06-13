@@ -39,7 +39,7 @@ export function Sidebar({ nav }: { nav: NavSection[] }) {
             className="flex items-center gap-2"
             onClick={onLinkClick}
           >
-            <span className="bg-foreground text-background inline-flex h-6 w-6 items-center justify-center rounded-[6px] font-mono text-[11px] font-bold tracking-[-0.04em]">
+            <span className="bg-foreground text-background inline-flex h-6 w-6 items-center justify-center rounded-md font-mono text-[11px] font-bold tracking-[-0.04em]">
               {siteConfig.name[0]}
             </span>
             <span className="text-sm font-semibold tracking-[-0.015em]">
@@ -50,7 +50,7 @@ export function Sidebar({ nav }: { nav: NavSection[] }) {
 
         {nav.map((section) => (
           <div key={section.label} className="mb-5">
-            <div className="text-muted-foreground mb-1.5 px-2.5 text-[11px] font-semibold tracking-[0.05em] uppercase">
+            <div className="text-muted-foreground mb-1.5 px-2.5 text-[11px] font-semibold tracking-wider uppercase">
               {section.label}
             </div>
             <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
