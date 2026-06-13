@@ -64,14 +64,14 @@ export function ArticleListItem({ article, urlPrefix }: Props) {
           {date ? (
             <time
               dateTime={article['publish-date']!}
-              className="text-muted-foreground font-mono text-[12px]"
+              className="text-muted-foreground font-mono text-xs"
             >
               {date}
             </time>
           ) : (
             <span />
           )}
-          <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1 text-[12px] font-medium transition-colors duration-150">
+          <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1 text-xs font-medium transition-colors duration-150">
             Read
             <span className="inline-flex transition-transform duration-150 group-hover:translate-x-0.5">
               <ArrowRight size={12} />

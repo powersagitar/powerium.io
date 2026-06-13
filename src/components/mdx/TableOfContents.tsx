@@ -112,7 +112,7 @@ export function TableOfContents({
 
   return (
     <nav className="not-prose">
-      <p className="text-muted-foreground mb-2.5 text-[11px] font-semibold tracking-[0.05em] uppercase">
+      <p className="text-muted-foreground mb-2.5 text-[11px] font-semibold tracking-wider uppercase">
         On this page
       </p>
       <ul className="border-border relative flex flex-col gap-0.5 border-l">

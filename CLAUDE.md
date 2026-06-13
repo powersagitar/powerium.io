@@ -25,6 +25,13 @@ bun run prettier:check  # Check formatting (CI)
 **Run `bun run lint` after every code change** and fix any errors/warnings it
 reports before considering the change complete.
 
+**Periodically (not every change, but every so often)**, sweep `src/` and
+`content/` for Tailwind arbitrary-value classes (`*-[...]`) that exactly match a
+named token in `node_modules/tailwindcss/theme.css` (e.g. `text-[12px]` →
+`text-xs`, `rounded-[6px]` → `rounded-md`) and replace them with the canonical
+utility class. Only replace when the arbitrary value is an exact match to a
+theme token — leave values with no canonical equivalent as-is.
+
 ## Architecture
 
 ### Static Site Generation
