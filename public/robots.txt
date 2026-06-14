@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://mssg.powerium.io/sitemap.xml
+Sitemap: https://mssg.mohandong.com/sitemap.xml
