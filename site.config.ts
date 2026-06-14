@@ -1,12 +1,12 @@
 import type { SiteConfig } from '@/lib/config';
 
 const siteConfig: SiteConfig = {
-  name: 'powerium.io',
-  description: "powersagitar's portfolio",
-  url: 'https://www.powerium.io',
-  author: 'powersagitar',
+  name: 'Mohan Dong',
+  description: "Mohan's portfolio",
+  url: 'https://www.mohandong.com',
+  author: 'Mohan Dong',
   repository: 'https://github.com/powersagitar/mssg',
-  branch: 'powerium.io',
+  branch: 'portfolio',
 
   // RSS feed configuration.
   //
