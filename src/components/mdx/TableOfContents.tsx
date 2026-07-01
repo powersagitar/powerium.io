@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
 
 import { usePathname } from 'next/navigation';
 
@@ -115,13 +115,21 @@ export function TableOfContents({
       <p className="text-muted-foreground mb-2.5 text-[11px] font-semibold tracking-wider uppercase">
         On this page
       </p>
-      <ul className="border-border relative flex flex-col gap-0.5 border-l">
-        {barRect && (
-          <div
-            className="bg-foreground absolute left-0 -ml-px w-px transition-[top,height] duration-200"
-            style={{ top: barRect.top, height: barRect.height }}
-          />
-        )}
+      <ul
+        className={`border-border relative flex flex-col gap-0.5 border-l ${
+          barRect
+            ? "before:bg-foreground before:absolute before:top-(--toc-bar-top) before:left-0 before:-ml-px before:h-(--toc-bar-height) before:w-px before:transition-[top,height] before:duration-200 before:content-['']"
+            : ''
+        }`}
+        style={
+          barRect
+            ? ({
+                '--toc-bar-top': `${barRect.top}px`,
+                '--toc-bar-height': `${barRect.height}px`,
+              } as CSSProperties)
+            : undefined
+        }
+      >
         {headings.map((heading, index) => (
           <li
             key={heading.id}
