@@ -40,7 +40,7 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.0",
+    "@tailwindcss/postcss": "^4.3.2",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "^25",
     "@types/react": "^19",
