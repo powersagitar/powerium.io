@@ -16,7 +16,6 @@ export type Frontmatter = {
   description: string;
   'publish-date'?: string;
   'last-edited'?: string;
-  draft?: boolean;
   author?: string;
   tags?: string[];
 };
@@ -137,7 +136,6 @@ export function getArticlesInDir(
       const fm = normalizeFrontmatter(data);
       return { slug, urlPath: `${urlDirPrefix}/${slug}`, ...fm };
     })
-    .filter((a) => !a.draft)
     .sort((a, b) => {
       const aDate = a['publish-date'];
       const bDate = b['publish-date'];
@@ -166,11 +164,8 @@ export function getAllStaticPaths(): string[][] {
       if (entry.isDirectory()) {
         if (walk(path.join(dir, entry.name))) hasMdxAnywhere = true;
       } else if (entry.name.endsWith('.mdx')) {
-        const fullPath = path.join(dir, entry.name);
-        const { data } = matter(fs.readFileSync(fullPath, 'utf-8'));
-        if (normalizeFrontmatter(data).draft) continue;
-
         hasMdxAnywhere = true;
+        const fullPath = path.join(dir, entry.name);
         const relative = path.relative(CONTENT_DIR, fullPath);
         const withoutExt = relative.replace(/\.mdx$/, '');
         const segments = withoutExt.split(path.sep);

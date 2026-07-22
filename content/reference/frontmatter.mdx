@@ -15,7 +15,6 @@ Frontmatter is YAML at the top of every `.mdx` file, delimited by `---`.
 | `last-edited`  | `string`   | No       | ISO date (`YYYY-MM-DD`). Shown in the article header only when it is later than `publish-date`. Falls back to filesystem mtime if omitted. |
 | `author`       | `string`   | No       | Author name. Shown in the article header.                                                                                                  |
 | `tags`         | `string[]` | No       | List of tags. Rendered as badges in the article header.                                                                                    |
-| `draft`        | `boolean`  | No       | When `true`, the file is excluded from directory listings and `::article-list`. The page is still accessible by direct URL.                |
 
 ## Example
 
@@ -27,7 +26,6 @@ publish-date: 2026-01-15
 last-edited: 2026-03-01
 author: powersagitar
 tags: [next.js, mdx]
-draft: false
 ---
 ```
 
@@ -42,3 +40,6 @@ draft: false
   later than `publish-date`. If `publish-date` is not set, "Last Edited" is
   always shown. If you publish and last-edit on the same day, only
   `publish-date` is shown.
+- To keep a page out of listings, `::article-list`, the sitemap, and the RSS
+  feed, prefix the file or directory name with `_` (see
+  [Writing Content](/guides/writing-content#excluding-files-with-_)).

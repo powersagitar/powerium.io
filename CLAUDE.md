@@ -51,7 +51,7 @@ against the filesystem in this order:
 3. `content/<path>/` with immediate `.mdx` files (no `index.mdx`) →
    non-recursive article listing.
 4. `content/<path>/` with no immediate `.mdx` files → recursive listing of the
-   full subtree. 404 if no non-draft articles are found either way.
+   full subtree. 404 if no articles are found either way.
 5. Otherwise → 404 (`dynamicParams = false`, so unknown paths always 404).
 
 The root path `/` maps to `content/index.mdx`.
@@ -83,7 +83,6 @@ last-edited: string # optional, ISO date; shown only if later than publish-date,
 #                       else falls back to filesystem mtime
 author: string # optional
 tags: string[] # optional
-draft: boolean # optional; omits the file from listings and static paths
 ---
 ```
 

@@ -12,7 +12,7 @@ const siteConfig: SiteConfig = {
   // RSS feed configuration.
   //
   // 'none'      — feed exists at /rss.xml but contains no items (default)
-  // 'all'       — all non-draft published content
+  // 'all'       — all published content
   // string[]    — explicit list of paths relative to content/, without
   //               .mdx extension. Supports both files and directories:
   //               'guides'                  → all articles under guides/
