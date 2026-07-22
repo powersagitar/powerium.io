@@ -25,7 +25,9 @@ trust:
      for end users.
    - `customization.mdx`'s `robots.txt` example, `src/app/not-found.tsx`, and
      `README.md` all still reference the old `mssg.powerium.io` domain (the site
-     moved to `mssg.mohandong.com`).
+     moved to `mssg.mohandong.com`). `not-found.tsx`'s reference is
+     intentionally an absolute URL to the upstream docs (see below) — only the
+     domain itself is stale, not the fact that it's hardcoded.
 
 ## Goals
 
@@ -103,27 +105,33 @@ URL (verified by grep), so these renames are safe.
 All four fixture pages keep the same `title`/`description`/`tags` frontmatter
 shape but get real content. The placeholder `author: Example Author` field is
 dropped from all four (no other real doc page on the site has an author byline).
-Each gets a real `publish-date` so the live sort-order demo on the
-`article-list` reference page is meaningful, staggered across 2026:
+Each gets `publish-date: 2026-07-22` (today, the date of this rewrite) — the
+honest date, since this is when the content was actually written.
 
-- **`blog-index.mdx`** — "Building a Blog Index" (`publish-date: 2026-01-10`,
-  `tags: [cookbook]`). How a directory of dated posts auto-renders as a listing
-  with no configuration, and when to add an `index.mdx` if you want intro copy
-  above the list (with a worked example).
-- **`tagging-and-dates.mdx`** — "Tagging and Dates" (`publish-date: 2026-03-04`,
-  `tags: [cookbook, frontmatter]`). How `publish-date` drives sort order
+One tradeoff worth naming: with all four sharing one date, the live sort-order
+demo on the `article-list` reference page no longer visually proves descending
+order (equal-date entries fall back to filesystem/readdir order, which is stable
+but not meaningful). The `tagging-and-dates.mdx` article's prose still explains
+the sort rule in words, so the mechanism is documented even though the sample
+data doesn't visibly demonstrate it. Not worth fabricating backdated history to
+fix.
+
+- **`blog-index.mdx`** — "Building a Blog Index" (`tags: [cookbook]`). How a
+  directory of dated posts auto-renders as a listing with no configuration, and
+  when to add an `index.mdx` if you want intro copy above the list (with a
+  worked example).
+- **`tagging-and-dates.mdx`** — "Tagging and Dates"
+  (`tags: [cookbook, frontmatter]`). How `publish-date` drives sort order
   (undated always sorts last) and practical guidance on keeping `tags` short
   since list rows are compact. Links to the full field reference.
-- **`advanced/changelog.mdx`** — "Building a Changelog"
-  (`publish-date: 2026-05-18`, `tags: [cookbook]`). Using `limit` to show only
-  the N most recent entries as a "recent changes" widget, contrasted with
-  linking to the full unlimited listing.
+- **`advanced/changelog.mdx`** — "Building a Changelog" (`tags: [cookbook]`).
+  Using `limit` to show only the N most recent entries as a "recent changes"
+  widget, contrasted with linking to the full unlimited listing.
 - **`advanced/nested-listings.mdx`** — "Nested Sections with Recursive Listings"
-  (`publish-date: 2026-06-30`, `tags: [cookbook]`). Explains that this article
-  lives in `advanced/` and is therefore invisible to the non-recursive example
-  above it on the reference page — the reader is looking at the actual
-  mechanism, not just a description of it — then generalizes to grouping real
-  content into subdirectories.
+  (`tags: [cookbook]`). Explains that this article lives in `advanced/` and is
+  therefore invisible to the non-recursive example above it on the reference
+  page — the reader is looking at the actual mechanism, not just a description
+  of it — then generalizes to grouping real content into subdirectories.
 
 Each page keeps a short code example. These stay short, practical entries
 (roughly 100–200 words of body prose each), not essays.
@@ -137,10 +145,18 @@ Each page keeps a short code example. These stay short, practical entries
   users) with the anchor `sidebar.mdx` already links to, so that link resolves.
 - `customization.mdx`: fix the `robots.txt` example's `Sitemap:` URL to
   `mssg.mohandong.com`.
-- `src/app/not-found.tsx`: change the hardcoded
-  `https://mssg.powerium.io/guides/writing-content` link to a relative
-  `/guides/writing-content` `<Link>`, fixing the domain and making it immune to
-  future domain changes.
+- `src/app/not-found.tsx`: this link must stay an absolute URL to the _mssg
+  project's own_ docs site, not a relative path — a fork's deployed site won't
+  have `/guides/writing-content` (forks replace `content/` with their own
+  pages), so the 404 page's "Browse the docs" link is intentionally pointing
+  back at the upstream docs, wherever this component ends up (including inside a
+  fork that hasn't touched `not-found.tsx`). Fix is narrower than initially
+  scoped: extract the domain to a single named constant at the top of
+  `not-found.tsx` (e.g. `const MSSG_DOCS_URL = 'https://mssg.mohandong.com'`)
+  rather than embedding the magic string in JSX, and update it to the current
+  domain. Not added to `SiteConfig` / `site.config.ts` — that file is explicitly
+  what forks edit for their own site, and this constant means something
+  different (the upstream project's URL, not the fork's own).
 - `README.md`: fix `mssg.powerium.io` → `mssg.mohandong.com`.
 - General light editorial pass over existing guide/reference pages during
   implementation — fixing anything else stale, redundant, or unclear encountered
