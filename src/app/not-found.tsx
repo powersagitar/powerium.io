@@ -6,6 +6,8 @@ import siteConfig from '~/site.config';
 import { ResolveTrace } from '@/components/ResolveTrace';
 import { Button } from '@/components/ui/button';
 
+const MSSG_DOCS_URL = 'https://mssg.mohandong.com';
+
 export default function NotFound() {
   return (
     <div className="max-w-190">
@@ -34,7 +36,7 @@ export default function NotFound() {
           </Link>
         </Button>
         <Button asChild variant="outline" size="lg">
-          <Link href="https://mssg.powerium.io/guides/writing-content">
+          <Link href={`${MSSG_DOCS_URL}/guides/writing-content`}>
             Browse the docs
           </Link>
         </Button>
