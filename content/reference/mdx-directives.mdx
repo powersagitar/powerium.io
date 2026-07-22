@@ -38,6 +38,29 @@ common cases:
 | `attr=false`      | `false` (boolean) | `recursive=false` → `recursive={false}` |
 | `attr=5`          | `number`          | `limit=5` → `limit={5}`                 |
 
+## Container directive formatting rules
+
+Container directives (`:::name` … `:::`) span multiple lines. Prettier's
+`proseWrap: always` setting treats Markdown prose as reflowable text and will
+merge those lines back together unless every line inside the block ends with two
+trailing spaces (a Markdown hard line break):
+
+```mdx
+:::callout{type=tip}  
+Two trailing spaces after this opening line, and after the last line of the
+body, keep Prettier from collapsing the block.  
+:::
+```
+
+This applies to the opening line, every body line, and — because there's nothing
+after it to force a break — the last body line before the closing `:::`. It also
+applies to an empty body: put the two trailing spaces on the opening line itself
+so Prettier doesn't pull the closing `:::` up onto it.
+
+Keep the opening line at 78 characters or fewer (before the two trailing
+spaces). Longer lines cause Prettier to wrap mid-attribute-string, which breaks
+the directive parser.
+
 ## How directives map to components
 
 Each directive name is converted from kebab-case to PascalCase, then looked up
