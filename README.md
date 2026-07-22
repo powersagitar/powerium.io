@@ -4,4 +4,4 @@
 built on Next.js, MDX, and shadcn/ui. Content lives as plain `.mdx` files on
 disk, without databases or CMS's.
 
-Visit [mssg.powerium.io](https://mssg.powerium.io) to get started.
+Visit [mssg.mohandong.com](https://mssg.mohandong.com) to get started.

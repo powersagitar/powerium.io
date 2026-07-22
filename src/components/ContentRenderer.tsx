@@ -31,7 +31,6 @@ export async function generateContentMetadata(slugParts: string[]) {
   if (resolved.kind === 'file') {
     const { data } = matter(readMdxSource(resolved.filePath));
     const fm = normalizeFrontmatter(data);
-    if (fm.draft) return {};
     return {
       title: fm.title,
       description: fm.description,
@@ -59,8 +58,6 @@ export async function ContentRenderer({ slugParts }: { slugParts: string[] }) {
     const rawSource = readMdxSource(resolved.filePath);
     const { data } = matter(rawSource);
     const frontmatter = normalizeFrontmatter(data);
-
-    if (frontmatter.draft) notFound();
 
     const compiled = await compile(rawSource, {
       outputFormat: 'function-body',

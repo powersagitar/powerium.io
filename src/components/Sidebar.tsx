@@ -67,14 +67,18 @@ export function Sidebar({ nav }: { nav: NavSection[] }) {
                           : 'text-muted-foreground hover:bg-accent hover:text-foreground'
                       }`}
                     >
-                      {section.isDirective && (
-                        <span className="text-muted-foreground font-mono text-xs">
-                          ::
+                      {section.prefix && (
+                        <span
+                          className={`text-muted-foreground text-xs ${
+                            section.font === 'mono' ? 'font-mono' : ''
+                          }`}
+                        >
+                          {section.prefix}
                         </span>
                       )}
                       <span
                         className={
-                          section.isDirective
+                          section.font === 'mono'
                             ? 'font-mono text-[12.5px]'
                             : undefined
                         }

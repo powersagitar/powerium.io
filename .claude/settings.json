@@ -8,5 +8,24 @@
     "claude-code-setup@claude-plugins-official": true,
     "chrome-devtools-mcp@claude-plugins-official": true,
     "vercel@claude-plugins-official": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run lint 1>&2; test $? -eq 0 || exit 2",
+            "statusMessage": "Linting..."
+          },
+          {
+            "type": "command",
+            "command": "bun run prettier 1>&2; test $? -eq 0 || exit 2",
+            "statusMessage": "Formatting..."
+          }
+        ]
+      }
+    ]
   }
 }
