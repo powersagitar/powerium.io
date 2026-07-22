@@ -15,6 +15,7 @@ Frontmatter is YAML at the top of every `.mdx` file, delimited by `---`.
 | `last-edited`  | `string`   | No       | ISO date (`YYYY-MM-DD`). Shown in the article header only when it is later than `publish-date`. Falls back to filesystem mtime if omitted. |
 | `author`       | `string`   | No       | Author name. Shown in the article header.                                                                                                  |
 | `tags`         | `string[]` | No       | List of tags. Rendered as badges in the article header.                                                                                    |
+| `order`        | `number`   | No       | Overrides `publish-date`/slug sorting in listings. Lower values sort first; see Notes.                                                     |
 
 ## Example
 
@@ -43,3 +44,7 @@ tags: [next.js, mdx]
 - To keep a page out of listings, `::article-list`, the sitemap, and the RSS
   feed, prefix the file or directory name with `_` (see
   [Writing Content](/guides/writing-content#excluding-files-with-_)).
+- Listing order (used by both `::article-list` and the automatic
+  directory-listing fallback) is: articles with `order` set come first, sorted
+  ascending by `order`; then remaining articles sorted by `publish-date`
+  descending; undated articles sort last, by slug.

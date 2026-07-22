@@ -65,7 +65,11 @@ want published.
 `getArticlesInDir(dirSegments, recursive)` never collects `index.mdx` as a file
 — instead each subdirectory with an `index.mdx` is surfaced as a peer article at
 its own slug (subdirectory peers are included regardless of `recursive`; only
-descending further into their contents is gated by it).
+descending further into their contents is gated by it). Its sort order is
+`order` ascending (articles with `order` set always come first), then
+`publish-date` descending, then `slug.localeCompare` for the rest — this listing
+order is what both `::article-list` and the directory-listing fallback in
+`ContentRenderer.tsx` render.
 
 `getAllStaticPaths()` drives `generateStaticParams` (must append `{ slug: [] }`
 for root, not `{}` — an empty object breaks all prerendering on Next.js 15) and
@@ -83,6 +87,7 @@ last-edited: string # optional, ISO date; shown only if later than publish-date,
 #                       else falls back to filesystem mtime
 author: string # optional
 tags: string[] # optional
+order: number # optional, overrides publish-date/slug sort in listings
 ---
 ```
 

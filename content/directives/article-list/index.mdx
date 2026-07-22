@@ -4,8 +4,10 @@ description: Renders a sorted list of articles from a content directory.
 ---
 
 `::article-list` queries a content directory at build time and renders its
-articles as a linked list. Articles are sorted by `date` descending; undated
-articles sort last.
+articles as a linked list. Articles with an `order` frontmatter field are shown
+first, sorted ascending by `order`; remaining articles are sorted by
+`publish-date` descending, with undated articles last. See
+[Frontmatter](/reference/frontmatter) for the full sort rule.
 
 **`index.mdx` handling** — `index.mdx` at the root of the queried directory is
 always excluded: it is the section page for that directory, not a peer article.
