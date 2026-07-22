@@ -1,0 +1,30 @@
+---
+title: Building a Blog Index
+description: Turn a folder of dated posts into an automatically sorted listing.
+publish-date: 2026-07-22
+tags: [cookbook]
+---
+
+Drop your posts into a directory — `content/blog/first-post.mdx`,
+`content/blog/second-post.mdx` — and give each one a `publish-date`. With no
+`index.mdx` in that directory, mSSG automatically renders `/blog` as a listing
+sorted newest-first; no extra configuration needed (see
+[Directory listings](/guides/writing-content#directory-listings)).
+
+If you want to add copy above the list — a tagline, a featured post, anything —
+create `content/blog/index.mdx` and embed the listing explicitly:
+
+```mdx
+---
+title: Blog
+description: Updates and write-ups.
+---
+
+Thoughts on building things, published roughly whenever.
+
+::article-list{dir=blog}
+```
+
+Once `index.mdx` exists, the automatic listing stops — the embedded
+`::article-list` is now the only thing rendering it, so you control exactly
+where on the page it appears.
