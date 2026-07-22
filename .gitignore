@@ -31,3 +31,6 @@ bun-debug.log*
 next-env.d.ts
 .vercel
 .env*
+
+# Claude Code scratch state
+.superpowers/
