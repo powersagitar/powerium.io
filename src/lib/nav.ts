@@ -9,7 +9,8 @@ export type NavItem = { href: string; title: string };
 export type NavSection = {
   label: string;
   items: NavItem[];
-  isDirective?: boolean;
+  font?: 'sans' | 'mono';
+  prefix?: string;
 };
 
 const NAV_FILE = path.join(process.cwd(), 'content', '_nav.mdx');
@@ -38,13 +39,12 @@ export function getNavSections(): NavSection[] {
     const sectionMatch = line.match(/^:::nav-section\{([^}]*)\}/);
     if (sectionMatch) {
       const attrs = parseAttrs(sectionMatch[1]);
-      const { label, type } = attrs;
+      const { label, font, prefix } = attrs;
       if (!label) {
         i++;
         continue;
       }
 
-      const isDirective = type === 'directive';
       const items: NavItem[] = [];
 
       i++;
@@ -78,7 +78,12 @@ export function getNavSections(): NavSection[] {
         i++;
       }
 
-      sections.push({ label, isDirective, items });
+      sections.push({
+        label,
+        font: font === 'mono' ? 'mono' : undefined,
+        prefix,
+        items,
+      });
       continue;
     }
 

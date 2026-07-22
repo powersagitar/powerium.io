@@ -39,7 +39,7 @@ title: Navigation
 ::nav-dir{dir=reference}  
 :::
 
-:::nav-section{label="Directives" type=directive}  
+:::nav-section{label="Directives" font=mono prefix="::"}  
 ::nav-dir{dir=directives}  
 :::
 ```
@@ -51,15 +51,16 @@ Sections are rendered in the order they appear in the file.
 Container directive. Defines one group in the sidebar.
 
 ```mdx
-:::nav-section{label="Section Name" type=directive}  
+:::nav-section{label="Section Name" font=mono prefix="::"}  
 ...child directives...  
 :::
 ```
 
-| Attribute | Type        | Required | Description                                                 |
-| --------- | ----------- | -------- | ----------------------------------------------------------- |
-| `label`   | string      | Yes      | Section heading displayed above the items                   |
-| `type`    | `directive` | No       | Renders each item with a `::` monospace prefix when present |
+| Attribute | Type             | Required | Description                                               |
+| --------- | ---------------- | -------- | --------------------------------------------------------- |
+| `label`   | string           | Yes      | Section heading displayed above the items                 |
+| `font`    | `sans` \| `mono` | No       | Font for each item's title. Defaults to `sans` if omitted |
+| `prefix`  | string           | No       | Text prepended before each item's title (e.g. `::`)       |
 
 ## ::nav-item
 
@@ -90,14 +91,16 @@ directory, sorted by `publish-date` (newest first, then alphabetically).
 Any `.mdx` file added to `content/<dir>/` automatically appears in the sidebar
 on the next build — no changes to `_nav.mdx` needed.
 
-## Directive-style sections
+## Styled sections
 
-`type=directive` on `:::nav-section` renders each item with a `::` monospace
-prefix. Use this for sections that list directives so the naming convention is
-visually reinforced.
+`font` and `prefix` on `:::nav-section` are general-purpose styling attributes —
+not specific to directives. Set `font=mono` to render item titles in monospace,
+`prefix="<text>"` to prepend text before each title, or both together. The
+directives section uses both to visually reinforce the `::` naming convention,
+but any section can use either attribute independently for its own purpose.
 
 ```mdx
-:::nav-section{label="Directives" type=directive}  
+:::nav-section{label="Directives" font=mono prefix="::"}  
 ::nav-dir{dir=directives}  
 :::
 ```
