@@ -15,6 +15,13 @@ filesystem path exactly:
 | `content/blog/post.mdx`     | `/blog/post`              |
 | `content/blog/` (directory) | `/blog` (article listing) |
 
+### Excluding files with `_`
+
+Files and directories whose names start with `_` are ignored by all content
+pipelines — they get no public URL and never appear in listings, the
+`::article-list` directive, the sitemap, or the RSS feed. Use this prefix for
+anything under `content/` you don't want published, such as `content/_nav.mdx`.
+
 ## Frontmatter
 
 Every MDX file should start with a YAML frontmatter block:

@@ -55,9 +55,8 @@ All content lives in `content/`. URL paths map directly to the filesystem:
 
 Files and directories whose names start with `_` are excluded from all content
 pipelines (`resolveContent`, `getArticlesInDir`, `getAllStaticPaths`). They have
-no public URL and never appear in listings. Use the `_` prefix for
-infrastructure files that live in `content/` but are not content pages (e.g.
-`content/_nav.mdx`).
+no public URL and never appear in listings. Use the `_` prefix for anything
+under `content/` you don't want published (e.g. `content/_nav.mdx`).
 
 The root path `/` maps to `content/index.mdx`.
 
