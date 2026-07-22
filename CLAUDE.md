@@ -215,6 +215,26 @@ markup.
 Husky runs `lint-staged` on every commit (Prettier on staged files); config in
 `package.json`.
 
+## Releases
+
+There is no release workflow — tagging and publishing is manual, via `gh`:
+
+1. Bump `version` in `package.json` to `X.Y.Z` (no `v` prefix) and commit.
+2. Tag the target commit and push it: `git tag vX.Y.Z`,
+   `git push origin vX.Y.Z`.
+3. Write the release notes to a scratch file in the session scratchpad, from
+   `git log <prev-tag>..<new-tag> --no-merges --format='%H %s'`. Group entries
+   by commit, bucketed under a heading by conventional-commit prefix (Features
+   `feat:`, Fixes `fix:`, UI `ui:`, Refactors `refactor:`, Docs `docs:`, Chores
+   `chore:` including `chore(deps...)`). Merge commits belonging to the same
+   feature or fix (e.g. a `feat:` plus its follow-up `fix:`/`docs:`/`refactor:`
+   commits) into one entry linking every contributing commit as
+   `https://github.com/powersagitar/mssg/commit/<full-sha>` (short SHA as link
+   text). End with
+   `**Full Changelog**: https://github.com/powersagitar/mssg/compare/<prev-tag>...<new-tag>`.
+4. Publish with the prepared notes:
+   `gh release create vX.Y.Z --title vX.Y.Z --notes-file <file>`.
+
 ## Code conventions
 
 - **Import order** enforced by Prettier: React/Next.js → third-party → `@/`
