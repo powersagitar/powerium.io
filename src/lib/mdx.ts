@@ -5,6 +5,12 @@ import 'server-only';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 
+// Files and directories whose names start with `_` are excluded from
+// resolution, listings, and static path enumeration.
+function isExcluded(name: string): boolean {
+  return name.startsWith('_');
+}
+
 export type Frontmatter = {
   title: string;
   description: string;
@@ -46,7 +52,7 @@ export type ResolvedContent =
   | { kind: 'not-found' };
 
 export function resolveContent(slugParts: string[]): ResolvedContent {
-  if (slugParts.some((s) => s.startsWith('_'))) return { kind: 'not-found' };
+  if (slugParts.some(isExcluded)) return { kind: 'not-found' };
 
   const urlPath = slugParts.length === 0 ? '/' : '/' + slugParts.join('/');
 
@@ -104,7 +110,7 @@ export function getArticlesInDir(
   function collectMdxFiles(dir: string): string[] {
     const results: string[] = [];
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (entry.name.startsWith('_')) continue;
+      if (isExcluded(entry.name)) continue;
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         // A subdirectory with index.mdx is a peer article at this level.
@@ -156,7 +162,7 @@ export function getAllStaticPaths(): string[][] {
     let hasMdxAnywhere = false;
 
     for (const entry of entries) {
-      if (entry.name.startsWith('_')) continue;
+      if (isExcluded(entry.name)) continue;
       if (entry.isDirectory()) {
         if (walk(path.join(dir, entry.name))) hasMdxAnywhere = true;
       } else if (entry.name.endsWith('.mdx')) {

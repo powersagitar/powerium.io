@@ -135,6 +135,9 @@ site.config.ts            # Site-specific values (name, url, description) — ed
    - `readMdxSource(filePath)` — reads raw MDX source.
    - `getLastModified(fsPath)` — returns filesystem mtime as ISO date string
      (`YYYY-MM-DD`); works for both files and directories.
+   - `isExcluded(name)` — private helper shared by `resolveContent`,
+     `getArticlesInDir`, and `getAllStaticPaths`; returns true for names
+     starting with `_`.
 4. `src/lib/mdx-options.ts` — Shared MDX compiler options (remark/rehype
    plugins). Spread into every `compile()` call alongside
    `outputFormat: 'function-body'`. Typed as
