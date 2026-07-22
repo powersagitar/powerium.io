@@ -1,0 +1,31 @@
+---
+title: Tagging and Dates
+description: How publish-date and tags shape a listing's order and appearance.
+publish-date: 2026-07-22
+tags: [cookbook, frontmatter]
+---
+
+`::article-list` sorts by `publish-date` descending — newest first. Articles
+without a `publish-date` always sort last, regardless of how recently they were
+edited. If ordering matters for a directory — a blog, a changelog — set
+`publish-date` on every entry:
+
+```yaml
+---
+title: Shipping the new search
+publish-date: 2026-04-02
+---
+```
+
+`tags` renders as badges in both the article header and each row of a listing.
+Because list rows are compact, keep tags short and few — a word or two, at most
+three or four — so a row doesn't wrap:
+
+```yaml
+---
+title: Shipping the new search
+tags: [changelog, search]
+---
+```
+
+See the full field reference in [Frontmatter](/reference/frontmatter).
