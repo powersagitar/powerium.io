@@ -1,0 +1,20 @@
+---
+title: Building a Changelog
+description: Show only the most recent entries with the limit attribute.
+publish-date: 2026-07-22
+tags: [cookbook]
+---
+
+A changelog is just a directory of dated entries — but you rarely want to render
+the entire history in one place. Pair `dir` with `limit` to cap how many entries
+show:
+
+```mdx
+::article-list{dir=changelog limit=5}
+```
+
+`limit` truncates the list after it's already sorted, so you always get the N
+most recent entries — this is the same directory `::article-list{dir=changelog}`
+would otherwise render in full. Drop the limited version on a homepage or
+sidebar as a "recent changes" widget, and link to `/changelog` — the full,
+unlimited listing — for the complete history.
