@@ -1,0 +1,27 @@
+---
+title: Nested Sections with Recursive Listings
+description:
+  Why this article lives in a subdirectory, and what recursive changes.
+publish-date: 2026-07-22
+tags: [cookbook]
+---
+
+This article lives in `article-list/advanced/` — a subdirectory of the directory
+the [article-list reference page](/directives/article-list)'s live examples
+query. It's invisible to the plain `::article-list{dir=directives/article-list}`
+example there, and only appears once `recursive` is added. That's not a
+coincidence to describe — compare the two examples on that page, and you're
+looking at the actual mechanism, not just a description of it.
+
+Use this for real content the same way: group related pages into a subdirectory
+—
+
+```
+content/guides/authentication/oauth.mdx
+content/guides/authentication/sessions.mdx
+```
+
+— then decide per listing whether callers should see just the top level or reach
+into every subdirectory. A subdirectory's own `index.mdx` is always treated as a
+peer article at its own slug, regardless of `recursive` — the flag only controls
+whether the directory's _other_ contents also get pulled in.
