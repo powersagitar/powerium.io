@@ -110,11 +110,11 @@ honest date, since this is when the content was actually written.
 
 One tradeoff worth naming: with all four sharing one date, the live sort-order
 demo on the `article-list` reference page no longer visually proves descending
-order (equal-date entries fall back to filesystem/readdir order, which is stable
-but not meaningful). The `tagging-and-dates.mdx` article's prose still explains
-the sort rule in words, so the mechanism is documented even though the sample
-data doesn't visibly demonstrate it. Not worth fabricating backdated history to
-fix.
+order, and the resulting fallback order is not the intended reading order — see
+**Backlog** below for the precise breakdown and the real fix. Not worth
+fabricating backdated history to paper over it. The `tagging-and-dates.mdx`
+article's prose still explains the sort rule in words, so the mechanism is
+documented even though the sample data doesn't visibly demonstrate it.
 
 - **`blog-index.mdx`** — "Building a Blog Index" (`tags: [cookbook]`). How a
   directory of dated posts auto-renders as a listing with no configuration, and
@@ -162,6 +162,51 @@ Each page keeps a short code example. These stay short, practical entries
   implementation — fixing anything else stale, redundant, or unclear encountered
   along the way, without changing their scope or structure beyond what's
   specified above.
+
+## Backlog: restore a meaningful article-list order
+
+Not part of this pass (no code/frontmatter-schema changes — see Non-goals), but
+tracked here so it isn't lost: `getArticlesInDir`'s sort (`src/lib/mdx.ts`) only
+orders by `publish-date` (descending, undated last), then falls back to
+`slug.localeCompare` for ties. With all four cookbook articles sharing today's
+date, they tie and fall back to alphabetical order on the full slug (which, for
+nested files, includes the `advanced/` prefix — e.g. the slug is
+`advanced/changelog`, not just `changelog`). That means the live recursive
+example (`::article-list{dir=directives/article-list recursive}`) currently
+renders them as:
+
+```
+advanced/changelog
+advanced/nested-listings
+blog-index
+tagging-and-dates
+```
+
+— because `"advanced/..."` sorts alphabetically before `"blog-index"` and
+`"tagging-and-dates"`. This is the **exact inverse** of the intended reading
+order below (the two "advanced" pages render first, not last). It's incidental
+sort fallout, not designed, and will keep silently reshuffling on any rename.
+The non-recursive example (`dir=directives/article-list`, no `recursive`) isn't
+affected — it only ever shows the two top-level files, and `blog-index` <
+`tagging-and-dates` already matches the intended order there by coincidence.
+
+**Intended reading order** (pedagogical progression, matches the sidebar tree in
+"Final sidebar structure" above):
+
+1. `blog-index.mdx` — "Building a Blog Index" (foundational: the basic
+   directory-listing case)
+2. `tagging-and-dates.mdx` — "Tagging and Dates" (how frontmatter drives
+   sorting/rendering — a natural follow-up to #1)
+3. `advanced/changelog.mdx` — "Building a Changelog" (advanced: `limit`)
+4. `advanced/nested-listings.mdx` — "Nested Sections with Recursive Listings"
+   (advanced: `recursive` — conceptually the most involved, fits last)
+
+**Follow-up work**: add an explicit ordering mechanism (e.g. an optional
+`order: number` frontmatter field that `getArticlesInDir`'s sort prefers over
+`publish-date`/slug when present) so this exact order can be restored
+deterministically, rather than relying on `publish-date` staggering or
+slug/filename naming tricks. Once that lands, set `order: 1..4` on these four
+files per the list above.
 
 ## Verification
 
