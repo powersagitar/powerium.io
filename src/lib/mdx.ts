@@ -18,6 +18,7 @@ export type Frontmatter = {
   'last-edited'?: string;
   author?: string;
   tags?: string[];
+  order?: number;
 };
 
 // gray-matter parses bare YAML dates (e.g. `publish-date: 2025-01-01`) as Date objects.
@@ -137,6 +138,11 @@ export function getArticlesInDir(
       return { slug, urlPath: `${urlDirPrefix}/${slug}`, ...fm };
     })
     .sort((a, b) => {
+      if (a.order !== undefined && b.order !== undefined)
+        return a.order - b.order;
+      if (a.order !== undefined) return -1;
+      if (b.order !== undefined) return 1;
+
       const aDate = a['publish-date'];
       const bDate = b['publish-date'];
       if (aDate && bDate)
